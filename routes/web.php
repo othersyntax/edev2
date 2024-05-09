@@ -19,3 +19,9 @@ Route::get('/', function () {
 Route::get('/utama', function () {
     return view('landing.index');
 });
+Route::get('/dashboard', function () {
+    return view('app.index');
+});
+Route::get('/login', function () {
+    return view('app.login');
+});
