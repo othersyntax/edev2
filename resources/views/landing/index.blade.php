@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.landing')
 @section('content')
     
 @endsection
