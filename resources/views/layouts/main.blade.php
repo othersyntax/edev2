@@ -23,16 +23,14 @@
 <div class="navbar-wrapper">
         <nav class="navbar navbar-default navbar-fixed-top navbar-expand-md" role="navigation">
             <div class="container">
-                <a class="navbar-brand" href="index.html">SISTEM eDE</a>
-                <div class="navbar-header page-scroll">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                </div>
+                <a class="navbar-brand" href="#page-top">
+                   <img src="{{ asset("/template/img/landing/logo-brand.png")}}" alt="" class="logo-brand"> 
+                </a>
+                
                 <div class="collapse navbar-collapse justify-content-end" id="navbar">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a class="nav-link page-scroll" href="#page-top">Utama</a></li>
-                        <li><a class="nav-link page-scroll" href="#features">Pengenalan</a></li>
+                        <li><a class="nav-link page-scroll" href="#pengenalan">Pengenalan</a></li>
                         <li><a class="nav-link page-scroll" href="#team">Dokumen</a></li>
                         <li><a class="nav-link page-scroll" href="#hubungi-kami">Hubungi Kami</a></li>
                         <li><a class="nav-link page-scroll" href="#pricing">Log-Masuk</a></li>

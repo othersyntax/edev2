@@ -1184,6 +1184,12 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
   display: none;
   padding: 18px 0;
 }
+
+.logo-brand {
+  width: 350px;
+  height: auto;
+}
+
 .pace-done .navbar-static-side,
 .pace-done .nav-header,
 .pace-done li.active,
@@ -7933,7 +7939,7 @@ body.landing-page {
   color: #fff;
 }
 .landing-page .navbar-default .navbar-brand {
-  color: #fff;
+  /* color: #fff;
   height: auto;
   display: block;
   font-size: 14px;
@@ -7942,7 +7948,8 @@ body.landing-page {
   border-radius: 0 0 5px 5px;
   font-weight: 700;
   transition: all 0.3s ease-in-out 0s;
-  margin-top: -16px;
+  margin-top: -16px; */
+  background: transparent;
 }
 .landing-page .navbar-scroll.navbar-default .nav li a {
   color: #676a6c;
