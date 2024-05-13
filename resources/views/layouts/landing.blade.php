@@ -31,9 +31,9 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a class="nav-link page-scroll" href="#page-top">Utama</a></li>
                         <li><a class="nav-link page-scroll" href="#pengenalan">Pengenalan</a></li>
-                        <li><a class="nav-link page-scroll" href="#team">Dokumen</a></li>
+                        <li><a class="nav-link page-scroll" href="#muatturun">Dokumen</a></li>
                         <li><a class="nav-link page-scroll" href="#hubungi-kami">Hubungi Kami</a></li>
-                        <li><a class="nav-link page-scroll" href="#pricing">Log-Masuk</a></li>
+                        <li><a class="nav-link page-scroll" href="#/login">Log-Masuk</a></li>
                     </ul>
                 </div>
             </div>
@@ -63,490 +63,113 @@
 </div>
 
 
-<section id="features" class="container services">
-    <div class="row">
-        <div class="col-sm-3">
-            <h2>Full responsive</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
-            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
-        </div>
-        <div class="col-sm-3">
-            <h2>LESS/SASS Files</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
-            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
-        </div>
-        <div class="col-sm-3">
-            <h2>6 Charts Library</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
-            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
-        </div>
-        <div class="col-sm-3">
-            <h2>Advanced Forms</h2>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
-            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
-        </div>
-    </div>
-</section>
-
-<section  class="container features">
+<section id="pengenalan" class="container services">
     <div class="row">
         <div class="col-lg-12 text-center">
-            <div class="navy-line"></div>
-            <h1>Over 40+ unique view<br/> <span class="navy"> with many custom components</span> </h1>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
+            <div class="blue-line"></div>
+            <h1>Sistem Profil Projek ICT Sektor Awam (PROFIT)</span> </h1>
+            <p>Sistem PROFIT dibangunkan sebagai pangkalan data yang menyimpan maklumat semua projek-projek
+                teknologi maklumat dan komunikasi (ICT) di agensi Kerajaan. Sistem ini membolehkan maklumat projek
+                ICT di agensi Kerajaan disimpan, dikemaskini serta dianalisa dari masa ke semasa melalui laporan
+                bergrafik yang dijana. Sistem ini juga menyediakan kemudahan penilaian dan kelulusan dari segi
+                teknikal bagi perolehan ICT daripada Jawatankuasa Pemandu ICT (JPICT) kementerian dan agensi lain
+                serta Jawatankuasa Teknikal ICT Sektor Awam (JTISA) yang berurus setia di MAMPU.</p>
         </div>
     </div>
     <div class="row">
         <div class="col-md-3 text-center wow fadeInLeft">
             <div>
-                <i class="fa fa-mobile features-icon"></i>
-                <h2>Full responsive</h2>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
+                <i class="fa fa-desktop features-icon"></i>
+                <h2>Pengurusan Profil Projek ICT</h2>
             </div>
             <div class="m-t-lg">
-                <i class="fa fa-bar-chart features-icon"></i>
-                <h2>6 Charts Library</h2>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
+                <i class="fa fa-area-chart features-icon"></i>
+                <h2>Pengurusan Permohonan dan Kelulusan JPICT</h2>
             </div>
         </div>
         <div class="col-md-6 text-center  wow zoomIn">
-            <img src="{{ asset("template/img/landing/perspective.png") }}" alt="dashboard" class="img-fluid">
+            <img src="{{ asset("/template/img/landing/#.png") }}" alt="Dashboard" class="img-responsive">
         </div>
         <div class="col-md-3 text-center wow fadeInRight">
             <div>
-                <i class="fa fa-envelope features-icon"></i>
-                <h2>Mail pages</h2>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
+                <i class="fa fa-bar-chart features-icon"></i>
+                <h2>Pengurusan Pemantauan Projek ICT</h2>
             </div>
             <div class="m-t-lg">
-                <i class="fa fa-google features-icon"></i>
-                <h2>AngularJS version</h2>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
+                <i class="fa fa-area-chart features-icon"></i>
+                <h2>Pengurusan Permohonan dan Kelulusan JTISA</h2>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 text-center">
-            <div class="navy-line"></div>
-            <h1>Discover great feautres</h1>
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
-        </div>
-    </div>
-    <div class="row features-block">
-        <div class="col-lg-6 features-text wow fadeInLeft">
-            <small>INSPINIA</small>
-            <h2>Perfectly designed </h2>
-            <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with latest jQuery plugins.</p>
-            <a href="" class="btn btn-primary">Learn more</a>
-        </div>
-        <div class="col-lg-6 text-right wow fadeInRight">
-            <img src="{{ asset("template/img/landing/dashboard.png") }}" alt="dashboard" class="img-fluid float-right">
+    <div class="row m-t-lg">
+        <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg">
+            <p>Melalui PROFIT, maklumat projek ICT di agensi Kerajaan serta permohonan JPICT dan JTISA boleh dicapai
+                dengan mudah dan pemantauan kemajuan pelaksanaan projek juga dapat dilaksanakan dengan cepat dan
+                tepat.</p>
         </div>
     </div>
 </section>
 
-<section id="team" class="gray-section team">
+<section id="muatturun" class="pricing">
     <div class="container">
         <div class="row m-b-lg">
             <div class="col-lg-12 text-center">
-                <div class="navy-line"></div>
-                <h1>Our Team</h1>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
+                <div class="blue-line"></div>
+                <h1>Muat Turun Dokumen</h1>
+                <p>Muat turun dokumen dan pekeliling berkaitan.</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-4 wow fadeInLeft">
-                <div class="team-member">
-                    <img src="{{ asset("template/img/landing/avatar3.jpg") }}" class="img-fluid rounded-circle img-small" alt="">
-                    <h4><span class="navy">Amelia</span> Smith</h4>
-                    <p>Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus. </p>
-                    <ul class="list-inline social-icon">
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="team-member wow zoomIn">
-                    <img src="{{ asset("template/img/landing/avatar1.jpg") }}" class="img-fluid rounded-circle" alt="">
-                    <h4><span class="navy">John</span> Novak</h4>
-                    <p>Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.</p>
-                    <ul class="list-inline social-icon">
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-4 wow fadeInRight">
-                <div class="team-member">
-                    <img src="{{ asset("/template/img/landing/avatar2.jpg") }}" class="img-fluid rounded-circle img-small" alt="">
-                    <h4><span class="navy">Peter</span> Johnson</h4>
-                    <p>Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.</p>
-                    <ul class="list-inline social-icon">
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 text-center m-t-lg m-b-lg">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="features">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="navy-line"></div>
-                <h1>Even more great feautres</h1>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
-            </div>
-        </div>
-        <div class="row features-block">
-            <div class="col-lg-3 features-text wow fadeInLeft">
-                <small>INSPINIA</small>
-                <h2>Perfectly designed </h2>
-                <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with latest jQuery plugins.</p>
-                <a href="" class="btn btn-primary">Learn more</a>
-            </div>
-            <div class="col-lg-6 text-right m-t-n-lg wow zoomIn">
-                <img src="{{ asset("template/img/landing/iphone.jpg") }}" class="img-fluid" alt="dashboard">
-            </div>
-            <div class="col-lg-3 features-text text-right wow fadeInRight">
-                <small>INSPINIA</small>
-                <h2>Perfectly designed </h2>
-                <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with latest jQuery plugins.</p>
-                <a href="" class="btn btn-primary">Learn more</a>
-            </div>
-        </div>
-    </div>
-
-</section>
-
-<section class="timeline gray-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="navy-line"></div>
-                <h1>Our workflow</h1>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
-            </div>
-        </div>
-        <div class="row features-block">
-
-            <div class="col-lg-12">
-                <div id="vertical-timeline" class="vertical-container light-timeline center-orientation">
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            <i class="fa fa-briefcase"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Meeting</h2>
-                            <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
-                            </p>
-                            <a href="#" class="btn btn-xs btn-primary"> More info</a>
-                            <span class="vertical-date"> Today <br/> <small>Dec 24</small> </span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            <i class="fa fa-file-text"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Decision</h2>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
-                            <a href="#" class="btn btn-xs btn-primary"> More info</a>
-                            <span class="vertical-date"> Tomorrow <br/> <small>Dec 26</small> </span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            <i class="fa fa-cogs"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Implementation</h2>
-                            <p>Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
-                            <a href="#" class="btn btn-xs btn-primary"> More info</a>
-                            <span class="vertical-date"> Monday <br/> <small>Jan 02</small> </span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-</section>
-
-<section id="testimonials" class="navy-section testimonials" style="margin-top: 0">
-
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center wow zoomIn">
-                <i class="fa fa-comment big-icon"></i>
-                <h1>
-                    What our users say
-                </h1>
-                <div class="testimonials-text">
-                    <i>"Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."</i>
-                </div>
-                <small>
-                    <strong>12.02.2014 - Andy Smith</strong>
-                </small>
-            </div>
-        </div>
-    </div>
-
-</section>
-
-<section class="comments gray-section" style="margin-top: 0">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="navy-line"></div>
-                <h1>What our partners say</h1>
-                <p>Donec sed odio dui. Etiam porta sem malesuada. </p>
-            </div>
-        </div>
-        <div class="row features-block">
-            <div class="col-lg-4">
-                <div class="bubble">
-                    "Uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
-                </div>
-                <div class="comments-avatar">
-                    <a href="" class="float-left">
-                        <img alt="image" src="{{ asset("template/img/landing/avatar3.jpg") }}">
-                    </a>
-                    <div class="media-body">
-                        <div class="commens-name">
-                            Andrew Williams
-                        </div>
-                        <small class="text-muted">Company X from California</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-                <div class="bubble">
-                    "Uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
-                </div>
-                <div class="comments-avatar">
-                    <a href="" class="float-left">
-                        <img alt="image" src="{{ asset("template/img/landing/avatar1.jpg") }}">
-                    </a>
-                    <div class="media-body">
-                        <div class="commens-name">
-                            Andrew Williams
-                        </div>
-                        <small class="text-muted">Company X from California</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-                <div class="bubble">
-                    "Uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
-                </div>
-                <div class="comments-avatar">
-                    <a href="" class="float-left">
-                        <img alt="image" src="{{ asset("template/img/landing/img/landing/avatar2.jpg") }}">
-                    </a>
-                    <div class="media-body">
-                        <div class="commens-name">
-                            Andrew Williams
-                        </div>
-                        <small class="text-muted">Company X from California</small>
-                    </div>
-                </div>
-            </div>
-
-
-
-        </div>
-    </div>
-
-</section>
-
-<section class="features">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="navy-line"></div>
-                <h1>More and more extra great feautres</h1>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-5 col-lg-offset-1 features-text">
-                <small>INSPINIA</small>
-                <h2>Perfectly designed </h2>
-                <i class="fa fa-bar-chart big-icon float-right"></i>
-                <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with.</p>
-            </div>
-            <div class="col-lg-5 features-text">
-                <small>INSPINIA</small>
-                <h2>Perfectly designed </h2>
-                <i class="fa fa-bolt big-icon float-right"></i>
-                <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with.</p>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-5 col-lg-offset-1 features-text">
-                <small>INSPINIA</small>
-                <h2>Perfectly designed </h2>
-                <i class="fa fa-clock-o big-icon float-right"></i>
-                <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with.</p>
-            </div>
-            <div class="col-lg-5 features-text">
-                <small>INSPINIA</small>
-                <h2>Perfectly designed </h2>
-                <i class="fa fa-users big-icon float-right"></i>
-                <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with.</p>
-            </div>
-        </div>
-    </div>
-
-</section>
-<section id="pricing" class="pricing">
-    <div class="container">
-        <div class="row m-b-lg">
-            <div class="col-lg-12 text-center">
-                <div class="navy-line"></div>
-                <h1>App Pricing</h1>
-                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4 wow zoomIn">
+            <div class="col-lg-6 wow zoomIn">
                 <ul class="pricing-plan list-unstyled">
                     <li class="pricing-title">
-                        Basic
+                        Pekeliling
                     </li>
                     <li class="pricing-desc">
-                        Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.
+                        Pekeliling / garis panduan berkaitan permohonan dan perolehan projek ICT.
                     </li>
-                    <li class="pricing-price">
-                        <span>$16</span> / month
-                    </li>
-                    <li>
-                        Dashboards
-                    </li>
-                    <li>
-                        Projects view
-                    </li>
-                    <li>
-                        Contacts
-                    </li>
-                    <li>
-                        Calendar
-                    </li>
-                    <li>
-                        AngularJs
-                    </li>
-                    <li>
-                        <a class="btn btn-primary btn-xs" href="#">Signup</a>
-                    </li>
-                </ul>
+                                                                    <li style="text-align: left;">
+                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/a9e44c3485fd4e32aaf45c5976dcaec3/88241d7bfeb7421caf499dbd1f6ec0d7" target="_blank">SPA BIL.3 2015 - GARIS PANDUAN PERMOHONAN KELULUSAN TEKNIKAL PROJEK ICT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 11-Sep-2019</span>                        </li>
+                                                                                                                                                                                            <li style="text-align: left;">
+                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/a025902a50d84167a9e1a38f016f7947/8b894a758532ba5f97d51db50a6c5c1d" target="_blank">PEROLEHAN PERUNDING SECARA AM (PK 3.1)</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 24-Aug-2021</span>                        </li>
+                                                                                            <li style="text-align: left;">
+                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/1ba3f26947034ce2ae6a157a4a1c3628/c30b603c4cc08006015eae97c83f3667" target="_blank">PEKELILING KEMAJUAN PENTADBIRAN AWAM BILANGAN 1 TAHUN 2021 - DASAR PERKHIDMATAN PENGKOMPUTERAN AWAN SEKTOR AWAM</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 10-Feb-2022</span>                        </li>
+                                                                                                                                                                                                                                                                </ul>
             </div>
 
-            <div class="col-lg-4 wow zoomIn">
-                <ul class="pricing-plan list-unstyled selected">
-                    <li class="pricing-title">
-                        Standard
-                    </li>
-                    <li class="pricing-desc">
-                        Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.
-                    </li>
-                    <li class="pricing-price">
-                        <span>$22</span> / month
-                    </li>
-                    <li>
-                        Dashboards
-                    </li>
-                    <li>
-                        Projects view
-                    </li>
-                    <li>
-                        Contacts
-                    </li>
-                    <li>
-                        Calendar
-                    </li>
-                    <li>
-                        AngularJs
-                    </li>
-                    <li>
-                        <strong>Support platform</strong>
-                    </li>
-                    <li class="plan-action">
-                        <a class="btn btn-primary btn-xs" href="#">Signup</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-lg-4 wow zoomIn">
+            <div class="col-lg-6 wow zoomIn">
                 <ul class="pricing-plan list-unstyled">
                     <li class="pricing-title">
-                        Premium
+                        Dokumen
                     </li>
                     <li class="pricing-desc">
-                        Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.
+                        Dokumen, manual dan templat berkaitan permohonan projek ICT.
                     </li>
-                    <li class="pricing-price">
-                        <span>$160</span> / month
-                    </li>
-                    <li>
-                        Dashboards
-                    </li>
-                    <li>
-                        Projects view
-                    </li>
-                    <li>
-                        Contacts
-                    </li>
-                    <li>
-                        Calendar
-                    </li>
-                    <li>
-                        AngularJs
-                    </li>
-                    <li>
-                        <a class="btn btn-primary btn-xs" href="#">Signup</a>
-                    </li>
-                </ul>
+                                                                                                                    <li style="text-align: left;">
+                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/1fb1254c913c432fb8f9410db1d821fa/c687528549fdc77df05aac583b9f554b" target="_blank">MANUAL PROFIT - AHLI JPICT &amp; PEMANTAU PROJEK</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 12-Nov-2019</span>                        </li>
+                                                                                            <li style="text-align: left;">
+                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/4b6b31b511734789b358208fe83f494b/f3ff12e34164066e50cd99684a51ca89" target="_blank">ALIRAN PROSES PROFIT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 03-Jul-2020</span>                        </li>
+                                                                                                                                                                                            <li style="text-align: left;">
+                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/bc93ebac73d44c10a7001125bf242e29/8682c2b6757c5c89d3166d89418fef85" target="_blank">MANUAL PROFIT - PENTADBIR SISTEM</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 13-Jun-2022</span>                        </li>
+                                                                                            <li style="text-align: left;">
+                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/135e2367cdf9432dbf5ec746afcca649/5a83dfa4340e0b99db1fec8f82a818cc" target="_blank">PERANAN PENGGUNA PROFIT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 06-Oct-2022</span>                        </li>
+                                                                                            <li style="text-align: left;">
+                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/7d3e0c1c6e374725bf0c0adf206d0fcd/67a4a59f42d9de036ca703bef11ad25b" target="_blank">MANUAL PROFIT - URUS SETIA JPICT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 20-Oct-2023</span>                        </li>
+                                                                                            <li style="text-align: left;">
+                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/bd2ffe6f3e1e414680bba0903d0965c4/82eceac9fa849cc37e72e41c33806828" target="_blank">MANUAL PROFIT - PEMILIK PROJEK</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 28-Jan-2024</span>                        </li>
+                                                                </ul>
             </div>
         </div>
         <div class="row m-t-lg">
-            <div class="col-lg-12 text-center m-t-lg">
-                <p>*Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. <span class="navy">Various versions</span>  have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg">
+                <p>* Senarai pekeliling, garis panduan, dokumen, manual dan templat ini akan ditambah dah
+                    dikemaskini dari masa ke semasa sekiranya ada. Jika ada sebarang pertanyaan, sila hubungi urus
+                    setia seperti <a class="page-scroll" href="#contact">di bawah</a>.</p>
             </div>
         </div>
     </div>
 
 </section>
-
 <section id="hubungi-kami" class="gray-section contact">
     <div class="container">
         <div class="row m-b-lg">
