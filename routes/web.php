@@ -25,3 +25,6 @@ Route::get('/dashboard', function () {
 Route::get('/login', function () {
     return view('app.login');
 });
+Route::get('/permohonan', function () {
+    return view('app.permohonan.index');
+});
