@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Negeri;
 
 class NegeriController extends Controller
 {
@@ -11,7 +12,9 @@ class NegeriController extends Controller
      */
     public function index()
     {
-        return view("pentadbiran.negeri.index");
+        $negeri = Negeri::all();
+        // dd($negeri);
+        return view("pentadbiran.negeri.index", compact('negeri'));
     }
 
     /**
