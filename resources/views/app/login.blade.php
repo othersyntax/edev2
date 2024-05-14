@@ -18,11 +18,11 @@
 
 <body class="gray-bg">
 
-    <div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="middle-box text-center loginscreen animated fadeInDown mt-5">
         <div>
             <div>
 
-                <img src="{{ asset("/template/img/html_logo.png")}}" alt="" class="logo-name">
+                <img src="{{ asset("/template/img/edelogo.png")}}" alt="" class="logo-name">
 
             </div>
             <form class="m-t" role="form" action="index.html">
