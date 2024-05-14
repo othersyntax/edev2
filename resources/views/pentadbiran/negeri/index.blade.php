@@ -31,13 +31,13 @@
                     <div class="row">                    
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Email</label>
+                                <label>Jenis Carian</label>
                                 <input type="email" placeholder="Enter email" class="form-control">
                             </div>                            
                         </div>
                         <div class="col-sm-9 ">
                             <div class="form-group">
-                                <label>Password</label>
+                                <label>Katakunci</label>
                                 <input type="password" placeholder="Password" class="form-control">
                             </div>
                         </div>                   
