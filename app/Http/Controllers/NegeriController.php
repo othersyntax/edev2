@@ -12,7 +12,9 @@ class NegeriController extends Controller
      */
     public function index()
     {
-        return view("pentadbiran.negeri.index");
+        $negeri = Negeri::all();
+        // dd($negeri);
+        return view("pentadbiran.negeri.index", compact('negeri'));
     }
 
     public function indexanas()

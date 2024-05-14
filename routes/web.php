@@ -30,4 +30,8 @@ Route::get('/permohonan', function () {
     return view('app.permohonan.index');
 });
 
+<<<<<<< HEAD
 Route::get('/pentadbiran/negeri',[NegeriController::class,'indexanas']);
+=======
+Route::get('/pentadbiran/negeri', [NegeriController::class, 'index']);
+>>>>>>> ac2461f10880cf7c13b79669349e89eaa835aa2a
