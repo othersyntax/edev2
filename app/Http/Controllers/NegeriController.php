@@ -15,6 +15,7 @@ class NegeriController extends Controller
         return view("pentadbiran.negeri.index", compact('negeri'));
     }
 
+<<<<<<< HEAD
     public function ajaxAll(){
         $negeri = Negeri::all();
         // dd($negeri);
@@ -24,6 +25,17 @@ class NegeriController extends Controller
     }
 
     
+=======
+    public function indexanas()
+    {
+        $negeri = Negeri::all();
+        return view("pentadbiran.negeri.index2",compact('negeri'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+>>>>>>> 13694bf14bb27e710aa1ec672e6b95b119518201
     public function create()
     {
         //
