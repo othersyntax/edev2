@@ -30,4 +30,6 @@ Route::get('/permohonan', function () {
     return view('app.permohonan.index');
 });
 
+// NEGERI
 Route::get('/pentadbiran/negeri', [NegeriController::class, 'index']);
+Route::post('/pentadbiran/negeri/ajax-all', [NegeriController::class, 'ajaxAll']);

@@ -32,13 +32,16 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Jenis Carian</label>
-                                <input type="email" placeholder="Enter email" class="form-control">
+                                <select class="form-control m-b" name="carian_type" id="carian_type">
+                                    <option>Kod Negeri</option>
+                                    <option>Negeri</option>
+                                </select>
                             </div>                            
                         </div>
                         <div class="col-sm-9 ">
                             <div class="form-group">
                                 <label>Katakunci</label>
-                                <input type="password" placeholder="Password" class="form-control">
+                                <input type="text" id="carian_text" name="carian_text" placeholder="katakunci" class="form-control">
                             </div>
                         </div>                   
                     </div>
@@ -137,4 +140,44 @@
 
 </div>
 @endsection
-@yield('custom-js')
+@section('custom-js')
+<script>
+    $(document).ready(function(){
+        // console.log("response");
+        fetchNegeri();
+
+        function fetchNegeri(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "post",
+                url: "/pentadbiran/negeri/ajax-all",
+                // data:{
+                //         carian_type:carian_type,
+                //         carian_text:carian_text
+                //     },
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    // $('tbody').html("");
+                    // $.each(response.fasiliti, function (key, item) {
+                    //     $('tbody').append('<tr>\
+                    //         <td>' + item.fas_ptj_code + '</td>\
+                    //         <td>' + item.fas_name + '</td>\
+                    //         <td>' + item.faskat_desc + '</td>\
+                    //         <td>' + item.neg_nama_negeri + '</td>\
+                    //         <td><button type="button" value="' + item.fasiliti_id + '" class="btn btn-primary editbtn btn-sm" title="Kemaskini"><i class="fas fa-edit"></i></button>\
+                    //         <button type="button" value="' + item.fasiliti_id + '" class="btn btn-danger delbtn btn-sm" title="Padam"><i class="fas fa-trash"></i></button></td>\
+                    //     \</tr>');
+                    // });
+                }
+            });
+    
+        }
+    });
+</script>
+@endsection
