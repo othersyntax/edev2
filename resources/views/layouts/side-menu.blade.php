@@ -41,7 +41,8 @@
                     <li><a href="#">Negeri</a></li>
                     <li><a href="#">Daerah</a></li>
                     <li><a href="#">Mukim / Bandar</a></li>
-                    <li><a href="#">Pusat Tanggungjawab</a></li>
+                    <li><a href="#">Fasiliti</a></li>
+                    <li><a href="#">Jenis Fasiliti</a></li>
                     <li><a href="#">Pengguna</a></li>
                     <li><a href="#">Peranan</a></li>
                     <li><a href="#">Tahap Capaian</a></li>
