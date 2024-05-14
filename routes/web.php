@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NegeriController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,5 @@ Route::get('/login', function () {
 Route::get('/permohonan', function () {
     return view('app.permohonan.index');
 });
+
+Route::get('/pentadbiran/negeri',[NegeriController::class,'indexanas']);
