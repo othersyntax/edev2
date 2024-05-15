@@ -25,27 +25,27 @@
             <li>
                 <a href="/dashboard"><i class="fa fa-vcard-o"></i> <span class="nav-label">Permohonan</span>  </a>
             </li>
-            <li>
+            <li class="{{ (request()->segment(1) == 'siling') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-calculator"></i> <span class="nav-label">Siling</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="#">Penetapan</a></li>
-                    <li><a href="#">Selenggara</a></li>
+                    <li class="{{ (request()->segment(2) == 'penetapan') ? 'active' : '' }}"><a href="#">Penetapan</a></li>
+                    <li class="{{ (request()->segment(2) == 'selenggara') ? 'active' : '' }}"><a href="#">Selenggara</a></li>
                 </ul>
             </li>
             <li>
-                <a href="/dashboard"><i class="fa fa-edit"></i> <span class="nav-label">Pengesahan</span>  </a>
+                <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Pengesahan</span>  </a>
             </li>
-            <li>
+            <li class="{{ (request()->segment(1) == 'pentadbiran') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Pentadbiran</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="#">Negeri</a></li>
-                    <li><a href="#">Daerah</a></li>
-                    <li><a href="#">Mukim / Bandar</a></li>
-                    <li><a href="#">Fasiliti</a></li>
-                    <li><a href="#">Jenis Fasiliti</a></li>
-                    <li><a href="#">Pengguna</a></li>
-                    <li><a href="#">Peranan</a></li>
-                    <li><a href="#">Tahap Capaian</a></li>
+                    <li class="{{ (request()->segment(2) == 'negeri') ? 'active' : '' }}"><a href="/pentadbiran/negeri">Negeri</a></li>
+                    <li class="{{ (request()->segment(2) == 'pentadbiran') ? 'active' : '' }}"><a href="/pentadbiran/daerah">Daerah</a></li>
+                    <li class="{{ (request()->segment(2) == 'pentadbiran') ? 'active' : '' }}"><a href="/pentadbiran/bandar">Mukim / Bandar</a></li>
+                    <li class="{{ (request()->segment(2) == 'pentadbiran') ? 'active' : '' }}"><a href="/pentadbiran/fasiliti">Fasiliti</a></li>
+                    <li class="{{ (request()->segment(2) == 'pentadbiran') ? 'active' : '' }}"><a href="/pentadbiran/jenis-fasiliti">Jenis Fasiliti</a></li>
+                    <li class="{{ (request()->segment(2) == 'pentadbiran') ? 'active' : '' }}"><a href="/pentadbiran/pengguna">Pengguna</a></li>
+                    <li class="{{ (request()->segment(2) == 'pentadbiran') ? 'active' : '' }}"><a href="/pentadbiran/peranan">Peranan</a></li>
+                    <li ><a href="/pentadbiran/capaian">Tahap Capaian</a></li>
                 </ul>
             </li>
             <li>

@@ -2,7 +2,9 @@
 @section('title')
     Negeri
 @endsection
-@yield('custom-css')
+@section('custom-css')
+<link href="{{ asset("/template/css/plugins/iCheck/custom.css") }}" rel="stylesheet">
+@endsection
 @section('breadcrumb')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
@@ -24,33 +26,29 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Carian Maklumat Permohonan</h5>
+                <h5>Carian Maklumat Negeri</h5>
             </div>
             <div class="ibox-content">
-                <form role="form">
-                    <div class="row">                    
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>Jenis Carian</label>
-                                <select class="form-control m-b" name="carian_type" id="carian_type">
-                                    <option>Kod Negeri</option>
-                                    <option>Negeri</option>
-                                </select>
-                            </div>                            
-                        </div>
-                        <div class="col-sm-9 ">
-                            <div class="form-group">
-                                <label>Katakunci</label>
-                                <input type="text" id="carian_text" name="carian_text" placeholder="katakunci" class="form-control">
-                            </div>
-                        </div>                   
+                <div class="row">                    
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Jenis Carian</label>
+                            {{ Form::select('carian_type', ['Kod'=>'Kod Negeri', 'Negeri'=>'Negeri'],null, ['class'=>'form-control', 'id'=>'carian_type']) }}
+                        </div>                            
                     </div>
-                    <div class="form-group row">
-                        <div class="col-lg-12">
-                            <button class="btn btn-sm btn-primary float-right" type="submit">Cari</button>
+                    <div class="col-sm-9 ">
+                        <div class="form-group">
+                            <label>Katakunci</label>
+                            {{ Form::text('carian_text', '', ['class'=>'form-control', 'id'=>'carian_text']) }}
                         </div>
+                    </div>                   
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-12">
+                        <a href="/pentadbiran/negeri" class="btn btn-default">Set Semula</a>
+                        <input type="button" class="btn btn-primary float-right" id="carian" value="Carian">
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -60,23 +58,11 @@
         <div class="ibox ">
             <div class="ibox-title">
                 <h5>Senarai Negeri </h5>
-                {{-- <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#" class="dropdown-item">Config option 1</a>
-                        </li>
-                        <li><a href="#" class="dropdown-item">Config option 2</a>
-                        </li>
-                    </ul>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div> --}}
+                <div class="ibox-tools">
+                    <button type="button" class="btn btn-primary float-right" id="add">
+                        Tambah
+                    </button>
+                </div>
             </div>
             <div class="ibox-content">
                 {{-- <div class="row">
@@ -118,18 +104,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($negeri as $neg)
-                                <tr>
-                                    <td class="text-center">{{ $neg->neg_negeri_id }}</td>
-                                    <td class="text-center">{{ $neg->neg_kod_negeri }}</td>
-                                    <td>{{ $neg->neg_nama_negeri }}</td>
-                                    <td>{{ $neg->neg_status }}</td>
-                                    <td>
-                                        <a href="#"><i class="fa fa-pencil text-navy" title="Kemakini"></i></a>
-                                        <a href="#"><i class="fa fa-close text-danger" title="Padam"></i></a>
-                                    </td>
-                                </tr>         
-                            @endforeach                                               
                         </tbody>
                     </table>
                 </div>
@@ -139,14 +113,106 @@
     </div>
 
 </div>
+{{-- MODAL --}}
+
+<div class="modal inmodal fade" id="addStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Tambah Maklumat Negeri</h4>
+            </div>
+            <div class="modal-body">                    
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul id="save_msgList"></ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Kod Negeri</label>
+                            {{ Form::text('neg_kod_negeri_add', null, ['class'=>'form-control neg_kod_negeri_add']) }}
+                        </div>                          
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label>Negeri</label>
+                            {{ Form::text('neg_nama_negeri_add', null, ['class'=>'form-control neg_nama_negeri_add']) }}
+                        </div>
+                    </div>
+                </div>                    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary add_state">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="editStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Kemaskini Maklumat Negeri</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="neg_negeri_id_edit">                   
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul id="save_msgList"></ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Kod Negeri</label>
+                            {{ Form::text('neg_kod_negeri_edit', null, ['class'=>'form-control', 'id'=> 'neg_kod_negeri_edit']) }}
+                        </div>                          
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label>Negeri</label>
+                            {{ Form::text('neg_nama_negeri_edit', null, ['class'=>'form-control', 'id'=>'neg_nama_negeri_edit']) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Status</label>
+                            {{ Form::select('neg_status_edit', ['1'=>'Aktif', '2'=>'Tidak Aktif'], null, ['class'=>'form-control', 'id'=>'neg_status_edit']) }}
+                        </div>
+                    </div>
+                </div>                    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary update_state">Kemaskini</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('custom-js')
 <script>
     $(document).ready(function(){
-        // console.log("response");
+        // LOAD DATA WHEN OPEN THIS PAGE
         fetchNegeri();
 
-        function fetchNegeri(){
+        // ADD BUTTON CLICK
+        $('#add').click(function(e){ 
+            e.preventDefault();
+            $('#addStateModal').modal('show');  
+        });
+       
+        // SEARCH BUTTON CLICK
+        $('#carian').click(function(e){
+            e.preventDefault();
+            $carian_type = $('#carian_type').val();
+            $carian_text = $('#carian_text').val();
+            fetchNegeri($carian_type, $carian_text);
+        });
+        
+
+        // LIST RECORD
+        function fetchNegeri(carian_type='', carian_text=''){
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -156,28 +222,95 @@
             $.ajax({
                 type: "post",
                 url: "/pentadbiran/negeri/ajax-all",
-                // data:{
-                //         carian_type:carian_type,
-                //         carian_text:carian_text
-                //     },
+                data:{
+                        carian_type:carian_type,
+                        carian_text:carian_text
+                    },
                 dataType: "json",
                 success: function (response) {
-                    console.log(response);
-                    // $('tbody').html("");
-                    // $.each(response.fasiliti, function (key, item) {
-                    //     $('tbody').append('<tr>\
-                    //         <td>' + item.fas_ptj_code + '</td>\
-                    //         <td>' + item.fas_name + '</td>\
-                    //         <td>' + item.faskat_desc + '</td>\
-                    //         <td>' + item.neg_nama_negeri + '</td>\
-                    //         <td><button type="button" value="' + item.fasiliti_id + '" class="btn btn-primary editbtn btn-sm" title="Kemaskini"><i class="fas fa-edit"></i></button>\
-                    //         <button type="button" value="' + item.fasiliti_id + '" class="btn btn-danger delbtn btn-sm" title="Padam"><i class="fas fa-trash"></i></button></td>\
-                    //     \</tr>');
-                    // });
+                    // console.log(response);
+                    $('tbody').html("");
+                    $.each(response.negeri, function (key, item) {
+                        $('tbody').append('<tr>\
+                            <td class="text-center">' + item.neg_negeri_id + '</td>\
+                            <td class="text-center">' + item.neg_kod_negeri + '</td>\
+                            <td>' + item.neg_nama_negeri + '</td>\
+                            <td>' + item.neg_status + '</td>\
+                            <td><button type="button" value="' + item.neg_negeri_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
+                            <button type="button" value="' + item.neg_negeri_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
+                        \</tr>');
+                    });
+                }
+            });    
+        }
+
+        // ADD RECORD
+        $(document).on('click', '.add_state', function (e) {
+            e.preventDefault();
+
+            $(this).text('Menyimpan');
+
+            var data = {
+                'neg_kod_negeri': $('.neg_kod_negeri_add').val(),
+                'neg_nama_negeri': $('.neg_nama_negeri_add').val(),
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-    
-        }
+
+            $.ajax({
+                type: "POST",
+                url: "/pentadbiran/negeri/simpan",
+                data: data,
+                dataType: "json",
+                success: function (response) {
+                    if (response.status == 400) {
+                        $('#save_msgList').html("");
+                        $('#save_msgList').addClass('alert alert-danger');
+                        $.each(response.errors, function (key, err_value) {
+                            $('#save_msgList').append('<li>' + err_value + '</li>');
+                        });
+                        $('.add_state').text('Simpan');
+                    } else {
+                        $('#save_msgList').html("");
+                        // toastr.success(response.message);
+                        $('#addStateModal').find('input').val('');
+                        $('.add_kategori').text('Simpan');
+                        $('#addStateModal').modal('hide');
+                        fetchNegeri();
+                    }
+                }
+            });
+
+        });
+
+        // EDIT RECORD
+        $(document).on('click', '.editbtn', function (e) {
+            e.preventDefault();
+            var neg_negeri_id = $(this).val();
+            // alert(neg_negeri_id);
+            $('#editStateModal').modal('show');
+            $.ajax({
+                type: "GET",
+                url: "/pentadbiran/negeri/ubah/" + neg_negeri_id,
+                success: function (response) {
+                    if (response.status == 404){
+                        // $('#success_message').addClass('alert alert-success');
+                        // $('#success_message').text(response.message);
+                        $('#editStateModal').modal('hide');
+                    } else {
+                        $('#neg_kod_negeri_edit').val(response.negeri.neg_kod_negeri);                        
+                        $('#neg_nama_negeri_edit').val(response.negeri.neg_nama_negeri);
+                        $('#neg_status_edit').val(response.negeri.neg_status).change();
+                        $('#neg_negeri_id_edit').val(neg_negeri_id);
+                    }
+                }
+            });
+            $('.btn-close').find('input').val('');
+        });
     });
 </script>
 @endsection

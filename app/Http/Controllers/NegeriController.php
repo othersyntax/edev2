@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Negeri;
 
 class NegeriController extends Controller
@@ -10,32 +11,41 @@ class NegeriController extends Controller
 
     public function index()
     {
-        $negeri = Negeri::all();
-        // dd($negeri);
-        return view("pentadbiran.negeri.index", compact('negeri'));
+        return view("pentadbiran.negeri.index");
     }
 
-<<<<<<< HEAD
-    public function ajaxAll(){
-        $negeri = Negeri::all();
-        // dd($negeri);
+    public function ajaxAll(Request $req){
+
+        if($req->isMethod('post')) {
+            $carian_type = $req->carian_type;
+            $carian_text = $req->carian_text;
+            if(!empty($carian_type)){
+                $query = \DB::table('ddsa_kod_negeri')
+                            ->where(function($q) use ($carian_type, $carian_text){ 
+                                if(!empty($carian_type)){
+                                    if($carian_type=='Kod'){
+                                        $q->where('neg_kod_negeri', $carian_text);
+                                    }
+                                    else{
+                                        $q->where('neg_nama_negeri','like', "%{$carian_text}%");
+                                    }
+                                }
+                            });
+                $negeri = $query->get();
+            }
+            else{
+                $negeri =  Negeri::all();             
+            }
+        }
+        else{
+            $negeri =  Negeri::all();
+        }
         return response()->json([
             'negeri'=>$negeri,
         ]);
     }
 
     
-=======
-    public function indexanas()
-    {
-        $negeri = Negeri::all();
-        return view("pentadbiran.negeri.index2",compact('negeri'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
->>>>>>> 13694bf14bb27e710aa1ec672e6b95b119518201
     public function create()
     {
         //
@@ -44,7 +54,36 @@ class NegeriController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'neg_kod_negeri'=> 'required',
+            'neg_nama_negeri'=> 'required',
+        ],
+        [
+            'neg_kod_negeri.required'=> 'Sila masukkan Kod Negeri',
+            'neg_nama_negeri.required'=> 'Sila masukkan Negeri',
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>400,
+                'errors'=>$validator->messages()
+            ]);
+        }
+        else
+        {
+            $neg = new Negeri;
+            $neg->neg_kod_negeri = $request->input('neg_kod_negeri');
+            $neg->neg_nama_negeri = $request->input('neg_nama_negeri');
+            $neg->neg_updby = 1000;
+            $neg->neg_crtby = 1000;
+            $neg->neg_log = \Carbon\Carbon::now();
+            $neg->save();
+            return response()->json([
+                'status'=>200,
+                'message'=>'Negeri berjaya ditambah'
+            ]);
+        }
     }
 
 
@@ -56,7 +95,21 @@ class NegeriController extends Controller
 
     public function edit(string $id)
     {
-        //
+        $negeri = Negeri::find($id);
+        if($negeri)
+        {
+            return response()->json([
+                'status'=>200,
+                'negeri'=> $negeri,
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'Maklumat negeri tidak dijumpai.'
+            ]);
+        }
     }
 
 
