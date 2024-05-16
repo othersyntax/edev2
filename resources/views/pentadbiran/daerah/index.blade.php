@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-12">
-                        <a href="/pentadbiran/negeri" class="btn btn-default">Set Semula</a>
+                        <a href="/pentadbiran/daerah" class="btn btn-default">Set Semula</a>
                         <input type="button" class="btn btn-primary float-right" id="carian" value="Carian">
                     </div>
                 </div>
@@ -87,35 +87,42 @@
 </div>
 
 {{-- ADD MODAL --}}
-<div class="modal inmodal fade" id="addStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
+<div class="modal inmodal fade" id="addDaerahModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Tambah Maklumat Negeri</h4>
+                <h4 class="modal-title">Tambah Maklumat Daerah</h4>
             </div>
             <div class="modal-body">                    
                 <div class="row">
                     <div class="col-lg-12">
                         <ul id="save_msgList"></ul>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="form-group">
-                            <label>Kod Negeri</label>
+                            <label>Kod Daerah</label>
                             {{ Form::text('dae_kod_daerah_add', null, ['class'=>'form-control dae_kod_daerah_add']) }}
                         </div>                          
                     </div>
-                    <div class="col-lg-8">
+                    
+                    <div class="col-lg-6">
                         <div class="form-group">
-                            <label>Negeri</label>
+                            <label>Daerah</label>
                             {{ Form::text('dae_nama_daerah_add', null, ['class'=>'form-control dae_nama_daerah_add']) }}
                         </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Negeri</label>
+                            {{ Form::select('dae_kod_negeri_add', dropdownNegeri(), null, ['class'=>'form-control dae_kod_negeri_add']) }}
+                        </div>                          
                     </div>
                 </div>                    
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary add_state">Simpan</button>
+                <button type="button" class="btn btn-primary add_daerah">Simpan</button>
             </div>
         </div>
     </div>
@@ -192,7 +199,7 @@
         // ADD BUTTON CLICK
         $('#add').click(function(e){ 
             e.preventDefault();
-            $('#addStateModal').modal('show');  
+            $('#addDaerahModal').modal('show');  
         });
        
         // SEARCH BUTTON CLICK
@@ -239,7 +246,7 @@
         }
 
         // ADD RECORD
-        $(document).on('click', '.add_state', function (e) {
+        $(document).on('click', '.add_daerah', function (e) {
             e.preventDefault();
 
             $(this).text('Menyimpan');
@@ -247,6 +254,7 @@
             var data = {
                 'dae_kod_daerah': $('.dae_kod_daerah_add').val(),
                 'dae_nama_daerah': $('.dae_nama_daerah_add').val(),
+                'dae_kod_negeri': $('.dae_kod_negeri_add').val(),
             }
 
             $.ajaxSetup({
@@ -267,13 +275,13 @@
                         $.each(response.errors, function (key, err_value) {
                             $('#save_msgList').append('<li>' + err_value + '</li>');
                         });
-                        $('.add_state').text('Simpan');
+                        $('.add_daerah').text('Simpan');
                     } else {
                         $('#save_msgList').html("");
                         // toastr.success(response.message);
-                        $('#addStateModal').find('input').val('');
-                        $('.add_kategori').text('Simpan');
-                        $('#addStateModal').modal('hide');
+                        $('#addDaerahModal').find('input').val('');
+                        $('.add_daerah').text('Simpan');
+                        $('#addDaerahModal').modal('hide');
                         fetchDaerah();
                     }
                 }
@@ -311,13 +319,11 @@
             e.preventDefault();
 
             $(this).text('Kemaskini');
-            // alert(id);
-
             var edit_data = {
-                'neg_negeri_id': $('#neg_negeri_id_edit').val(),
-                'dae_kod_daerah': $('#dae_kod_daerah_edit').val(),
-                'dae_nama_daerah': $('#dae_nama_daerah_edit').val(),
-                'dae_status': $('#dae_status_edit').val(),
+                'dae_kod_daerah': $('.dae_kod_daerah_edit').val(),
+                'dae_nama_daerah': $('.dae_nama_daerah_edit').val(),
+                'dae_kod_negeri': $('.dae_kod_negeri_edit').val(),
+                'neg_status': $('.neg_status_edit').val(),
             }
 
             $.ajaxSetup({

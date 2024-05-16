@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pentadbiran;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Daerah;
 
@@ -29,7 +30,7 @@ class DaerahController extends Controller
                                         $q->where('dae_kod_daerah', $carian_text);
                                     }
                                     else if($carian_type=='Negeri'){
-                                        $q->where('dae_kod_negeri', $carian_text);
+                                        $q->where('neg_nama_negeri', 'like', "%{$carian_text}%");
                                     }
                                     else{
                                         $q->where('dae_nama_daerah','like', "%{$carian_text}%");
@@ -63,9 +64,43 @@ class DaerahController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        //
+        $validator = Validator::make($req->all(), [
+            'dae_kod_daerah'=> 'required',
+            'dae_nama_daerah'=> 'required',
+            'dae_kod_negeri'=> 'required',
+        ],
+        [
+            'dae_kod_daerah.required'=> 'Sila masukkan Kod Daerah',
+            'dae_nama_daerah.required'=> 'Sila masukkan Daerah',
+            'dae_kod_negeri.required'=> 'Sila pilih Negeri',
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>400,
+                'errors'=>$validator->messages()
+            ]);
+        }
+        else
+        {
+            $dae = new Daerah;
+            $dae->dae_kod_daerah = $req->input('dae_kod_daerah');
+            $dae->dae_nama_daerah = $req->input('dae_nama_daerah');
+            $dae->dae_kod_negeri = $req->input('dae_kod_negeri');
+            $dae->dae_updby = 1000;
+            $dae->dae_crtby = 1000;
+            $dae->dae_log = date('Y-m-d H:i:s');
+
+            // dd($dae);            
+            $dae->save();
+            return response()->json([
+                'status'=>200,
+                'message'=>'Daerah berjaya ditambah'
+            ]);
+        }
     }
 
     public function show(string $id)
@@ -75,7 +110,21 @@ class DaerahController extends Controller
 
     public function edit(string $id)
     {
-        //
+        $daerah = Daerah::find($id);
+        if($daerah)
+        {
+            return response()->json([
+                'status'=>200,
+                'negeri'=> $daerah,
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'Maklumat daerah tidak dijumpai.'
+            ]);
+        }
     }
 
     public function update(Request $request, string $id)

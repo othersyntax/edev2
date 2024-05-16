@@ -39,13 +39,13 @@
                 <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Pentadbiran</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'negeri') ? 'active' : '' }}"><a href="/pentadbiran/negeri">Negeri</a></li>
-                    <li class="{{ (request()->segment(2) == 'pentadbiran') ? 'active' : '' }}"><a href="/pentadbiran/daerah">Daerah</a></li>
-                    <li class="{{ (request()->segment(2) == 'pentadbiran') ? 'active' : '' }}"><a href="/pentadbiran/bandar">Mukim / Bandar</a></li>
-                    <li class="{{ (request()->segment(2) == 'pentadbiran') ? 'active' : '' }}"><a href="/pentadbiran/fasiliti">Fasiliti</a></li>
-                    <li class="{{ (request()->segment(2) == 'pentadbiran') ? 'active' : '' }}"><a href="/pentadbiran/jenis-fasiliti">Jenis Fasiliti</a></li>
-                    <li class="{{ (request()->segment(2) == 'pentadbiran') ? 'active' : '' }}"><a href="/pentadbiran/pengguna">Pengguna</a></li>
-                    <li class="{{ (request()->segment(2) == 'pentadbiran') ? 'active' : '' }}"><a href="/pentadbiran/peranan">Peranan</a></li>
-                    <li ><a href="/pentadbiran/capaian">Tahap Capaian</a></li>
+                    <li class="{{ (request()->segment(2) == 'daerah') ? 'active' : '' }}"><a href="/pentadbiran/daerah">Daerah</a></li>
+                    <li class="{{ (request()->segment(2) == 'bandar') ? 'active' : '' }}"><a href="/pentadbiran/bandar">Mukim / Bandar</a></li>
+                    <li class="{{ (request()->segment(2) == 'fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/fasiliti">Fasiliti</a></li>
+                    <li class="{{ (request()->segment(2) == 'jenis-fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/jenis-fasiliti">Jenis Fasiliti</a></li>
+                    <li class="{{ (request()->segment(2) == 'pengguna') ? 'active' : '' }}"><a href="/pentadbiran/pengguna">Pengguna</a></li>
+                    <li class="{{ (request()->segment(2) == 'peranan') ? 'active' : '' }}"><a href="/pentadbiran/peranan">Peranan</a></li>
+                    <li class="{{ (request()->segment(2) == 'capaian') ? 'active' : '' }}"><a href="/pentadbiran/capaian">Tahap Capaian</a></li>
                 </ul>
             </li>
             <li>
