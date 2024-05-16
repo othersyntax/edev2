@@ -2,6 +2,10 @@
 @section('title')
     Daerah
 @endsection
+@section('custom-css')
+    <!-- Sweet Alert -->
+    <link href="{{ asset("/template/css/plugins/sweetalert/sweetalert.css") }}" rel="stylesheet">
+@endsection
 
 @section('breadcrumb')
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -129,32 +133,38 @@
 </div>
 
 {{-- EDIT MODAL --}}
-{{-- <div class="modal inmodal fade" id="editStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
+<div class="modal inmodal fade" id="editStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Kemaskini Maklumat Negeri</h4>
+                <h4 class="modal-title">Kemaskini Maklumat Daerah</h4>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="neg_negeri_id_edit">                   
+                <input type="hidden" id="dae_daerah_id_edit">                   
                 <div class="row">
                     <div class="col-lg-12">
                         <ul id="save_msgList"></ul>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="form-group">
-                            <label>Kod Negeri</label>
+                            <label>Kod Daerah</label>
                             {{ Form::text('dae_kod_daerah_edit', null, ['class'=>'form-control', 'id'=> 'dae_kod_daerah_edit']) }}
                         </div>                          
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-lg-6">
                         <div class="form-group">
-                            <label>Negeri</label>
+                            <label>Daerah</label>
                             {{ Form::text('dae_nama_daerah_edit', null, ['class'=>'form-control', 'id'=>'dae_nama_daerah_edit']) }}
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Negeri</label>
+                            {{ Form::select('dae_kod_negeri_edit', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'dae_kod_negeri_edit']) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
                         <div class="form-group">
                             <label>Status</label>
                             {{ Form::select('dae_status_edit', ['1'=>'Aktif', '2'=>'Tidak Aktif'], null, ['class'=>'form-control', 'id'=>'dae_status_edit']) }}
@@ -164,19 +174,19 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary update_state">Kemaskini</button>
+                <button type="button" class="btn btn-primary update_daerah">Kemaskini</button>
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 
 {{-- DELETE MODAL --}}
-{{-- <div class="modal inmodal fade" id="DeleteModal" tabindex="-1" role="dialog"  aria-hidden="true">
+<div class="modal inmodal fade" id="DeleteModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Padam Negeri</h4>
+                <h4 class="modal-title">Padam Daerah</h4>
             </div>
             <div class="modal-body">
                 <h4>Adakah anda pasti?</h4>
@@ -184,13 +194,16 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-danger delete_state">Ya, Padam</button>
+                <button type="button" class="btn btn-danger delete_daerah">Ya, Padam</button>
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 @endsection
 @section('custom-js')
+
+<!-- Sweet alert -->
+<script src="{{ asset("/template/js/plugins/sweetalert/sweetalert.min.js") }}"></script>
 <script>
     $(document).ready(function(){
         // LOAD DATA WHEN OPEN THIS PAGE
@@ -292,22 +305,23 @@
         // SHOW RECORD TO EDIT
         $(document).on('click', '.editbtn', function (e) {
             e.preventDefault();
-            var neg_negeri_id = $(this).val();
+            var dae_daerah_id = $(this).val();
             // alert(neg_negeri_id);
             $('#editStateModal').modal('show');
             $.ajax({
                 type: "GET",
-                url: "/pentadbiran/daerah/ubah/" + neg_negeri_id,
+                url: "/pentadbiran/daerah/ubah/" + dae_daerah_id,
                 success: function (response) {
                     if (response.status == 404){
                         // $('#success_message').addClass('alert alert-success');
                         // $('#success_message').text(response.message);
                         $('#editStateModal').modal('hide');
                     } else {
-                        $('#dae_kod_daerah_edit').val(response.negeri.dae_kod_daerah);                        
-                        $('#dae_nama_daerah_edit').val(response.negeri.dae_nama_daerah);
-                        $('#dae_status_edit').val(response.negeri.dae_status).change();
-                        $('#neg_negeri_id_edit').val(neg_negeri_id);
+                        $('#dae_daerah_id_edit').val(dae_daerah_id);
+                        $('#dae_kod_daerah_edit').val(response.daerah.dae_kod_daerah);                        
+                        $('#dae_nama_daerah_edit').val(response.daerah.dae_nama_daerah);
+                        $('#dae_kod_negeri_edit').val(response.daerah.dae_kod_negeri).change();
+                        $('#dae_status_edit').val(response.daerah.dae_status).change();                        
                     }
                 }
             });
@@ -315,15 +329,17 @@
         });
 
         // UPDATE RECORD
-        $(document).on('click', '.update_state', function (e) {
+        $(document).on('click', '.update_daerah', function (e) {
             e.preventDefault();
-
-            $(this).text('Kemaskini');
+            // var $dae_daerah_id = $('#dae_daerah_id_edit').val();
+            // alert(dae_daerah_id);
+            $(this).text('Mengemaskini...');
             var edit_data = {
-                'dae_kod_daerah': $('.dae_kod_daerah_edit').val(),
-                'dae_nama_daerah': $('.dae_nama_daerah_edit').val(),
-                'dae_kod_negeri': $('.dae_kod_negeri_edit').val(),
-                'neg_status': $('.neg_status_edit').val(),
+                'dae_daerah_id': $('#dae_daerah_id_edit').val(),
+                'dae_kod_daerah': $('#dae_kod_daerah_edit').val(),
+                'dae_nama_daerah': $('#dae_nama_daerah_edit').val(),
+                'dae_kod_negeri': $('#dae_kod_negeri_edit').val(),
+                'dae_status': $('#dae_status_edit').val(),
             }
 
             $.ajaxSetup({
@@ -346,12 +362,12 @@
                             $('#update_msgList').append('<li>' + err_value +
                                 '</li>');
                         });
-                        $('.update_state').text('Kemaskini');
+                        $('.update_daerah').text('Kemaskini');
                     } else {
                         $('#update_msgList').html("");
                         // toastr.success(response.message);
-                        // $('#editStateModal').find('input').val('');
-                        // $('.update_state').text('Kemaskini');
+                        $('#editStateModal').find('input').val('');
+                        $('.update_daerah').text('Kemaskini');
                         $('#editStateModal').modal('hide');
                         fetchDaerah();
                     }
@@ -362,41 +378,47 @@
 
         // SHOW RECORD TO DELETE
         $(document).on('click', '.deletebtn', function () {
-            var neg_negeri_id = $(this).val();
-            $('#DeleteModal').modal('show');
-            $('#deleteing_id').val(neg_negeri_id);
-        });
+            var dae_daerah_id = $(this).val();
+            // $('#DeleteModal').modal('show');
+            // $('#deleteing_id').val(dae_daerah_id);
+            swal({
+                    title: "Adakah anda pasti?",
+                    text: "Sila pastikan rekod yang hendak dipadam",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Ya, Padam",
+                    cancelButtonText: "Tidak, Batalkan",
+                    closeOnConfirm: false,
+                    closeOnCancel: false 
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
 
-        // DELETE RECORD
-        $(document).on('click', '.delete_state', function (e) {
-            e.preventDefault();
-
-            $(this).text('Memadam');
-            var id = $('#deleteing_id').val();
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type: "DELETE",
-                url: "/pentadbiran/daerah/padam/" + id,
-                dataType: "json",
-                success: function (response) {
-                    // console.log(response);
-                    if (response.status == 404) {
-                        $('.delete_state').text('Ya, Padam');
-                    } else { 
-                        $('.delete_state').text('Ya, Padam');
-                        $('#DeleteModal').modal('hide');
-                        fetchDaerah();
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/pentadbiran/daerah/padam/" + dae_daerah_id,
+                            dataType: "json",
+                            success: function (response) {
+                                // console.log(response);
+                                if (response.status == 404) {
+                                    swal("Dibatalkan", "Rekod daerah tidak wujud", "error");
+                                } else {                                     
+                                    fetchDaerah();
+                                    swal("Dipadam!", "Rekod daerah berjaya dipadam", "success");
+                                }
+                            }
+                        });                        
+                    } else {
+                        swal("Dibatalkan", "Rekod daerah tidak dipadam", "error");
                     }
-                }
-            });
+                });
         });
-
     });
 </script>
 @endsection

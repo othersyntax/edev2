@@ -115,7 +115,7 @@ class DaerahController extends Controller
         {
             return response()->json([
                 'status'=>200,
-                'negeri'=> $daerah,
+                'daerah'=> $daerah,
             ]);
         }
         else
@@ -127,13 +127,68 @@ class DaerahController extends Controller
         }
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $req)
     {
-        //
+        $validator = Validator::make($req->all(), [
+            'dae_kod_daerah'=> 'required',
+            'dae_nama_daerah'=> 'required',
+            'dae_kod_negeri'=> 'required',
+        ],
+        [
+            'dae_kod_daerah.required'=> 'Sila masukkan Kod Daerah',
+            'dae_nama_daerah.required'=> 'Sila masukkan Daerah',
+            'dae_kod_negeri.required'=> 'Sila pilih Negeri',
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>400,
+                'errors'=>$validator->messages()
+            ]);
+        }
+        else{
+            $dae= Daerah::find($req->input('dae_daerah_id'));
+            if($dae){
+                $dae->dae_kod_daerah = $req->input('dae_kod_daerah');
+                $dae->dae_nama_daerah = $req->input('dae_nama_daerah');
+                $dae->dae_kod_negeri = $req->input('dae_kod_negeri');
+                $dae->dae_status = $req->input('dae_status');
+                $dae->dae_updby = 1000;
+                $dae->update();
+                
+                return response()->json([
+                    'status'=>200,
+                    'message'=>'Maklumat Daerah berjaya dikemaskini'
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'status'=>404,
+                    'message'=>'Maklumat Daerah Tidak Wujud.'
+                ]);
+            }
+        }
     }
 
     public function destroy(string $id)
     {
-        //
+        $dae = Daerah::find($id);
+        if($dae)
+        {
+            $dae->delete();
+            return response()->json([
+                'status'=>200,
+                'message'=>'Maklumat Daerah Berjaya Dipadam.'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'Maklumat Daerah Tidak Wujud'
+            ]);
+        }
     }
 }
