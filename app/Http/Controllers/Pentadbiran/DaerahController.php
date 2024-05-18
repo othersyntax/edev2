@@ -14,7 +14,6 @@ class DaerahController extends Controller
         return view("pentadbiran.daerah.index");
     }
 
-
     public function ajaxAll(Request $req){
         if($req->isMethod('post')) {
             $carian_type = $req->carian_type;
