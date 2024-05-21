@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NegeriController;
 use App\Http\Controllers\Pentadbiran\DaerahController;
 use App\Http\Controllers\Pentadbiran\BandarController;
+use App\Http\Controllers\pentadbiran\FasilitiController;
 use App\Http\Controllers\AjaxController;
 
 // GENERAL AJAX
@@ -31,3 +32,11 @@ Route::post('/pentadbiran/bandar/simpan', [BandarController::class, 'store']);
 Route::get('/pentadbiran/bandar/ubah/{id}', [BandarController::class, 'edit']);
 Route::post('/pentadbiran/bandar/kemaskini', [BandarController::class, 'update']);
 Route::delete('/pentadbiran/bandar/padam/{id}', [BandarController::class, 'destroy']);
+
+//fasiliti
+Route::get('/pentadbiran/fasiliti',[FasilitiController::class,'index']);
+Route::post('/pentadbiran/fasiliti/ajax-all',[FasilitiController::class,'ajaxAll']);
+Route::post('/pentadbiran/fasiliti/simpan', [FasilitiController::class,'store']);
+Route::get('/pentadbiran/fasiliti/ubah/{id}', [FasilitiController::class,'edit']);
+Route::post('/pentadbiran/fasiliti/kemaskini', [FasilitiController::class,'update']);
+Route::delete('/pentadbiran/fasiliti/padam/{id}', [FasilitiController::class,'destroy']);
