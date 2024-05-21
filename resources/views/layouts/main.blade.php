@@ -14,6 +14,8 @@
 
     <link href="{{ asset("/template/css/animate.css") }}" rel="stylesheet">
     <link href="{{ asset("/template/css/style.css") }}" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="{{ asset("/template/css/plugins/sweetalert/sweetalert.css") }}" rel="stylesheet">
     @yield('custom-css')
 </head>
 
@@ -31,7 +33,7 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <a href="login.html">
+                            <a href="{{ route('logout') }}">
                                 <i class="fa fa-sign-out"></i> Log out
                             </a>
                         </li>
@@ -65,6 +67,9 @@
     <!-- Custom and plugin javascript -->
     <script src="{{ asset("/template/js/inspinia.js") }}"></script>
     <script src="{{ asset("/template/js/plugins/pace/pace.min.js") }}"></script>
+
+    <!-- Sweet alert -->
+    <script src="{{ asset("/template/js/plugins/sweetalert/sweetalert.min.js") }}"></script>
 
     @yield('custom-js')
 

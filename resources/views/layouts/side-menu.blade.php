@@ -9,10 +9,10 @@
                         <span class="text-muted text-xs block">Pentadbir <b class="caret"></b></span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                        <li><a class="dropdown-item" href="mailbox.html">Mailbox</a></li>
+                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Mailbox</a></li>
                         <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="login.html">Logout</a></li>
+                        <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -48,8 +48,16 @@
                     <li class="{{ (request()->segment(2) == 'capaian') ? 'active' : '' }}"><a href="/pentadbiran/capaian">Tahap Capaian</a></li>
                 </ul>
             </li>
+            <li class="{{ (request()->segment(1) == 'akses') ? 'active' : '' }}">
+                <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Akses</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="{{ (request()->segment(2) == 'roles') ? 'active' : '' }}"><a href="/akses/roles">Peranan</a></li>
+                    <li class="{{ (request()->segment(2) == 'permissions') ? 'active' : '' }}"><a href="/akses/permissions">Capaian</a></li>
+                    <li class="{{ (request()->segment(2) == 'users') ? 'active' : '' }}"><a href="/akses/users">Pengguna</a></li>
+                </ul>
+            </li>
             <li>
-                <a href="#"><i class="fa fa-sign-out"></i> <span class="nav-label">Log-keluar</span>  </a>
+                <a href="{{ route('logout') }}" ><i class="fa fa-sign-out"></i> <span class="nav-label">Log-keluar</span></a>
             </li>            
         </ul>
 

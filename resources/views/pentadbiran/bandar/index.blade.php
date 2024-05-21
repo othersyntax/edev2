@@ -71,7 +71,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <div class="ibox ">
+        <div class="ibox">
             <div class="ibox-title">
                 <h5>Senarai Daerah</h5>
                 <div class="ibox-tools">
@@ -213,9 +213,6 @@
 </div>
 @endsection
 @section('custom-js')
-
-<!-- Sweet alert -->
-<script src="{{ asset("/template/js/plugins/sweetalert/sweetalert.min.js") }}"></script>
 <script>
     $(document).ready(function(){
         // LOAD DATA WHEN OPEN THIS PAGE

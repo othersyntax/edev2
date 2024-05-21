@@ -1,10 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\NegeriController;
-use App\Http\Controllers\Pentadbiran\DaerahController;
-use App\Http\Controllers\Pentadbiran\BandarController;
-use App\Http\Controllers\AjaxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,51 +9,41 @@ use App\Http\Controllers\AjaxController;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/utama', function () {
-    return view('landing.index');
-});
+
 Route::get('/dashboard', function () {
     return view('app.index');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('/login', function () {
-    return view('app.login');
+
+Route::group(['middleware' => ['role:super-admin|admin']], function() {
+
+    Route::post('/akses/permissions/ajaxAll', [App\Http\Controllers\PermissionController::class, 'ajaxAll']);
+    Route::resource('/akses/permissions', App\Http\Controllers\PermissionController::class);
+    Route::get('/akses/permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
+
+    Route::resource('/akses/roles', App\Http\Controllers\RoleController::class);
+    Route::get('/akses/roles/{roleId}/delete', [App\Http\Controllers\RoleController::class, 'destroy']);
+    Route::get('/akses/roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
+    Route::put('/akses/roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'givePermissionToRole']);
+
+    Route::resource('/akses/users', App\Http\Controllers\UserController::class);
+    Route::get('/akses/users/{userId}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
+
 });
-Route::get('/permohonan', function () {
-    return view('app.permohonan.index');
-});
 
-// GENERAL AJAX
-Route::get('/ajax/ajax-daerah/{id}/{input}/{select}', [AjaxController::class, 'ajaxDaerah']);
 
-// NEGERI
-Route::get('/pentadbiran/negeri', [NegeriController::class, 'index']);
-Route::post('/pentadbiran/negeri/ajax-all', [NegeriController::class, 'ajaxAll']);
-Route::post('/pentadbiran/negeri/simpan', [NegeriController::class, 'store']);
-Route::get('/pentadbiran/negeri/ubah/{id}', [NegeriController::class, 'edit']);
-Route::post('/pentadbiran/negeri/kemaskini', [NegeriController::class, 'update']);
-Route::delete('/pentadbiran/negeri/padam/{id}', [NegeriController::class, 'destroy']);
-
-// DAERAH
-Route::get('/pentadbiran/daerah', [DaerahController::class, 'index']);
-Route::post('/pentadbiran/daerah/ajax-all', [DaerahController::class, 'ajaxAll']);
-Route::post('/pentadbiran/daerah/simpan', [DaerahController::class, 'store']);
-Route::get('/pentadbiran/daerah/ubah/{id}', [DaerahController::class, 'edit']);
-Route::post('/pentadbiran/daerah/kemaskini', [DaerahController::class, 'update']);
-Route::delete('/pentadbiran/daerah/padam/{id}', [DaerahController::class, 'destroy']);
-
-// BANDAR
-Route::get('/pentadbiran/bandar', [BandarController::class, 'index']);
-Route::post('/pentadbiran/bandar/ajax-all', [BandarController::class, 'ajaxAll']);
-Route::post('/pentadbiran/bandar/simpan', [BandarController::class, 'store']);
-Route::get('/pentadbiran/bandar/ubah/{id}', [BandarController::class, 'edit']);
-Route::post('/pentadbiran/bandar/kemaskini', [BandarController::class, 'update']);
-Route::delete('/pentadbiran/bandar/padam/{id}', [BandarController::class, 'destroy']);
-
+require __DIR__.'/auth.php';
+require __DIR__.'/pentadbiran.php';
