@@ -316,77 +316,91 @@
         });
 
         // SHOW RECORD TO DELETE
-        $(document).on('click', '.deletebtn', function () {
-            var faskat_id = $(this).val();
-            $('#DeleteModal').modal('show');
-            $('#deleteing_id').val(faskat_id);
-        });
+        // $(document).on('click', '.deletebtn', function () {
+        //     var faskat_id = $(this).val();
+        //     $('#DeleteModal').modal('show');
+        //     $('#deleteing_id').val(faskat_id);
+        // });
 
         // DELETE RECORD
-        $(document).on('click', '.delete_state', function (e) {
-            e.preventDefault();
+        // $(document).on('click', '.delete_state', function (e) {
+        //     e.preventDefault();
 
-            $(this).text('Memadam');
-            var id = $('#deleteing_id').val();
+        //     $(this).text('Memadam');
+        //     var id = $('#deleteing_id').val();
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+        //     $.ajaxSetup({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         }
+        //     });
 
-            $.ajax({
-                type: "DELETE",
-                url: "/pentadbiran/kategori-fasiliti/padam/" + id,
-                dataType: "json",
-                success: function (response) {
-                    // console.log(response);
-                    if (response.status == 404) {
-                        $('.delete_state').text('Ya, Padam');
-                    } else { 
-                        $('.delete_state').text('Ya, Padam');
-                        $('#DeleteModal').modal('hide');
-                        fetchKategoriFasiliti();
-                    }
-                }
-            });
-        });
+        //     $.ajax({
+        //         type: "DELETE",
+        //         url: "/pentadbiran/kategori-fasiliti/padam/" + id,
+        //         dataType: "json",
+        //         success: function (response) {
+        //             // console.log(response);
+        //             if (response.status == 404) {
+        //                 $('.delete_state').text('Ya, Padam');
+        //             } else { 
+        //                 $('.delete_state').text('Ya, Padam');
+        //                 $('#DeleteModal').modal('hide');
+        //                 fetchKategoriFasiliti();
+        //             }
+        //         }
+        //     });
+        // });
         
         // SHOW RECORD TO DELETE
-        $(document).on('click', '.deletebtn', function () {
-            var faskat_id = $(this).val();
-            $('#DeleteModal').modal('show');
-            $('#deleteing_id').val(faskat_id);
-        });
+        // $(document).on('click', '.deletebtn', function () {
+        //     var faskat_id = $(this).val();
+        //     $('#DeleteModal').modal('show');
+        //     $('#deleteing_id').val(faskat_id);
+        // });
 
         // DELETE RECORD
-        $(document).on('click', '.delete_state', function (e) {
-            e.preventDefault();
+        $(document).on('click', '.deletebtn', function () {
+            var faskat_id = $(this).val();
+            
+            
+            swal({
+                    title: "Adakah anda pasti?",
+                    text: "Sila pastikan rekod yang hendak dipadam",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Ya, Padam",
+                    cancelButtonText: "Tidak, Batalkan",
+                    closeOnConfirm: false,
+                    closeOnCancel: false 
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
 
-            $(this).text('Memadam');
-            var id = $('#deleteing_id').val();
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type: "DELETE",
-                url: "/pentadbiran/kategori-fasiliti/padam/" + id,
-                dataType: "json",
-                success: function (response) {
-                    // console.log(response);
-                    if (response.status == 404) {
-                        $('.delete_state').text('Ya, Padam');
-                    } else { 
-                        $('.delete_state').text('Ya, Padam');
-                        $('#DeleteModal').modal('hide');
-                        fetchKategoriFasiliti();
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/pentadbiran/kategori-fasiliti/padam/" + faskat_id,
+                            dataType: "json",
+                            success: function (response) {
+                                if (response.status == 404) {
+                                    swal("Dibatalkan", response.message, "error");
+                                } else {                                     
+                                    swal("Dipadam!", response.message, "success");
+                                    fetchKategoriFasiliti();
+                                }
+                            }
+                        });                        
+                    } else {
+                        swal("Dibatalkan", "Rekod kategori fasiliti tidak dipadam", "error");
                     }
-                }
-            });
+                });
+
         });
 
         // ADD RECORD
@@ -425,6 +439,11 @@
                         $('#addStateModal').find('input').val('');
                         $('.add_kategori').text('Simpan');
                         $('#addStateModal').modal('hide');
+                        swal({
+                            title: "Kategori Fasiliti",
+                            text: response.message,
+                            type: "success"
+                        });
                         fetchKategoriFasiliti();
                     }
                 }
