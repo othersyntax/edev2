@@ -4,6 +4,7 @@ use App\Http\Controllers\NegeriController;
 use App\Http\Controllers\Pentadbiran\DaerahController;
 use App\Http\Controllers\Pentadbiran\BandarController;
 use App\Http\Controllers\pentadbiran\FasilitiController;
+use App\Http\Controllers\Pentadbiran\KategoriFasilitiController;
 use App\Http\Controllers\AjaxController;
 
 // GENERAL AJAX
@@ -40,3 +41,11 @@ Route::post('/pentadbiran/fasiliti/simpan', [FasilitiController::class,'store'])
 Route::get('/pentadbiran/fasiliti/ubah/{id}', [FasilitiController::class,'edit']);
 Route::post('/pentadbiran/fasiliti/kemaskini', [FasilitiController::class,'update']);
 Route::delete('/pentadbiran/fasiliti/padam/{id}', [FasilitiController::class,'destroy']);
+
+//Kategori Fasiliti
+Route::get('/pentadbiran/kategori-fasiliti', [KategoriFasilitiController::class, 'index']);
+Route::post('/pentadbiran/kategori-fasiliti/ajax-all1', [KategoriFasilitiController::class, 'ajaxAll1']);
+Route::post('/pentadbiran/kategori-fasiliti/simpan', [KategoriFasilitiController::class, 'store']);
+Route::get('/pentadbiran/kategori-fasiliti/ubah/{id}', [KategoriFasilitiController::class, 'edit']);
+Route::post('/pentadbiran/kategori-fasiliti/kemaskini', [KategoriFasilitiController::class, 'update']);
+Route::delete('/pentadbiran/kategori-fasiliti/padam/{id}', [KategoriFasilitiController::class, 'destroy']);
