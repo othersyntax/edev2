@@ -42,7 +42,7 @@ class RoleController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect('roles')->with('status','Role Created Successfully');
+        return redirect('/akses/roles')->with('status','Role Created Successfully');
     }
 
     public function edit(Role $role)
@@ -66,14 +66,14 @@ class RoleController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect('roles')->with('status','Role Updated Successfully');
+        return redirect('/akses/roles')->with('status','Role Updated Successfully');
     }
 
     public function destroy($roleId)
     {
         $role = Role::find($roleId);
         $role->delete();
-        return redirect('roles')->with('status','Role Deleted Successfully');
+        return redirect('/akses/roles')->with('status','Role Deleted Successfully');
     }
 
     public function addPermissionToRole($roleId)

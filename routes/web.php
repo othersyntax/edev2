@@ -30,7 +30,6 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['middleware' => ['role:super-admin|admin']], function() {
 
-    Route::post('/akses/permissions/ajaxAll', [App\Http\Controllers\PermissionController::class, 'ajaxAll']);
     Route::resource('/akses/permissions', App\Http\Controllers\PermissionController::class);
     Route::get('/akses/permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
 

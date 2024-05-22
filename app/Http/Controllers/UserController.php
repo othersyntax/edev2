@@ -36,7 +36,17 @@ class UserController extends Controller
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|max:20',
             'roles' => 'required'
+        ],
+        [
+            'name.required' => 'Sila masukkan nama',
+            'email.required' => 'Sila masukkan e-mel',
+            'email.email' => 'Sila masukkan e-mel yang tepat',
+            'email.unique' => 'Maklumat e-mel teah wujud',
+            'password.required' => 'Sila masukkan katalaluan',
+            'password.min' => 'Katalaluan sekurang-kurangnya 8 aksara',
+            'roles.required' => 'Sila pilih peranan'
         ]);
+        
 
         $user = User::create([
                         'name' => $request->name,
@@ -46,7 +56,7 @@ class UserController extends Controller
 
         $user->syncRoles($request->roles);
 
-        return redirect('/users')->with('status','User created successfully with roles');
+        return redirect('/akses/users')->with('status','Pengguna berjaya ditambah');
     }
 
     public function edit(User $user)
@@ -82,7 +92,7 @@ class UserController extends Controller
         $user->update($data);
         $user->syncRoles($request->roles);
 
-        return redirect('/users')->with('status','User Updated Successfully with roles');
+        return redirect('/akses/users')->with('status','User Updated Successfully with roles');
     }
 
     public function destroy($userId)
@@ -90,6 +100,6 @@ class UserController extends Controller
         $user = User::findOrFail($userId);
         $user->delete();
 
-        return redirect('/users')->with('status','User Delete Successfully');
+        return redirect('/akses/users')->with('status','User Delete Successfully');
     }
 }

@@ -361,9 +361,7 @@
 
         // DELETE RECORD
         $(document).on('click', '.deletebtn', function () {
-            var faskat_id = $(this).val();
-            
-            
+            var faskat_id = $(this).val();               
             swal({
                     title: "Adakah anda pasti?",
                     text: "Sila pastikan rekod yang hendak dipadam",

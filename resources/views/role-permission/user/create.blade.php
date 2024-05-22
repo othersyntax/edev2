@@ -19,54 +19,63 @@
 @endsection
 
 @section('content')
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12">
-
-            @if ($errors->any())
+<div class="row">
+    <div class="col-lg-12">
+        @if ($errors->any())
             <ul class="alert alert-warning">
                 @foreach ($errors->all() as $error)
                     <li>{{$error}}</li>
                 @endforeach
             </ul>
-            @endif
-
-            <div class="card">
-                <div class="card-header">
-                    <h4>Create User
-                        <a href="{{ url('users') }}" class="btn btn-danger float-end">Back</a>
-                    </h4>
+        @endif
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h4>Tambah Pengguna</h4>
+                <div class="ibox-tools">
+                    <a href="{{ url('/akses/users') }}" class="btn btn-danger float-end">Kembali</a>
                 </div>
-                <div class="card-body">
-                    <form action="{{ url('users') }}" method="POST">
-                        @csrf
-
-                        <div class="mb-3">
-                            <label for="">Name</label>
+            </div>
+            <div class="ibox-content">
+                <form action="/akses/users" method="POST">
+                @csrf              
+                <div class="row">                    
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="">Nama</label>
                             <input type="text" name="name" class="form-control" />
                         </div>
-                        <div class="mb-3">
-                            <label for="">Email</label>
+                        
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">E-mel</label>
                             <input type="text" name="email" class="form-control" />
                         </div>
-                        <div class="mb-3">
-                            <label for="">Password</label>
-                            <input type="text" name="password" class="form-control" />
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">Katalaluan</label>
+                            <input type="password" name="password" class="form-control" />
                         </div>
-                        <div class="mb-3">
-                            <label for="">Roles</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">Peranan</label>
                             <select name="roles[]" class="form-control" multiple>
-                                <option value="">Select Role</option>
+                                <option value="">--Pilih Peranan--</option>
                                 @foreach ($roles as $role)
                                 <option value="{{ $role }}">{{ $role }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
-                    </form>
+                    </div>                                  
                 </div>
+                </form>                
             </div>
         </div>
     </div>

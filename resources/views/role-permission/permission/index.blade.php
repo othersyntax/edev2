@@ -52,7 +52,7 @@
                                 <td>{{ $permission->name }}</td>
                                 <td>
                                     @can('update permission')                                    
-                                        <a href="{{ url('/akses/permissions/'.$permission->id.'/edit') }}" class="btn btn-xs btn-success">Edit</a>
+                                        <button type="button" value="{{ $permission->id }}" class="btn btn-xs btn-success editbtn">Edit</button>
                                     @endcan
                                     @can('delete permission')
                                         <button type="button" value="{{ $permission->id }}" class="btn btn-xs btn-danger mx-2 deletebtn">Delete</button>
@@ -95,22 +95,69 @@
         </div>
     </div>
 </div>
+
+{{-- EDIT MODAL --}}
+<div class="modal inmodal fade" id="editPermissionModal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Kemaskini Maklumat Had Capaian</h4>
+            </div>
+            <div class="modal-body">                    
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul id="save_msgList"></ul>
+                    </div>                    
+                    <div class="col-lg-12">
+                        <input type="hidden" id="permission_id_edit" value="">
+                        <div class="form-group">
+                            <label>Tambah Had Capaian</label>
+                            {{ Form::text('name_capaian_edit', null, ['class'=>'form-control', 'id'=>'name_capaian_edit']) }}
+                        </div>
+                    </div>                    
+                </div>                    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary edit_permission">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @section('custom-js')
 <script>
     $(function(){
-
-        // fetchPermission();
 
         $('#add').click(function(e){ 
             e.preventDefault();
             $('#addPermissionModal').modal('show');  
         });
 
+        //SHOW PERMISSION TO EDIT
+        $('.editbtn').click(function(){ 
+            let edit_id = $(this).val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "get",
+                url: "/akses/permissions/"+edit_id+"/edit",
+                success: function (response) {
+                    $('#permission_id_edit').val(edit_id);                      
+                    $('#name_capaian_edit').val(response.permission.name);
+                    $('#editPermissionModal').modal('show');                     
+                }
+            });     
+        });
+
         // ADD RECORD
         $('.add_permission').click(function (e) {
             e.preventDefault();
-
             var data = {
                 'name_capaian': $('#name_capaian').val(),
             }            
@@ -135,22 +182,64 @@
                         });
                     } else {
                         swal({
-                            title: "Tahniah!!",
-                            text: "Maklumat capaian berjaya di simpan",
-                            type: "success",
-                            showCancelButton: false,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: "Ok",
-                        },
-                        function (isConfirm) {
-                            if (isConfirm) {
-                                location.reload();       
+                                title: "Tahniah!!",
+                                text: "Maklumat capaian berjaya di simpan",
+                                type: "success",
+                                showCancelButton: false,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Ok",
+                            },
+                            function (isConfirm) {
+                                if (isConfirm) {
+                                    $('#addPermissionModal').modal('hide');
+                                    location.reload();       
+                                }
                             }
-                        }
                         );
                     }
                 }
             });
+        });
+
+        // UPDATE RECORD
+        $('.edit_permission').click(function (e) {
+            e.preventDefault();
+            let edit_id = $('#permission_id_edit').val();
+            var edit_data = {
+                'name': $('#name_capaian_edit').val()
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "PUT",
+                url: "/akses/permissions/"+edit_id,
+                data: edit_data,
+                dataType: "json",
+                success: function (response) {
+                    if (response.status == 400) {
+                        $('#update_msgList').html("");
+                        $('#update_msgList').addClass('alert alert-danger');
+                        $.each(response.errors, function (key, err_value) {
+                            $('#update_msgList').append('<li>' + err_value +
+                                '</li>');
+                        });
+                    } else {
+                        $('#editPermissionModal').modal('hide');
+                        swal({
+                            title: "Had Capaian",
+                            text: response.message,
+                            type: "success"
+                        });
+                        location.reload(); 
+                    }
+                }
+            });
+
         });
 
         // SHOW RECORD TO DELETE
@@ -169,12 +258,6 @@
                 },
                 function (isConfirm) {
                     if (isConfirm) {
-                        // $.ajaxSetup({
-                        //     headers: {
-                        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        //     }
-                        // });
-
                         $.ajax({
                             // type: "get",
                             url: "/akses/permissions/" + del_id + "/delete",
