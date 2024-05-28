@@ -21,13 +21,13 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        @if ($errors->any())
+        {{-- @if ($errors->any())
             <ul class="alert alert-warning">
                 @foreach ($errors->all() as $error)
                     <li>{{$error}}</li>
                 @endforeach
             </ul>
-        @endif
+        @endif --}}
         <div class="ibox ">
             <div class="ibox-title">
                 <h4>Tambah Pengguna</h4>
@@ -43,6 +43,7 @@
                         <div class="form-group">
                             <label for="">Nama</label>
                             <input type="text" name="name" class="form-control" />
+                            @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         
                     </div>
@@ -50,12 +51,14 @@
                         <div class="form-group">
                             <label for="">E-mel</label>
                             <input type="text" name="email" class="form-control" />
+                            @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Katalaluan</label>
                             <input type="password" name="password" class="form-control" />
+                            @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -67,6 +70,7 @@
                                 <option value="{{ $role }}">{{ $role }}</option>
                                 @endforeach
                             </select>
+                            @error('roles') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="col-sm-12">

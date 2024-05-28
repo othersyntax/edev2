@@ -30,19 +30,21 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'unique:roles,name'
-            ]
-        ]);
+        $request->validate(
+            [
+                'name'=>'required|string|unique:roles,name',
+            ],
+            [
+                'name.required' => 'Sila masukkan nama peranan',
+                'name.string' => 'Peranan mesti aksara sahaja',
+                'name.unique' => 'Peranan telah wujud!!',
+            ]);
 
         Role::create([
             'name' => $request->name
         ]);
 
-        return redirect('/akses/roles')->with('status','Role Created Successfully');
+        return redirect('/akses/roles')->with('status','Peranan berja ditambah');
     }
 
     public function edit(Role $role)
@@ -54,26 +56,28 @@ class RoleController extends Controller
 
     public function update(Request $request, Role $role)
     {
-        $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'unique:roles,name,'.$role->id
-            ]
-        ]);
+        $request->validate(
+            [
+            'name'=>'required|string|unique:roles,name',
+            ],
+            [
+                'name.required' => 'Sila masukkan nama peranan',
+                'name.string' => 'Peranan mesti aksara sahaja',
+                'name.unique' => 'Peranan telah wujud!!',
+            ]);
 
         $role->update([
             'name' => $request->name
         ]);
 
-        return redirect('/akses/roles')->with('status','Role Updated Successfully');
+        return redirect('/akses/roles')->with('status','Peranan berjaya dikemaskini');
     }
 
     public function destroy($roleId)
     {
         $role = Role::find($roleId);
         $role->delete();
-        return redirect('/akses/roles')->with('status','Role Deleted Successfully');
+        return redirect('/akses/roles')->with('status','Peranan berjaya dipadam');
     }
 
     public function addPermissionToRole($roleId)
@@ -101,6 +105,6 @@ class RoleController extends Controller
         $role = Role::findOrFail($roleId);
         $role->syncPermissions($request->permission);
 
-        return redirect()->back()->with('status','Permissions added to role');
+        return redirect()->back()->with('status','Capaian telah diberi kepada peranan');
     }
 }

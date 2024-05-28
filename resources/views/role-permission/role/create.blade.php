@@ -19,36 +19,33 @@
 @endsection
 
 @section('content')
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12">
-
-            @if ($errors->any())
-            <ul class="alert alert-warning">
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-            @endif
-
-            <div class="card">
-                <div class="card-header">
-                    <h4>Create Role
-                        <a href="{{ url('roles') }}" class="btn btn-danger float-end">Back</a>
-                    </h4>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h4>Tambah Peranan</h4>
+                <div class="ibox-tools">
+                    <a href="{{ url('/akses/roles') }}" class="btn btn-danger float-end">Kembali</a>
                 </div>
-                <div class="card-body">
-                    <form action="{{ url('roles') }}" method="POST">
-                        @csrf
-
-                        <div class="mb-3">
-                            <label for="">Role Name</label>
+            </div>
+            <div class="ibox-content">
+                <form action="{{ url('/akses/roles') }}" method="POST">
+                @csrf
+                <div class="row">                    
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="">Nama Peranan</label>
                             <input type="text" name="name" class="form-control" />
+                            @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
-                    </form>
+                    </div>
+                </div>
+                </form>
                 </div>
             </div>
         </div>

@@ -43,6 +43,11 @@ Route::group(['middleware' => ['role:super-admin|admin']], function() {
 
 });
 
+// SILING
+Route::resource('/siling/senarai', App\Http\Controllers\SilingController::class);
+Route::get('/siling/senarai/{silingID}/delete', [App\Http\Controllers\SilingController::class, 'destroy']);
+
+
 
 require __DIR__.'/auth.php';
 require __DIR__.'/pentadbiran.php';

@@ -19,37 +19,33 @@
 @endsection
 
 @section('content')
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12">
-
-            @if ($errors->any())
-            <ul class="alert alert-warning">
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-            @endif
-
-            <div class="card">
-                <div class="card-header">
-                    <h4>Edit Role
-                        <a href="{{ url('roles') }}" class="btn btn-danger float-end">Back</a>
-                    </h4>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h4>Kemaskini Peranan</h4>
+                <div class="ibox-tools">
+                    <a href="{{ url('/akses/roles') }}" class="btn btn-danger float-end">Kembali</a>
                 </div>
-                <div class="card-body">
-                    <form action="{{ url('roles/'.$role->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-
-                        <div class="mb-3">
-                            <label for="">Role Name</label>
+            </div>
+            <div class="ibox-content">
+                <form action="{{ url('/akses/roles/'.$role->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="row">                    
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="">Nama Peranan</label>
                             <input type="text" name="name" value="{{ $role->name }}" class="form-control" />
+                            @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Kemaskini</button>
                         </div>
-                    </form>
+                    </div>
+                </form>
                 </div>
             </div>
         </div>

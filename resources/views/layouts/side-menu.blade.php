@@ -28,8 +28,8 @@
             <li class="{{ (request()->segment(1) == 'siling') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-calculator"></i> <span class="nav-label">Siling</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="{{ (request()->segment(2) == 'penetapan') ? 'active' : '' }}"><a href="#">Penetapan</a></li>
-                    <li class="{{ (request()->segment(2) == 'selenggara') ? 'active' : '' }}"><a href="#">Selenggara</a></li>
+                    <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/siling/senarai">Senarai</a></li>
+                    {{-- <li class="{{ (request()->segment(2) == 'selenggara') ? 'active' : '' }}"><a href="#">Selenggara</a></li> --}}
                 </ul>
             </li>
             <li>
