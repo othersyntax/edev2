@@ -31,7 +31,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Jenis Carian</label>
-                                {{ Form::select('carian_type', ['Kod'=>'Kod Kategori-Fasiliti', 'Deskripsi'=>'Deskripsi Kategori-Fasiliti'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
+                                {{ Form::select('carian_type', ['Kod'=>'Kod Kategori Fasiliti', 'Deskripsi'=>'Deskripsi Kategori Fasiliti'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
                             </div>                            
                         </div>
                         <div class="col-sm-9 ">
@@ -96,7 +96,7 @@
                             <tr>
                                 <th class="text-center">#ID</th>
                                 <th class="text-center">Kod</th>
-                                <th>Kategori-Fasiliti</th>
+                                <th>Kategori Fasiliti</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Tindakan</th>
                             </tr>
@@ -308,6 +308,11 @@
                         // $('#editStateModal').find('input').val('');
                         // $('.update_faskategori').text('Kemaskini');
                         $('#editStateModal').modal('hide');
+                        swal({
+                            title: "Kategori Fasiliti",
+                            text: response.message,
+                            type: "success"
+                        });
                         fetchKategoriFasiliti();
                     }
                 }
@@ -471,9 +476,9 @@
                         $('tbody').append('<tr>\
                             <td class="text-center">' + item.faskat_id + '</td>\
                             <td class="text-center">' + item.faskat_kod + '</td>\
-                            <td class="text-center">' + item.faskat_desc + '</td>\
+                            <td>' + item.faskat_desc + '</td>\
                             <td class="text-center">' + item.faskat_status + '</td>\
-                            <td><button type="button" value="' + item.faskat_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
+                            <td class="text-center"><button type="button" value="' + item.faskat_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
                             <button type="button" value="' + item.faskat_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
                         \</tr>');
                     });
