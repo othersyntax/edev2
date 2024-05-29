@@ -130,7 +130,7 @@ class KategoriFasilitiController extends Controller
     }
 
    
-    public function update(Request $req)
+    public function update(Request $req )
     {
         $validator = Validator::make($req->all(), [
             'faskat_kod'=> 'required',

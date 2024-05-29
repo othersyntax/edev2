@@ -20,6 +20,8 @@
 @endsection
 
 @section('content')
+
+{{--Untuk Search--}}
 <div class="row">
     <div class="col-lg-12">
         <div class="ibox ">
@@ -31,7 +33,7 @@
                     <div class="row">                    
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Jenis Carian</label>
+                                <label>Jenis Carian</label>{{--Untuk Search--}}
                                 {{ Form::select('carian_type', ['Kod'=>'Kod Ptj', 'Negeri'=>'Negeri' , 'kodkate'=>'Kod Kategori Fasiliti'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
                                     
                                 </select>
@@ -39,14 +41,14 @@
                         </div>
                         <div class="col-sm-9 ">
                             <div class="form-group">
-                                <label>Katakunci</label>
+                                <label>Katakunci</label> {{--Untuk key Search--}}
                                {{ Form::text('carian_text', session('carian_text'), ['class'=>'form-control', 'id'=>'carian_text']) }}
                             </div>
                         </div>                   
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-12">
-                            <a href="/pentadbiran/fasiliti" class="btn btn-default">Set Semula</a>
+                            <a href="/pentadbiran/fasiliti" class="btn btn-default">Set Semula</a> {{--Untuk Reset Carian--}}
                             <input type="button" class="btn btn-primary float-right" id="carian" value="Carian">
                         </div>
                     </div>
@@ -57,6 +59,7 @@
     </div>
 </div>
 
+{{--Untuk Table--}}
 <div class="row">
     <div class="col-lg-12">
         <div class="ibox ">
@@ -76,7 +79,7 @@
                             <tr>
                                 <th class="text-center">#ID</th>
                                 <th class="text-center">Kod PTJ</th>
-                                <th class="text-center">Nama Fasiliti</th>
+                                <th>Nama Fasiliti</th>
                                 <th class="text-center">Kod Kategori Fasiliti</th>
                                 <th class="text-center">Kod Negeri</th>
                                 <th>Tindakan</th>
@@ -94,6 +97,7 @@
 
 </div>
 
+{{--Untuk Add // belom  siap--}}
 <div class="modal inmodal fade" id="addStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -120,14 +124,14 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label>Kod Kategori Fasiliti</label>
-                            {{ Form::text('fas_kat_kod_add', null, ['class'=>'form-control fas_kat_kod_add']) }}
+                            <label>Kategori Fasiliti</label>
+                            {{ Form::select('faskat_kod_add', dropdownKatefas(), null, ['class'=>'form-control', 'id'=>'faskat_kod_add']) }}
                         </div>                          
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>ID Negeri</label>
-                            {{ Form::text('fas_negeri_id_add', null, ['class'=>'form-control fas_negeri_id_add']) }}
+                            {{ Form::select('neg_nama_negeri_add', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'neg_nama_negeri_add']) }}
                         </div>                          
                     </div>
                 </div>                    
@@ -140,6 +144,7 @@
    </div>
 </div>
 
+{{--Untuk Delete // siap--}}
 <div class="modal inmodal fade" id="DeleteModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -159,6 +164,7 @@
     </div>
 </div>
 
+{{--Untuk Edit // belom siap--}}
 <div class="modal inmodal fade" id="editStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -167,40 +173,40 @@
                 <h4 class="modal-title">Kemaskini Maklumat Fasiliti</h4>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="fas_negeri_id_edit">                   
+                <input type="hidden" id="fasiliti_id_edit">                   
                 <div class="row">
                     <div class="col-lg-12">
                         <ul id="save_msgList"></ul>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label>Kod PTJ Fasiliti</label>
-                            {{ Form::text('fas_ptj_code_edit', null, ['class'=>'form-control fas_ptj_code_edit', 'id'=> 'fas_ptj_code_edit']) }}
+                            <label>Kod Fasiliti</label>
+                            {{ Form::text('fas_ptj_code_edit', null, ['class'=>'form-control' , 'id'=> 'fas_ptj_code_edit']) }}
                         </div>                          
                     </div>
                     <div class="col-lg-8">
                         <div class="form-group">
                             <label>Nama Fasiliti </label>
-                            {{ Form::text('fas_name_edit', null, ['class'=>'form-control fas_name_edit', 'id'=> 'fas_name_edit']) }}
+                            {{ Form::text('fas_name_edit', null, ['class'=>'form-control' , 'id'=> 'fas_name_edit']) }}
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label>Kod Kategori Fasiliti</label>
-                            {{ Form::text('fas_kat_kod_edit', null, ['class'=>'form-control fas_kat_kod_edit', 'id'=> 'fas_kat_kod_edit']) }}
+                            <label>Kategori Fasiliti</label>
+                            {{ Form::select('fas_kat_kod_edit', dropdownKatefas(), null, ['class'=>'form-control', 'id'=>'fas_kat_kod_edit']) }}
                         </div>                          
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>ID Negeri</label>
-                            {{ Form::text('fas_negeri_id_edit', null, ['class'=>'form-control fas_negeri_id_edit', 'id'=> 'fas_negeri_id_edit']) }}
+                            {{ Form::select('fas_kat_kod_edit', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'fas_kat_kod_edit']) }}
                         </div>                          
                     </div>
                 </div>                    
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary update_state">Kemaskini</button>
+                <button type="button" class="btn btn-primary update_fas">Kemaskini</button>
             </div>
         </div>
     </div>
@@ -232,6 +238,22 @@
             $('#addStateModal').modal('show');
         });
 
+        //ON CHANGE NEGERI DROPDOWN EVENT
+        $('#neg_negeri_id').change(function() {
+            var cari_kod_negeri = $(this).val();
+            getDaerah(cari_kod_negeri, 'dae_daerah_id', '#list-daerah');
+        });
+
+        $('#neg_negeri_id_add').change(function() {
+            var add_kod_negeri = $(this).val();
+            getDaerah(add_kod_negeri, 'dae_daerah_id_add', '#list-daerah-add');
+        });
+    
+        $('#neg_negeri_id_edit').change(function() {
+            var edit_kod_negeri = $(this).val();
+            getDaerah(edit_kod_negeri, 'dae_daerah_id_edit', '#list-daerah-edit');
+        });
+
 
 //READ CONTENT FROM DB
         function fetchFasiliti(carian_type='', carian_text=''){
@@ -256,7 +278,7 @@
                         $('tbody').append('<tr>\
                             <td class="text-center">' + item.fasiliti_id + '</td>\
                             <td class="text-center">' + item.fas_ptj_code + '</td>\
-                            <td class="text-center">' + item.fas_name + '</td>\
+                            <td>' + item.fas_name + '</td>\
                             <td class="text-center">' + item.fas_kat_kod + '</td>\
                             <td class="text-center">' + item.fas_negeri_id + '</td>\
                             <td><button type="button" value="' + item.fasiliti_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
@@ -267,44 +289,50 @@
             });
 }
 //delete
-$(document).on('click', '.deletebtn', function () 
-{
+$(document).on('click', '.deletebtn', function () {
             var fasiliti_id = $(this).val();
-            $('#DeleteModal').modal('show');
-            $('#deleteing_id').val(fasiliti_id);
+            swal({
+                    title: "Adakah anda pasti?",
+                    text: "Sila pastikan rekod yang hendak dipadam",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Ya, Padam",
+                    cancelButtonText: "Tidak, Batalkan",
+                    closeOnConfirm: false,
+                    closeOnCancel: false 
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/pentadbiran/fasiliti/padam/" + fasiliti_id,
+                            dataType: "json",
+                            success: function (response) {
+                                if (response.status == 404) {
+                                    swal("Dibatalkan", response.message, "error");
+                                } else {                                     
+                                    fetchFasiliti();
+                                    swal("Dipadam!", response.message, "success");
+                                }
+                            }
+                        });                        
+                    } else {
+                        swal("Dibatalkan", "Rekod fasiliti tidak dipadam", "error");
+                    }
+                });
         });
 
-        // DELETE RECORD
-        $(document).on('click', '.delete_state', function (e) {
-            e.preventDefault();
 
-            $(this).text('Memadam');
-            var id = $('#deleteing_id').val();
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type: "DELETE",
-                url: "/pentadbiran/fasiliti/padam/" + id,
-                dataType: "json",
-                success: function (response) {
-                    // console.log(response);
-                    if (response.status == 404) {
-                        $('.delete_state').text('Ya, Padam');
-                    } else { 
-                        $('.delete_state').text('Ya, Padam');
-                        $('#DeleteModal').modal('hide');
-                        fetchFasiliti();
-                    }
-                }
-           });
-});
-//update
-$(document).on('click', '.update_state', function (e) {
+ // UPDATE RECORD
+ $(document).on('click', '.update_fas', function (e) {
             e.preventDefault();
 
             $(this).text('Kemaskini');
@@ -314,9 +342,8 @@ $(document).on('click', '.update_state', function (e) {
                 'fasiliti_id': $('#fasiliti_id_edit').val(),
                 'fas_ptj_code': $('#fas_ptj_code_edit').val(),
                 'fas_name': $('#fas_name_edit').val(),
-                'fas_kat_kod': $('fas_kat_kod_edit').val(),
-                'fas_negeri_id': $('fas_negeri_id_edit').val(),
-                
+                'fas_kat_kod': $('#fas_kat_kod_edit').val(),
+                'fas_negeri_id': $('#fas_negeri_id_edit').val(),
             }
 
             $.ajaxSetup({
@@ -339,19 +366,25 @@ $(document).on('click', '.update_state', function (e) {
                             $('#update_msgList').append('<li>' + err_value +
                                 '</li>');
                         });
-                        $('.update_state').text('Kemaskini');
+                        $('.update_fas').text('Kemaskini');
                     } else {
                         $('#update_msgList').html("");
                         // toastr.success(response.message);
                         // $('#editStateModal').find('input').val('');
-                        // $('.update_state').text('Kemaskini');
+                        // $('.update_faskategori').text('Kemaskini');
                         $('#editStateModal').modal('hide');
+                        swal({
+                            title: "Fasiliti",
+                            text: response.message,
+                            type: "success"
+                        });
                         fetchFasiliti();
                     }
                 }
             });
 
-});
+        });
+        
 
 // add
 $(document).on('click', '.add_state', function (e) {
@@ -362,8 +395,8 @@ $(document).on('click', '.add_state', function (e) {
             var data = {
                 'fas_ptj_code': $('.fas_ptj_code_add').val(),
                 'fas_name': $('.fas_name_add').val(),
-                'fas_kat_kod': $('.fas_kat_kod_add').val(),
-                'fas_negeri_id': $('.fas_negeri_id_add').val(),
+                'faskat_kod': $('.faskat_kod_add').val(),
+                'neg_nama_negeri': $('.neg_nama_negeri_add').val(),
             }
 
             $.ajaxSetup({
@@ -392,13 +425,17 @@ $(document).on('click', '.add_state', function (e) {
                         $('.add_kategori').text('Simpan');
                         $('#addStateModal').modal('hide');
                         fetchFasiliti();
+                        swal({
+                            title: "Fasiliti",
+                            text: response.message,
+                            type: "success"
+                        });
                     }
                 }
             });
 
 });
-
-
+//edit
 $(document).on('click', '.editbtn', function (e) {
             e.preventDefault();
             var fasiliti_id = $(this).val();
@@ -426,14 +463,6 @@ $(document).on('click', '.editbtn', function (e) {
 
 
 
-
-
-
-
-
-
-
     });
-
 </script>
 @endsection

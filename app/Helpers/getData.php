@@ -1,6 +1,7 @@
 <?php
 use App\Models\Negeri;
 use App\Models\Daerah;
+use App\Models\Pentadbiran\KategoriFasiliti;
 
 function dropdownNegeri(){
     $negeri = Negeri::where('neg_status', '1')
@@ -16,5 +17,13 @@ function dropdownDaerah(){
         ->pluck('dae_nama_daerah', 'dae_daerah_id')
         ->prepend('--Sila Pilih--', '');
     return $daerah;
+}
+
+function dropdownKatefas(){
+    $katefas = KategoriFasiliti::where('faskat_status', '1')
+        ->orderBy('faskat_kod')
+        ->pluck('faskat_kod', 'faskat_id')
+        ->prepend('--Sila Pilih--', '');
+    return $katefas;
 }
 

@@ -85,14 +85,16 @@ class FasilitiController extends Controller
         $validator = Validator::make($request->all(), [
             'fas_ptj_code'=> 'required',
             'fas_name'=> 'required',
-            'fas_kat_kod'=> 'required',
-            'fas_negeri_id'=> 'required',
+            'faskat_kod'=> 'required',
+            'neg_nama_negeri'=> 'required',
+           
         ],
         [
             'fas_ptj_code.required'=> 'Sila masukkan Kod PTJ',
             'fas_name.required'=> 'Sila masukkan nama fasiliti',
-            'fas_kat_kod.required'=> 'Sila masukkan Kod Kategori Fasiliti',
-            'fas_negeri_id.required'=> 'Sila masukkan ID Negeri',
+            'faskat_kod.required'=> 'Sila pilih Kod Kategori',
+            'neg_nama_negeri.required'=> 'Sila pilih masukkan nama fasiliti',
+           
         ]);
 
         if($validator->fails())
@@ -107,8 +109,9 @@ class FasilitiController extends Controller
             $fas = new Fasiliti;
             $fas->fas_ptj_code = $request->input('fas_ptj_code');
             $fas->fas_name = $request->input('fas_name');
-            $fas->fas_kat_kod = $request->input('fas_kat_kod');
-            $fas->fas_negeri_id = $request->input('fas_negeri_id');
+            $fas->faskat_kod = $request->input('faskat_kod');
+            $fas->neg_nama_negeri = $request->input('neg_nama_negeri');
+           
             $fas->fas_created_by = 1000;
             $fas->fas_udated_by = 1000;
             $fas->save();
@@ -153,18 +156,18 @@ class FasilitiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $req )
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($req->all(), [
             'fas_ptj_code'=> 'required',
             'fas_name'=> 'required',
             'fas_kat_kod'=> 'required',
             'fas_negeri_id'=> 'required',
         ],
         [
-            'fas_ptj_code.required'=> 'Sila masukkan Kod PTJ',
-            'fas_name.required'=> 'Sila masukkan nama fasiliti',
-            'fas_kat_kod.required'=> 'Sila masukkan Kod Kategori Fasiliti',
+            'fas_ptj_code.required'=> 'Sila masukkan Kod PTJ Fasiliti',
+            'fas_name.required'=> 'Sila masukkan Nama Fasiliti',
+            'fas_kat_kod.required'=> 'Sila masukkan Kod Kategori',
             'fas_negeri_id.required'=> 'Sila masukkan ID Negeri',
         ]);
 
@@ -176,30 +179,29 @@ class FasilitiController extends Controller
             ]);
         }
         else{
-            $fas= Fasiliti::find($request->input('fasiliti_id'));
+            $fas= Fasiliti::find($req->input('fasiliti_id'));
             if($fas){
-                $fas->fasiliti_id = $request->input('fasiliti_id');
-                $fas->fas_ptj_code = $request->input('fas_ptj_code');
-                $fas->fas_name = $request->input('fas_name');
-                $fas->fas_kat_kod = $request->input('fas_kat_kod');
-                $fas->fas_negeri_id = $request->input('fas_negeri_id');
-                $fas->fas_udated_by = 1000;
+                $fas->fasiliti_id = $req->input('fasiliti_id');
+                $fas->fas_ptj_code = $req->input('fas_ptj_code');
+                $fas->fas_name = $req->input('fas_name');
+                $fas->fas_kat_kod = $req->input('fas_kat_kod');
+                $fas->fas_negeri_id = $req->input('fas_negeri_id');
                 $fas->update();
                 
                 return response()->json([
                     'status'=>200,
-                    'message'=>'Maklumat Negeri berjaya dikemaskini'
+                    'message'=>'Maklumat fasiliti berjaya dikemaskini'
                 ]);
             }
             else
             {
                 return response()->json([
                     'status'=>404,
-                    'message'=>'Maklumat Negeri Tidak Wujud.'
+                    'message'=>'Maklumat Fasiliti Tidak Wujud.'
                 ]);
-        }
+            }
 
-}
+        }
     }
 
     /**

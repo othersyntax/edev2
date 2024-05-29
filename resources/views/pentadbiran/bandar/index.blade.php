@@ -69,6 +69,8 @@
         </div>
     </div>
 </div>
+
+
 <div class="row">
     <div class="col-lg-12">
         <div class="ibox">
@@ -211,6 +213,8 @@
         </div>
     </div>
 </div>
+
+
 @endsection
 @section('custom-js')
 <script>
@@ -320,6 +324,7 @@
                         });
                         $('.add_bandar').text('Simpan');
                     } else {
+                        
                         $('#save_msgList').html("");
                         $('#addBandarModal').find('input').val('');
                         $('#addBandarModal').find('select').val('');
