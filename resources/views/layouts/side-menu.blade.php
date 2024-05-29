@@ -42,7 +42,8 @@
                     <li class="{{ (request()->segment(2) == 'daerah') ? 'active' : '' }}"><a href="/pentadbiran/daerah">Daerah</a></li>
                     <li class="{{ (request()->segment(2) == 'bandar') ? 'active' : '' }}"><a href="/pentadbiran/bandar">Mukim / Bandar</a></li>
                     <li class="{{ (request()->segment(2) == 'fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/fasiliti">Fasiliti</a></li>
-                    <li class="{{ (request()->segment(2) == 'kategori-fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/kategori-fasiliti">Jenis Fasiliti</a></li>
+                    <li class="{{ (request()->segment(2) == 'kategori-fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/kategori-fasiliti">Kategori Fasiliti</a></li>
+                    <li class="{{ (request()->segment(2) == 'kategori-projek') ? 'active' : '' }}"><a href="/pentadbiran/kategori-projek">Kategori Projek</a></li>
                     <li class="{{ (request()->segment(2) == 'pengguna') ? 'active' : '' }}"><a href="/pentadbiran/pengguna">Pengguna</a></li>
                     <li class="{{ (request()->segment(2) == 'peranan') ? 'active' : '' }}"><a href="/pentadbiran/peranan">Peranan</a></li>
                     <li class="{{ (request()->segment(2) == 'capaian') ? 'active' : '' }}"><a href="/pentadbiran/capaian">Tahap Capaian</a></li>
@@ -58,7 +59,7 @@
             </li>
             <li>
                 <a href="{{ route('logout') }}" ><i class="fa fa-sign-out"></i> <span class="nav-label">Log-keluar</span></a>
-            </li>            
+            </li>
         </ul>
 
     </div>
