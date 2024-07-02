@@ -98,7 +98,7 @@
 </div>
 
 
-{{--Untuk Add // belom  siap--}}
+{{--Untuk Add // siap--}}
 <div class="modal inmodal fade" id="addStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -165,7 +165,7 @@
     </div>
 </div>
 
-{{--Untuk Edit // belom siap--}}
+{{--Untuk Edit //  siap--}}
 <div class="modal inmodal fade" id="editStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -200,7 +200,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>ID Negeri</label>
-                            {{ Form::select('fas_kat_kod_edit', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'fas_kat_kod_edit']) }}
+                            {{ Form::select('fas_negeri_id_edit', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'fas_negeri_id_edit']) }}
                         </div>
                     </div>
                 </div>
@@ -280,7 +280,7 @@
                             <td class="text-center">' + item.fas_ptj_code + '</td>\
                             <td>' + item.fas_name + '</td>\
                             <td class="text-center">' + item.fas_kat_kod + '</td>\
-                            <td class="text-center">' + item.fas_negeri_id + '</td>\
+                            <td class="text-center">' + item.neg_nama_negeri + '</td>\
                             <td><button type="button" value="' + item.fasiliti_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
                             <button type="button" value="' + item.fasiliti_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
                         \</tr>');
@@ -396,8 +396,8 @@
             var data = {
                 'fas_ptj_code': $('.fas_ptj_code_add').val(),
                 'fas_name': $('.fas_name_add').val(),
-                'faskat_kod': $('.faskat_kod_add').val(),
-                'neg_nama_negeri': $('.neg_nama_negeri_add').val(),
+                'fas_kat_kod': $('.faskat_kod_add').val(),
+                'fas_negeri_id': $('.neg_nama_negeri_add').val(),
             }
 
             $.ajaxSetup({

@@ -7,13 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\Fasiliti;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 
 class FasilitiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
         $fasiliti = Fasiliti::all();
@@ -28,13 +27,15 @@ class FasilitiController extends Controller
         //     'negeri' => $negeri,
 
         // ]);
-
+       
         if($req->isMethod('post')) {
             $carian_type = $req->carian_type;
             $carian_text = $req->carian_text;
            
             if(!empty($carian_type)){
                 $query = DB::table('tblfasiliti')
+                            ->join('ddsa_kod_negeri', 'tblfasiliti.fas_negeri_id', '=', 'ddsa_kod_negeri.neg_negeri_id')
+                            ->select('tblfasiliti.*', 'ddsa_kod_negeri.neg_nama_negeri')
                             ->where(function($q) use ($carian_type, $carian_text){ 
                                 if(!empty($carian_type)){
                                     if($carian_type=='Kod'){
@@ -52,7 +53,10 @@ class FasilitiController extends Controller
                 $fasiliti = $query->get();
             }
             else{
-                $fasiliti =  Fasiliti::all();             
+                $fasiliti = DB::table('tblfasiliti')
+            ->join('ddsa_kod_negeri', 'tblfasiliti.fas_negeri_id', '=', 'ddsa_kod_negeri.neg_negeri_id')
+            ->select('tblfasiliti.*', 'ddsa_kod_negeri.neg_nama_negeri')
+            ->get();             
             }
 
             
@@ -61,7 +65,10 @@ class FasilitiController extends Controller
 
         }
         else{
-            $fasiliti =  Fasiliti::all();
+            $fasiliti = DB::table('tblfasiliti')
+            ->join('ddsa_kod_negeri', 'tblfasiliti.fas_negeri_id', '=', 'ddsa_kod_negeri.neg_negeri_id')
+            ->select('tblfasiliti.*', 'ddsa_kod_negeri.neg_nama_negeri')
+            ->get();
         }
         return response()->json([
             'fasiliti'=>$fasiliti,
@@ -69,32 +76,26 @@ class FasilitiController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
-        //
+      
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'fas_ptj_code'=> 'required',
             'fas_name'=> 'required',
-            'faskat_kod'=> 'required',
-            'neg_nama_negeri'=> 'required',
-           
+            'fas_kat_kod'=> 'required',
+            'fas_negeri_id'=> 'required',
         ],
         [
             'fas_ptj_code.required'=> 'Sila masukkan Kod PTJ',
             'fas_name.required'=> 'Sila masukkan nama fasiliti',
-            'faskat_kod.required'=> 'Sila pilih Kod Kategori',
-            'neg_nama_negeri.required'=> 'Sila pilih masukkan nama fasiliti',
-           
+            'fas_kat_kod.required'=> 'Sila masukkan Kod Kategori Fasiliti',
+            'fas_negeri_id.required'=> 'Sila masukkan ID Negeri',
         ]);
 
         if($validator->fails())
@@ -109,32 +110,28 @@ class FasilitiController extends Controller
             $fas = new Fasiliti;
             $fas->fas_ptj_code = $request->input('fas_ptj_code');
             $fas->fas_name = $request->input('fas_name');
-            $fas->faskat_kod = $request->input('faskat_kod');
-            $fas->neg_nama_negeri = $request->input('neg_nama_negeri');
-           
-            $fas->fas_created_by = 1000;
-            $fas->fas_udated_by = 1000;
+            $fas->fas_kat_kod = $request->input('fas_kat_kod');
+            $fas->fas_negeri_id = $request->input('fas_negeri_id');
+            $fas->fas_created_by = auth()->user()->id;
+            $fas->fas_udated_by = auth()->user()->id;
             $fas->save();
             return response()->json([
                 'status'=>200,
                 'message'=>'Negeri berjaya ditambah'
          ]);
-}
+        }   
     }
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(string $id)
     {
-        //
+       
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+   
     public function edit(string $id)
     {
+        
         
         $fasiliti = Fasiliti::find($id);
         if($fasiliti)
@@ -153,9 +150,7 @@ class FasilitiController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $req )
     {
         $validator = Validator::make($req->all(), [
@@ -204,9 +199,7 @@ class FasilitiController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(string $id)
     {
         $fas = Fasiliti::find($id);

@@ -22,7 +22,7 @@ function dropdownDaerah(){
 function dropdownKatefas(){
     $katefas = KategoriFasiliti::where('faskat_status', '1')
         ->orderBy('faskat_kod')
-        ->pluck('faskat_kod', 'faskat_id')
+        ->pluck('faskat_desc', 'faskat_kod')
         ->prepend('--Sila Pilih--', '');
     return $katefas;
 }
