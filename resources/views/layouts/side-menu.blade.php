@@ -22,6 +22,13 @@
             <li>
                 <a href="/dashboard"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span>  </a>
             </li>
+            <li class="{{ (request()->segment(1) == 'projek') ? 'active' : '' }}">
+                <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Projek</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/projek/senarai">Senarai</a></li>
+
+                </ul>
+            </li>
             <li>
                 <a href="/dashboard"><i class="fa fa-vcard-o"></i> <span class="nav-label">Permohonan</span>  </a>
             </li>

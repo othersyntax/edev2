@@ -2,6 +2,7 @@
 use App\Models\Negeri;
 use App\Models\Daerah;
 use App\Models\Pentadbiran\KategoriFasiliti;
+use App\Models\Fasiliti;
 
 function dropdownNegeri(){
     $negeri = Negeri::where('neg_status', '1')
@@ -25,5 +26,20 @@ function dropdownKatefas(){
         ->pluck('faskat_desc', 'faskat_kod')
         ->prepend('--Sila Pilih--', '');
     return $katefas;
+}
+
+function dropdownFasiliti(){
+    $fasiliti = Fasiliti::where('fas_ptj_level', '1')
+        ->orderBy('fas_ptj_code')
+        ->pluck('fas_name', 'fas_ptj_code')
+        ->prepend('--Sila Pilih--', '');
+    return $fasiliti;
+}
+
+function getStatus($id){
+    if($id==1)
+        return "Aktif";
+    else
+        return "Tidak Aktif";
 }
 

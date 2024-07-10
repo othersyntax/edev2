@@ -13,7 +13,7 @@ class SilingController extends Controller
     public function index()
     {
         $siling = Siling::get();
-        return view('siling.index', ['siling' => $siling]);
+        return view('app.siling.index', ['siling' => $siling]);
     }
 
     /**
