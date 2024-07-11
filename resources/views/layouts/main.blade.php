@@ -12,11 +12,13 @@
     <link href="{{ asset("/template/css/bootstrap.min.css") }}" rel="stylesheet">
     <link href="{{ asset("/template/font-awesome/css/font-awesome.css") }}" rel="stylesheet">
 
-    <link href="{{ asset("/template/css/animate.css") }}" rel="stylesheet">
-    <link href="{{ asset("/template/css/style.css") }}" rel="stylesheet">
     <!-- Sweet Alert -->
     <link href="{{ asset("/template/css/plugins/sweetalert/sweetalert.css") }}" rel="stylesheet">
     @yield('custom-css')
+
+    <link href="{{ asset("/template/css/animate.css") }}" rel="stylesheet">
+    <link href="{{ asset("/template/css/style.css") }}" rel="stylesheet">
+
 </head>
 
 <body class="">
@@ -29,7 +31,7 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>                        
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
@@ -40,14 +42,14 @@
                     </ul>
                 </nav>
             </div>
-           
-            @yield('breadcrumb')            
+
+            @yield('breadcrumb')
 
             <div class="wrapper wrapper-content">
                 @yield('content')
             </div>
             <div class="footer">
-                <div class="float-right">                   
+                <div class="float-right">
                 </div>
                 <div>
                     <strong>Hak cipta</strong> Bahagian Pembangunan &copy; {{ date("Y") }}

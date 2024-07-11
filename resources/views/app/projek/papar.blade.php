@@ -25,7 +25,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-9">
         <div class="ibox">
             <div class="ibox-title">
                 <h5>Maklumat Projek</h5>
@@ -85,62 +85,105 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="ibox">
+        <div class="ibox ">
             <div class="ibox-title">
-                <h5>Maklumat Pengesahan</h5>
+                <h5>Maklumat Aktiviti</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
             </div>
             <div class="ibox-content">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="text-uppercase">Kod Subprojek</label><br>
-                            <b>{{ $projek->proj_kod_agensi }}-{{ $projek->proj_kod_projek }}-{{ $projek->proj_kod_middle }}-{{ $projek->proj_kod_group }}</b>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="text-uppercase">Negeri</label><br>
-                            <b>{{ $projek->proj_negeri }}</b>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="text-uppercase">Bulan dan Tahun</label><br>
-                            <b>{{ $projek->proj_bulan }}, {{ $projek->proj_tahun }}</b>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="text-uppercase">Program</label><br>
-                            <b>{{ $projek->proj_program }}</b>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="text-uppercase">Kos Sebenar (RM)</label><br>
-                            <b>@duit($projek->proj_kos_sebenar)</b>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="text-uppercase">Nama Projek</label><br>
-                            <b>{{ $projek->proj_nama }}</b>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label class="text-uppercase">Keterangan</label><br>
-                            <b>{{ $projek->proj_butiran }}</b>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label class="text-uppercase">Catatan</label><br>
-                            <b>{{ $projek->proj_catatan }}</b>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th width="5%" class="text-center">#Bil</th>
+                        <th width="20%">No Rujukan</th>
+                        <th width="25%">Perihal</th>
+                        <th width="10%">Tarikh</th>
+                        <th width="30%">Catatan</th>
+                        <th width="10%">#</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                            $bil=1;
+                        @endphp
+                        @foreach ($utilities as $uti)
+                            <tr>
+                                <td class="text-center">{{ $bil++ }}</td>
+                                <td>{{ $uti->projuti_ref_no }}</td>
+                                <td>{{ $uti->projuti_perihal }}</td>
+                                <td>{{ $uti->projuti_date }}</td>
+                                <td>{{ $uti->projuti_catatan }}</td>
+                                <td>
+                                    <button type="button" value=".{{ $uti->projek_uti_id }}." class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>
+                                    <button type="button" value=".{{ $uti->projek_uti_id }}." class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button>
+                                </td>
+                            </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox selected">
+            <div class="ibox-content">
+                <div class="tab-content">
+                    <div id="contact-2" class="tab-pane active">
+                        <div class="client-detail">
+                            <div class="full-height-scroll">
+                                <strong>Aktiviti Rekod</strong>
+                                <div id="vertical-timeline" class="vertical-container dark-timeline">
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon navy-bg">
+                                            <i class="fa fa-bars"></i>
+                                        </div>
+                                        <div class="vertical-timeline-content">
+                                            <p>Permohonan Baharu</p>
+                                            <p>Usup Keram</p>
+                                            <span class="vertical-date small text-muted">2024-06-01 17:25:00</span>
+                                        </div>
+                                    </div>
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon gray-bg">
+                                            <i class="fa fa-pencil"></i>
+                                        </div>
+                                        <div class="vertical-timeline-content">
+                                            <p>Kemaskini Rekod</p>
+                                            <p>Usup Keram</p>
+                                            <span class="vertical-date small text-muted">2024-06-05 17:25:00</span>
+                                        </div>
+                                    </div>
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon gray-bg">
+                                            <i class="fa fa-pencil"></i>
+                                        </div>
+                                        <div class="vertical-timeline-content">
+                                            <p>Kemaskini Rekod</p>
+                                            <p>Norraida Amzah</p>
+                                            <span class="vertical-date small text-muted">2024-06-05 17:25:00</span>
+                                        </div>
+                                    </div>
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon red-bg">
+                                            <i class="fa fa-trash"></i>
+                                        </div>
+                                        <div class="vertical-timeline-content">
+                                            <p>Tolak Permohonan</p>
+                                            <p>Chua Choon Lee</p>
+                                            <span class="vertical-date small text-muted">2024-06-05 17:25:00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -150,97 +193,88 @@
 </div>
 <div class="row">
     <div class="col-lg-8">
-        <div class="ibox">
-            <div class="ibox-title">
-                <h5>Audit Trail</h5>
-            </div>
-            <div class="ibox-content inspinia-timeline">
-                <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            <i class="fa fa-briefcase"></i>
-                        </div>
-                        <div class="vertical-timeline-content">
-                            <h2>Meeting</h2>
-                            <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
-                            </p>
-                            <a href="#" class="btn btn-sm btn-primary"> More info</a>
-                            <span class="vertical-date">
-                                Today <br/>
-                                <small>Dec 24</small>
-                            </span>
-                        </div>
-                    </div>
 
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon blue-bg">
-                            <i class="fa fa-file-text"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Send documents to Mike</h2>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
-                            <a href="#" class="btn btn-sm btn-success"> Download document </a>
-                            <span class="vertical-date">
-                                Today <br/>
-                                <small>Dec 24</small>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon lazur-bg">
-                            <i class="fa fa-coffee"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Coffee Break</h2>
-                            <p>Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
-                            <a href="#" class="btn btn-sm btn-info">Read more</a>
-                            <span class="vertical-date"> Yesterday <br/><small>Dec 23</small></span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon yellow-bg">
-                            <i class="fa fa-phone"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Phone with Jeronimo</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
-                            <span class="vertical-date">Yesterday <br/><small>Dec 23</small></span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon lazur-bg">
-                            <i class="fa fa-user-md"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Go to the doctor dr Smith</h2>
-                            <p>Find some issue and go to doctor. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. </p>
-                            <span class="vertical-date">Yesterday <br/><small>Dec 23</small></span>
-                        </div>
-                    </div>
-
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            <i class="fa fa-comments"></i>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h2>Chat with Monica and Sandra</h2>
-                            <p>Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). </p>
-                            <span class="vertical-date">Yesterday <br/><small>Dec 23</small></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
+    <div class="col-lg-4">
     </div>
 </div>
+@include('app/projek/_modal/edit-utiliti')
 @endsection
 @section('custom-js')
+<script>
+$(document).ready(function(){
+    $('.editbtn').on('click', function(){
+        $('#myModal').modal('show');
+    });
+
+    // SHOW RECORD TO EDIT
+    $('.editbtn').on('click', function(e){
+        e.preventDefault();
+        var uti_id = $(this).val();
+        // alert(neg_negeri_id);
+        $('#editBandarModal').modal('show');
+        $.ajax({
+            type: "GET",
+            url: "/projek/papar/utiliti/" + uti_id,
+            success: function (response) {
+                if (response.status == 404){
+                    $('#myModal').modal('hide');
+                    swal({
+                        title: "Maklumat Aktiviti",
+                        text: response.message,
+                        type: "danger"
+                    });
+                } else {
+                    $('#projek_uti_id').val(uti_id);
+                    $('#no_rujukan').val(response.utiliti.projuti_ref_no);
+                    $('#perihal').val(response.utiliti.projuti_perihal);
+                    $('#tarikh').val(response.utiliti.projuti_date);
+                    $('#catatan').val(response.utiliti.projuti_catatan);
+                }
+            }
+        });
+        $('.btn-close').find('input').val('');
+    });
+
+    // SHOW RECORD TO DELETE
+    $('.deletebtn').on('click', function () {
+        var projek_uti_id = $(this).val();
+        swal({
+            title: "Adakah anda pasti?",
+            text: "Sila pastikan rekod yang hendak dipadam",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Ya, Padam",
+            cancelButtonText: "Tidak, Batalkan",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "DELETE",
+                    url: "/projek/utiliti/padam/" + projek_uti_id,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.status == 404) {
+                            swal("Dibatalkan", response.message, "error");
+                        } else {
+                            // fetchBandar();
+                            swal("Dipadam!", response.message, "success");
+                        }
+                    }
+                });
+            } else {
+                swal("Dibatalkan", "Rekod bandar tidak dipadam", "error");
+            }
+        });
+    });
+});
+</script>
 @endsection

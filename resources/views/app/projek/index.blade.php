@@ -3,8 +3,6 @@
     Kemaskini Projek
 @endsection
 @section('custom-css')
-    <!-- Sweet Alert -->
-    <link href="{{ asset("/template/css/plugins/sweetalert/sweetalert.css") }}" rel="stylesheet">
     <link href="{{ asset("/template/css/plugins/footable/footable.core.css") }}" rel="stylesheet">
 @endsection
 
@@ -38,7 +36,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label>Negeri</label>
-                                {{ Form::select('negeri', dropdownNegeri(), session('negeri'), ['class'=>'form-control', 'id'=>'negeri']) }}
+                                {{ Form::select('negeri', dropdownNegeri2(), session('negeri'), ['class'=>'form-control', 'id'=>'negeri']) }}
                             </div>
                         </div>
                         <div class="col-sm-4">

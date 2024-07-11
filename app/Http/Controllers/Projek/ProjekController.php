@@ -89,9 +89,9 @@ class ProjekController extends Controller
 
     public function view($id){
         $projek = Projek::find($id);
-        $details = ProjekDetails::where('projd_projek_id', $id);
-        $utilities = ProjekUtilities::where('projuti_projek_id', $id);
-        $waran = Waran::where('waran_projek_id', $id);
+        $details = ProjekDetails::where('projd_projek_id', $id)->get();
+        $utilities = ProjekUtilities::where('projuti_projek_id', $id)->get();
+        $waran = Waran::where('waran_projek_id', $id)->get();
 
         $data['projek'] = $projek;
         $data['details'] = $details;

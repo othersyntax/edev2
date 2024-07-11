@@ -54,8 +54,10 @@ Route::post('/projek/simpan', [App\Http\Controllers\Projek\ProjekController::cla
 Route::get('/projek/ubah/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'edit'])->name('projek.ubah');
 Route::get('/projek/papar/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'view'])->name('projek.papar');
 // Route::get('/siling/senarai/{silingID}/delete', [App\Http\Controllers\SilingController::class, 'destroy']);
+// Projek Utiliti
+Route::get('/projek/papar/utiliti/{id}', [App\Http\Controllers\Projek\UtilitiController::class, 'edit']);
 
-
+Route::get('/hantar/emel', [App\Http\Controllers\Mail\MailTestController::class, 'hantarEmel']);
 
 require __DIR__.'/auth.php';
 require __DIR__.'/pentadbiran.php';

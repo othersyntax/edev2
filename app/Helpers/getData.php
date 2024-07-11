@@ -11,6 +11,13 @@ function dropdownNegeri(){
         ->prepend('--Sila Pilih--', '');
     return $negeri;
 }
+function dropdownNegeri2(){
+    $negeri = Negeri::where('neg_status', '1')
+        ->orderBy('neg_nama_negeri')
+        ->pluck('neg_nama_negeri', 'neg_nama_negeri')
+        ->prepend('--Sila Pilih--', '');
+    return $negeri;
+}
 
 function dropdownDaerah(){
     $daerah = Daerah::where('dae_status', '1')
