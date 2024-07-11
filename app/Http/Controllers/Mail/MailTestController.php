@@ -10,9 +10,16 @@ use App\Mail\LatihanEmel;
 class MailTestController extends Controller
 {
     public function hantarEmel(){
-        Mail::to('usup.keram@moh.gov.my')->send(new LatihanEmel([
+        $data = [
             'title' => 'Emel eDE',
             'body' => 'Ini adalah kandung emel yang dihantar',
-        ]));
+        ];
+
+        $mail = Mail::to('usup.keram@moh.gov.my')->send(new LatihanEmel());
+
+        if($mail)
+            return "Hantar";
+        else
+            return "gagal";
     }
 }

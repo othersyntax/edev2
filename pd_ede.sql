@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2024-07-10 11:34:05
+Date: 2024-07-11 14:32:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -5219,7 +5219,8 @@ CREATE TABLE `tblsiling` (
   `siling_id` int(6) NOT NULL AUTO_INCREMENT,
   `sil_fasiliti_id` int(8) NOT NULL,
   `sil_tahun` int(4) NOT NULL DEFAULT 2024,
-  `sil_amout` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `sil_amount` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `sil_balance` decimal(15,2) DEFAULT NULL,
   `sil_sdate` datetime DEFAULT NULL,
   `sil_edate` datetime DEFAULT NULL,
   `sil_status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1-Aktif; 2-Tidak Aktif',

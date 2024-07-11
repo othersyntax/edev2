@@ -121,8 +121,8 @@
                                 <td>{{ $uti->projuti_date }}</td>
                                 <td>{{ $uti->projuti_catatan }}</td>
                                 <td>
-                                    <button type="button" value=".{{ $uti->projek_uti_id }}." class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>
-                                    <button type="button" value=".{{ $uti->projek_uti_id }}." class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button>
+                                    <button type="button" value="{{ $uti->projek_uti_id }}" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>
+                                    <button type="button" value="{{ $uti->projek_uti_id }}" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button>
                                 </td>
                             </tr>
                         @endforeach
@@ -212,7 +212,7 @@ $(document).ready(function(){
         e.preventDefault();
         var uti_id = $(this).val();
         // alert(neg_negeri_id);
-        $('#editBandarModal').modal('show');
+        $('#myModal').modal('show');
         $.ajax({
             type: "GET",
             url: "/projek/papar/utiliti/" + uti_id,
@@ -230,6 +230,7 @@ $(document).ready(function(){
                     $('#perihal').val(response.utiliti.projuti_perihal);
                     $('#tarikh').val(response.utiliti.projuti_date);
                     $('#catatan').val(response.utiliti.projuti_catatan);
+
                 }
             }
         });

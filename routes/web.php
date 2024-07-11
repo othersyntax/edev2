@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::group(['middleware' => ['role:super-admin|admin']], function() {
+Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
 
     Route::resource('/akses/permissions', App\Http\Controllers\PermissionController::class);
     Route::get('/akses/permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
