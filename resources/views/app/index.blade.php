@@ -2,30 +2,23 @@
 @section('title')
     Dashboard
 @endsection
+@section('custom-css')
+    <!-- Sweet Alert -->
+    <link href="{{ asset("/template/css/plugins/sweetalert/sweetalert.css") }}" rel="stylesheet">
+
+    <link href="{{ asset("/template/css/plugins/iCheck/custom.css") }}" rel="stylesheet">
+@endsection
 @section('content')
 {{-- TOP BOX AMOUNT --}}
 <div class="row">
+
     <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title">
-                <span class="label label-success float-right">Monthly</span>
-                <h5>Income</h5>
+                <h5>Belanja</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins">40 886,200</h1>
-                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                <small>Total income</small>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="ibox ">
-            <div class="ibox-title">
-                <span class="label label-info float-right">Annual</span>
-                <h5>Orders</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins">275,800</h1>
+                <h1 class="no-margins">@duit(275800)</h1>
                 <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
                 <small>New orders</small>
             </div>
@@ -34,11 +27,10 @@
     <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title">
-                <span class="label label-primary float-right">Today</span>
-                <h5>visits</h5>
+                <h5>Tanggungan</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins">106,120</h1>
+                <h1 class="no-margins">@duit(106120)</h1>
                 <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
                 <small>New visits</small>
             </div>
@@ -47,11 +39,23 @@
     <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title">
-                <span class="label label-danger float-right">Low value</span>
-                <h5>User activity</h5>
+                <h5>Peruntukan</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins">80,600</h1>
+                <h1 class="no-margins">@duit(86200)</h1>
+                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                <small>Total income</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <span class="label label-success float-right">{{ date('Y') }}</span>
+                <h5>JUMLAH</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@duit(40886200)</h1>
                 <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div>
                 <small>In first month</small>
             </div>
@@ -157,105 +161,143 @@
                         <tr>
 
                             <th>#</th>
-                            <th>Project </th>
-                            <th>Name </th>
-                            <th>Phone </th>
-                            <th>Company </th>
-                            <th>Completed </th>
-                            <th>Task</th>
-                            <th>Date</th>
-                            <th>Action</th>
+                            <th>Negeri / Pusat Tanggungjawab </th>
+                            <th>BP00600</th>
+                            <th>BP01100</th>
+                            <th>Jumlah </th>
+                            <th>Prestasi</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>1</td>
-                            <td>Project <small>This is example of project</small></td>
-                            <td>Patrick Smith</td>
-                            <td>0800 051213</td>
-                            <td>Inceptos Hymenaeos Ltd</td>
-                            <td><span class="pie">0.52/1.561</span></td>
-                            <td>20%</td>
-                            <td>Jul 14, 2013</td>
-                            <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                            <td>Johor</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td>Alpha project</td>
-                            <td>Alice Jackson</td>
-                            <td>0500 780909</td>
-                            <td>Nec Euismod In Company</td>
-                            <td><span class="pie">6,9</span></td>
-                            <td>40%</td>
-                            <td>Jul 16, 2013</td>
-                            <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                            <td>Kedah</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td>Betha project</td>
-                            <td>John Smith</td>
-                            <td>0800 1111</td>
-                            <td>Erat Volutpat</td>
-                            <td><span class="pie">3,1</span></td>
-                            <td>75%</td>
-                            <td>Jul 18, 2013</td>
-                            <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                            <td>Kelantan</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>4</td>
-                            <td>Gamma project</td>
-                            <td>Anna Jordan</td>
-                            <td>(016977) 0648</td>
-                            <td>Tellus Ltd</td>
-                            <td><span class="pie">4,9</span></td>
-                            <td>18%</td>
-                            <td>Jul 22, 2013</td>
-                            <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                            <td>Melaka</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
-                            <td>2</td>
-                            <td>Alpha project</td>
-                            <td>Alice Jackson</td>
-                            <td>0500 780909</td>
-                            <td>Nec Euismod In Company</td>
-                            <td><span class="pie">6,9</span></td>
-                            <td>40%</td>
-                            <td>Jul 16, 2013</td>
-                            <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                            <td>5</td>
+                            <td>Negeri Sembilan</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
-                            <td>1</td>
-                            <td>Project <small>This is example of project</small></td>
-                            <td>Patrick Smith</td>
-                            <td>0800 051213</td>
-                            <td>Inceptos Hymenaeos Ltd</td>
-                            <td><span class="pie">0.52/1.561</span></td>
-                            <td>20%</td>
-                            <td>Jul 14, 2013</td>
-                            <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                            <td>6</td>
+                            <td>Pahang</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
-                            <td>4</td>
-                            <td>Gamma project</td>
-                            <td>Anna Jordan</td>
-                            <td>(016977) 0648</td>
-                            <td>Tellus Ltd</td>
-                            <td><span class="pie">4,9</span></td>
-                            <td>18%</td>
-                            <td>Jul 22, 2013</td>
-                            <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+                            <td>7</td>
+                            <td>Perlis</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
-                            <td>1</td>
-                            <td>Project <small>This is example of project</small></td>
-                            <td>Patrick Smith</td>
-                            <td>0800 051213</td>
-                            <td>Inceptos Hymenaeos Ltd</td>
-                            <td><span class="pie">0.52/1.561</span></td>
-                            <td>20%</td>
-                            <td>Jul 14, 2013</td>
-                            <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                        </tr>                        
+                            <td>8</td>
+                            <td>Perak</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Pulau Pianng</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Selangor</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>Terengganu</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Sabah</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>Sarawak</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>W.P. Kuala Lumpur</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>W.P. Labuan</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td>W.P. Putrajaya</td>
+                            <td>@duit(1250000)</td>
+                            <td>@duit(900000)</td>
+                            <td>@duit(2150000)</td>
+                            <td><span class="pie">0.52,1.041</span></td>
+                        </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -279,6 +321,9 @@
 <!-- jQuery UI -->
 <script src="{{ asset("/template/js/plugins/jquery-ui/jquery-ui.min.js") }}"></script>
 
+<script src="{{ asset("/template/js/inspinia.js") }}"></script>
+<script src="{{ asset("/template/js/plugins/pace/pace.min.js") }}"></script>
+
 <!-- Jvectormap -->
 <script src="{{ asset("/template/js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js") }}"></script>
 <script src="{{ asset("/template/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js") }}"></script>
@@ -291,6 +336,11 @@
 
 <script>
     $(document).ready(function() {
+        // $('.i-checks').iCheck({
+        //     checkboxClass: 'icheckbox_square-green',
+        //     radioClass: 'iradio_square-green',
+        // });
+
         $('.chart').easyPieChart({
             barColor: '#f8ac59',
 //                scaleColor: false,

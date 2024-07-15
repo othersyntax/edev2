@@ -25,9 +25,11 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'modul_id'=> 'required',
             'name_capaian'=> 'required'
         ],
         [
+            'modul_id.required'=> 'Sila pilih modul',
             'name_capaian.required'=> 'Sila masukkan nama Had Capaian'
         ]);
         // dd($validator->fails());
@@ -41,6 +43,7 @@ class PermissionController extends Controller
         else
         {
             Permission::create([
+                'modul_id' => $request->modul_id,
                 'name' => $request->name_capaian
             ]);
             return response()->json([
@@ -55,16 +58,18 @@ class PermissionController extends Controller
         return response()->json([
             'status'=>200,
             'permission'=> $permission,
-        ]);  
+        ]);
     }
 
     public function update(Request $request, Permission $permission)
     {
         $validator = Validator::make($request->all(), [
+            'modul_id'=> 'required',
             'name'=> 'required'
         ],
         [
-            'name.required'=> 'Sila masukkan nama Had Capaian'
+            'modul_id.required'=> 'Sila pilih modul',
+            'name_capaian.required'=> 'Sila masukkan nama Had Capaian'
         ]);
 
         if($validator->fails())
@@ -77,9 +82,10 @@ class PermissionController extends Controller
         else
         {
             $permission->update([
+                'modul_id' => $request->modul_id,
                 'name' => $request->name
             ]);
-    
+
             return response()->json([
                 'status'=>200,
                 'message'=>'Berjaya dikemakini'

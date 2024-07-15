@@ -15,7 +15,7 @@
             </li>
         </ol>
     </div>
-</div>    
+</div>
 @endsection
 
 @section('content')
@@ -41,6 +41,10 @@
                         <form action="{{ url('/akses/permissions/'.$permission->id) }}" method="POST">
                             @csrf
                             @method('PUT')
+                            <div class="form-group">
+                                <label>Modul</label>
+                                {{ Form::select('modul', dropdownModul(), $permission->modul_id, ['class'=>'form-control']) }}
+                            </div>
                             <div class="form-group">
                                 <label>Nama Had Capaian</label>
                                 {{ Form::text('name', $permission->name, ['class'=>'form-control']) }}

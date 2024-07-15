@@ -1,4 +1,4 @@
-<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
@@ -8,29 +8,29 @@
                 <small class="font-bold">Aktviti dan surat-menyurat berkaitan dengan projek ini</small>
             </div>
             <div class="modal-body">
-                <input type="hidden" name="projek_uti_id" id="projek_uti_id">
+                <input type="hidden" id="projek_uti_id_add">
                 <div class="form-group">
                     <label>No Rujukan</label>
-                    <input type="email" class="form-control" id="no_rujukan">
+                    <input type="tetx" class="form-control" id="no_rujukan_add">
                 </div>
                 <div class="form-group">
                     <label>Perihal</label>
-                    <input type="email" class="form-control" id="perihal">
+                    <input type="text" class="form-control" id="perihal_add">
                 </div>
-                <div class="form-group" id="data_1">
+                <div class="form-group" id="data_2">
                     <label>Tarikh</label>
                     <div class="input-group date">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="tarikh" class="form-control">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="tarikh_add" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Catatan</label>
-                    <textarea class="form-control" id="catatan"></textarea>
+                    <textarea class="form-control" id="catatan_add"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary updateUtiliti">Simpan</button>
+                <button type="button" class="btn btn-primary updateUtiliti">Tambah</button>
             </div>
         </div>
     </div>

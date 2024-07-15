@@ -15,7 +15,7 @@
             </li>
         </ol>
     </div>
-</div>    
+</div>
 @endsection
 
 @section('content')
@@ -27,7 +27,7 @@
                 <a href="/akses/roles/create" class="btn btn-primary float-end">Tambah</a>
             @endcan
         </div>
-           
+
         </h4>
     </div>
     <div class="ibox-content">
@@ -35,7 +35,7 @@
             <div class="col-lg-12">
             @if (session('status'))
                 <div class="alert alert-success">{{ session('status') }}</div>
-            @endif  
+            @endif
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -51,7 +51,7 @@
                         <td>{{ $role->name }}</td>
                         <td>
                             <a href="{{ url('/akses/roles/'.$role->id.'/give-permissions') }}" class="btn btn-xs btn-warning">
-                                Tamah / Kemaskini Role Permission
+                                Tambah / Kemaskini Role Permission
                             </a>
 
                             @can('update role')

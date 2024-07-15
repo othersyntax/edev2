@@ -15,7 +15,7 @@
             </li>
         </ol>
     </div>
-</div>    
+</div>
 @endsection
 
 @section('content')
@@ -32,11 +32,11 @@
                         <a href="#" class="btn btn-primary float-end" id="add">Tambah Peranan</a>
                     @endcan
                 </div>
-                   
+
                 </h4>
             </div>
             <div class="ibox-content">
-                <div class="row">          
+                <div class="row">
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -50,8 +50,9 @@
                             <tr>
                                 <td class="text-center">{{ $permission->id }}</td>
                                 <td>{{ $permission->name }}</td>
+                                <td>{{ $permission->modul->name }}</td>
                                 <td>
-                                    @can('update permission')                                    
+                                    @can('update permission')
                                         <button type="button" value="{{ $permission->id }}" class="btn btn-xs btn-success editbtn">Edit</button>
                                     @endcan
                                     @can('delete permission')
@@ -75,18 +76,22 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">Tambah Maklumat Had Capaian</h4>
             </div>
-            <div class="modal-body">                    
+            <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-12">
                         <ul id="save_msgList"></ul>
-                    </div>                    
+                    </div>
                     <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Modul</label>
+                            {{ Form::select('modul', dropdownModul(), null, ['class'=>'form-control', 'id'=>'modul']) }}
+                        </div>
                         <div class="form-group">
                             <label>Tambah Had Capaian</label>
                             {{ Form::text('name_capaian', null, ['class'=>'form-control', 'id'=>'name_capaian']) }}
                         </div>
-                    </div>                    
-                </div>                    
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
@@ -104,19 +109,23 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title">Kemaskini Maklumat Had Capaian</h4>
             </div>
-            <div class="modal-body">                    
+            <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-12">
                         <ul id="save_msgList"></ul>
-                    </div>                    
+                    </div>
                     <div class="col-lg-12">
                         <input type="hidden" id="permission_id_edit" value="">
+                        <div class="form-group">
+                            <label>Modul</label>
+                            {{ Form::select('modul_edit', dropdownModul(), null, ['class'=>'form-control', 'id'=>'modul_edit']) }}
+                        </div>
                         <div class="form-group">
                             <label>Tambah Had Capaian</label>
                             {{ Form::text('name_capaian_edit', null, ['class'=>'form-control', 'id'=>'name_capaian_edit']) }}
                         </div>
-                    </div>                    
-                </div>                    
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
@@ -130,13 +139,13 @@
 <script>
     $(function(){
 
-        $('#add').click(function(e){ 
+        $('#add').click(function(e){
             e.preventDefault();
-            $('#addPermissionModal').modal('show');  
+            $('#addPermissionModal').modal('show');
         });
 
         //SHOW PERMISSION TO EDIT
-        $('.editbtn').click(function(){ 
+        $('.editbtn').click(function(){
             let edit_id = $(this).val();
             $.ajaxSetup({
                 headers: {
@@ -148,19 +157,21 @@
                 type: "get",
                 url: "/akses/permissions/"+edit_id+"/edit",
                 success: function (response) {
-                    $('#permission_id_edit').val(edit_id);                      
+                    $('#permission_id_edit').val(edit_id);
+                    $('#modul_edit').val(response.permission.modul_id);
                     $('#name_capaian_edit').val(response.permission.name);
-                    $('#editPermissionModal').modal('show');                     
+                    $('#editPermissionModal').modal('show');
                 }
-            });     
+            });
         });
 
         // ADD RECORD
         $('.add_permission').click(function (e) {
             e.preventDefault();
             var data = {
-                'name_capaian': $('#name_capaian').val(),
-            }            
+                'modul': $('#modul').val(),
+                'name': $('#name_capaian').val(),
+            }
 
             $.ajaxSetup({
                 headers: {
@@ -192,7 +203,7 @@
                             function (isConfirm) {
                                 if (isConfirm) {
                                     $('#addPermissionModal').modal('hide');
-                                    location.reload();       
+                                    location.reload();
                                 }
                             }
                         );
@@ -206,6 +217,7 @@
             e.preventDefault();
             let edit_id = $('#permission_id_edit').val();
             var edit_data = {
+                'modul_id': $('#modul_edit').val(),
                 'name': $('#name_capaian_edit').val()
             }
 
@@ -235,7 +247,7 @@
                             text: response.message,
                             type: "success"
                         });
-                        location.reload(); 
+                        location.reload();
                     }
                 }
             });
@@ -254,7 +266,7 @@
                     confirmButtonText: "Ya, Padam",
                     cancelButtonText: "Tidak, Batalkan",
                     closeOnConfirm: false,
-                    closeOnCancel: false 
+                    closeOnCancel: false
                 },
                 function (isConfirm) {
                     if (isConfirm) {
@@ -270,14 +282,14 @@
                                     location.reload();
                                 }
                             }
-                        });                        
+                        });
                     } else {
                         swal("Dibatalkan", "Rekod Had Capaian tidak dipadam", "error");
                     }
                 });
         });
-        
+
     })
 </script>
-    
+
 @endsection
