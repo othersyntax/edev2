@@ -26,7 +26,6 @@
                 <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Projek</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/projek/senarai">Senarai</a></li>
-
                 </ul>
             </li>
             <li class="{{ (request()->segment(1) == 'permohonan') ? 'active' : '' }}">
@@ -37,6 +36,7 @@
                     <li class="{{ (request()->segment(2) == 'tajuk') ? 'active' : '' }}"><a href="/permohonan/tajuk/senarai">Tukar Tajuk</a></li>
                 </ul>
             </li>
+
             <li class="{{ (request()->segment(1) == 'siling') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-calculator"></i> <span class="nav-label">Siling</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
