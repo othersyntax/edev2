@@ -143,8 +143,8 @@
                                 <th width="10%">#</th>
                             </tr>
                         </thead>
-                        {{-- <tbody>
-                        </tbody> --}}
+                        <tbody id="tbody-bayaran">
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -193,12 +193,6 @@
                 </div>
             </div>
             <div class="ibox-content">
-                <div class="form-group">
-                    <label class="text-uppercase">Kelulusan JKR</label>
-                    <div class="form-control">
-                        21/04/2024
-                    </div>
-                </div>
                 <div class="form-group">
                     <label class="text-uppercase">Tarikh Waran Peruntukan</label>
                     <div class="form-control">21/04/2024</div>
@@ -293,19 +287,18 @@ $(document).ready(function(){
         $('#addModal').modal('show');
     });
 
-
     $('#data_1 .input-group.date').datepicker({
         format: "dd/mm/yyyy",
         keyboardNavigation: false,
         forceParse: false,
-        calendarWeeks: true,
+        // calendarWeeks: true,
         autoclose: true
     });
     $('#data_2 .input-group.date').datepicker({
         format: "dd/mm/yyyy",
         keyboardNavigation: false,
         forceParse: false,
-        calendarWeeks: true,
+        // calendarWeeks: true,
         autoclose: true
     });
 
@@ -323,12 +316,12 @@ $(document).ready(function(){
             url: "/projek/papar/utiliti/senarai/"+ page_projek_id,
             dataType: "json",
             success: function (response) {
-                // console.log(response);
                 $('#tbody-aktiviti').html("");
+                let bil = 1;
                 $.each(response.utiliti, function (key, item) {
                     let tarikh = new Date(item.projuti_date);
                     $('#tbody-aktiviti').append('<tr>\
-                        <td class="text-center">' + item.projek_uti_id + '</td>\
+                        <td class="text-center">' + bil + '</td>\
                         <td>' + item.projuti_ref_no + '</td>\
                         <td>' + item.projuti_perihal + '</td>\
                         <td>' + tarikh.toLocaleDateString() + '</td>\
@@ -336,6 +329,7 @@ $(document).ready(function(){
                         <td><button type="button" value="' + item.projek_uti_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
                         <button type="button" value="' + item.projek_uti_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
                     \</tr>');
+                    bil++;
                 });
             }
         });
@@ -343,10 +337,8 @@ $(document).ready(function(){
 
     // SHOW RECORD TO EDIT
     $(document).on('click', '.editbtn', function (e) {
-    // $('.editbtn').on('click', function(e){
         e.preventDefault();
         var uti_id = $(this).val();
-        // alert(neg_negeri_id);
         $('#myModal').modal('show');
         $.ajax({
             type: "GET",
@@ -361,7 +353,6 @@ $(document).ready(function(){
                     });
                 } else {
                     let tarikh1 = new Date(response.utiliti.projuti_date);
-                    // tarikh = moment().format('DD/MM/YYYY');
                     $('#projek_uti_id').val(uti_id);
                     $('#no_rujukan').val(response.utiliti.projuti_ref_no);
                     $('#perihal').val(response.utiliti.projuti_perihal);

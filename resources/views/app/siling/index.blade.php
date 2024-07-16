@@ -5,6 +5,9 @@
 @section('custom-css')
     <!-- Sweet Alert -->
     <link href="{{ asset("/template/css/plugins/sweetalert/sweetalert.css") }}" rel="stylesheet">
+    <link href="{{ asset("/template/css/plugins/datapicker/datepicker3.css") }}" rel="stylesheet">
+    <!-- Text spinners style -->
+    <link href="{{ asset("/template/css/plugins/textSpinners/spinners.css") }}" rel="stylesheet">
 @endsection
 
 @section('breadcrumb')
@@ -32,36 +35,24 @@
             </div>
             <div class="ibox-content">
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Negeri</label>
-                            {{ Form::select('neg_negeri_id', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'neg_negeri_id']) }}
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Daerah</label>
-                            <span id="list-daerah">
-                                {{ Form::select('dae_daerah_id', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'dae_daerah_id']) }}
-                            </span>
+                            <label>Program / Institusi / JKN</label>
+                            {{ Form::select('sil_program_id_cari', dropdownProgram(), session('sil_program_id_cari'), ['class'=>'form-control', 'id'=>'sil_program_id_cari']) }}
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Kod Bandar</label>
-                            {{ Form::text('ban_kod_bandar_sch', '', ['class'=>'form-control', 'id'=>'ban_kod_bandar_sch']) }}
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="form-group">
-                            <label>Bandar</label>
-                            {{ Form::text('ban_nama_bandar_sch', '', ['class'=>'form-control', 'id'=>'ban_nama_bandar_sch']) }}
+                            <label>Daerah</label>
+                            <span id="list-daerah">
+                                {{ Form::select('sil_status_cari', ['1'=>'Buka', '2'=>'Tutup'], session('sil_status_cari'), ['class'=>'form-control', 'id'=>'sil_status_cari']) }}
+                            </span>
                         </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-lg-12">
-                        <a href="/pentadbiran/bandar" class="btn btn-default">Set Semula</a>
+                        <a href="/siling/senarai" class="btn btn-default">Set Semula</a>
                         <input type="button" class="btn btn-primary float-right" id="carian" value="Carian">
                     </div>
                 </div>
@@ -75,7 +66,10 @@
             <div class="ibox-title">
                 <h5>Senarai Daerah</h5>
                 <div class="ibox-tools">
-                    <button type="button" class="btn btn-primary float-right" id="add">
+                    <button type="button" class="btn btn-sm btn-warning" id="emelPemakluman">
+                        <span id="emelButton"></span> Emel Pemakluman
+                    </button>
+                    <button type="button" class="btn btn-sm btn-primary" id="addSiling">
                         Tambah
                     </button>
                 </div>
@@ -85,13 +79,14 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th class="text-center">#ID</th>
-                                <th class="text-center">Kod Bandar</th>
-                                <th>Bandar</th>
-                                <th>Daerah</th>
-                                <th>Negeri</th>
-                                <th>Status</th>
-                                <th>Tindakan</th>
+                                <th width="5%" class="text-center">#ID</th>
+                                <th width="30%">Program</th>
+                                <th width="10%">Mula</th>
+                                <th width="10%">Tamat</th>
+                                <th width="10%" class="text-right">Amaun</th>
+                                <th width="10%" class="text-right">Baki</th>
+                                <th width="10%">Status</th>
+                                <th width="15%">#</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -104,213 +99,128 @@
     </div>
 
 </div>
-
-{{-- ADD MODAL --}}
-<div class="modal inmodal fade" id="addBandarModal" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Tambah Maklumat Bandar / Mukim</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <ul id="save_msgList"></ul>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Negeri</label>
-                            {{ Form::select('neg_negeri_id_add', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'neg_negeri_id_add']) }}
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Daerah</label>
-                            <span id="list-daerah-add">
-                                {{ Form::select('dae_daerah_id_add', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'dae_daerah_id_add']) }}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Kod Bandar / Mukim</label>
-                            {{ Form::text('ban_kod_bandar_add', null, ['class'=>'form-control', 'id'=>'ban_kod_bandar_add']) }}
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Bandar / Mukim</label>
-                            {{ Form::text('ban_nama_bandar_add', null, ['class'=>'form-control', 'id'=>'ban_nama_bandar_add']) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary add_bandar">Simpan</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- EDIT MODAL --}}
-<div class="modal inmodal fade" id="editBandarModal" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Kemaskini Maklumat Bandar/Mukim</h4>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="ban_bandar_id_edit">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <ul id="save_msgList"></ul>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Negeri</label>
-                            {{ Form::select('neg_negeri_id_edit', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'neg_negeri_id_edit']) }}
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Daerah</label>
-                            <span id="list-daerah-edit">
-                                {{ Form::select('dae_daerah_id_edit', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'dae_daerah_id_edit']) }}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Kod Bandar / Mukim</label>
-                            {{ Form::text('ban_kod_bandar_edit', null, ['class'=>'form-control', 'id'=>'ban_kod_bandar_edit']) }}
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Bandar / Mukim</label>
-                            {{ Form::text('ban_nama_bandar_edit', null, ['class'=>'form-control', 'id'=>'ban_nama_bandar_edit']) }}
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Status</label>
-                            {{ Form::select('ban_status_edit', ['1'=>'Aktif', '2'=>'Tidak Aktif'], null, ['class'=>'form-control', 'id'=>'ban_status_edit']) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary update_bandar">Kemaskini</button>
-            </div>
-        </div>
-    </div>
-</div>
-
+@include('app/siling/_modal/add')
+@include('app/siling/_modal/edit')
 
 @endsection
-@section('custom-js')
+@section('custom-js')\
+<!-- Date range picker -->
+<script src="{{ asset("/template/js/plugins/datapicker/bootstrap-datepicker.js") }}"></script>
 <script>
     $(document).ready(function(){
         // LOAD DATA WHEN OPEN THIS PAGE
-        fetchBandar();
+        fetchSiling();
 
-        //ON CHANGE NEGERI DROPDOWN EVENT
-        $('#neg_negeri_id').change(function() {
-            var cari_kod_negeri = $(this).val();
-            getDaerah(cari_kod_negeri, 'dae_daerah_id', '#list-daerah');
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            format: "dd/mm/yyyy",
+            keyboardNavigation: false,
+            forceParse: false,
+            // calendarWeeks: true,
+            autoclose: true
         });
-
-        $('#neg_negeri_id_add').change(function() {
-            var add_kod_negeri = $(this).val();
-            getDaerah(add_kod_negeri, 'dae_daerah_id_add', '#list-daerah-add');
-        });
-
-        $('#neg_negeri_id_edit').change(function() {
-            var edit_kod_negeri = $(this).val();
-            getDaerah(edit_kod_negeri, 'dae_daerah_id_edit', '#list-daerah-edit');
+        $('#data_2 .input-group.date').datepicker({
+            todayBtn: "linked",
+            format: "dd/mm/yyyy",
+            keyboardNavigation: false,
+            forceParse: false,
+            // calendarWeeks: true,
+            autoclose: true
         });
 
         //ADD BUTTON CLICK
-        $('#add').click(function(e){
+        $('#addSiling').click(function(e){
             e.preventDefault();
-            $('#addBandarModal').modal('show');
+            $('#ModulAddSiling').modal('show');
         });
 
-        // SEARCH BUTTON CLICK
+        // // SEARCH BUTTON CLICK
         $('#carian').click(function(e){
             e.preventDefault();
-            neg_negeri_id = $('#neg_negeri_id').val();
-            dae_daerah_id = $('#dae_daerah_id').val();
-            ban_kod_bandar = $('#ban_kod_bandar_sch').val();
-            ban_nama_bandar = $('#ban_nama_bandar_sch').val();
-            fetchBandar(neg_negeri_id, dae_daerah_id, ban_kod_bandar, ban_nama_bandar);
+            sil_program_id_cari = $('#sil_program_id_cari').val();
+            sil_status_cari = $('#sil_status_cari').val();
+            fetchSiling(sil_program_id_cari, sil_status_cari);
         });
 
 
         // LIST RECORD
-        function fetchBandar(neg_negeri_id='', dae_daerah_id='', ban_kod_bandar='', ban_nama_bandar=''){
+        function fetchSiling(sil_program_id_cari='', sil_status_cari=''){
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             $.ajax({
                 type: "post",
-                url: "/pentadbiran/bandar/ajax-all",
+                url: "/siling/showList",
                 data:{
-                        neg_negeri_id:neg_negeri_id,
-                        dae_daerah_id:dae_daerah_id,
-                        ban_kod_bandar:dae_daerah_id,
-                        ban_nama_bandar:ban_nama_bandar
-                    },
+                    sil_program_id:sil_program_id_cari,
+                    sil_status:sil_status_cari
+                },
                 dataType: "json",
                 success: function (response) {
-                    // console.log(response);
+                    // var sil-status="";
+
                     $('tbody').html("");
-                    $.each(response.bandar, function (key, item) {
+                    $.each(response.siling, function (key, item) {
+                        let amount = financial(item.sil_amount);
+                        let baki = financial(item.sil_balance);
+                        let Starikh = new Date(item.sil_sdate);
+                        let Etarikh = new Date(item.sil_edate);
+                        let status = "";
+                        let emel = "";
+                        if(item.sil_status == 1){
+                            status = '<span class="badge badge-primary">Buka</span>';
+                        }
+                        else {
+                            status = '<span class="badge badge-warning">Tutup</span>';
+                        }
+                        if(item.sil_emel==1){
+                            emel = '<button type="button" value="' + item.siling_id + '" class="btn btn-default btn-xs emel" title="Emel"><i class="fa fa-envelope text-warning"></i></button>';
+                        }
+                        else{
+                            emel = '<button type="button" class="btn btn-default btn-xs emel" title="Telah Emel"><i class="fa fa-envelope text-primary"></i></button>'
+                        }
+
                         $('tbody').append('<tr>\
-                            <td class="text-center">' + item.ban_bandar_id + '</td>\
-                            <td class="text-center">' + item.ban_kod_bandar + '</td>\
-                            <td>' + item.ban_nama_bandar + '</td>\
-                            <td>' + item.dae_nama_daerah + '</td>\
-                            <td>' + item.neg_nama_negeri + '</td>\
-                            <td>' + item.ban_status + '</td>\
-                            <td><button type="button" value="' + item.ban_bandar_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
-                            <button type="button" value="' + item.ban_bandar_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
+                            <td class="text-center">' + item.siling_id + '</td>\
+                            <td>' + item.prog_name + '</td>\
+                            <td>' + Starikh.toLocaleDateString() + '</td>\
+                            <td>' + Etarikh.toLocaleDateString() + '</td>\
+                            <td class="text-right">' + amount + '</td>\
+                            <td class="text-right">' + baki + '</td>\
+                            <td>' + status + '</td>\
+                            <td><button type="button" value="' + item.siling_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>'+ emel +'\
+                            <button type="button" value="' + item.siling_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
                         \</tr>');
                     });
                 }
             });
         }
 
+        function financial(x) {
+            return Number.parseFloat(x).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+
         // ADD RECORD
-        $(document).on('click', '.add_bandar', function (e) {
+        $(document).on('click', '.simpanSiling', function (e) {
             e.preventDefault();
-
             $(this).text('Menyimpan');
-
             var data = {
-                'ban_kod_bandar': $('#ban_kod_bandar_add').val(),
-                'ban_nama_bandar': $('#ban_nama_bandar_add').val(),
-                'ban_kod_daerah': $('#dae_daerah_id_add').val(),
+                'sil_program_id': $('#sil_program_id_add').val(),
+                'sil_tahun': $('#sil_tahun_add').val(),
+                'sil_sdate': $('#sil_sdate_add').val(),
+                'sil_edate': $('#sil_edate_add').val(),
+                'sil_amount': $('#sil_amount_add').val(),
             }
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             $.ajax({
                 type: "POST",
-                url: "/pentadbiran/bandar/simpan",
+                url: "/siling/senarai",
                 data: data,
                 dataType: "json",
                 success: function (response) {
@@ -320,67 +230,68 @@
                         $.each(response.errors, function (key, err_value) {
                             $('#save_msgList').append('<li>' + err_value + '</li>');
                         });
-                        $('.add_bandar').text('Simpan');
+                        $('.simpanSiling').text('Simpan');
                     } else {
-
                         $('#save_msgList').html("");
-                        $('#addBandarModal').find('input').val('');
-                        $('#addBandarModal').find('select').val('');
+                        $('#ModulAddSiling').find('input').val('');
+                        $('#ModulAddSiling').find('select').val('');
                         $('#save_msgList').html("");
-                        $('.add_bandar').text('Simpan');
-                        $('#addBandarModal').modal('hide');
-                        fetchBandar();
+                        $('.simpanSiling').text('Simpan');
+                        $('#ModulAddSiling').modal('hide');
+                        fetchSiling();
                         swal({
-                            title: "Bandar/Mukim",
+                            title: "Penetapan Siling",
                             text: response.message,
                             type: "success"
                         });
                     }
                 }
             });
-
         });
 
         // SHOW RECORD TO EDIT
         $(document).on('click', '.editbtn', function (e) {
             e.preventDefault();
-            var ban_bandar_id = $(this).val();
+            var siling_id = $(this).val();
             // alert(neg_negeri_id);
-            $('#editBandarModal').modal('show');
+            $('#ModulEditSiling').modal('show');
             $.ajax({
                 type: "GET",
-                url: "/pentadbiran/bandar/ubah/" + ban_bandar_id,
+                url: "/siling/senarai/" + siling_id + "/edit",
                 success: function (response) {
                     if (response.status == 404){
-                        $('#editBandarModal').modal('hide');
+                        $('#ModulEditSiling').modal('hide');
                         swal({
-                            title: "Bandar/Mukim",
+                            title: "Kemaskini Siling",
                             text: response.message,
                             type: "danger"
                         });
                     } else {
-                        $('#ban_bandar_id_edit').val(ban_bandar_id);
-                        $('#neg_negeri_id_edit').val(response.bandar.neg_negeri_id).change();
-                        getDaerah(response.bandar.neg_negeri_id, 'dae_daerah_id_edit', '#list-daerah-edit', response.bandar.ban_kod_daerah);
-                        $('#ban_kod_bandar_edit').val(response.bandar.ban_kod_bandar);
-                        $('#ban_nama_bandar_edit').val(response.bandar.ban_nama_bandar)
-                        $('#ban_status_edit').val(response.bandar.ban_status).change();
+                        let Starikh = new Date(response.siling.sil_sdate);
+                        let Etarikh = new Date(response.siling.sil_edate);
+                        $('#siling_id_edit').val(siling_id);
+                        $('#sil_program_id_edit').val(response.siling.sil_fasiliti_id);
+                        $('#sil_tahun_edit').val(response.siling.sil_tahun);
+                        $('#sil_sdate_edit').val(Starikh.toLocaleDateString())
+                        $('#sil_edate_edit').val(Etarikh.toLocaleDateString());
+                        $('#sil_amount_edit').val(response.siling.sil_amount);
                     }
                 }
             });
-            $('.btn-close').find('input').val('');
         });
 
         // UPDATE RECORD
-        $(document).on('click', '.update_bandar', function (e) {
+        $(document).on('click', '.updateSiling', function (e) {
             e.preventDefault();
             $(this).text('Mengemaskini...');
+            let upd_id = $('#siling_id_edit').val();
+            // alert(upd_id);
             var edit_data = {
-                'ban_bandar_id': $('#ban_bandar_id_edit').val(),
-                'ban_kod_daerah': $('#dae_daerah_id_edit').val(),
-                'ban_kod_bandar': $('#ban_kod_bandar_edit').val(),
-                'ban_nama_bandar': $('#ban_nama_bandar_edit').val(),
-                'ban_status': $('#ban_status_edit').val(),
+                'sil_program_id': $('#sil_program_id_edit').val(),
+                'sil_tahun': $('#sil_tahun_edit').val(),
+                'sil_sdate': $('#sil_sdate_edit').val(),
+                'sil_edate': $('#sil_edate_edit').val(),
+                'sil_amount': $('#sil_amount_edit').val(),
             }
 
             $.ajaxSetup({
@@ -390,8 +301,8 @@
             });
 
             $.ajax({
-                type: "POST",
-                url: "/pentadbiran/bandar/kemaskini",
+                type: "post",
+                url: "/siling/senarai/update/"+ upd_id,
                 data: edit_data,
                 dataType: "json",
                 success: function (response) {
@@ -402,28 +313,60 @@
                             $('#update_msgList').append('<li>' + err_value +
                                 '</li>');
                         });
-                        $('.update_bandar').text('Kemaskini');
+                        $('.updateSiling').text('Kemaskini');
                     } else {
                         $('#update_msgList').html("");
-                        $('#editBandarModal').find('input').val('');
-                        $('#editBandarModal').find('select').val('');
-                        $('.update_bandar').text('Kemaskini');
-                        $('#editBandarModal').modal('hide');
-                        fetchBandar();
+                        $('#ModulEditSiling').find('input').val('');
+                        $('#ModulEditSiling').find('select').val('');
+                        $('.updateSiling').text('Kemaskini');
+                        $('#ModulEditSiling').modal('hide');
+                        fetchSiling();
                         swal({
-                            title: "Bandar/Mukim",
+                            title: "Kemaskini Siling",
                             text: response.message,
                             type: "success"
                         });
                     }
                 }
             });
+        });
 
+        // HANTAR EMEL PEMAKLUMAN
+        $(document).on('click', '#emelPemakluman', function (e) {
+            e.preventDefault();
+            document.getElementById("emelButton").classList.add("loading");
+            document.getElementById("emelButton").classList.add("open-circle");
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "post",
+                url: "/siling/senarai/emel",
+                data: null,
+                dataType: "json",
+                success: function (response) {
+                    if (response.status == 400) {
+                        swal("Gagal", response.message, "error");
+                    } else {
+                        fetchSiling();
+                        swal({
+                            title: "Emel Pemakluman",
+                            text: response.message,
+                            type: "success"
+                        });
+                        document.getElementById("emelButton").classList.remove("loading");
+                        document.getElementById("emelButton").classList.remove("open-circle");
+                    }
+                }
+            });
         });
 
         // SHOW RECORD TO DELETE
         $(document).on('click', '.deletebtn', function () {
-            var ban_bandar_id = $(this).val();
+            var siling_id = $(this).val();
             swal({
                     title: "Adakah anda pasti?",
                     text: "Sila pastikan rekod yang hendak dipadam",
@@ -445,31 +388,24 @@
 
                         $.ajax({
                             type: "DELETE",
-                            url: "/pentadbiran/bandar/padam/" + ban_bandar_id,
+                            url: "/siling/senarai/" + siling_id,
                             dataType: "json",
                             success: function (response) {
                                 if (response.status == 404) {
                                     swal("Dibatalkan", response.message, "error");
                                 } else {
-                                    fetchBandar();
+                                    fetchSiling();
                                     swal("Dipadam!", response.message, "success");
                                 }
                             }
                         });
-                    } else {
-                        swal("Dibatalkan", "Rekod bandar tidak dipadam", "error");
                     }
-                });
-        });
+                    else {
+                        swal("Dibatalkan", "Penetapan siling tidak dipadam", "error");
+                    }
 
-        //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
-        function getDaerah(neg_kod_negeri, inputname, list, select='99') {
-            var url = "/ajax/ajax-daerah/" + neg_kod_negeri + "/" + inputname+ "/" + select;
-            $.get(url, function(data) {
-                $(list).html(data);
             });
-        }
-
+        });
     });
 </script>
 @endsection

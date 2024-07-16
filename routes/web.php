@@ -45,6 +45,10 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
 
 // SILING
 Route::resource('/siling/senarai', App\Http\Controllers\SilingController::class);
+Route::post('/siling/senarai/update/{id}', [App\Http\Controllers\SilingController::class, 'update']);
+Route::post('/siling/senarai/emel', [App\Http\Controllers\SilingController::class, 'emel']);
+Route::post('/siling/showList', [App\Http\Controllers\SilingController::class, 'showList']);
+Route::get('/siling/senarai/create', [App\Http\Controllers\SilingController::class, 'create']);
 Route::get('/siling/senarai/{silingID}/delete', [App\Http\Controllers\SilingController::class, 'destroy']);
 
 // PERMOHONAN

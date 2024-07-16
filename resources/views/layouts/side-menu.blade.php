@@ -29,8 +29,13 @@
 
                 </ul>
             </li>
-            <li>
-                <a href="/dashboard"><i class="fa fa-vcard-o"></i> <span class="nav-label">Permohonan</span>  </a>
+            <li class="{{ (request()->segment(1) == 'permohonan') ? 'active' : '' }}">
+                <a href="#"><i class="fa ffa-vcard-o"></i> <span class="nav-label">Permohonan</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="{{ (request()->segment(2) == 'baru') ? 'active' : '' }}"><a href="/permohonan/baru/senarai">Baru</a></li>
+                    <li class="{{ (request()->segment(2) == 'penjimatan') ? 'active' : '' }}"><a href="/permohonan/penjimatan/senarai">Penjimatan</a></li>
+                    <li class="{{ (request()->segment(2) == 'tajuk') ? 'active' : '' }}"><a href="/permohonan/tajuk/senarai">Tukar Tajuk</a></li>
+                </ul>
             </li>
             <li class="{{ (request()->segment(1) == 'siling') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-calculator"></i> <span class="nav-label">Siling</span><span class="fa arrow"></span></a>

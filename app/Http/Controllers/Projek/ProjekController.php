@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Projek;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Projek;
-use App\Models\ProjekDetails;
-use App\Models\ProjekUtilities;
+use App\Models\Projek\Projek;
+use App\Models\Projek\ProjekDetails;
+use App\Models\Projek\ProjekUtilities;
 use App\Models\Waran;
 
 class ProjekController extends Controller

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2024-07-15 09:26:15
+Date: 2024-07-16 11:26:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3075,6 +3075,29 @@ INSERT INTO `tblmodul` VALUES ('2', 'Pemantauan', '1', '2024-07-13 11:52:38', '2
 INSERT INTO `tblmodul` VALUES ('3', 'Pentadbiran', '1', '2024-07-13 11:52:57', '2024-07-13 11:53:01');
 
 -- ----------------------------
+-- Table structure for `tblprogram`
+-- ----------------------------
+DROP TABLE IF EXISTS `tblprogram`;
+CREATE TABLE `tblprogram` (
+  `program_id` int(4) NOT NULL AUTO_INCREMENT,
+  `prog__negri_id` int(2) DEFAULT NULL,
+  `prog_code` varchar(15) DEFAULT NULL,
+  `prog_name` varchar(150) NOT NULL,
+  `prog_status` tinyint(1) NOT NULL DEFAULT 1,
+  `prog_created_by` int(6) DEFAULT NULL,
+  `prog_updated_by` int(6) DEFAULT NULL,
+  `prog_created_at` timestamp NULL DEFAULT current_timestamp(),
+  `prog_updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`program_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1002 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Records of tblprogram
+-- ----------------------------
+INSERT INTO `tblprogram` VALUES ('1000', '101', '01', 'JKN Johor', '1', null, null, '2024-07-15 15:44:07', '2024-07-15 15:44:42');
+INSERT INTO `tblprogram` VALUES ('1001', '102', '02', 'JKN Kedah', '1', null, null, '2024-07-15 15:44:22', '2024-07-15 15:44:46');
+
+-- ----------------------------
 -- Table structure for `tblprojek`
 -- ----------------------------
 DROP TABLE IF EXISTS `tblprojek`;
@@ -4205,6 +4228,29 @@ CREATE TABLE `tblprojek_permohonan` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `tblprojek_permohonan_copy`
+-- ----------------------------
+DROP TABLE IF EXISTS `tblprojek_permohonan_copy`;
+CREATE TABLE `tblprojek_permohonan_copy` (
+  `projek_mohon_id` int(12) NOT NULL,
+  `projmhn_projek_id` int(12) NOT NULL,
+  `projmhn_tkh_mohon` date NOT NULL,
+  `projmhn_sah_jurutera` varchar(255) DEFAULT NULL,
+  `projmhn_timbang_ptj` date DEFAULT NULL,
+  `projmhn_tkh_lulus` date DEFAULT NULL,
+  `projmhn_status_projek` varchar(255) DEFAULT NULL,
+  `projmhn_created_by` int(6) NOT NULL,
+  `projmhn_updated_by` int(6) NOT NULL,
+  `projmhn_created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `projmhn_updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`projek_mohon_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Records of tblprojek_permohonan_copy
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `tblprojek_program`
 -- ----------------------------
 DROP TABLE IF EXISTS `tblprojek_program`;
@@ -4773,7 +4819,7 @@ INSERT INTO `tblprojek_utilities` VALUES ('506', '10000010', 'WARAN SALUR', 'KKM
 INSERT INTO `tblprojek_utilities` VALUES ('507', '10000011', 'WARAN SALUR', 'KKM.400-4/2/31 JLD.8 (5) ', '2024-01-03', '', '0', '0', '2024-07-10 10:05:30', '2024-07-10 10:05:30');
 INSERT INTO `tblprojek_utilities` VALUES ('508', '10000012', 'WARAN SALUR', 'KKM.400-4/2/40 JLD. 3(3) ', '2024-04-05', '', '0', '0', '2024-07-10 10:05:30', '2024-07-10 10:05:30');
 INSERT INTO `tblprojek_utilities` VALUES ('509', '10000013', 'WARAN SALUR', 'KKM.400-4/2/31 JLD.8 (5) ', '2024-01-03', '', '0', '0', '2024-07-10 10:05:30', '2024-07-10 10:05:30');
-INSERT INTO `tblprojek_utilities` VALUES ('510', '10000014', 'WARAN SALUR', 'KKM.400-4/2/33 JLD.6 (4) ', '2024-03-27', '', '0', '0', '2024-07-10 10:05:30', '2024-07-10 10:05:30');
+INSERT INTO `tblprojek_utilities` VALUES ('510', '10000014', 'WARAN SALUR', 'KKM.400-4/2/33 JLD.6 (4)', '2024-07-24', 'Cubaan Cataatan', '0', '1', '2024-07-10 10:05:30', '2024-07-15 11:59:48');
 INSERT INTO `tblprojek_utilities` VALUES ('511', '10000015', 'WARAN SALUR', 'KKM.400-4/2/33 JLD.6 (4) ', '2024-03-27', '', '0', '0', '2024-07-10 10:05:30', '2024-07-10 10:05:30');
 INSERT INTO `tblprojek_utilities` VALUES ('512', '10000016', 'WARAN SALUR', 'KKM.400-4/2/33 JLD.6 (4) ', '2024-03-27', '', '0', '0', '2024-07-10 10:05:30', '2024-07-10 10:05:30');
 INSERT INTO `tblprojek_utilities` VALUES ('513', '10000017', 'WARAN SALUR', 'KKM.400-4/2/33 JLD.6 (4) ', '2024-03-27', '', '0', '0', '2024-07-10 10:05:30', '2024-07-10 10:05:30');
@@ -5264,20 +5310,25 @@ CREATE TABLE `tblsiling` (
   `sil_fasiliti_id` int(8) NOT NULL,
   `sil_tahun` int(4) NOT NULL DEFAULT 2024,
   `sil_amount` decimal(15,2) NOT NULL DEFAULT 0.00,
-  `sil_balance` decimal(15,2) DEFAULT NULL,
+  `sil_balance` decimal(15,2) DEFAULT 0.00,
   `sil_sdate` datetime DEFAULT NULL,
   `sil_edate` datetime DEFAULT NULL,
+  `sil_emel` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1-Belum; 2-Sudah',
   `sil_status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1-Aktif; 2-Tidak Aktif',
   `sil_created_by` int(6) NOT NULL,
   `sil_updated_by` int(6) NOT NULL,
   `sil_created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `sil_updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`siling_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100005 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of tblsiling
 -- ----------------------------
+INSERT INTO `tblsiling` VALUES ('100000', '1000', '2024', '520000.00', '0.00', '2024-02-01 12:49:40', '2024-03-15 12:49:49', '2', '2', '0', '0', '2024-07-15 12:50:06', '2024-07-16 00:38:15');
+INSERT INTO `tblsiling` VALUES ('100001', '1001', '2024', '1250000.00', '0.00', '2024-07-01 00:00:00', '2024-07-15 00:00:00', '2', '2', '1', '1', '2024-07-15 17:09:42', '2024-07-16 00:38:16');
+INSERT INTO `tblsiling` VALUES ('100003', '1000', '2024', '50000.00', '0.00', '2024-07-01 00:00:00', '2024-07-31 00:00:00', '1', '1', '1', '1', '2024-07-15 18:32:56', '2024-07-16 00:40:45');
+INSERT INTO `tblsiling` VALUES ('100004', '1001', '2025', '500000.00', '0.00', '2024-07-01 00:00:00', '2024-07-31 00:00:00', '1', '1', '1', '1', '2024-07-15 18:34:33', '2024-07-16 00:38:30');
 
 -- ----------------------------
 -- Table structure for `tblsurat`

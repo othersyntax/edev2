@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Projek;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\ProjekUtilities;
+use App\Models\Projek\ProjekUtilities;
 use Carbon\Carbon;
 
 

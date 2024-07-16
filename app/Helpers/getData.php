@@ -2,6 +2,7 @@
 use App\Models\Negeri;
 use App\Models\Daerah;
 use App\Models\Pentadbiran\KategoriFasiliti;
+use App\Models\Pentadbiran\Program;
 use App\Models\Fasiliti;
 use App\Models\Modul;
 
@@ -42,6 +43,14 @@ function dropdownFasiliti(){
         ->pluck('fas_name', 'fas_ptj_code')
         ->prepend('--Sila Pilih--', '');
     return $fasiliti;
+}
+
+function dropdownProgram(){
+    $program = Program::where('prog_status', '1')
+        ->orderBy('prog_name')
+        ->pluck('prog_name', 'program_id')
+        ->prepend('--Sila Pilih--', '');
+    return $program;
 }
 
 function dropdownModul(){
