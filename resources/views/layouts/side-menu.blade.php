@@ -53,6 +53,7 @@
                     <li class="{{ (request()->segment(2) == 'negeri') ? 'active' : '' }}"><a href="/pentadbiran/negeri">Negeri</a></li>
                     <li class="{{ (request()->segment(2) == 'daerah') ? 'active' : '' }}"><a href="/pentadbiran/daerah">Daerah</a></li>
                     <li class="{{ (request()->segment(2) == 'bandar') ? 'active' : '' }}"><a href="/pentadbiran/bandar">Mukim / Bandar</a></li>
+                    <li class="{{ (request()->segment(2) == 'program') ? 'active' : '' }}"><a href="/pentadbiran/program">Program</a></li>
                     <li class="{{ (request()->segment(2) == 'fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/fasiliti">Fasiliti</a></li>
                     <li class="{{ (request()->segment(2) == 'kategori-fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/kategori-fasiliti">Kategori Fasiliti</a></li>
                     <li class="{{ (request()->segment(2) == 'kategori-projek') ? 'active' : '' }}"><a href="/pentadbiran/kategori-projek">Kategori Projek</a></li>
