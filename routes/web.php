@@ -57,6 +57,13 @@ Route::get('/projek/tambah', [App\Http\Controllers\Projek\ProjekController::clas
 Route::post('/projek/simpan', [App\Http\Controllers\Projek\ProjekController::class, 'store'])->name('projek.simpan');
 Route::get('/projek/ubah/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'edit'])->name('projek.ubah');
 Route::get('/projek/papar/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'view'])->name('projek.papar');
+
+//SENARAI PERMOHONAN
+Route::any('/permohonan/senarai', [App\Http\Controllers\PermohonanController::class, 'index'])->name('permohonan.senarai');
+Route::get('/permohonan/tambah', [App\Http\Controllers\PermohonanController::class, 'create'])->name('permohonan.tambah');
+Route::post('/permohonan/simpan', [App\Http\Controllers\PermohonanController::class, 'store'])->name('permohonan.simpan');
+Route::get('/permohonan/ubah/{id}', [App\Http\Controllers\PermohonanController::class, 'edit'])->name('permohonan.ubah');
+Route::get('/permohonan/papar/{id}', [App\Http\Controllers\PermohonanController::class, 'view'])->name('permohonan.papar');
 // Route::get('/siling/senarai/{silingID}/delete', [App\Http\Controllers\SilingController::class, 'destroy']);
 // Projek Utiliti
 Route::get('/projek/papar/utiliti/senarai/{id}', [App\Http\Controllers\Projek\UtilitiController::class, 'index']);
@@ -65,6 +72,8 @@ Route::post('/projek/papar/utiliti/kemaskini', [App\Http\Controllers\Projek\Util
 
 
 Route::get('/hantar/emel', [App\Http\Controllers\Mail\MailTestController::class, 'hantarEmel']);
+
+Route::get('/sending/testemel', [App\Http\Controllers\SendMailController::class, 'hantarEmel']);
 
 require __DIR__.'/auth.php';
 require __DIR__.'/pentadbiran.php';
