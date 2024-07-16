@@ -3,6 +3,7 @@ use App\Models\Negeri;
 use App\Models\Daerah;
 use App\Models\Pentadbiran\KategoriFasiliti;
 use App\Models\Fasiliti;
+use App\Models\Modul;
 
 function dropdownNegeri(){
     $negeri = Negeri::where('neg_status', '1')
@@ -41,6 +42,14 @@ function dropdownFasiliti(){
         ->pluck('fas_name', 'fas_ptj_code')
         ->prepend('--Sila Pilih--', '');
     return $fasiliti;
+}
+
+function dropdownModul(){
+    $modul = Modul::where('status', '1')
+        ->orderBy('modul')
+        ->pluck('modul', 'id')
+        ->prepend('--Sila Pilih--', '0');
+    return $modul;
 }
 
 function getStatus($id){

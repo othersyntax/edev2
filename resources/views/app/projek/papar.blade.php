@@ -5,6 +5,7 @@
 @section('custom-css')
     <!-- Sweet Alert -->
     <link href="{{ asset("/template/css/plugins/sweetalert/sweetalert.css") }}" rel="stylesheet">
+    <link href="{{ asset("/template/css/plugins/datapicker/datepicker3.css") }}" rel="stylesheet">
 @endsection
 
 @section('breadcrumb')
@@ -25,61 +26,68 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-9">
+    <div class="col-lg-8">
         <div class="ibox">
             <div class="ibox-title">
                 <h5>Maklumat Projek</h5>
+                <input type="hidden" id="page_projek_id" value="{{ $projek->projek_id }}">
             </div>
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="text-uppercase">Kod Subprojek</label><br>
-                            <b>{{ $projek->proj_kod_agensi }}-{{ $projek->proj_kod_projek }}-{{ $projek->proj_kod_middle }}-{{ $projek->proj_kod_group }}</b>
+                            <label class="text-uppercase">Kod Subprojek</label>
+                            <div class="form-control">
+                                {{ $projek->proj_kod_agensi }}-{{ $projek->proj_kod_projek }}-{{ $projek->proj_kod_middle }}-{{ $projek->proj_kod_group }}
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="text-uppercase">Negeri</label><br>
-                            <b>{{ $projek->proj_negeri }}</b>
+                            <label class="text-uppercase">Negeri</label>
+                            <div class="form-control">{{ $projek->proj_negeri }}</div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="text-uppercase">Bulan dan Tahun</label><br>
-                            <b>{{ $projek->proj_bulan }}, {{ $projek->proj_tahun }}</b>
+                            <label class="text-uppercase">Bulan dan Tahun</label>
+                            <div class="form-control">{{ $projek->proj_bulan }}, {{ $projek->proj_tahun }}</div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="text-uppercase">Program</label><br>
-                            <b>{{ $projek->proj_program }}</b>
+                            <label class="text-uppercase">Program</label>
+                            <div class="form-control">{{ $projek->proj_program }}</div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="text-uppercase">Kos Sebenar (RM)</label><br>
-                            <b>@duit($projek->proj_kos_sebenar)</b>
+                            <label class="text-uppercase">Peruntukan Diluluskan (RM)</label>
+                            <div class="form-control">@duit($projek->proj_kos_lulus)</div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="text-uppercase">Nama Projek</label><br>
-                            <b>{{ $projek->proj_nama }}</b>
+                            <label class="text-uppercase">Nama Projek</label>
+                            <div class="form-control">{{ $projek->proj_nama }}</div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
-                            <label class="text-uppercase">Keterangan</label><br>
-                            <b>{{ $projek->proj_butiran }}</b>
+                            <label class="text-uppercase">Keterangan</label>
+                            <div class="form-control">
+                                {{ $projek->proj_butiran }}
+                            </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
-                            <label class="text-uppercase">Catatan</label><br>
-                            <b>{{ $projek->proj_catatan }}</b>
+                            <label class="text-uppercase">Catatan</label>
+                            <div class="form-control">
+                                {{ $projek->proj_catatan }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -88,6 +96,64 @@
         <div class="ibox ">
             <div class="ibox-title">
                 <h5>Maklumat Aktiviti</h5>
+                <div class="ibox-tools">
+                    <button type="button" class="btn btn-sm btn-primary float-right" id="add">
+                        Tambah
+                    </button>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="5%" class="text-center">#Bil</th>
+                                <th width="25%">No Rujukan</th>
+                                <th width="20%">Perihal</th>
+                                <th width="10%">Tarikh</th>
+                                <th width="30%">Catatan</th>
+                                <th width="10%">#</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-aktiviti">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Maklumat Bayaran</h5>
+                <div class="ibox-tools">
+                    <button type="button" class="btn btn-sm btn-primary float-right" id="addBayaran">
+                        Tambah
+                    </button>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="5%" class="text-center">#Bil</th>
+                                <th width="25%">No Rujukan</th>
+                                <th width="20%">Perihal</th>
+                                <th width="10%">Tarikh</th>
+                                <th width="30%" class="text-right">Amaun (RM)</th>
+                                <th width="10%">#</th>
+                            </tr>
+                        </thead>
+                        {{-- <tbody>
+                        </tbody> --}}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Maklumat Program</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -98,42 +164,55 @@
                 </div>
             </div>
             <div class="ibox-content">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th width="5%" class="text-center">#Bil</th>
-                        <th width="20%">No Rujukan</th>
-                        <th width="25%">Perihal</th>
-                        <th width="10%">Tarikh</th>
-                        <th width="30%">Catatan</th>
-                        <th width="10%">#</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $bil=1;
-                        @endphp
-                        @foreach ($utilities as $uti)
-                            <tr>
-                                <td class="text-center">{{ $bil++ }}</td>
-                                <td>{{ $uti->projuti_ref_no }}</td>
-                                <td>{{ $uti->projuti_perihal }}</td>
-                                <td>{{ $uti->projuti_date }}</td>
-                                <td>{{ $uti->projuti_catatan }}</td>
-                                <td>
-                                    <button type="button" value="{{ $uti->projek_uti_id }}" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>
-                                    <button type="button" value="{{ $uti->projek_uti_id }}" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button>
-                                </td>
-                            </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-
+                <div class="form-group">
+                    <label class="text-uppercase">Jenis Program</label>
+                    <div class="form-control">
+                        Program / JKN / Bahagian
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Nama Program</label>
+                    <div class="form-control">JKN Kedah</div>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Fasiliti</label>
+                    <div class="form-control">Klinik Kesihatan Alor Setar</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-lg-3">
+        <div class="ibox bg-gray-25">
+            <div class="ibox-title">
+                <h5>Maklumat Kelulusan</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="form-group">
+                    <label class="text-uppercase">Kelulusan JKR</label>
+                    <div class="form-control">
+                        21/04/2024
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Tarikh Waran Peruntukan</label>
+                    <div class="form-control">21/04/2024</div>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Amaun Waran Peruntukan</label>
+                    <div class="form-control">@duit($projek->proj_kos_sebenar)</div>
+                </div>
+                <div class="form-group">
+                    <label class="text-uppercase">Tarikh SST Dikeluarkan</label>
+                    <div class="form-control">21/04/2024</div>
+                </div>
+            </div>
+        </div>
         <div class="ibox selected">
             <div class="ibox-content">
                 <div class="tab-content">
@@ -198,17 +277,73 @@
     <div class="col-lg-4">
     </div>
 </div>
+@include('app/projek/_modal/add-utiliti')
 @include('app/projek/_modal/edit-utiliti')
 @endsection
 @section('custom-js')
+<!-- Data picker -->
+<script src="{{ asset("/template/js/plugins/datapicker/bootstrap-datepicker.js") }}"></script>
 <script>
 $(document).ready(function(){
-    $('.editbtn').on('click', function(){
-        $('#myModal').modal('show');
+    fetchUtiliti();
+
+    //ADD BUTTON CLICK
+    $('#add').click(function(e){
+        e.preventDefault();
+        $('#addModal').modal('show');
     });
 
+
+    $('#data_1 .input-group.date').datepicker({
+        format: "dd/mm/yyyy",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true
+    });
+    $('#data_2 .input-group.date').datepicker({
+        format: "dd/mm/yyyy",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true
+    });
+
+    // LIST RECORD
+    function fetchUtiliti(){
+        let page_projek_id = $('#page_projek_id').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "get",
+            url: "/projek/papar/utiliti/senarai/"+ page_projek_id,
+            dataType: "json",
+            success: function (response) {
+                // console.log(response);
+                $('#tbody-aktiviti').html("");
+                $.each(response.utiliti, function (key, item) {
+                    let tarikh = new Date(item.projuti_date);
+                    $('#tbody-aktiviti').append('<tr>\
+                        <td class="text-center">' + item.projek_uti_id + '</td>\
+                        <td>' + item.projuti_ref_no + '</td>\
+                        <td>' + item.projuti_perihal + '</td>\
+                        <td>' + tarikh.toLocaleDateString() + '</td>\
+                        <td>' + item.projuti_catatan + '</td>\
+                        <td><button type="button" value="' + item.projek_uti_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
+                        <button type="button" value="' + item.projek_uti_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
+                    \</tr>');
+                });
+            }
+        });
+    }
+
     // SHOW RECORD TO EDIT
-    $('.editbtn').on('click', function(e){
+    $(document).on('click', '.editbtn', function (e) {
+    // $('.editbtn').on('click', function(e){
         e.preventDefault();
         var uti_id = $(this).val();
         // alert(neg_negeri_id);
@@ -225,12 +360,13 @@ $(document).ready(function(){
                         type: "danger"
                     });
                 } else {
+                    let tarikh1 = new Date(response.utiliti.projuti_date);
+                    // tarikh = moment().format('DD/MM/YYYY');
                     $('#projek_uti_id').val(uti_id);
                     $('#no_rujukan').val(response.utiliti.projuti_ref_no);
                     $('#perihal').val(response.utiliti.projuti_perihal);
-                    $('#tarikh').val(response.utiliti.projuti_date);
+                    $('#tarikh').val(tarikh1.toLocaleDateString());
                     $('#catatan').val(response.utiliti.projuti_catatan);
-
                 }
             }
         });
@@ -238,7 +374,7 @@ $(document).ready(function(){
     });
 
     // SHOW RECORD TO DELETE
-    $('.deletebtn').on('click', function () {
+    $(document).on('click', '.deletebtn', function () {
         var projek_uti_id = $(this).val();
         swal({
             title: "Adakah anda pasti?",
@@ -275,6 +411,53 @@ $(document).ready(function(){
                 swal("Dibatalkan", "Rekod bandar tidak dipadam", "error");
             }
         });
+    });
+
+    // UPDATE RECORD
+    $(document).on('click', '.updateUtiliti', function (e) {
+        e.preventDefault();
+        $(this).text('Mengemaskini...');
+        var edit_data = {
+            'projek_uti_id': $('#projek_uti_id').val(),
+            'projuti_ref_no': $('#no_rujukan').val(),
+            'projuti_perihal': $('#perihal').val(),
+            'projuti_date': $('#tarikh').val(),
+            'projuti_catatan': $('#catatan').val(),
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/projek/papar/utiliti/kemaskini",
+            data: edit_data,
+            dataType: "json",
+            success: function (response) {
+                if (response.status == 400) {
+                    $('#update_msgList').html("");
+                    $('#update_msgList').addClass('alert alert-danger');
+                    $.each(response.errors, function (key, err_value) {
+                        $('#update_msgList').append('<li>' + err_value +
+                            '</li>');
+                    });
+                } else {
+                    $('#update_msgList').html("");
+                    $('#myModal').find('input').val('');
+                    $('#myModal').modal('hide');
+                    fetchUtiliti();
+                    swal({
+                        title: "Aktiviti",
+                        text: response.message,
+                        type: "success"
+                    });
+                }
+            }
+        });
+
     });
 });
 </script>
