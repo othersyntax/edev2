@@ -64,6 +64,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
+                            <label class="text-uppercase">Fasiliti</label>
+                            <div class="form-control">{{ $projek->proj_program }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
                             <label class="text-uppercase">Peruntukan Diluluskan (RM)</label>
                             <div class="form-control">@duit($projek->proj_kos_lulus)</div>
                         </div>
@@ -144,6 +150,7 @@
                             </tr>
                         </thead>
                         <tbody id="tbody-bayaran">
+                            <td colspan="6" class="text-center"><small><i>Tiada rekod</i></small></td>
                         </tbody>
                     </table>
                 </div>

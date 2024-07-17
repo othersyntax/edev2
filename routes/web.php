@@ -77,3 +77,5 @@ Route::get('/sending/testemel', [App\Http\Controllers\SendMailController::class,
 
 require __DIR__.'/auth.php';
 require __DIR__.'/pentadbiran.php';
+require __DIR__.'/wan.php';
+require __DIR__.'/anas.php';

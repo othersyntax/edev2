@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Daerah</label>
+                            <label>Status</label>
                             <span id="list-daerah">
                                 {{ Form::select('sil_status_cari', ['1'=>'Buka', '2'=>'Tutup'], session('sil_status_cari'), ['class'=>'form-control', 'id'=>'sil_status_cari']) }}
                             </span>

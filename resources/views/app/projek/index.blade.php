@@ -24,6 +24,50 @@
 
 @section('content')
 <div class="row">
+
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Belanja</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@duit(275800)</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Tanggungan</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@duit(106120)</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Penjimatan</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@duit(86200)</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <span class="label label-success float-right">{{ date('Y') }}</span>
+                <h5>JUMLAH</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">@duit($jumlah)</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
@@ -93,7 +137,7 @@
                                 <th width="10%" class="text-center">#ID</th>
                                 <th width="55%">Projek</th>
                                 <th width="15%">Program</th>
-                                <th data-hide="all">Sub-Projek Kod</th>
+                                <th data-hide="all">Kod</th>
                                 <th data-hide="all">Negeri</th>
                                 <th data-hide="all">Bulan</th>
                                 <th data-hide="all">Tahun</th>
@@ -134,9 +178,8 @@
 <!-- FooTable -->
 <script src="{{ asset("/template/js/plugins/footable/footable.all.min.js") }}"></script>
 <script>
-    $(document).ready(function() {
-        $('.footable').footable();
-        $('.footable2').footable();
-    });
+    // $(document).ready(function() {
+    //     $('.footable').footable();
+    // });
 </script>
 @endsection
