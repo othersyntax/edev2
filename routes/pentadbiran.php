@@ -6,6 +6,7 @@ use App\Http\Controllers\Pentadbiran\BandarController;
 use App\Http\Controllers\pentadbiran\FasilitiController;
 use App\Http\Controllers\Pentadbiran\KategoriFasilitiController;
 use App\Http\Controllers\Pentadbiran\KategoriProjekController;
+use App\Http\Controllers\Pentadbiran\ProgramController;
 use App\Http\Controllers\AjaxController;
 
 // GENERAL AJAX
@@ -58,3 +59,11 @@ Route::post('/pentadbiran/kategori-projek/simpan', [KategoriProjekController::cl
 Route::get('/pentadbiran/kategori-projek/ubah/{id}', [KategoriProjekController::class, 'edit']);
 Route::post('/pentadbiran/kategori-projek/kemaskini', [KategoriProjekController::class, 'update']);
 Route::delete('/pentadbiran/kategori-projek/padam/{id}', [KategoriProjekController::class, 'destroy']);
+
+//PROGRAM
+Route::get('/pentadbiran/program', [ProgramController::class, 'index']);
+Route::post('/pentadbiran/program/ajax-all', [ProgramController::class, 'ajaxAll']);
+Route::post('/pentadbiran/program/simpan', [ProgramController::class, 'store']);
+Route::get('/pentadbiran/program/ubah/{id}', [ProgramController::class, 'edit']);
+Route::post('/pentadbiran/program/kemaskini', [ProgramController::class, 'update']);
+Route::delete('/pentadbiran/program/padam/{id}', [ProgramController::class, 'destroy']);
