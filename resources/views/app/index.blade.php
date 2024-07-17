@@ -39,7 +39,7 @@
     <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Peruntukan</h5>
+                <h5>Penjimatan</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins">@duit(86200)</h1>
