@@ -11,7 +11,6 @@
 @section('content')
 {{-- TOP BOX AMOUNT --}}
 <div class="row">
-
     <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-success">
@@ -51,8 +50,8 @@
     <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-primary">
-                <span class="label label-success float-right">{{ date('Y') }}</span>
-                <h5>SILING</h5>
+                {{-- <span class="label label-success float-right">{{ date('Y') }}</span> --}}
+                <h5>PERUNTUKAN DILULUSKAN</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins text-right text-info"><b>@duit(40886200)</b></h1>
@@ -68,7 +67,7 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>PROGRAM</h5>
+                <h5> PROGRAM / BAHAGIAN / INSTITUSI / JKN</h5>
             </div>
             <div class="ibox-content">
                 <div class="row">
@@ -116,20 +115,11 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Agihan Siling Mengikut Program Bagi BP00600 Dan BP01100 </h5>
+                <h5>Agihan Peruntukan Mengikut Program / Bahagian / Institusi / JKN Bagi BP00600 </h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-wrench"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#" class="dropdown-item">Config option 1</a>
-                        </li>
-                        <li><a href="#" class="dropdown-item">Config option 2</a>
-                        </li>
-                    </ul>
                     <a class="close-link">
                         <i class="fa fa-times"></i>
                     </a>
@@ -154,143 +144,142 @@
                         <tr>
 
                             <th>#</th>
-                            <th>PROGRAM / INSTITUSI / JKN </th>
-                            <th>BP00600</th>
-                            <th>BP01100</th>
-                            <th>SILING </th>
-                            <th>PRESTASI</th>
+                            <th>PROGRAM / BAHAGIAN / INSTITUSI / JKN </th>
+                            <th class="text-right">DALAM SILING</th>
+                            <th class="text-right">LUAR SILING</th>
+                            <th class="text-right">PERUNTUKAN YANG DILULUSKAN </th>
+                            <th>PRESTASI BELANJA</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>1</td>
                             <td>Johor</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>Kedah</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Kelantan</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>Melaka</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>5</td>
                             <td>Negeri Sembilan</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>6</td>
                             <td>Pahang</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>7</td>
                             <td>Perlis</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>8</td>
                             <td>Perak</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>9</td>
                             <td>Pulau Pianng</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>10</td>
                             <td>Selangor</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>11</td>
                             <td>Terengganu</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>12</td>
                             <td>Sabah</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>13</td>
                             <td>Sarawak</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>14</td>
                             <td>W.P. Kuala Lumpur</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>15</td>
                             <td>W.P. Labuan</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
                         <tr>
                             <td>16</td>
                             <td>W.P. Putrajaya</td>
-                            <td>@duit(1250000)</td>
-                            <td>@duit(900000)</td>
-                            <td>@duit(2150000)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td><span class="pie">0.52,1.041</span></td>
                         </tr>
-
                         </tbody>
                     </table>
                 </div>

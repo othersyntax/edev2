@@ -22,30 +22,29 @@
             <li>
                 <a href="/dashboard"><i class="fa fa-dashboard"></i> <span class="nav-label">Dashboard</span>  </a>
             </li>
-            <li class="{{ (request()->segment(1) == 'projek') ? 'active' : '' }}">
-                <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Projek</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse">
-                    <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/projek/senarai">Senarai</a></li>
-                </ul>
-            </li>
+
             <li class="{{ (request()->segment(1) == 'permohonan') ? 'active' : '' }}">
-                <a href="#"><i class="fa ffa-vcard-o"></i> <span class="nav-label">Permohonan</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-vcard-o"></i> <span class="nav-label">Permohonan</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'baru') ? 'active' : '' }}"><a href="/permohonan/baru/senarai">Baru</a></li>
+                    <li class="{{ (request()->segment(2) == 'penjimatan') ? 'active' : '' }}"><a href="/permohonan/runcit/senarai">Runcit</a></li>
                     <li class="{{ (request()->segment(2) == 'penjimatan') ? 'active' : '' }}"><a href="/permohonan/penjimatan/senarai">Penjimatan</a></li>
                     <li class="{{ (request()->segment(2) == 'tajuk') ? 'active' : '' }}"><a href="/permohonan/tajuk/senarai">Tukar Tajuk</a></li>
                 </ul>
             </li>
-
+            <li class="{{ (request()->segment(1) == 'projek') ? 'active' : '' }}">
+                <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Projek</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/projek/senarai">Senarai</a></li>
+                    <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/projek/pulang">Pulangkan Peruntukan</a></li>
+                </ul>
+            </li>
             <li class="{{ (request()->segment(1) == 'siling') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-calculator"></i> <span class="nav-label">Siling</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/siling/senarai">Senarai</a></li>
                     {{-- <li class="{{ (request()->segment(2) == 'selenggara') ? 'active' : '' }}"><a href="#">Selenggara</a></li> --}}
                 </ul>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Pengesahan</span>  </a>
             </li>
             <li class="{{ (request()->segment(1) == 'pentadbiran') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Pentadbiran</span><span class="fa arrow"></span></a>

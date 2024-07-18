@@ -13,20 +13,20 @@ class ProjekController extends Controller
 {
     public function index(Request $request){
         $queryType = 1; // default click pd menu
-        // Statistik
-
         if( $request->isMethod('post')) {
             $negeri =  $request->negeri;
             $fasiliti =  $request->fasiliti;
             $program  =  $request->program;
-            $kodProjek  =  $request->kodProjek;
+            $kategori  =  $request->kategori;
+            $status  =  $request->status;
             $projek  =  $request->projek;
             // dd($request->method());
             session([
                 'negeri' => $negeri,
                 'fasiliti' => $fasiliti,
                 'program' => $program,
-                'kodProjek' => $kodProjek,
+                'kategori' => $kategori,
+                'status' => $status,
                 'projek' => $projek,
             ]);
             $queryType = 2;
@@ -36,12 +36,13 @@ class ProjekController extends Controller
                 $negeri = session('negeri');
                 $fasiliti = session('fasiliti');
                 $program = session('program');
-                $kodProjek = session('kodProjek');
+                $kategori = session('kategori');
+                $status = session('status');
                 $projek = session('projek');
                 $queryType = 2;
             }
             else{
-                session()->forget(['negeri', 'fasiliti', 'program', 'kodProjek', 'projek']);
+                session()->forget(['negeri', 'fasiliti', 'program', 'kategori', 'status', 'projek']);
             }
         }
 
@@ -49,37 +50,53 @@ class ProjekController extends Controller
             $query = \DB::table('tblprojek as a')
                 ->leftJoin('tblfasiliti as b','a.projek_fasiliti_id','b.fas_ptj_code')
                 ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
-                ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_program', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_middle', 'a.proj_kod_group', 'a.proj_bulan', 'a.proj_tahun', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status');
-            $jumlah =  $query->sum('proj_kos_lulus');
+                ->leftJoin('tblprogram as d','a.proj_program','d.program_id')
+                ->leftJoin('tblfasiliti as e','a.projek_fasiliti_id','e.fas_ptj_code')
+                ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_program', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_middle', 'a.proj_kod_group', 'a.proj_kos_lulus', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name');
             $projek = $query->paginate(15);
+            $jumlah =  $query->where('proj_status', 1)->sum('proj_kos_lulus');
+            $jimat =  Projek::where('proj_status', 2)->sum('proj_kos_lulus');
+            // Belanja?
+            // Tanggung?
+            // Penjimatan kena ambil kira kos sebenar kurang
 
         }
         else{
             $query = \DB::table('tblprojek as a')
                     ->leftJoin('tblfasiliti as b','a.projek_fasiliti_id','b.fas_ptj_code')
                     ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
-                    ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_program', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_middle', 'a.proj_kod_group', 'a.proj_bulan', 'a.proj_tahun', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'a.proj_kos_lulus')
-                    ->where(function($q) use ($negeri, $fasiliti, $program, $kodProjek, $projek){
+                    ->leftJoin('tblprogram as d','a.proj_program','d.program_id')
+                    ->leftJoin('tblfasiliti as e','a.projek_fasiliti_id','e.fas_ptj_code')
+                    ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_program', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_middle', 'a.proj_kod_group', 'a.proj_kos_lulus', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name')
+                    ->where(function($q) use ($negeri, $fasiliti, $program, $kategori, $status, $projek){
+                        if(!empty($program)){
+                            $q->where('a.proj_program',$program);
+                        }
                         if(!empty($negeri)){
-                            $q->where('a.proj_negeri', $negeri);
+                            $q->where('a.proj_negeri', 'like', "%{$negeri}%");
                         }
                         if(!empty($fasiliti)){
                             $q->where('a.projek_fasiliti_id',$fasiliti);
                         }
-                        if(!empty($program)){
-                            $q->where('a.proj_program','like', "%{$program}%");
+                        if(!empty($kategori)){
+                            $q->where('a.proj_kategori_id',$kategori);
                         }
-                        if(!empty($kodProjek)){
-                            $q->where('a.proj_kod_group','like', "%{$kodProjek}%");
+                        if(!empty($status)){
+                            $q->where('a.proj_status',$status);
                         }
                         if(!empty($projek)){
                             $q->where('a.proj_nama','like', "%{$projek}%");
                         }
                     });
-            $jumlah =  $query->sum('proj_kos_lulus');
+
             $projek = $query->paginate(15);
+            $jumlah =  $query->where('proj_status', 1)->sum('proj_kos_lulus');
+            $jimat =  Projek::where('proj_status', 2)->sum('proj_kos_lulus');
+            // Belanja?
+            // Tanggung?
             // dd($projek);
         }
+        $data['jimat'] = $jimat;
         $data['projek'] = $projek;
         $data['jumlah'] = $jumlah;
         // dd($data);
@@ -88,6 +105,8 @@ class ProjekController extends Controller
 
     public function edit($id){
         $projek = Projek::find($id);
+        $details = ProjekDetails::where('projd_projek_id', $id)->first();
+        $data['details'] = $details;
         $data['projek'] = $projek;
         return view('app.projek.ubah', $data);
     }
@@ -118,7 +137,12 @@ class ProjekController extends Controller
         $projek->proj_nama = $request->proj_nama;
         $projek->proj_butiran = $request->proj_butiran;
         $projek->proj_catatan = $request->proj_catatan;
+        $projek->proj_kos_lulus = $request->proj_kos_lulus;
+        $projek->proj_waran = $request->proj_waran;
+        $projek->proj_penjimatan = $request->proj_penjimatan;
+        $projek->proj_tangungan = $request->proj_tangungan;
         $projek->proj_kos_sebenar = $request->proj_kos_sebenar;
+        $projek->proj_status = $request->proj_status;
         $projek->save();
         if($projek){
             return redirect('/projek/senarai')->with(['success'=>'Rekod berjaya dikemaskini']);

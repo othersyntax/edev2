@@ -3,6 +3,7 @@ use App\Models\Negeri;
 use App\Models\Daerah;
 use App\Models\Pentadbiran\KategoriFasiliti;
 use App\Models\Pentadbiran\Program;
+use App\Models\Pentadbiran\KategoriProjek;
 use App\Models\Fasiliti;
 use App\Models\Modul;
 
@@ -10,13 +11,6 @@ function dropdownNegeri(){
     $negeri = Negeri::where('neg_status', '1')
         ->orderBy('neg_nama_negeri')
         ->pluck('neg_nama_negeri', 'neg_negeri_id')
-        ->prepend('--Sila Pilih--', '');
-    return $negeri;
-}
-function dropdownNegeri2(){
-    $negeri = Negeri::where('neg_status', '1')
-        ->orderBy('neg_nama_negeri')
-        ->pluck('neg_nama_negeri', 'neg_nama_negeri')
         ->prepend('--Sila Pilih--', '');
     return $negeri;
 }
@@ -53,6 +47,14 @@ function dropdownProgram(){
     return $program;
 }
 
+function dropdownProjekKategori(){
+    $projKat = KategoriProjek::where('pro_kat_status', '1')
+        ->orderBy('pro_kat_nama')
+        ->pluck('pro_kat_nama', 'proj_kategori_id')
+        ->prepend('--Sila Pilih--', '');
+    return $projKat;
+}
+
 function dropdownModul(){
     $modul = Modul::where('status', '1')
         ->orderBy('modul')
@@ -65,6 +67,14 @@ function getStatus($id){
     if($id==1)
         return "Aktif";
     else
-        return "Tidak Aktif";
+        return "Batal";
+}
+function getStatusProjek($id){
+    if($id==1)
+        return "Baru";
+    else if($id==2)
+        return "Berjaya";
+    else
+        return "Tolak";
 }
 
