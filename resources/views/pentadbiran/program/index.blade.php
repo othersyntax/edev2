@@ -34,7 +34,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Jenis Carian</label>{{--Untuk Search--}}
-                                {{ Form::select('carian_type', ['Kod'=>'Program'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
+                                {{ Form::select('carian_type', ['Kod'=>'Program', 'Negeri'=>'Negeri'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
 
                                 </select>
                             </div>
@@ -78,6 +78,7 @@
                         <thead>
                             <tr>
                                 <th class="text-center">#ID</th>
+                                <th class="text-center">Kod</th>
                                 <th>Nama Program</th>
                                 <th class="text-center">Status</th>
                                 <th>Tindakan</th>
@@ -108,11 +109,23 @@
                     <div class="col-lg-12">
                         <ul id="save_msgList"></ul>
                     </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>Kod</label>
+                                {{ Form::text('prog_code_add', null, ['class'=>'form-control prog_code_add']) }}
+                            </div>
+                        </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>Nama Program</label>
+                                    {{ Form::text('prog_name_add', null, ['class'=>'form-control prog_name_add']) }}
+                                </div>                          
+                            </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label>Program</label>
-                            {{ Form::text('prog_name_add', null, ['class'=>'form-control prog_name_add']) }}
-                        </div>
+                            <label>Negeri</label>
+                            {{ Form::select('prog__negri_id_add', dropdownNegeri(), null, ['class'=>'form-control prog__negri_id_add']) }}
+                        </div>                         
                     </div> 
                 </div>
             </div>
@@ -133,29 +146,40 @@
                 <h4 class="modal-title">Kemaskini Maklumat Program</h4>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="program_id">
+                <input type="hidden" id="program_id_edit">
                 <div class="row">
                     <div class="col-lg-12">
                         <ul id="save_msgList"></ul>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-4">
                         <div class="form-group">
-                            <label>Program</label>
+                            <label>Kod Program</label>
+                            {{ Form::text('prog_code_edit', null, ['class'=>'form-control' , 'id'=> 'prog_code_edit']) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label>Nama Program </label>
                             {{ Form::text('prog_name_edit', null, ['class'=>'form-control' , 'id'=> 'prog_name_edit']) }}
                         </div>
                     </div>
-
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
+                            <div class="form-group">
+                                <label>Status </label>
+                                {{ Form::text('prog_status_edit', null, ['class'=>'form-control' , 'id'=> 'prog_status_edit']) }}
+                            </div>
+                    </div>
+                    <div class="col-lg-4">
                         <div class="form-group">
-                            <label>Status</label>
-                            {{ Form::select('prog_status_edit', ['1'=>'Aktif', '2'=>'Tidak Aktif'], null, ['class'=>'form-control', 'id'=>'prog_status_edit']) }}
+                            <label>ID Negeri</label>
+                            {{ Form::select('prog__negri_id_edit', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'prog__negri_id_edit']) }}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary edit_kate">Kemaskini</button>
+                <button type="button" class="btn btn-primary update_prog">Kemaskini</button>
             </div>
         </div>
     </div>
@@ -210,6 +234,7 @@
                     $('tbody').html("");
                     $.each(response.Program, function (key, item) {
                         $('tbody').append('<tr>\
+                            <td class="text-center">' + item.prog_code + '</td>\
                             <td class="text-center">' + item.program_id + '</td>\
                             <td>' + item.prog_name + '</td>\
                             <td class="text-center">' + item.prog_status + '</td>\
@@ -220,9 +245,6 @@
                 }
             });
         }
-
-
-
 
 
 
@@ -279,7 +301,9 @@
                  $(this).text('Menyimpan');
 
                      var data = {
+                         'prog_code': $('.prog_code_add').val(),
                          'prog_name': $('.prog_name_add').val(),
+                         'prog__negri_id': $('.prog__negri_id_add').val(),
                 
                      }
 
@@ -334,28 +358,47 @@
                         // $('#success_message').text(response.message);
                         $('#editStateModal').modal('hide');
                     } else {
+                        $('#prog_code_edit').val(response.program.prog_code);                        
                         $('#prog_name_edit').val(response.program.prog_name);
+                        $('#prog_status_edit').val(response.program.prog_status).change();
+                        $('#prog__negri_id_edit').val(response.program.prog__negri_id).change();
                         $('#program_id_edit').val(program_id);
                     }
                 }
             });
             $('.btn-close').find('input').val('');
-            });
+        });
 
 
+//ON CHANGE NEGERI DROPDOWN EVENT
+$('#neg_negeri_id').change(function() {
+            var cari_kod_negeri = $(this).val();
+            getDaerah(cari_kod_negeri, 'dae_daerah_id', '#list-daerah');
+        });
 
+        $('#neg_negeri_id_add').change(function() {
+            var add_kod_negeri = $(this).val();
+            getDaerah(add_kod_negeri, 'dae_daerah_id_add', '#list-daerah-add');
+        });
+
+        $('#neg_negeri_id_edit').change(function() {
+            var edit_kod_negeri = $(this).val();
+            getDaerah(edit_kod_negeri, 'dae_daerah_id_edit', '#list-daerah-edit');
+        });
+        
  // UPDATE RECORD
- $(document).on('click', '.edit_kate', function (e) {
+            $(document).on('click', '.update_prog', function (e) {
             e.preventDefault();
 
             $(this).text('Kemaskini');
             // alert(id);
 
             var edit_data = {
-                'program_id': $('#program_id_edit').val(),
                 'prog_code': $('#prog_code_edit').val(),
                 'prog_name': $('#prog_name_edit').val(),
                 'prog_status': $('#prog_status_edit').val(),
+                'prog__negri_id': $('#prog__negri_id_edit').val(),
+                'program_id': $('#program_id_edit').val(),
             }
 
             $.ajaxSetup({
@@ -378,7 +421,7 @@
                             $('#update_msgList').append('<li>' + err_value +
                                 '</li>');
                         });
-                        $('.edit_kate').text('Kemaskini');
+                        $('.update_prog').text('Kemaskini');
                     } else {
                         $('#update_msgList').html("");
                         // toastr.success(response.message);
