@@ -22,8 +22,8 @@ class SilingController extends Controller
     public function showList(Request $req)
     {
         if($req->isMethod('post')) {
-            $sil_program_id = $req->sil_program_id;
-            $sil_status = $req->sil_status;
+            $sil_program_id = $req->sil_program_id_cari;
+            $sil_status = $req->sil_status_cari;
 
 
             $query = \DB::table('tblsiling as a')
@@ -96,7 +96,7 @@ class SilingController extends Controller
             $sil->sil_created_by = auth()->user()->id;
             $sil->sil_updated_by = auth()->user()->id;
             $sil->save();
-
+            // dd($sil);
             return response()->json([
                 'status'=>200,
                 'message'=>'Berjaya ditambah'
@@ -167,9 +167,9 @@ class SilingController extends Controller
             $sil->sil_fasiliti_id = $req->sil_program_id;
             $sil->sil_tahun = $req->sil_tahun;
             $sil->sil_amount = $req->sil_amount;
+            $sil->sil_status = $req->sil_status;
             $sil->sil_sdate = Carbon::createFromFormat('d/m/Y',$req->sil_sdate)->format('Y-m-d');
             $sil->sil_edate = Carbon::createFromFormat('d/m/Y',$req->sil_edate)->format('Y-m-d');
-            $sil->sil_created_by = auth()->user()->id;
             $sil->sil_updated_by = auth()->user()->id;
             $sil->save();
 

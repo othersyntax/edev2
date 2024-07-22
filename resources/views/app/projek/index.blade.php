@@ -35,16 +35,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3">
-        <div class="ibox ">
-            <div class="ibox-title bg-warning">
-                <h5>TANGGUNGAN</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins  text-right">@duit(106120)</h1>
-            </div>
-        </div>
-    </div>
+
     <div class="col-lg-3">
         <div class="ibox">
             <div class="ibox-title bg-info">
@@ -57,9 +48,19 @@
     </div>
     <div class="col-lg-3">
         <div class="ibox ">
+            <div class="ibox-title bg-warning">
+                <h5>JUMLAH BAKI</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins  text-right">@duit(106120)</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="ibox ">
             <div class="ibox-title bg-primary">
                 <span class="label label-success float-right">{{ date('Y') }}</span>
-                <h5>JUMLAH</h5>
+                <h5>JUMLAH DILULUSKAN</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins text-right font-bold">@duit($jumlah)</h1>

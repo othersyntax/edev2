@@ -13,53 +13,59 @@
 <div class="row">
     <div class="col-lg-3">
         <div class="ibox ">
-            <div class="ibox-title bg-success">
-                <h5>BELANJA</h5>
+            <div class="ibox-title bg-primary">
+                {{-- <span class="label label-success float-right">{{ date('Y') }}</span> --}}
+                <h5>PERUNTUKAN DILULUSKAN (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right">@duit(275800)</h1>
-                <div class="stat-percent font-bold text-info">20%</div>
-                <small>Prestasi</small>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="ibox ">
-            <div class="ibox-title bg-warning">
-                <h5>TANGGUNGAN</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins text-right">@duit(106120)</h1>
-                <div class="stat-percent font-bold text-navy">30% <i class="fa fa-level-up"></i></div>
-                <small>Peratusan</small>
+                <h1 class="no-margins text-right text-info"><b>@duit(50000000)</b></h1>
+                <div class="progress mt-2">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-info">
-                <h5>PENJIMATAN</h5>
+                <h5>AGIHAN WARAN (RM)</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins text-right">@duit(86200)</h1>
-                <div class="stat-percent font-bold text-success">5% <i class="fa fa-bolt"></i></div>
-                <small>Peratusan</small>
+                <div class="progress mt-2">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 10%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">10%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title bg-warning">
+                <h5>BAKI PERUNTUKAN (RM)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins text-right">@duit(106120)</h1>
+                <div class="progress mt-2">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">15%</div>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-lg-3">
         <div class="ibox ">
-            <div class="ibox-title bg-primary">
-                {{-- <span class="label label-success float-right">{{ date('Y') }}</span> --}}
-                <h5>PERUNTUKAN DILULUSKAN</h5>
+            <div class="ibox-title bg-success">
+                <h5>BELANJA (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right text-info"><b>@duit(40886200)</b></h1>
-                <div class="stat-percent font-bold text-danger">20%</i></div>
-                <small>Prestasi</small>
+                <h1 class="no-margins text-right">@duit(275800)</h1>
+                <div class="progress mt-2">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">55%</div>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 
 {{-- CHART --}}
@@ -67,7 +73,7 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5> PROGRAM / BAHAGIAN / INSTITUSI / JKN</h5>
+                <h5>PEMILIK</h5>
             </div>
             <div class="ibox-content">
                 <div class="row">
@@ -115,7 +121,7 @@
     <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Agihan Peruntukan Mengikut Program / Bahagian / Institusi / JKN Bagi BP00600 </h5>
+                <h5>Agihan Peruntukan Mengikut Pemilik Bagi BP00600 </h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -145,9 +151,9 @@
 
                             <th>#</th>
                             <th>PROGRAM / BAHAGIAN / INSTITUSI / JKN </th>
-                            <th class="text-right">DALAM SILING</th>
-                            <th class="text-right">LUAR SILING</th>
-                            <th class="text-right">PERUNTUKAN YANG DILULUSKAN </th>
+                            <th class="text-right">SILING (RM)</th>
+                            <th class="text-right">LUAR SILING (RM)</th>
+                            <th class="text-right">PERUNTUKAN YANG DILULUSKAN (RM)</th>
                             <th>PRESTASI BELANJA</th>
                         </tr>
                         </thead>
@@ -158,7 +164,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -166,7 +176,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>3</td>
@@ -174,7 +188,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-danger" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>4</td>
@@ -182,7 +200,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-danger" style="width: 5%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>5</td>
@@ -190,7 +212,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: 85%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>6</td>
@@ -198,7 +224,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 65%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>7</td>
@@ -206,7 +236,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: 85%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>8</td>
@@ -214,7 +248,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>9</td>
@@ -222,7 +260,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-danger" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>10</td>
@@ -230,7 +272,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 40%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>11</td>
@@ -238,7 +284,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>12</td>
@@ -246,7 +296,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>13</td>
@@ -254,7 +308,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-danger" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>14</td>
@@ -262,7 +320,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 50%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>15</td>
@@ -270,7 +332,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 45%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         <tr>
                             <td>16</td>
@@ -278,7 +344,11 @@
                             <td class="text-right">@duit(1250000)</td>
                             <td class="text-right">@duit(900000)</td>
                             <td class="text-right">@duit(2150000)</td>
-                            <td><span class="pie">0.52,1.041</span></td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-danger" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -403,15 +473,15 @@
 
         var options = {
             xaxis: {
-                // mode: "time",
-                // tickSize: [3, "day"],
-                // tickLength: 0,
-                // axisLabel: "Date",
-                // axisLabelUseCanvas: true,
-                // axisLabelFontSizePixels: 12,
-                // axisLabelFontFamily: 'Arial',
-                // axisLabelPadding: 10,
-                // color: "#d5d5d5"
+                mode: "day",
+                tickSize: [3, "day"],
+                tickLength: 0,
+                axisLabel: "Date",
+                axisLabelUseCanvas: true,
+                axisLabelFontSizePixels: 12,
+                axisLabelFontFamily: 'Arial',
+                axisLabelPadding: 10,
+                color: "#d5d5d5"
             },
             yaxes: [{
                 position: "left",
@@ -423,7 +493,7 @@
                 axisLabelPadding: 3
             }, {
                 position: "right",
-                clolor: "#d5d5d5",
+                clolor: 'red',
                 axisLabelUseCanvas: true,
                 axisLabelFontSizePixels: 12,
                 axisLabelFontFamily: ' Arial',

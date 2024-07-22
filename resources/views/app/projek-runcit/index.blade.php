@@ -15,7 +15,7 @@
                 <a href="#">Projek</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Baharu</strong>
+                <strong>Runcit</strong>
             </li>
         </ol>
     </div>
@@ -24,34 +24,15 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-4">
-        <div class="ibox ">
-            <div class="ibox-title bg-warning">
-                <h5>BAKI SILING (RM)</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins text-right">@duit($tolak)</h1>
-            </div>
-        </div>
+    <div class="col-lg-9">
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-success">
                 <h5>JUMLAH PERMOHONAN  (RM)</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins text-right">@duit($lulus)</h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
-        <div class="ibox ">
-            <div class="ibox-title bg-primary">
-                <span class="label label-success float-right">{{ date('Y')+1 }}</span>
-                <h5>SILING PERUNTUKAN  (RM)</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins text-right"><b>@duit($jumlah)</b></h1>
             </div>
         </div>
     </div>
@@ -126,14 +107,12 @@
             <div class="ibox-title">
                 <h5>Senarai Projek</h5>
                 <div class="ibox-tools">
-                    @if (cekSiling(auth()->user()->program_id))
-                        <button type="button" class="btn btn-sm btn-warning" id="emelPemakluman">
-                            <span id="emelButton"></span> Emel Pemakluman
-                        </button>
-                        <a href="/permohonan/baru/tambah" class="btn btn-sm btn-primary">
-                            Tambah
-                        </a>
-                    @endif
+                    <button type="button" class="btn btn-sm btn-warning" id="emelPemakluman">
+                        <span id="emelButton"></span> Emel Pemakluman
+                    </button>
+                    <a href="/permohonan/runcit/tambah" class="btn btn-sm btn-primary">
+                        Tambah
+                    </a>
                 </div>
             </div>
             <div class="ibox-content">

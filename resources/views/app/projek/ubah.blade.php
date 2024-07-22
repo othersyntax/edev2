@@ -43,6 +43,20 @@
             </div>
             <div class="ibox-content">
                 <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Parlimen</label>
+                            <div class="form-control">P.140 - Segamat</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Dewan Undangan Negeri</label>
+                            <div class="form-control">N.02 - Jementah</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Program</label>
@@ -113,6 +127,18 @@
                     <p class="text-info font-bold mt-3">2. MAKLUMAT PROJEK</p>
                     <div class="hr-line-dashed"></div>
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Kategori Projek</label>
+                                {{ Form::select('proj_kategori_id', dropdownProjekKategori(), $projek->proj_kategori_id, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Program / Bahagian / Institusi / JKN</label>
+                                {{ Form::select('proj_program', dropdownProgram(), $projek->proj_program, ['class'=>'form-control', 'id'=>'proj_program']) }}
+                            </div>
+                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Tahun</label>
@@ -125,16 +151,10 @@
                                 {{ Form::text('proj_bulan', $projek->proj_bulan, ['class'=>'form-control', 'id'=>'proj_bulan']) }}
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <label>Kategori Projek</label>
-                                {{ Form::select('proj_kategori_id', dropdownProjekKategori(), $projek->proj_kategori_id, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Program / Bahagian / Institusi / JKN</label>
-                                {{ Form::select('proj_program', dropdownProgram(), $projek->proj_program, ['class'=>'form-control', 'id'=>'proj_program']) }}
+                                <label>Agensi Pelaksana?</label>
+                                {{ Form::select('proj_pelaksan', ['1'=>'Ya', '2'=>'Tidak'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status']) }}
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -155,12 +175,6 @@
                             <div class="form-group">
                                 <label>Catatan</label>
                                 {{ Form::textarea('proj_catatan', $projek->proj_catatan, ['class'=>'form-control', 'id'=>'proj_catatan', 'rows'=>'4']) }}
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Tarikh SST / Indent</label>
-                                {{ Form::text('proj_sst_date', $projek->proj_sst_date, ['class'=>'form-control', 'id'=>'proj_sst_date']) }}
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -231,13 +245,13 @@
                                 {{ Form::text('projd_jeinis_perolehan', null, ['class'=>'form-control', 'id'=>'projd_jeinis_perolehan']) }}
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>No Waran Peruntukan Kecil</label>
                                 {{ Form::text('projd_waran_kecil', $details->projd_waran_kecil, ['class'=>'form-control text-right', 'id'=>'projd_waran_kecil']) }}
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Amaun Waran Peruntukan Kecil</label>
                                 {{ Form::text('projd_waran_amaun', $details->projd_waran_amaun, ['class'=>'form-control text-right', 'id'=>'projd_waran_amaun']) }}

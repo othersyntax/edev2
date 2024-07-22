@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Projek;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Projek\ProjekBaru;
-
-class ProjekBaruController extends Controller
+class ProjekRuncitController extends Controller
 {
     public function index(Request $request){
         $queryType = 1; // default click pd menu
@@ -89,7 +88,7 @@ class ProjekBaruController extends Controller
         $data['lulus'] = $lulus;
         $data['projek'] = $projek;
         $data['jumlah'] = $jumlah;
-        return view('app.projek-baru.index', $data);
+        return view('app.projek-runcit.index', $data);
     }
 
     public function create(){
@@ -98,6 +97,6 @@ class ProjekBaruController extends Controller
         //     ->where('sil_status', 1)
         //     ->first();
         // if()
-        return view('app.projek-baru.add');
+        return view('app.projek-runcit.add');
     }
 }
