@@ -31,9 +31,19 @@
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="sil_edate_edit" class="form-control">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Amaun (RM) </label>
-                    {{ Form::text('sil_amount_edit', null, ['class'=>'form-control', 'id'=>'sil_amount_edit']) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Amaun (RM) </label>
+                            {{ Form::text('sil_amount_edit', null, ['class'=>'form-control', 'id'=>'sil_amount_edit']) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Status</label>
+                            {{ Form::select('sil_status_edit', ['1'=>'Aktif', '2'=>'Tutup'], null, ['class'=>'form-control', 'id'=>'sil_status_edit']) }}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

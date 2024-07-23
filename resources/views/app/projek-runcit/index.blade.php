@@ -9,13 +9,13 @@
 @section('breadcrumb')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Senarai Projek</h2>
+        <h2>Senarai Permohonan Projek</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="#">Projek</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Kemaskini</strong>
+                <strong>Runcit</strong>
             </li>
         </ol>
     </div>
@@ -24,46 +24,15 @@
 
 @section('content')
 <div class="row">
-
+    <div class="col-lg-9">
+    </div>
     <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-success">
-                <h5>BELANJA</h5>
+                <h5>JUMLAH PERMOHONAN  (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins  text-right">@duit(275800)</h1>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-3">
-        <div class="ibox">
-            <div class="ibox-title bg-info">
-                <h5>PENJIMATAN</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins  text-right">@duit($jimat)</h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="ibox ">
-            <div class="ibox-title bg-warning">
-                <h5>JUMLAH BAKI</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins  text-right">@duit(106120)</h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="ibox ">
-            <div class="ibox-title bg-primary">
-                <span class="label label-success float-right">{{ date('Y') }}</span>
-                <h5>JUMLAH DILULUSKAN</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins text-right font-bold">@duit($jumlah)</h1>
+                <h1 class="no-margins text-right">@duit($lulus)</h1>
             </div>
         </div>
     </div>
@@ -73,14 +42,6 @@
         <div class="ibox ">
             <div class="ibox-title">
                 <h5>Tapisan Projek</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
             </div>
             <div class="ibox-content">
                 <form action="/projek/senarai" method="post">
@@ -146,11 +107,11 @@
             <div class="ibox-title">
                 <h5>Senarai Projek</h5>
                 <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
+                    <button type="button" class="btn btn-sm btn-warning" id="emelPemakluman">
+                        <span id="emelButton"></span> Emel Pemakluman
+                    </button>
+                    <a href="/permohonan/runcit/tambah" class="btn btn-sm btn-primary">
+                        Tambah
                     </a>
                 </div>
             </div>
@@ -182,7 +143,7 @@
                                 <td>{{ $proj->fas_name }}</td>
                                 <td>{{ $proj->proj_nama }}</td>
                                 <td class="text-right">@duit($proj->proj_kos_lulus)</td>
-                                <td><span class="label {{ $proj->proj_status == 1 ? 'label-primary' : 'label-default'}}">{{ getStatus($proj->proj_status) }}</span></td>
+                                <td><span class="badge {{ $proj->proj_status == 1 ? 'badge-primary' : 'badge-danger'}}">{{ getStatus($proj->proj_status) }}</span></td>
                                 <td class="text-center">
                                     <a href="/projek/papar/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>
                                     <a href="/projek/ubah/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>

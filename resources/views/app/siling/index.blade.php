@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Program / Institusi / JKN</label>
+                            <label>Program / Bahagian / Institusi / JKN</label>
                             {{ Form::select('sil_program_id_cari', dropdownProgram(), session('sil_program_id_cari'), ['class'=>'form-control', 'id'=>'sil_program_id_cari']) }}
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         <div class="form-group">
                             <label>Status</label>
                             <span id="list-daerah">
-                                {{ Form::select('sil_status_cari', ['1'=>'Buka', '2'=>'Tutup'], session('sil_status_cari'), ['class'=>'form-control', 'id'=>'sil_status_cari']) }}
+                                {{ Form::select('sil_status_cari', [''=>'--Sila Pilih--','1'=>'Buka', '2'=>'Tutup'], session('sil_status_cari'), ['class'=>'form-control', 'id'=>'sil_status_cari']) }}
                             </span>
                         </div>
                     </div>
@@ -80,9 +80,10 @@
                         <thead>
                             <tr>
                                 <th width="5%" class="text-center">#ID</th>
-                                <th width="30%">Program</th>
-                                <th width="10%">Mula</th>
-                                <th width="10%">Tamat</th>
+                                <th width="30%">Program / Bahagian / Institusi / JKN</th>
+                                <th width="10%">Fasa</th>
+                                <th width="5%">Mula</th>
+                                <th width="5%">Tamat</th>
                                 <th width="10%" class="text-right">Amaun</th>
                                 <th width="10%" class="text-right">Baki</th>
                                 <th width="10%">Status</th>
@@ -185,6 +186,7 @@
                         $('tbody').append('<tr>\
                             <td class="text-center">' + item.siling_id + '</td>\
                             <td>' + item.prog_name + '</td>\
+                            <td>Fasa 1</td>\
                             <td>' + Starikh.toLocaleDateString() + '</td>\
                             <td>' + Etarikh.toLocaleDateString() + '</td>\
                             <td class="text-right">' + amount + '</td>\
@@ -275,6 +277,7 @@
                         $('#sil_sdate_edit').val(Starikh.toLocaleDateString())
                         $('#sil_edate_edit').val(Etarikh.toLocaleDateString());
                         $('#sil_amount_edit').val(response.siling.sil_amount);
+                        $('#sil_status_edit').val(response.siling.sil_status);
                     }
                 }
             });
@@ -292,6 +295,7 @@
                 'sil_sdate': $('#sil_sdate_edit').val(),
                 'sil_edate': $('#sil_edate_edit').val(),
                 'sil_amount': $('#sil_amount_edit').val(),
+                'sil_status': $('#sil_status_edit').val(),
             }
 
             $.ajaxSetup({

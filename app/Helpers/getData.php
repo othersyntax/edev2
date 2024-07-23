@@ -3,7 +3,10 @@ use App\Models\Negeri;
 use App\Models\Daerah;
 use App\Models\Pentadbiran\KategoriFasiliti;
 use App\Models\Pentadbiran\Program;
+use App\Models\Pentadbiran\KategoriProjek;
 use App\Models\Fasiliti;
+use App\Models\Siling;
+use App\Models\BakulJimat;
 use App\Models\Modul;
 
 function dropdownNegeri(){
@@ -13,14 +16,6 @@ function dropdownNegeri(){
         ->prepend('--Sila Pilih--', '');
     return $negeri;
 }
-function dropdownNegeri2(){
-    $negeri = Negeri::where('neg_status', '1')
-        ->orderBy('neg_nama_negeri')
-        ->pluck('neg_nama_negeri', 'neg_nama_negeri')
-        ->prepend('--Sila Pilih--', '');
-    return $negeri;
-}
-
 function dropdownDaerah(){
     $daerah = Daerah::where('dae_status', '1')
         ->orderBy('dae_nama_daerah')
@@ -53,6 +48,14 @@ function dropdownProgram(){
     return $program;
 }
 
+function dropdownProjekKategori(){
+    $projKat = KategoriProjek::where('pro_kat_status', '1')
+        ->orderBy('pro_kat_nama')
+        ->pluck('pro_kat_nama', 'proj_kategori_id')
+        ->prepend('--Sila Pilih--', '');
+    return $projKat;
+}
+
 function dropdownModul(){
     $modul = Modul::where('status', '1')
         ->orderBy('modul')
@@ -65,6 +68,43 @@ function getStatus($id){
     if($id==1)
         return "Aktif";
     else
-        return "Tidak Aktif";
+        return "Batal";
+}
+function getStatusProjek($id){
+    if($id==1)
+        return "Baru";
+    else if($id==2)
+        return "Berjaya";
+    else
+        return "Tolak";
+}
+function getStatusJimat($id){
+    if($id==1)
+        return "Baru";
+    else
+        return "Telah Guna";
+}
+
+function cekSiling($id){
+    $sil = Siling::where('sil_fasiliti_id', $id)
+            ->where('sil_edate', '>', now())
+            ->where('sil_status', 1)
+            ->first();
+
+    if($sil)
+        return true;
+    else
+
+    return false;
+}
+function cekJimat($id){
+    $sil = BakulJimat::where('bj_program_id', $id)
+            ->where('bj_status', 1)
+            ->get();
+
+    if($sil)
+        return true;
+    else
+        return false;
 }
 
