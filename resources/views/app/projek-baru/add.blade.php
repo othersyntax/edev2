@@ -6,6 +6,7 @@
     <!-- Sweet Alert -->
     <link href="{{ asset("/template/css/plugins/sweetalert/sweetalert.css") }}" rel="stylesheet">
     <link href="{{ asset("/template/css/plugins/summernote/summernote-bs4.css") }}" rel="stylesheet">
+    <link href="{{ asset("/template/css/plugins/daterangepicker/daterangepicker-bs3.css") }}" rel="stylesheet">
 @endsection
 
 @section('breadcrumb')
@@ -132,7 +133,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Program / Bahagian / Institusi / JKN</label>
+                            <label>Pemilik</label>
                             {{ Form::select('proj_program', dropdownProgram(), null, ['class'=>'form-control', 'id'=>'proj_program']) }}
                         </div>
                     </div>
@@ -150,28 +151,47 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Agensi Pelaksana?</label>
-                            {{ Form::select('proj_pelaksan', ['1'=>'Ya', '2'=>'Tidak'], null, ['class'=>'form-control', 'id'=>'proj_status']) }}
+                            <label>Melibatkan Struktur</label>
+                            {{ Form::select('projd_jenis_perolehan', [''=>'--Sila Pilih--', '1'=>'Ya', '2'=>'Tidak'], null, ['class'=>'form-control', 'id'=>'projd_jenis_perolehan']) }}
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label>Nama Projek</label>
-                            {{ Form::textarea('proj_nama', null, ['class'=>'form-control', 'id'=>'proj_nama', 'rows'=>'3']) }}
+                            <label>Agensi Pelaksana?</label>
+                            {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'JKR'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
                         </div>
                     </div>
+                    <div id="pilihJkr" class="col-md-6" style="display:none">
+                        <div class="form-group">
+                            <label>Cawangan JKR</label>
+                            {{ Form::select('proj_pelaksan', getListJKR(), null, ['class'=>'form-control', 'id'=>'proj_status']) }}
+                        </div>
+                    </div>
+
                 </div>
                 <p class="text-info font-bold mt-3">3. BUTIRAN PROJEK</p>
                 <div class="hr-line-dashed"></div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label>Nama Projek</label>
+                            {{ Form::textarea('proj_nama', null, ['class'=>'form-control', 'id'=>'proj_nama', 'rows'=>'3']) }}
+                        </div>
+                        <div class="form-group">
                             <label>Skop Projek</label>
+                            {{ Form::textarea('proj_nama', null, ['class'=>'form-control', 'id'=>'proj_nama', 'rows'=>'3']) }}
                             <div class="summernote">
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Justifikasi Projek</label>
+                            {{ Form::textarea('proj_nama', null, ['class'=>'form-control', 'id'=>'proj_nama', 'rows'=>'3']) }}
+                            <div class="summernote">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Ulasan Teknikal (JKR / BPKj / Unit Kejuruteraan)</label>
+                            {{ Form::textarea('proj_nama', null, ['class'=>'form-control', 'id'=>'proj_nama', 'rows'=>'3']) }}
                             <div class="summernote">
                             </div>
                         </div>
@@ -193,22 +213,25 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Jenis Perolehan</label>
-                            {{ Form::select('projd_jenis_perolehan', [''=>'--Sila Pilih--', '1'=>'Bekalan Perkhidmatan', '2'=>'Kerja'], null, ['class'=>'form-control', 'id'=>'projd_jenis_perolehan']) }}
+                            <label>Jenis Dokumen</label>
+                            {{ Form::select('projd_jenis_perolehan', [''=>'--Sila Pilih--', '1'=>'Inden', '2'=>'SST'], null, ['class'=>'form-control', 'id'=>'projd_jenis_perolehan']) }}
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Tempoh</label>
+                            <label>Tarikh Inden / SST</label>
                             {{ Form::text('projd_jeinis_perolehan', null, ['class'=>'form-control', 'id'=>'projd_jeinis_perolehan']) }}
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Melibatkan Struktur</label>
-                            {{ Form::select('projd_jenis_perolehan', [''=>'--Sila Pilih--', '1'=>'Ya', '2'=>'Tidak'], null, ['class'=>'form-control', 'id'=>'projd_jenis_perolehan']) }}
+                    <div class="form-group" id="data_5">
+                        <label class="font-normal">Tempoh Pelaksanaan</label>
+                        <div class="input-daterange input-group" id="datepicker">
+                            <input type="text" class="form-control-sm form-control" name="start" placeholder="Tarikh Mula"/>
+                            <span class="input-group-addon">hingga</span>
+                            <input type="text" class="form-control-sm form-control" name="end" placeholder="Tarikh Tamat" />
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -293,15 +316,40 @@
 </form>
 </div>
 @include('app/projek-baru/_modal/muat-naik')
+@include('app/projek-baru/_modal/add-kewangan')
 @endsection
 @section('custom-js')
 <script src="{{ asset("/template/js/plugins/summernote/summernote-bs4.js") }}"></script>
+<!-- Date range picker -->
+<script src="{{ asset("/template/js/plugins/daterangepicker/daterangepicker.js") }}"></script>
 <script>
     $(document).ready(function(){
         //ADD BUTTON CLICK
         $('#add').click(function(e){
             e.preventDefault();
             $('#addModal').modal('show');
+        });
+
+        $('#addUnjuran').click(function(e){
+            e.preventDefault();
+            $('#addKewangan').modal('show');
+        });
+
+        $('#proj_pelaksana').on('change', function(){
+            let select = $(this).val();
+
+            if(select == 2){
+                $('#pilihJkr').show();
+            }
+            else{
+                $('#pilihJkr').hide();
+            }
+        });
+
+        $('#data_5 .input-daterange').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true
         });
 
         $('.custom-file-input').on('change', function() {

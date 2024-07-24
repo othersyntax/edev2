@@ -64,6 +64,14 @@ function dropdownModul(){
     return $modul;
 }
 
+function getListJKR(){
+    $modul = Program::where('prog_kategori', 'JKR')
+        ->orderBy('prog_name')
+        ->pluck('prog_name', 'program_id')
+        ->prepend('--Sila Pilih--', '');
+    return $modul;
+}
+
 function getStatus($id){
     if($id==1)
         return "Aktif";
