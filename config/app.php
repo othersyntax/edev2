@@ -54,9 +54,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost/ede'),
+    'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL', 'http://localhost/ede'),
+    'asset_url' => env('ASSET_URL', '/'),
 
     /*
     |--------------------------------------------------------------------------

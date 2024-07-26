@@ -21,15 +21,16 @@ class ProgramController extends Controller
             $carian_text = $req->carian_text;
             // dd($req);
             if(!empty($carian_type)){
-                $query = DB::table('tblprogram')
+                $query = \DB::table('tblprogram')
                             ->where(function($q) use ($carian_type, $carian_text){ 
                                 if(!empty($carian_type)){
-                                    if($carian_type=='Kod'){
-                                        $q->where('prog_code', $carian_text);
+                                    if($carian_type=='prog_name'){
+                                        $q->where('prog_name', 'like', "%{$carian_text}%");
                                     }
                                     else{
-                                        $q->where('program_id','like', "%{$carian_text}%");
+                                        $q->where('program_id', $carian_text);
                                     }
+                                                                                                       
                                 }
                             });
                 $program = $query->get();
@@ -62,7 +63,7 @@ class ProgramController extends Controller
             'prog__negri_id'=> 'required',
         ],
         [
-            'prog_code.required'=> 'Sila masukkan Id Program',
+            'prog_code.required'=> 'Sila masukkan Kod Program',
             'prog_name.required'=> 'Sila masukkan Nama Program',
             'prog__negri_id.required'=> 'Sila pilih Negeri',
         ]);
@@ -101,6 +102,7 @@ class ProgramController extends Controller
     public function edit(string $id)
     {
         $program = Program::find($id);
+        // dd($id);
         if($program)
         {
             return response()->json([
