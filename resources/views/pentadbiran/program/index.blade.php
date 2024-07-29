@@ -34,7 +34,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Jenis Carian</label>{{--Untuk Search--}}
-                                {{ Form::select('carian_type', ['prog_name'=>'Program', 'Negeri'=>'Negeri'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
+                                {{ Form::select('carian_type', ['prog_name'=>'Nama Program'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
 
                                 </select>
                             </div>
