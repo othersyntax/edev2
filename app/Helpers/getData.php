@@ -5,6 +5,8 @@ use App\Models\Pentadbiran\KategoriFasiliti;
 use App\Models\Pentadbiran\Program;
 use App\Models\Pentadbiran\KategoriProjek;
 use App\Models\Fasiliti;
+use App\Models\Siling;
+use App\Models\BakulJimat;
 use App\Models\Modul;
 
 function dropdownNegeri(){
@@ -14,7 +16,6 @@ function dropdownNegeri(){
         ->prepend('--Sila Pilih--', '');
     return $negeri;
 }
-
 function dropdownDaerah(){
     $daerah = Daerah::where('dae_status', '1')
         ->orderBy('dae_nama_daerah')
@@ -85,5 +86,34 @@ function getStatusProjek($id){
         return "Berjaya";
     else
         return "Tolak";
+}
+function getStatusJimat($id){
+    if($id==1)
+        return "Baru";
+    else
+        return "Telah Guna";
+}
+
+function cekSiling($id){
+    $sil = Siling::where('sil_fasiliti_id', $id)
+            ->where('sil_edate', '>', now())
+            ->where('sil_status', 1)
+            ->first();
+
+    if($sil)
+        return true;
+    else
+
+    return false;
+}
+function cekJimat($id){
+    $sil = BakulJimat::where('bj_program_id', $id)
+            ->where('bj_status', 1)
+            ->get();
+
+    if($sil)
+        return true;
+    else
+        return false;
 }
 

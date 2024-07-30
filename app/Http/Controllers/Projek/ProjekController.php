@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Projek\Projek;
 use App\Models\Projek\ProjekDetails;
 use App\Models\Projek\ProjekUtilities;
+use App\Models\BakulJimat;
 use App\Models\Waran;
 
 class ProjekController extends Controller
@@ -55,7 +56,8 @@ class ProjekController extends Controller
                 ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_program', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_middle', 'a.proj_kod_group', 'a.proj_kos_lulus', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name');
             $projek = $query->paginate(15);
             $jumlah =  $query->where('proj_status', 1)->sum('proj_kos_lulus');
-            $jimat =  Projek::where('proj_status', 2)->sum('proj_kos_lulus');
+            $jimat1 =  Projek::where('proj_status', 2)->sum('proj_kos_lulus');
+            $jimat2 =  Projek::where('proj_status', 1)->sum('proj_penjimatan');
             // Belanja?
             // Tanggung?
             // Penjimatan kena ambil kira kos sebenar kurang
@@ -91,12 +93,13 @@ class ProjekController extends Controller
 
             $projek = $query->paginate(15);
             $jumlah =  $query->where('proj_status', 1)->sum('proj_kos_lulus');
-            $jimat =  Projek::where('proj_status', 2)->sum('proj_kos_lulus');
+            $jimat1 =  $query->where('proj_status', 2)->sum('proj_kos_lulus');
+            $jimat2 =  $query->where('proj_status', 1)->sum('proj_penjimatan');
             // Belanja?
             // Tanggung?
             // dd($projek);
         }
-        $data['jimat'] = $jimat;
+        $data['jimat'] = $jimat1 + $jimat2;
         $data['projek'] = $projek;
         $data['jumlah'] = $jumlah;
         // dd($data);
@@ -138,13 +141,35 @@ class ProjekController extends Controller
         $projek->proj_butiran = $request->proj_butiran;
         $projek->proj_catatan = $request->proj_catatan;
         $projek->proj_kos_lulus = $request->proj_kos_lulus;
-        $projek->proj_waran = $request->proj_waran;
+        // $projek->proj_waran = $request->proj_waran;
         $projek->proj_penjimatan = $request->proj_penjimatan;
         $projek->proj_tangungan = $request->proj_tangungan;
         $projek->proj_kos_sebenar = $request->proj_kos_sebenar;
         $projek->proj_status = $request->proj_status;
         $projek->save();
         if($projek){
+            // insert penjimatan
+            if($request->proj_penjimatan>0){
+                // cek rekod dah wujud belum
+                $cek = BakulJimat::where('bj_projek_id',  $request->projek_id)->where('bj_program_id', $request->proj_program)->first();
+                if($cek){
+                    // Update bakul
+                    $bakul = BakulJimat::find($cek->bakul_jimat_id);
+                    $bakul->bj_amount_jimat = $request->proj_penjimatan;
+                    $bakul->bj_updated_by = auth()->user()->id;
+                    $bakul->save();
+                }
+                else{
+                    // create bakul
+                    $bakul = new BakulJimat();
+                    $bakul->bj_projek_id = $request->projek_id;
+                    $bakul->bj_program_id = $request->proj_program;
+                    $bakul->bj_amount_jimat = $request->proj_penjimatan;
+                    $bakul->bj_created_by = auth()->user()->id;
+                    $bakul->bj_updated_by = auth()->user()->id;
+                    $bakul->save();
+                }
+            }
             return redirect('/projek/senarai')->with(['success'=>'Rekod berjaya dikemaskini']);
         }
     }

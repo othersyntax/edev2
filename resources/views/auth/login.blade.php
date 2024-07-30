@@ -17,14 +17,12 @@
 </head>
 
 <body class="gray-bg">
-
     <div class="middle-box text-center loginscreen animated fadeInDown">
-        <div>
-            <div class="logo-name">
-                <img src="{{ asset('/template/img/3.png') }}" width="350px" alt="MainLogo">
 
-            </div>
-            <p class="mt-3">Sila log-masuk</p>
+    </div>
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+        <img src="{{ asset('/template/img/3.png') }}" width="300px" alt="MainLogo">
+        <div>
             <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group">

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Projek\ProjekBaru;
 
-class ProjekBaruController extends Controller
+class ProjekJimatController extends Controller
 {
     public function index(Request $request){
         $queryType = 1; // default click pd menu
@@ -89,15 +89,17 @@ class ProjekBaruController extends Controller
         $data['lulus'] = $lulus;
         $data['projek'] = $projek;
         $data['jumlah'] = $jumlah;
-        return view('app.projek-baru.index', $data);
+        return view('app.projek-penjimatan.index', $data);
     }
 
     public function create(){
-        // $sil = Siling::where('sil_fasiliti_id', auth()->user()->program_id)
-        //     ->where('sil_edate', '>', now())
-        //     ->where('sil_status', 1)
-        //     ->first();
-        // if()
-        return view('app.projek-baru.add');
+        $bakulJimat = \DB::table('tblbakul_jimat as a')
+                        ->join('tblprojek as b','a.bj_projek_id','b.projek_id')
+                        ->select('a.*','b.proj_nama')
+                        // ->where('a.bj_program_id', auth()->user()->program_id)
+                        ->get();
+        $data['bakulJimat'] = $bakulJimat;
+        // dd($data);
+        return view('app.projek-penjimatan.add', $data);
     }
 }

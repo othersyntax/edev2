@@ -17,7 +17,7 @@
                 <a href="#">Projek</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Baharu</strong>
+                <strong>Penjimatan</strong>
             </li>
         </ol>
     </div>
@@ -28,6 +28,60 @@
 <div class="row">
 <form action="/projek/simpan" method="post">
     @csrf
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>MAKLUMAT SUMBER KEWANGAN</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="5%" class="text-center">#Bil</th>
+                                <th width="65%">Projek</th>
+                                <th class="text-right" width="10%">Penjimatan</th>
+                                <th width="10%">Status</th>
+                                <th width="10%">Pilih</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if($bakulJimat->count()>0)
+                                @php
+                                    $bil=1;
+                                @endphp
+                                @foreach ($bakulJimat as $item)
+                                    <tr>
+                                        <td class="text-center">{{ $bil++ }}</td>
+                                        <td>{{ $item->proj_nama }}</td>
+                                        <td class="text-right">@duit($item->bj_amount_jimat)</td>
+                                        <td><span class="badge {{ $item->bj_status == 1 ? 'badge-primary' : 'badge-danger'}}">{{ getStatusJimat($item->bj_status) }}</span></td>
+                                        <td>
+                                            <div><label> <input type="checkbox" value=""></label></div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="5" class="font-italic text-small text-center">Tiada Rekod</td>
+                                </tr>
+                            @endif
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-12">
         <div class="ibox">
             <div class="ibox-title">

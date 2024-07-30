@@ -17,7 +17,7 @@
                 <a href="#">Projek</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Baharu</strong>
+                <strong>Runcit</strong>
             </li>
         </ol>
     </div>
@@ -172,6 +172,12 @@
                         </div>
                         <div class="form-group">
                             <label>Justifikasi Projek</label>
+                            <div class="summernote">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ulasan Unit Kejuruteraan</label>
                             <div class="summernote">
                             </div>
                         </div>
