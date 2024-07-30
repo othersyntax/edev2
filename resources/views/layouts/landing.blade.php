@@ -131,10 +131,10 @@
                         <li style="text-align: left;">
 
                         
-                        <a href="{{ asset("/template/img/12.01.2024_Pekeliling Perolehan MOF.pdf")}}" target="_blank">Pekeliling Perolehan MOF</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
+                        <a href="{{ asset("/storage/rujukan/12.01.2024_Pekeliling Perolehan MOF.pdf")}}" target="_blank">Pekeliling Perolehan MOF</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
                     </li>
                     <li style="text-align: left;">
-                        <a href="{{ asset("/template/img/Blanket approval.pdf")}}" target="_blank">Blanket Approval</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
+                        <a href="{{ asset("/storage/rujukan/Blanket approval.pdf")}}" target="_blank">Blanket Approval</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
                     </li>
                 </ul>
             </div>
@@ -149,10 +149,10 @@
                     </li>
                         
                         <li style="text-align: left;">
-                        <a href="{{ asset("/template/img/EPU_Garis Panduan KSP RMKe-12 dan Permohonan Projek Pembangunan Tahun 2024-2025.pdf")}}" target="_blank">EPU_Garis Panduan KSP RMKe-12 dan Permohonan Projek Pembangunan Tahun 2024-2025</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
+                        <a href="{{ asset("/storage/rujukan/EPU_Garis Panduan KSP RMKe-12 dan Permohonan Projek Pembangunan Tahun 2024-2025.pdf")}}" target="_blank">EPU_Garis Panduan KSP RMKe-12 dan Permohonan Projek Pembangunan Tahun 2024-2025</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
                         </li>
                         <li style="text-align: left;">
-                        <a href="{{ asset("/template/img/GP BP00600 tahun 2024 lengkap.pdf")}}" target="_blank">ALIRAN PROSES PROFIT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
+                        <a href="{{ asset("/storage/rujukan/GP BP00600 tahun 2024 lengkap.pdf")}}" target="_blank">ALIRAN PROSES PROFIT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
                         </li>                                                                                                                                                         
                 </ul>
             </div>
