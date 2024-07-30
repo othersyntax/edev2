@@ -72,7 +72,7 @@
 
     <!-- Sweet alert -->
     <script src="{{ asset("/template/js/plugins/sweetalert/sweetalert.min.js") }}"></script>
-
+    <script src="{{ asset("/template/js/allFunction.js") }}"></script>
     @yield('custom-js')
 
 

@@ -30,12 +30,16 @@ class KategoriProjekController extends Controller
                 $query = DB::table('tblprojek_kategori')
                             ->where(function($q) use ($carian_type, $carian_text){ 
                                 if(!empty($carian_type)){
-                                    if($carian_type=='Kod'){
-                                        $q->where('pro_kat_nama', $carian_text);
+                                    if($carian_type=='proj_kategori_id'){
+                                        $q->where('proj_kategori_id', "%{$carian_text}%");
+                                    }
+                                    elseif($carian_type=='pro_kat_nama'){
+                                        $q->where('pro_kat_nama','like', "%{$carian_text}%");
                                     }
                                     else{
-                                        $q->where('proj_kategori_id','like', "%{$carian_text}%");
+                                        $q->where('pro_siling', $carian_text);
                                     }
+                                    
                                 }
                             });
                 $kategoriprojek = $query->get();
@@ -50,9 +54,6 @@ class KategoriProjekController extends Controller
         return response()->json([
             'KategoriProjek'=>$kategoriprojek,
         ]);
-
-
-
     }
 
 
@@ -69,12 +70,14 @@ class KategoriProjekController extends Controller
     public function store(Request $req)
     {
         $validator = Validator::make($req->all(), [
+            'pro_kat_short_nama'=> 'required',
             'pro_kat_nama'=> 'required',
-            
+            'pro_siling'=> 'required',
         ],
         [
-            'pro_kat_nama.required'=> 'Sila masukkan nama projek',
-           
+            'pro_kat_short_nama.required'=> 'Sila Masukkan Kod Projek',
+            'pro_kat_nama.required'=> 'Sila masukkan Nama Projek',
+            'pro_siling.required'=> 'Sila pilih Kategori Siling',
         ]);
 
         if($validator->fails())
@@ -86,16 +89,22 @@ class KategoriProjekController extends Controller
         }
         else
         {
-            $fas = new KategoriProjek();
-            $fas->pro_kat_nama = $req->input('pro_kat_nama');
-            $fas->pro_kat_created_by = 1000;
-            $fas->pro_kat_updated_by = 1000;
-            $fas->save();
+           $katepro = new KategoriProjek();
+           $katepro->pro_kat_short_nama = $req->input('pro_kat_short_nama');
+           $katepro->pro_kat_nama = $req->input('pro_kat_nama');
+           $katepro->pro_siling = $req->input('pro_siling');
+           $katepro->pro_kat_created_by = 100000;
+           $katepro->pro_kat_updated_by = 100000;
+           
+
+            // dd($dae);            
+           $katepro->save();
             return response()->json([
                 'status'=>200,
-                'message'=>'Maklumat berjaya ditambah'
-         ]);
-        }   
+                'message'=>'Berjaya ditambah'
+            ]);
+        }
+        
     }
 
     public function show(string $id)
@@ -110,26 +119,30 @@ class KategoriProjekController extends Controller
         {
             return response()->json([
                 'status'=>200,
-                'kategoriprojek'=> $kategoriprojek,
+                'KategoriProjek'=> $kategoriprojek,
             ]);
         }
         else
         {
             return response()->json([
                 'status'=>404,
-                'message'=>'Maklumat negeri tidak dijumpai.'
-         ]);
+                'message'=>'Maklumat kategori fasiliti tidak dijumpai.'
+            ]);
         }
     
     }
-    public function update(Request $req, string $id)
+    public function update(Request $req )
     {
         $validator = Validator::make($req->all(), [
-            'pro_kat_nama'=> 'required',
             
+            'pro_kat_short_nama'=> 'required',
+            'pro_kat_nama'=> 'required',
+            'pro_siling'=> 'required',
         ],
         [
-            'pro_kat_nama.required'=> 'Sila masukkan Nama Kategori Projek',
+            'pro_kat_short_nama.required'=> 'Sila masukkan Kategori Fasiliti',
+            'pro_kat_nama.required'=> 'Sila masukkan Deskripsi Kategori Fasiliti',
+            'pro_siling.required'=> 'Sila masukkan Kategori Fasiliti',
             
         ]);
 
@@ -141,23 +154,24 @@ class KategoriProjekController extends Controller
             ]);
         }
         else{
-            $kate= KategoriProjek::find($req->input('proj_kategori_id'));
-            if($kate){
-                $kate->proj_kategori_id = $req->input('proj_kategori_id');
-                $kate->pro_kat_nama = $req->input('faskat_kod');
-                $kate->pro_kat_status = $req->input('pro_kat_status');
-                $kate->update();
+            $katepro= KategoriProjek::find($req->input('proj_kategori_id'));
+             if($katepro){
+                $katepro->pro_kat_short_nama = $req->input('pro_kat_short_nama');
+                $katepro->pro_kat_nama = $req->input('pro_kat_nama');
+                $katepro->pro_siling = $req->input('pro_siling');
+                $katepro->pro_kat_status = $req->input('pro_kat_status');
+                $katepro->update();
                 
                 return response()->json([
                     'status'=>200,
-                    'message'=>'Maklumat kategori fasiliti berjaya dikemaskini'
+                    'message'=>'Maklumat Kategori Projek berjaya Dikemaskini'
                 ]);
             }
             else
             {
                 return response()->json([
                     'status'=>404,
-                    'message'=>'Maklumat Kategori Fasiliti Tidak Wujud.'
+                    'message'=>'Maklumat Kategori Projek Tidak Wujud.'
                 ]);
             }
 
@@ -166,21 +180,24 @@ class KategoriProjekController extends Controller
 
     public function destroy(string $id)
     {
-        $kapro = KategoriProjek::find($id);
-        if($kapro)
+        $fas = KategoriProjek::find($id);
+        if($fas)
         {
-            $kapro->delete();
+            $fas->delete();
             return response()->json([
                 'status'=>200,
-                'message'=>'Maklumat Negeri Berjaya Dipadam.'
+                'message'=>'Maklumat Berjaya Dipadam.'
             ]);
         }
         else
         {
             return response()->json([
                 'status'=>404,
-                'message'=>'Maklumat Negeri Tidak Wujud'
+                'message'=>'Maklumat Tidak Wujud'
             ]);
-}
+        }
+
+
     }
+
 }

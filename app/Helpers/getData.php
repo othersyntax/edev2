@@ -54,6 +54,15 @@ function dropdownProjekKategori(){
         ->prepend('--Sila Pilih--', '');
     return $projKat;
 }
+function dropdownProKateSiling(){
+    $projKatSil = KategoriProjek::where('pro_kat_status', '1')
+        ->orderBy('proj_kategori_id')
+        ->pluck('pro_siling', 'pro_siling')
+        ->prepend('--Sila Pilih--', '');
+    return $projKatSil;
+}
+
+
 
 function dropdownModul(){
     $modul = Modul::where('status', '1')
@@ -67,7 +76,7 @@ function getStatus($id){
     if($id==1)
         return "Aktif";
     else
-        return "Batal";
+        return "Tidak Aktif";
 }
 function getStatusProjek($id){
     if($id==1)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pentadbiran;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Models\Pentadbiran\KategoriFasiliti;
 
 class KategoriFasilitiController extends Controller
@@ -29,7 +30,7 @@ class KategoriFasilitiController extends Controller
             $carian_text = $req->carian_text;
             // dd($req);
             if(!empty($carian_type)){
-                $query = \DB::table('tblfasiliti_kategori')
+                $query = DB::table('tblfasiliti_kategori')
                             ->where(function($q) use ($carian_type, $carian_text){ 
                                 if(!empty($carian_type)){
                                     if($carian_type=='Kod'){
