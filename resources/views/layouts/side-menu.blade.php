@@ -26,7 +26,7 @@
             <li class="{{ (request()->segment(1) == 'permohonan') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-vcard-o"></i> <span class="nav-label">Permohonan</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="{{ (request()->segment(2) == 'baru') ? 'active' : '' }}"><a href="/permohonan/baru/senarai">Baharu</a></li>
+                    <li class="{{ (request()->segment(2) == 'baru') ? 'active' : '' }}"><a href="/permohonan/baru/main">Baharu</a></li>
                     <li class="{{ (request()->segment(2) == 'runcit') ? 'active' : '' }}"><a href="/permohonan/runcit/senarai">Kecemasan</a></li>
 
                 </ul>

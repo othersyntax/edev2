@@ -159,9 +159,42 @@
                             </tr>
                         </thead>
                         <tbody>
+                        @if ($projek->count()>0)
+                            @php
+                                $bil = $projek->firstItem();
+                            @endphp
+                            @foreach ($projek as $proj)
+                                @php
+                                    if($proj->proj_status_complete==1)
+                                        $text="fa-close text-danger";
+                                    else
+                                        $text="fa-check text-navy";
+                                @endphp
+
+                                <tr>
+                                    <td class="text-center"><i class="fa {{ $text }}"></i></td>
+                                    <td>{{ $proj->pro_kat_short_nama }}</td>
+                                    <td>{{ $proj->prog_name }}</td>
+                                    <td>{{ $proj->fas_name }}</td>
+                                    <td>{{ $proj->proj_nama }}</td>
+                                    <td class="text-right">@duit($proj->proj_kos_mohon)</td>
+                                    <td><span class="badge {{ $proj->proj_status == 1 ? 'badge-primary' : 'badge-danger'}}">{{ getStatusMohonProjek($proj->proj_status) }}</span></td>
+                                    <td class="text-center">
+                                        <a href="/permohonan/baru/papar/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>
+                                        <a href="/projek/ubah/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>
+                                        <a href="/projek/padam/{{ $proj->projek_id }}/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="8" class="text-center"><i>Tiada Rekod</i></td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                 </div>
+                <div class="text-center">{{ $projek->links() }}</div>
             </div>
         </div>
     </div>
@@ -226,7 +259,7 @@ $(document).ready(function(){
                 // var sil-status="";
 
                 $('tbody').html("");
-                $.each(response.projek, function (key, item) {
+                $.each(response.siling, function (key, item) {
                     // let amount = financial(item.sil_amount);
                     // let baki = financial(item.sil_balance);
                     // let Starikh = new Date(item.sil_sdate);
@@ -254,7 +287,7 @@ $(document).ready(function(){
                         <td>' + item.prog_name + '</td>\
                         <td>' + item.fas_name + '</td>\
                         <td class="text-right">' + item.proj_nama + '</td>\
-                        <td class="text-right">' + financial(item.proj_kos_mohon) + '</td>\
+                        <td class="text-right">' + financial(itemproj_kos_mohon) + '</td>\
                         <td>' + status + '</td>\
                         <td><a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>\
                         <a href="/projek/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>\

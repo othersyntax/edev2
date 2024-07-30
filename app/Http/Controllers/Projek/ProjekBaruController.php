@@ -6,10 +6,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Projek\ProjekBaru;
+use App\Mail\MaklumanProjekBaharu;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+
 
 class ProjekBaruController extends Controller
 {
+    public function showList(){
+        $jumlah = ProjekBaru::sum('proj_kos_mohon');
+        $lulus = ProjekBaru::where('proj_status', 2)->sum('proj_kos_mohon');
+        $tolak = ProjekBaru::where('proj_status', 3)->sum('proj_kos_mohon');
+        $data['tolak'] = 1500000 - $tolak;
+        $data['lulus'] = $lulus;
+        $data['jumlah'] = $jumlah;
+        return view('app.projek-baru.index', $data);
+    }
+
     public function index(Request $request){
         $queryType = 1; // default click pd menu
         // Statistik
@@ -56,9 +69,7 @@ class ProjekBaruController extends Controller
                 ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
                 ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fas_ptj_code')
                 ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete');
-            $jumlah =  $query->sum('proj_kos_mohon');
-            $lulus =  ProjekBaru::where('proj_status', 2)->sum('proj_kos_mohon');
-            $tolak =  ProjekBaru::where('proj_status', 3)->sum('proj_kos_mohon');
+
             $projek = $query->paginate(15);
 
         }
@@ -69,7 +80,7 @@ class ProjekBaruController extends Controller
                     ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
                     ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fas_ptj_code')
                     ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
-                    ->where(function($q) use ($negeri, $fasiliti, $program, $kodProjek, $projek){
+                    ->where(function($q) use ($negeri, $fasiliti, $program, $projek){
                         if(!empty($negeri)){
                             $q->where('a.proj_negeri', $negeri);
                         }
@@ -86,17 +97,13 @@ class ProjekBaruController extends Controller
                             $q->where('a.proj_nama','like', "%{$projek}%");
                         }
                     });
-            $jumlah =  $query->sum('proj_kos_mohon');
-            $lulus =  ProjekBaru::where('proj_status', 2)->sum('proj_kos_mohon');
-            $tolak =  ProjekBaru::where('proj_status', 2)->sum('proj_kos_mohon');
-            $projek = $query->paginate(15);
+            $projek = $query->get();
             // dd($projek);
         }
-        $data['tolak'] = 1500000 - $tolak;
-        $data['lulus'] = $lulus;
-        $data['projek'] = $projek;
-        $data['jumlah'] = $jumlah;
-        return view('app.projek-baru.index', $data);
+
+        return response()->json([
+            'projek'=>$projek,
+        ]);
     }
 
     public function create(){
@@ -219,5 +226,28 @@ class ProjekBaruController extends Controller
             }
         }
 
+    }
+
+    public function emel(){
+        $pemilik = auth()->user()->id;
+        $mail = Mail::to('usup.keram@moh.gov.my')->send(new MaklumanProjekBaharu());
+        // dd($mail);
+        if($mail){
+            ProjekBaru::query()->update([
+                'proj_status_complete'=>2
+            ])->where([
+                'proj_pemilik'=>$pemilik
+            ]);
+            return response()->json([
+                'status'=>200,
+                'message'=>'Pengesahan Berjaya dihantar'
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>400,
+                'message'=>'Rekod tidak dijumpai.'
+            ]);
+        }
     }
 }
