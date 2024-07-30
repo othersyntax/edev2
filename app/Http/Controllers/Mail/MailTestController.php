@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Mail;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Mail;
 use App\Mail\LatihanEmel;
-
+use Illuminate\Support\Facades\Mail;
 class MailTestController extends Controller
 {
     public function hantarEmel(){
@@ -15,7 +14,7 @@ class MailTestController extends Controller
         //     'body' => 'Ini adalah kandung emel yang dihantar',
         // ];
 
-        $mail = Mail::to('usup.keram@moh.gov.my')->send(new LatihanEmel());
+        $mail = Mail::to('anas.fikhri@gmail.com')->send(new LatihanEmel());
 
         if($mail)
             return "Hantar";

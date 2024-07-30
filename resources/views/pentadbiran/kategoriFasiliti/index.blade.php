@@ -477,7 +477,7 @@
                             <td class="text-center">' + item.faskat_id + '</td>\
                             <td class="text-center">' + item.faskat_kod + '</td>\
                             <td>' + item.faskat_desc + '</td>\
-                            <td class="text-center">' + item.faskat_status + '</td>\
+                            <td class="text-center">' + getStatus(item.faskat_status) + '</td>\
                             <td class="text-center"><button type="button" value="' + item.faskat_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
                             <button type="button" value="' + item.faskat_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
                         \</tr>');

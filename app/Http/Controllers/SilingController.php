@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Siling;
 use App\Mail\MaklumanSiling;
 use Carbon\Carbon;
-use Mail;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class SilingController extends Controller
 {
@@ -26,7 +27,7 @@ class SilingController extends Controller
             $sil_status = $req->sil_status_cari;
 
 
-            $query = \DB::table('tblsiling as a')
+            $query = DB::table('tblsiling as a')
                 ->join('tblprogram as b', 'a.sil_fasiliti_id', '=', 'b.program_id')
                 ->select('a.*', 'b.prog_name')
                 ->orderBy('prog_name')
@@ -41,7 +42,7 @@ class SilingController extends Controller
                 $siling = $query->get();
         }
         else{
-            $siling = \DB::table('tblsiling as a')
+            $siling = DB::table('tblsiling as a')
                 ->join('tblprogram as b', 'a.sil_fasiliti_id', '=', 'b.program_id')
                 ->select('a.*', 'b.prog_name')
                 ->orderBy('prog_name')
@@ -189,7 +190,7 @@ class SilingController extends Controller
     }
 
     public function emel(){
-        $mail = Mail::to('usup.keram@moh.gov.my')->send(new MaklumanSiling());
+        $mail = Mail::to('anas.fikhri@gmail.com')->send(new MaklumanSiling());
 
         if($mail){
             Siling::query()->update([

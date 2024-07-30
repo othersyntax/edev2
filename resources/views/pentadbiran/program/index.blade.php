@@ -34,7 +34,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Jenis Carian</label>{{--Untuk Search--}}
-                                {{ Form::select('carian_type', ['Kod'=>'Program', 'Negeri'=>'Negeri'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
+                                {{ Form::select('carian_type', ['prog_name'=>'Nama Program'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
 
                                 </select>
                             </div>
@@ -42,7 +42,7 @@
                         <div class="col-sm-9 ">
                             <div class="form-group">
                                 <label>Katakunci</label> {{--Untuk key Search--}}
-                               {{ Form::text('carian_text', session('carian_text'), ['class'=>'form-control', 'id'=>'carian_text']) }}
+                                {{ Form::text('carian_text', session('carian_text'), ['class'=>'form-control', 'id'=>'carian_text']) }}
                             </div>
                         </div>
                     </div>
@@ -137,7 +137,7 @@
    </div>
 </div>
 
-{{--Untuk Edit // belom siap--}}
+{{--Untuk Edit //--}}
 <div class="modal inmodal fade" id="editStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -234,8 +234,8 @@
                     $('tbody').html("");
                     $.each(response.Program, function (key, item) {
                         $('tbody').append('<tr>\
-                            <td class="text-center">' + item.prog_code + '</td>\
                             <td class="text-center">' + item.program_id + '</td>\
+                            <td class="text-center">' + item.prog_code + '</td>\
                             <td>' + item.prog_name + '</td>\
                             <td class="text-center">' + item.prog_status + '</td>\
                             <td><button type="button" value="' + item.program_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
@@ -358,11 +358,11 @@
                         // $('#success_message').text(response.message);
                         $('#editStateModal').modal('hide');
                     } else {
-                        $('#prog_code_edit').val(response.program.prog_code);                        
+                        $('#program_id_edit').val(response.program.program_id);                        
                         $('#prog_name_edit').val(response.program.prog_name);
                         $('#prog_status_edit').val(response.program.prog_status).change();
                         $('#prog__negri_id_edit').val(response.program.prog__negri_id).change();
-                        $('#program_id_edit').val(program_id);
+                        $('#prog_code_edit').val(response.program.prog_code);   
                     }
                 }
             });
@@ -394,11 +394,11 @@ $('#neg_negeri_id').change(function() {
             // alert(id);
 
             var edit_data = {
-                'prog_code': $('#prog_code_edit').val(),
+                'program_id': $('#program_id_edit').val(),
                 'prog_name': $('#prog_name_edit').val(),
                 'prog_status': $('#prog_status_edit').val(),
                 'prog__negri_id': $('#prog__negri_id_edit').val(),
-                'program_id': $('#program_id_edit').val(),
+                'prog_code': $('#prog_code_edit').val(),
             }
 
             $.ajaxSetup({

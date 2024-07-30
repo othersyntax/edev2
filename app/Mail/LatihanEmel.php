@@ -27,7 +27,7 @@ class LatihanEmel extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Penetap SIling Belanaja BP00600 Bagi Tahun 2025',
+            subject: 'Penetapan Siling Belanja BP00600 Bagi Tahun 2025',
         );
     }
 

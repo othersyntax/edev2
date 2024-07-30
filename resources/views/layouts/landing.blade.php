@@ -29,11 +29,11 @@
                 
                 <div class="collapse navbar-collapse justify-content-end" id="navbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a class="nav-link page-scroll" href="#page-top">Utama</a></li>
+                        {{--li><a class="nav-link page-scroll" href="#page-top">Utama</a></li>
                         <li><a class="nav-link page-scroll" href="#pengenalan">Pengenalan</a></li>
                         <li><a class="nav-link page-scroll" href="#muatturun">Dokumen</a></li>
-                        <li><a class="nav-link page-scroll" href="#hubungi-kami">Hubungi Kami</a></li>
-                        <li><a class="nav-link page-scroll" href="#/login">Log-Masuk</a></li>
+                        <li><a class="nav-link page-scroll" href="#hubungi-kami">Hubungi Kami</a></li>--}}
+                        <li><a class="nav-link page-scroll" href="/login">Log-Masuk</a></li>
                     </ul>
                 </div>
             </div>
@@ -102,7 +102,7 @@
         </div>
     </div>
     <div class="row m-t-lg">
-        <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg">
+        <div class="col-lg-12 text-center">
             <p>Melalui PROFIT, maklumat projek ICT di agensi Kerajaan serta permohonan JPICT dan JTISA boleh dicapai
                 dengan mudah dan pemantauan kemajuan pelaksanaan projek juga dapat dilaksanakan dengan cepat dan
                 tepat.</p>
@@ -126,15 +126,17 @@
                         Pekeliling
                     </li>
                     <li class="pricing-desc">
-                        Pekeliling / garis panduan berkaitan permohonan dan perolehan projek ICT.
+                        Pekeliling / garis panduan berkaitan permohonan dan perolehan projek.
                     </li>
-                                                                    <li style="text-align: left;">
-                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/a9e44c3485fd4e32aaf45c5976dcaec3/88241d7bfeb7421caf499dbd1f6ec0d7" target="_blank">SPA BIL.3 2015 - GARIS PANDUAN PERMOHONAN KELULUSAN TEKNIKAL PROJEK ICT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 11-Sep-2019</span>                        </li>
-                                                                                                                                                                                            <li style="text-align: left;">
-                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/a025902a50d84167a9e1a38f016f7947/8b894a758532ba5f97d51db50a6c5c1d" target="_blank">PEROLEHAN PERUNDING SECARA AM (PK 3.1)</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 24-Aug-2021</span>                        </li>
-                                                                                            <li style="text-align: left;">
-                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/1ba3f26947034ce2ae6a157a4a1c3628/c30b603c4cc08006015eae97c83f3667" target="_blank">PEKELILING KEMAJUAN PENTADBIRAN AWAM BILANGAN 1 TAHUN 2021 - DASAR PERKHIDMATAN PENGKOMPUTERAN AWAN SEKTOR AWAM</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 10-Feb-2022</span>                        </li>
-                                                                                                                                                                                                                                                                </ul>
+                        <li style="text-align: left;">
+
+                        
+                        <a href="{{ asset("/template/img/12.01.2024_Pekeliling Perolehan MOF.pdf")}}" target="_blank">Pekeliling Perolehan MOF</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
+                    </li>
+                    <li style="text-align: left;">
+                        <a href="{{ asset("/template/img/Blanket approval.pdf")}}" target="_blank">Blanket Approval</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
+                    </li>
+                </ul>
             </div>
 
             <div class="col-lg-6 wow zoomIn">
@@ -143,28 +145,23 @@
                         Dokumen
                     </li>
                     <li class="pricing-desc">
-                        Dokumen, manual dan templat berkaitan permohonan projek ICT.
+                        Dokumen, manual dan templat berkaitan permohonan projek.
                     </li>
-                                                                                                                    <li style="text-align: left;">
-                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/1fb1254c913c432fb8f9410db1d821fa/c687528549fdc77df05aac583b9f554b" target="_blank">MANUAL PROFIT - AHLI JPICT &amp; PEMANTAU PROJEK</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 12-Nov-2019</span>                        </li>
-                                                                                            <li style="text-align: left;">
-                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/4b6b31b511734789b358208fe83f494b/f3ff12e34164066e50cd99684a51ca89" target="_blank">ALIRAN PROSES PROFIT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 03-Jul-2020</span>                        </li>
-                                                                                                                                                                                            <li style="text-align: left;">
-                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/bc93ebac73d44c10a7001125bf242e29/8682c2b6757c5c89d3166d89418fef85" target="_blank">MANUAL PROFIT - PENTADBIR SISTEM</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 13-Jun-2022</span>                        </li>
-                                                                                            <li style="text-align: left;">
-                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/135e2367cdf9432dbf5ec746afcca649/5a83dfa4340e0b99db1fec8f82a818cc" target="_blank">PERANAN PENGGUNA PROFIT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 06-Oct-2022</span>                        </li>
-                                                                                            <li style="text-align: left;">
-                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/7d3e0c1c6e374725bf0c0adf206d0fcd/67a4a59f42d9de036ca703bef11ad25b" target="_blank">MANUAL PROFIT - URUS SETIA JPICT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 20-Oct-2023</span>                        </li>
-                                                                                            <li style="text-align: left;">
-                        <a href="https://profit.mampu.gov.my/home/muat_turun_fail/bd2ffe6f3e1e414680bba0903d0965c4/82eceac9fa849cc37e72e41c33806828" target="_blank">MANUAL PROFIT - PEMILIK PROJEK</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 28-Jan-2024</span>                        </li>
-                                                                </ul>
+                        
+                        <li style="text-align: left;">
+                        <a href="{{ asset("/template/img/EPU_Garis Panduan KSP RMKe-12 dan Permohonan Projek Pembangunan Tahun 2024-2025.pdf")}}" target="_blank">EPU_Garis Panduan KSP RMKe-12 dan Permohonan Projek Pembangunan Tahun 2024-2025</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
+                        </li>
+                        <li style="text-align: left;">
+                        <a href="{{ asset("/template/img/GP BP00600 tahun 2024 lengkap.pdf")}}" target="_blank">ALIRAN PROSES PROFIT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
+                        </li>                                                                                                                                                         
+                </ul>
             </div>
         </div>
         <div class="row m-t-lg">
-            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg">
+            <div class="col-lg-12 text-center">
                 <p>* Senarai pekeliling, garis panduan, dokumen, manual dan templat ini akan ditambah dah
                     dikemaskini dari masa ke semasa sekiranya ada. Jika ada sebarang pertanyaan, sila hubungi urus
-                    setia seperti <a class="page-scroll" href="#contact">di bawah</a>.</p>
+                    setia seperti <a class="page-scroll" href="#hubungi-kami">di bawah</a>.</p>
             </div>
         </div>
     </div>

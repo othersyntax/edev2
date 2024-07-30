@@ -217,6 +217,6 @@ class FasilitiController extends Controller
                 'status'=>404,
                 'message'=>'Maklumat Negeri Tidak Wujud'
             ]);
-}
+        }
     }
 }

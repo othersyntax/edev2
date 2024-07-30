@@ -256,7 +256,7 @@
                             <td class="text-center">' + item.neg_negeri_id + '</td>\
                             <td class="text-center">' + item.neg_kod_negeri + '</td>\
                             <td>' + item.neg_nama_negeri + '</td>\
-                            <td>' + item.neg_status + '</td>\
+                            <td>' + getStatus(item.neg_status) + '</td>\
                             <td><button type="button" value="' + item.neg_negeri_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
                             <button type="button" value="' + item.neg_negeri_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
                         \</tr>');
