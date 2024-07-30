@@ -93,7 +93,7 @@
             </div>
             <div class="m-t-lg">
                 <i class="fa fa-area-chart features-icon"></i>
-                <h3>memastikan pemilik projek menguruskan projek masing-masing dengan lebih efisyen dan efektif</h3>
+                <h3>Penyediaan laporan juga boleh disediakan secara seragam, dengan menggunakan data yang tepat dan terkini</h3>
             </div>
         </div>
     </div>
@@ -168,7 +168,7 @@
             <div class="col-lg-12 text-center">
                 <div class="navy-line"></div>
                 <h1>Hubungi Kami</h1>
-                <p>Salurkan sebarang pertanyaan dan cadangan kepada kami di.</p>
+                <p>Salurkan sebarang pertanyaan dan cadangan kepada kami di:</p>
             </div>
         </div>
         <div class="row m-b-lg justify-content-center">
@@ -177,7 +177,7 @@
                     <h3><span class="navy">UNIT BAJET RMK</span></h3>
                     <strong>BAHAGIAN PEMBANGUNAN</strong><br>
                     Kementerian Kesihatan Malaysia<br/>
-                    <abbr title="Phone">T:</abbr> +603 8883 2021
+                    <abbr title="Phone">T:</abbr> +603 8883 2026
                 </address>
             </div>
         </div>
