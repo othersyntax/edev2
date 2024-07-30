@@ -9,13 +9,13 @@
 @section('breadcrumb')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Senarai Permohonan Projek</h2>
+        <h2>Penjimatan</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="#">Projek</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Baharu</strong>
+                <strong>Pengesahan</strong>
             </li>
         </ol>
     </div>
@@ -23,36 +23,42 @@
 @endsection
 
 @section('content')
-{{-- @inject('SilingTrait', 'App\Traits\Projek\SilingTrait') --}}
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title bg-info">
+                <h5>PERUNTUKAN (RM)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins text-right">@duit(1000000)</h1>
+                <small>Jumlah Peruntukan Diluluskan</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+
+    </div>
+    <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-primary">
                 <span class="label label-success float-right">{{ date('Y')+1 }}</span>
-                <h5>SILING PERUNTUKAN  (RM)</h5>
+                <h5>PENJIMATAN (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right"><b>@duit(1500000)</b></h1>
+                <h1 class="no-margins text-right"><b>@duit($jumlah)</b></h1>
+                <small>Jumlah Penjimatan</small>
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
-        <div class="ibox ">
-            <div class="ibox-title bg-warning">
-                <h5>BAKI SILING (RM)</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins text-right">@duit($tolak)</h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
+
+    <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-success">
-                <h5>JUMLAH PERMOHONAN  (RM)</h5>
+                <h5>KELULUSAN (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right">@duit($jumlah)</h1>
+                <h1 class="no-margins text-right">@duit($lulus)</h1>
+                <small>Jumlah Projek Diluluskan</small>
             </div>
         </div>
     </div>
@@ -65,25 +71,19 @@
                 <h5>Tapisan Projek</h5>
             </div>
             <div class="ibox-content">
-                <form action="/permohonan/baru/senarai" method="post">
+                <form action="/projek/senarai" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Negeri</label>
-                                {{ Form::select('negeri', dropdownNegeri(), session('negeri'), ['class'=>'form-control', 'id'=>'negeri']) }}
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label>Pemilik</label>
+                                <label>Program</label>
                                 {{ Form::select('program', dropdownProgram(), session('program'), ['class'=>'form-control', 'id'=>'program']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Pelaksana</label>
-                                {{ Form::select('pelaksana', dropdownPelaksana(), session('pelaksana'), ['class'=>'form-control', 'id'=>'pelaksana']) }}
+                                <label>Negeri</label>
+                                {{ Form::select('negeri', dropdownNegeri(), session('negeri'), ['class'=>'form-control', 'id'=>'negeri']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -100,8 +100,14 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Status Permohonan</label>
-                                {{ Form::select('status', [''=>'--Sila Pilih--', '1'=>'Baru', '2'=>'Proses'], session('status'), ['class'=>'form-control', 'id'=>'status']) }}
+                                <label>Sub Kategori Projek</label>
+                                {{ Form::select('kategori1', dropdownProjekKategori(), session('kategori1'), ['class'=>'form-control', 'id'=>'kategori1']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Status</label>
+                                {{ Form::select('status', [''=>'--Sila Pilih--', '1'=>'Aktif', '2'=>'Batal'], session('status'), ['class'=>'form-control', 'id'=>'status']) }}
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -113,7 +119,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-12">
-                            <a href="/permohonan/baru/senarai" class="btn btn-default">Set Semula</a>
+                            <a href="/projek/senarai" class="btn btn-default">Set Semula</a>
                             <input type="submit" class="btn btn-primary float-right" id="carian" value="Carian">
                         </div>
                     </div>
@@ -126,13 +132,13 @@
     <div class="col-lg-12">
         <div class="ibox">
             <div class="ibox-title">
-                <h5>Senarai Projek</h5>
+                <h5>Senarai Permohonan Tukar Guna (Penjimatan)</h5>
                 <div class="ibox-tools">
-                    @if(cekSiling(auth()->user()->program_id))
+                    @if (cekJimat(auth()->user()->program_id))
                         <button type="button" class="btn btn-sm btn-warning" id="emelPemakluman">
-                            <span id="emelButton"></span> Hantar Permohonan
+                            <span id="emelButton"></span> Emel Pemakluman
                         </button>
-                        <a href="/permohonan/baru/tambah" class="btn btn-sm btn-primary">
+                        <a href="/projek/penjimatan/tambah" class="btn btn-sm btn-primary">
                             Tambah
                         </a>
                     @endif
@@ -143,9 +149,9 @@
                     <table class="footable table table-stripped toggle-arrow-tiny">
                         <thead>
                             <tr>
-                                <th width="5%" class="text-center">Status</th>
+                                <th width="5%" class="text-center">#Bil</th>
                                 <th width="10%">Kategori</th>
-                                <th width="16%">Pemilik</th>
+                                <th width="16%">Program</th>
                                 <th width="16%">Fasiliti</th>
                                 <th width="30%">Projek</th>
                                 <th width="10%" class="text-right">Amaun (RM)</th>
@@ -159,27 +165,20 @@
                                 $bil = $projek->firstItem();
                             @endphp
                             @foreach ($projek as $proj)
-                                @php
-                                    if($proj->proj_status_complete==1)
-                                        $text="fa-close text-danger";
-                                    else
-                                        $text="fa-check text-navy";
-                                @endphp
-
-                                <tr>
-                                    <td class="text-center"><i class="fa {{ $text }}"></i></td>
-                                    <td>{{ $proj->pro_kat_short_nama }}</td>
-                                    <td>{{ $proj->prog_name }}</td>
-                                    <td>{{ $proj->fas_name }}</td>
-                                    <td>{{ $proj->proj_nama }}</td>
-                                    <td class="text-right">@duit($proj->proj_kos_mohon)</td>
-                                    <td><span class="badge {{ $proj->proj_status == 1 ? 'badge-primary' : 'badge-danger'}}">{{ getStatusMohonProjek($proj->proj_status) }}</span></td>
-                                    <td class="text-center">
-                                        <a href="/permohonan/baru/papar/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>
-                                        <a href="/projek/ubah/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>
-                                        <a href="/projek/padam/{{ $proj->projek_id }}/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td class="text-center">{{ $bil++ }} </td>
+                                <td>{{ $proj->pro_kat_short_nama }}</td>
+                                <td>{{ $proj->prog_name }}</td>
+                                <td>{{ $proj->fas_name }}</td>
+                                <td>{{ $proj->proj_nama }}</td>
+                                <td class="text-right">@duit($proj->proj_kos_lulus)</td>
+                                <td><span class="badge {{ $proj->proj_status == 1 ? 'badge-primary' : 'badge-danger'}}">{{ getStatus($proj->proj_status) }}</span></td>
+                                <td class="text-center">
+                                    <a href="/projek/papar/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>
+                                    <a href="/projek/ubah/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>
+                                    <a href="/projek/padam/{{ $proj->projek_id }}/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>
+                                </td>
+                            </tr>
                             @endforeach
                         @else
                             <tr>

@@ -35,9 +35,16 @@
                 <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Projek</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/projek/senarai">Senarai</a></li>
-                    <li class="{{ (request()->segment(2) == 'penjimatan') ? 'active' : '' }}"><a href="/permohonan/penjimatan/senarai">Penjimatan</a></li>
+                    <li class="{{ (request()->segment(2) == 'penjimatan') ? 'active' : '' }}"><a href="/projek/penjimatan/senarai">Penjimatan</a></li>
                     <li class="{{ (request()->segment(2) == 'tajuk') ? 'active' : '' }}"><a href="/permohonan/tajuk/senarai">Tukar Tajuk</a></li>
                     <li class="{{ (request()->segment(2) == 'pulang') ? 'active' : '' }}"><a href="/projek/pulang">Tarik Balik</a></li>
+                </ul>
+            </li>
+            <li class="{{ (request()->segment(1) == 'pengesahan') ? 'active' : '' }}">
+                <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Pengesahan</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="{{ (request()->segment(2) == 'penjimatan') ? 'active' : '' }}"><a href="/pengesahan/penjimatan/senarai">Penjimatan</a></li>
+                    <li class="{{ (request()->segment(2) == 'tukar') ? 'active' : '' }}"><a href="/pengesahan/tajuk/senarai">Tukar Tajuk</a></li>
                 </ul>
             </li>
             <li class="{{ (request()->segment(1) == 'siling') ? 'active' : '' }}">

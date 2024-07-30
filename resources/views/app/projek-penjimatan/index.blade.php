@@ -9,7 +9,7 @@
 @section('breadcrumb')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Senarai Permohonan Projek</h2>
+        <h2>Senarai Penjimatan</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="#">Projek</a>
@@ -24,18 +24,19 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-6">
-
-    </div>
     <div class="col-lg-3">
         <div class="ibox ">
-            <div class="ibox-title bg-success">
-                <h5>JUMLAH PERMOHONAN (RM)</h5>
+            <div class="ibox-title bg-info">
+                <h5>PERUNTUKAN (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right">@duit($lulus)</h1>
+                <h1 class="no-margins text-right">@duit(1000000)</h1>
+                <small>Jumlah Peruntukan Diluluskan</small>
             </div>
         </div>
+    </div>
+    <div class="col-lg-3">
+
     </div>
     <div class="col-lg-3">
         <div class="ibox ">
@@ -45,9 +46,23 @@
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins text-right"><b>@duit($jumlah)</b></h1>
+                <small>Jumlah Penjimatan</small>
             </div>
         </div>
     </div>
+
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title bg-success">
+                <h5>KELULUSAN (RM)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins text-right">@duit($lulus)</h1>
+                <small>Jumlah Projek Diluluskan</small>
+            </div>
+        </div>
+    </div>
+
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -123,7 +138,7 @@
                         <button type="button" class="btn btn-sm btn-warning" id="emelPemakluman">
                             <span id="emelButton"></span> Emel Pemakluman
                         </button>
-                        <a href="/permohonan/penjimatan/tambah" class="btn btn-sm btn-primary">
+                        <a href="/projek/penjimatan/tambah" class="btn btn-sm btn-primary">
                             Tambah
                         </a>
                     @endif

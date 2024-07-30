@@ -5,6 +5,7 @@
 @section('custom-css')
     <!-- Sweet Alert -->
     <link href="{{ asset("/template/css/plugins/sweetalert/sweetalert.css") }}" rel="stylesheet">
+    <link href="{{ asset("/template/css/plugins/switchery/switchery.css") }}" rel="stylesheet">
 @endsection
 
 @section('breadcrumb')
@@ -207,6 +208,21 @@
                                 {{ Form::select('proj_status', ['1'=>'Aktif', '2'=>'Batal', '3'=>'Tukar Tajuk'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status']) }}
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Penurunan Kuasa Kepada Ketua Jabatan</label>
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" checked class="onoffswitch-checkbox" id="example1">
+                                        <label class="onoffswitch-label" for="example1">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                     <p class="text-info font-bold mt-3">4. MAKLUMAT PERUNTUKAN</p>
                     <div class="hr-line-dashed"></div>
@@ -273,6 +289,8 @@
 </div>
 @endsection
 @section('custom-js')
+  <!-- Switchery -->
+  <script src="{{ asset('/template/js/plugins/switchery/switchery.js') }}"></script>
 <script>
     // function financial(x) {
     //     return Number.parseFloat(x).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
@@ -285,6 +303,9 @@
         jimat=jimat.toFixed(2);
         $('#proj_penjimatan').val(jimat);
     });
+
+    var elem_2 = document.querySelector('.js-switch_2');
+    var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
 
 </script>
 @endsection

@@ -15,9 +15,10 @@
         <div class="ibox ">
             <div class="ibox-title bg-primary">
                 {{-- <span class="label label-success float-right">{{ date('Y') }}</span> --}}
-                <h5>PERUNTUKAN DILULUSKAN (RM)</h5>
+                <h5>PERUNTUKAN (RM)</h5>
             </div>
             <div class="ibox-content">
+                <small>Peruntukan Yang Diluluskan</small>
                 <h1 class="no-margins text-right text-info"><b>@duit(50000000)</b></h1>
                 <div class="progress mt-2">
                     <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
@@ -31,6 +32,7 @@
                 <h5>AGIHAN WARAN (RM)</h5>
             </div>
             <div class="ibox-content">
+                <small>Jumlah Waran Yang Diagihkan</small>
                 <h1 class="no-margins text-right">@duit(86200)</h1>
                 <div class="progress mt-2">
                     <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 10%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">10%</div>
@@ -42,9 +44,10 @@
     <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-warning">
-                <h5>BAKI PERUNTUKAN (RM)</h5>
+                <h5>BAKI (RM)</h5>
             </div>
             <div class="ibox-content">
+                <small>Baki Peruntukan</small>
                 <h1 class="no-margins text-right">@duit(106120)</h1>
                 <div class="progress mt-2">
                     <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">15%</div>
@@ -58,6 +61,7 @@
                 <h5>BELANJA (RM)</h5>
             </div>
             <div class="ibox-content">
+                <small>Jumlah Yang Telah Dibelanjakan</small>
                 <h1 class="no-margins text-right">@duit(275800)</h1>
                 <div class="progress mt-2">
                     <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">55%</div>
@@ -150,11 +154,11 @@
                         <tr>
 
                             <th>#</th>
-                            <th>PROGRAM / BAHAGIAN / INSTITUSI / JKN </th>
+                            <th>PEMILIK</th>
                             <th class="text-right">SILING (RM)</th>
                             <th class="text-right">LUAR SILING (RM)</th>
                             <th class="text-right">PERUNTUKAN YANG DILULUSKAN (RM)</th>
-                            <th>PRESTASI BELANJA</th>
+                            <th>PRESTASI BELANJA (%)</th>
                         </tr>
                         </thead>
                         <tbody>

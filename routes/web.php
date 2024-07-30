@@ -62,6 +62,8 @@ Route::get('/projek/papar/{id}', [App\Http\Controllers\Projek\ProjekController::
 Route::any('/permohonan/baru/senarai', [App\Http\Controllers\Projek\ProjekBaruController::class, 'index'])->name('projek.baru.senarai');
 Route::get('/permohonan/baru/tambah', [App\Http\Controllers\Projek\ProjekBaruController::class, 'create'])->name('permohonan.baru.tambah');
 Route::post('/permohonan/baru/simpan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'store'])->name('permohonan.baru.simpan');
+Route::post('/permohonan/baru/upload', [App\Http\Controllers\Projek\ProjekBaruController::class, 'upload'])->name('permohonan.baru.simpan');
+Route::get('/permohonan/baru/papar/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'add2'])->name('permohonan.baru.simpan');
 // Route::get('/projek/ubah/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'edit'])->name('projek.ubah');
 // Route::get('/projek/papar/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'view'])->name('projek.papar');
 
@@ -71,9 +73,12 @@ Route::get('/permohonan/runcit/tambah', [App\Http\Controllers\Projek\ProjekRunci
 Route::post('/permohonan/runcit/simpan', [App\Http\Controllers\Projek\ProjekRuncitController::class, 'store'])->name('permohonan.runcit.simpan');
 
 // PENJIMATAN
-Route::any('/permohonan/penjimatan/senarai', [App\Http\Controllers\Projek\ProjekJimatController::class, 'index'])->name('projek.penjimatan.senarai');
-Route::get('/permohonan/penjimatan/tambah', [App\Http\Controllers\Projek\ProjekJimatController::class, 'create'])->name('permohonan.penjimatan.tambah');
-Route::post('/permohonan/penjimatan/simpan', [App\Http\Controllers\Projek\ProjekJimatController::class, 'store'])->name('permohonan.penjimatan.simpan');
+Route::any('/projek/penjimatan/senarai', [App\Http\Controllers\Projek\ProjekJimatController::class, 'index'])->name('projek.penjimatan.senarai');
+Route::get('/projek/penjimatan/tambah', [App\Http\Controllers\Projek\ProjekJimatController::class, 'create'])->name('permohonan.penjimatan.tambah');
+Route::post('/projek/penjimatan/simpan', [App\Http\Controllers\Projek\ProjekJimatController::class, 'store'])->name('permohonan.penjimatan.simpan');
+
+// TUKAR GUNA
+Route::any('/pengesahan/penjimatan/senarai', [App\Http\Controllers\Projek\TukarGunaController::class, 'index'])->name('pengesahan.penjimatan.senarai');
 
 //SENARAI PERMOHONAN
 Route::any('/permohonan/senarai', [App\Http\Controllers\PermohonanController::class, 'index'])->name('permohonan.senarai');

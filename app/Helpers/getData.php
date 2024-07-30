@@ -41,6 +41,15 @@ function dropdownFasiliti(){
 }
 
 function dropdownProgram(){
+    $program = Program::where('prog_code', '1')
+        ->where('prog_status', 1)
+        ->orderBy('prog_name')
+        ->pluck('prog_name', 'program_id')
+        ->prepend('--Sila Pilih--', '');
+    return $program;
+}
+
+function dropdownPelaksana(){
     $program = Program::where('prog_status', '1')
         ->orderBy('prog_name')
         ->pluck('prog_name', 'program_id')
@@ -86,6 +95,14 @@ function getStatusProjek($id){
     else
         return "Tolak";
 }
+function getStatusMohonProjek($id){
+    if($id==1)
+        return "Baru";
+    else if($id==2)
+        return "Proses";
+    else
+        return "Tolak";
+}
 function getStatusJimat($id){
     if($id==1)
         return "Baru";
@@ -93,7 +110,7 @@ function getStatusJimat($id){
         return "Telah Guna";
 }
 
-function cekSiling($id){
+function cekSiling(string $id){
     $sil = Siling::where('sil_fasiliti_id', $id)
             ->where('sil_edate', '>', now())
             ->where('sil_status', 1)
@@ -105,6 +122,7 @@ function cekSiling($id){
 
     return false;
 }
+
 function cekJimat($id){
     $sil = BakulJimat::where('bj_program_id', $id)
             ->where('bj_status', 1)
