@@ -29,10 +29,10 @@
                 
                 <div class="collapse navbar-collapse justify-content-end" id="navbar">
                     <ul class="nav navbar-nav navbar-right">
-                        {{--li><a class="nav-link page-scroll" href="#page-top">Utama</a></li>
+                        <li><a class="nav-link page-scroll" href="#page-top">Utama</a></li>
                         <li><a class="nav-link page-scroll" href="#pengenalan">Pengenalan</a></li>
                         <li><a class="nav-link page-scroll" href="#muatturun">Dokumen</a></li>
-                        <li><a class="nav-link page-scroll" href="#hubungi-kami">Hubungi Kami</a></li>--}}
+                        <li><a class="nav-link page-scroll" href="#hubungi-kami">Hubungi Kami</a></li>
                         <li><a class="nav-link page-scroll" href="/login">Log-Masuk</a></li>
                     </ul>
                 </div>
@@ -67,45 +67,40 @@
     <div class="row">
         <div class="col-lg-12 text-center">
             <div class="blue-line"></div>
-            <h1>Sistem Profil Projek ICT Sektor Awam (PROFIT)</span> </h1>
-            <p>Sistem PROFIT dibangunkan sebagai pangkalan data yang menyimpan maklumat semua projek-projek
-                teknologi maklumat dan komunikasi (ICT) di agensi Kerajaan. Sistem ini membolehkan maklumat projek
-                ICT di agensi Kerajaan disimpan, dikemaskini serta dianalisa dari masa ke semasa melalui laporan
-                bergrafik yang dijana. Sistem ini juga menyediakan kemudahan penilaian dan kelulusan dari segi
-                teknikal bagi perolehan ICT daripada Jawatankuasa Pemandu ICT (JPICT) kementerian dan agensi lain
-                serta Jawatankuasa Teknikal ICT Sektor Awam (JTISA) yang berurus setia di MAMPU.</p>
+            <h1>OBJEKTIF</span> </h1>
+            <p>Memastikan Peruntukan Pembangunan (DE) KKM melibatkan Butiran Projek (BP) one-line diuruskan mengikut tadbir urus yang 
+                teratur bagi memastikan prestasi perbelanjaan mencapai tahap yang optimum setiap tahun.</p>
         </div>
     </div>
     <div class="row">
         <div class="col-md-3 text-center wow fadeInLeft">
             <div>
                 <i class="fa fa-desktop features-icon"></i>
-                <h2>Pengurusan Profil Projek ICT</h2>
+                <h3>dibangunkan untuk membolehkan pengurusan projek pembangunan bersifat one-line dilaksanakan dengan teratur</h3>
             </div>
             <div class="m-t-lg">
                 <i class="fa fa-area-chart features-icon"></i>
-                <h2>Pengurusan Permohonan dan Kelulusan JPICT</h2>
+                <h3>pengurusan dan pemantauan projek DE KKM akan dapat dilaksanakan dengan holistik</h3>
             </div>
         </div>
         <div class="col-md-6 text-center  wow zoomIn">
-            <img src="{{ asset("/template/img/landing/#.png") }}" alt="Dashboard" class="img-responsive">
+            <img src="{{ asset("/template/img/landing/#.png") }}" alt="" class="img-responsive">
         </div>
         <div class="col-md-3 text-center wow fadeInRight">
             <div>
                 <i class="fa fa-bar-chart features-icon"></i>
-                <h2>Pengurusan Pemantauan Projek ICT</h2>
+                <h3>memastikan pemilik projek menguruskan projek masing-masing dengan lebih efisyen dan efektif</h3>
             </div>
             <div class="m-t-lg">
                 <i class="fa fa-area-chart features-icon"></i>
-                <h2>Pengurusan Permohonan dan Kelulusan JTISA</h2>
+                <h3>memastikan pemilik projek menguruskan projek masing-masing dengan lebih efisyen dan efektif</h3>
             </div>
         </div>
     </div>
     <div class="row m-t-lg">
         <div class="col-lg-12 text-center">
-            <p>Melalui PROFIT, maklumat projek ICT di agensi Kerajaan serta permohonan JPICT dan JTISA boleh dicapai
-                dengan mudah dan pemantauan kemajuan pelaksanaan projek juga dapat dilaksanakan dengan cepat dan
-                tepat.</p>
+            <p>Pengguna sistem ini terdiri daripada Bahagian Pembangunan sebagai pentadbir projek, 
+                manakala pihak Program, Bahagian, Institusi dan Jabatan Kesihatan Negeri (JKN) pula merupakan pemilik projek.</p>
         </div>
     </div>
 </section>
