@@ -8,6 +8,8 @@
     <link href="{{ asset("/template/css/plugins/datapicker/datepicker3.css") }}" rel="stylesheet">
     <!-- Text spinners style -->
     <link href="{{ asset("/template/css/plugins/textSpinners/spinners.css") }}" rel="stylesheet">
+
+    <link href="{{ asset("/template/css/plugins/clockpicker/clockpicker.css") }}" rel="stylesheet">
 @endsection
 
 @section('breadcrumb')
@@ -80,7 +82,7 @@
                         <thead>
                             <tr>
                                 <th width="5%" class="text-center">#ID</th>
-                                <th width="30%">Program / Bahagian / Institusi / JKN</th>
+                                <th width="30%">Pemilik</th>
                                 <th width="10%">Fasa</th>
                                 <th width="5%">Mula</th>
                                 <th width="5%">Tamat</th>
@@ -107,10 +109,15 @@
 @section('custom-js')\
 <!-- Date range picker -->
 <script src="{{ asset("/template/js/plugins/datapicker/bootstrap-datepicker.js") }}"></script>
+
+<!-- Clock picker -->
+<script src="{{ asset("/template/js/plugins/clockpicker/clockpicker.js") }}"></script>
 <script>
     $(document).ready(function(){
         // LOAD DATA WHEN OPEN THIS PAGE
         fetchSiling();
+
+        $('.clockpicker').clockpicker();
 
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",

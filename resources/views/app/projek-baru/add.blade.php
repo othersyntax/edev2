@@ -50,16 +50,27 @@
                             {{ Form::select('proj_negeri', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'proj_negeri']) }}
                         </div>
                     </div>
+                    <div class="col-sm-9">
+                        <div class="form-group">
+                            <label>Fasiliti</label>
+                            <span id="list-fasiliti">
+                                {{ Form::select('proj_fasiliti_id', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'proj_fasiliti_id']) }}
+                            </span>
+                            @error('proj_fasiliti_id')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
+                        </div>
+                    </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Parlimen</label>
-                            {{ Form::text('proj_parlimen', '1', ['class'=>'form-control', 'id'=>'proj_parlimen']) }}
+                            {{ Form::text('proj_parlimen', null, ['class'=>'form-control', 'id'=>'proj_parlimen']) }}
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Dewan Undangan Negeri</label>
-                            {{ Form::text('proj_dun', '1', ['class'=>'form-control', 'id'=>'proj_dun']) }}
+                            {{ Form::text('proj_dun', null, ['class'=>'form-control', 'id'=>'proj_dun']) }}
                         </div>
                     </div>
                 </div>
@@ -132,15 +143,6 @@
                             <label>Cawangan JKR</label>
                             {{ Form::select('proj_pelaksana_agensi', getListJKR(), null, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
                             @error('proj_pelaksana_agensi')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Fasiliti</label>
-                            {{ Form::select('proj_fasiliti_id', dropdownFasiliti(), null, ['class'=>'form-control', 'id'=>'proj_fasiliti_id']) }}
-                            @error('proj_fasiliti_id')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
@@ -257,6 +259,17 @@
 <script>
     $(document).ready(function(){
 
+         //ON CHANGE NEGERI DROPDOWN EVENT
+        $('#proj_negeri').on('change', function() {
+            var cariNegeri = $(this).val();
+            getFasiliti(cariNegeri, 'proj_fasiliti_id', '#list-fasiliti');
+        });
+
+        $('#proj_fasiliti_id').on('change', function() {
+            alert('AA');
+            // $('#proj_parlimen').val('P02 - Parlimen Putrajaya');
+            // $('#proj_dun').val('N22 - Dun Gedong');
+        });
         //ADD BUTTON CLICK
         $('#add').click(function(e){
             e.preventDefault();
@@ -279,17 +292,25 @@
             }
         });
 
-        $('#data_5 .input-daterange').datepicker({
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            format: "dd/mm/yyyy"
-        });
+        // $('#data_5 .input-daterange').datepicker({
+        //     keyboardNavigation: false,
+        //     forceParse: false,
+        //     autoclose: true,
+        //     format: "dd/mm/yyyy"
+        // });
 
         $('.custom-file-input').on('change', function() {
             let fileName = $(this).val().split('\\').pop();
             $(this).next('.custom-file-label').addClass("selected").html(fileName);
         });
+
+        //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
+        function getFasiliti(cariNegeri='0', inputname='0', list='0', select='99') {
+            let url = "/ajax/ajax-fasiliti/" + cariNegeri + "/" + inputname + "/" + select;
+            $.get(url, function(data) {
+                $(list).html(data);
+            });
+        }
 
 
     });

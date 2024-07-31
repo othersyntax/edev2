@@ -86,34 +86,6 @@
                             <div class="flot-chart-content" id="flot-dashboard-chart"></div>
                         </div>
                     </div>
-                    {{-- <div class="col-lg-3">
-                        <ul class="stat-list">
-                            <li>
-                                <h2 class="no-margins">2,346</h2>
-                                <small>Total orders in period</small>
-                                <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i></div>
-                                <div class="progress progress-mini">
-                                    <div style="width: 48%;" class="progress-bar"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <h2 class="no-margins ">4,422</h2>
-                                <small>Orders in last month</small>
-                                <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i></div>
-                                <div class="progress progress-mini">
-                                    <div style="width: 60%;" class="progress-bar"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <h2 class="no-margins ">9,180</h2>
-                                <small>Monthly income from orders</small>
-                                <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i></div>
-                                <div class="progress progress-mini">
-                                    <div style="width: 22%;" class="progress-bar"></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div> --}}
                 </div>
             </div>
         </div>
@@ -170,7 +142,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
                                 </div>
                             </td>
                         </tr>
@@ -182,7 +154,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">55%</div>
                                 </div>
                             </td>
                         </tr>
@@ -194,7 +166,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-danger" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"15%>15%</div>
                                 </div>
                             </td>
                         </tr>
@@ -206,7 +178,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-danger" style="width: 5%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 5%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">5%</div>
                                 </div>
                             </td>
                         </tr>
@@ -218,7 +190,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: 85%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 85%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">85%</div>
                                 </div>
                             </td>
                         </tr>
@@ -230,7 +202,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 65%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 65%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">65%</div>
                                 </div>
                             </td>
                         </tr>
@@ -242,7 +214,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: 85%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 85%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">85%</div>
                                 </div>
                             </td>
                         </tr>
@@ -254,7 +226,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">55%</div>
                                 </div>
                             </td>
                         </tr>
@@ -266,7 +238,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-danger" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">15%</div>
                                 </div>
                             </td>
                         </tr>
@@ -278,7 +250,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 40%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 40%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">40%</div>
                                 </div>
                             </td>
                         </tr>
@@ -290,7 +262,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
                                 </div>
                             </td>
                         </tr>
@@ -302,7 +274,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">55%</div>
                                 </div>
                             </td>
                         </tr>
@@ -314,7 +286,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-danger" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">15%</div>
                                 </div>
                             </td>
                         </tr>
@@ -326,7 +298,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 50%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 50%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">50%</div>
                                 </div>
                             </td>
                         </tr>
@@ -338,7 +310,7 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 45%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 45%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">45%</div>
                                 </div>
                             </td>
                         </tr>
@@ -350,12 +322,15 @@
                             <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-danger" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
                                 </div>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+                    <div class="col-sm-12 text-right">
+                        <small><strong>PERHATIAN: </strong>Peratusan prestasi belanja adalah diuukur mengikut KPI nasional iaitu: 30%</small>
+                    </div>
                 </div>
 
             </div>
@@ -414,14 +389,14 @@
         });
 
         var data2 = [
-            [gd(2012, 1, 1), 7], [gd(2012, 1, 2), 6], [gd(2012, 1, 3), 4], [gd(2012, 1, 4), 8],
-            [gd(2012, 1, 5), 9], [gd(2012, 1, 6), 7], [gd(2012, 1, 7), 5], [gd(2012, 1, 8), 4],
-            [gd(2012, 1, 9), 7], [gd(2012, 1, 10), 8], [gd(2012, 1, 11), 9], [gd(2012, 1, 12), 6],
-            [gd(2012, 1, 13), 4], [gd(2012, 1, 14), 5], [gd(2012, 1, 15), 11], [gd(2012, 1, 16), 8],
-            [gd(2012, 1, 17), 8], [gd(2012, 1, 18), 11], [gd(2012, 1, 19), 11], [gd(2012, 1, 20), 6],
-            [gd(2012, 1, 21), 6], [gd(2012, 1, 22), 8], [gd(2012, 1, 23), 11], [gd(2012, 1, 24), 13],
-            [gd(2012, 1, 25), 7], [gd(2012, 1, 26), 9], [gd(2012, 1, 27), 9], [gd(2012, 1, 28), 8],
-            [gd(2012, 1, 29), 5], [gd(2012, 1, 30), 8], [gd(2012, 1, 31), 25]
+            [gd(2012, 1, 1), 688], [gd(2012, 1, 2), 450], [gd(2012, 1, 3), 550], [gd(2012, 1, 4), 500],
+            [gd(2012, 1, 5), 350], [gd(2012, 1, 6), 320], [gd(2012, 1, 7), 500], [gd(2012, 1, 8), 400],
+            [gd(2012, 1, 9), 250], [gd(2012, 1, 10), 500], [gd(2012, 1, 11), 550], [gd(2012, 1, 12), 650],
+            [gd(2012, 1, 13), 300], [gd(2012, 1, 14), 500], [gd(2012, 1, 15), 600], [gd(2012, 1, 16), 700],
+            [gd(2012, 1, 17), 200], [gd(2012, 1, 18), 400], [gd(2012, 1, 19), 800], [gd(2012, 1, 20), 700],
+            [gd(2012, 1, 21), 600], [gd(2012, 1, 22), 290], [gd(2012, 1, 23), 600], [gd(2012, 1, 24), 420],
+            [gd(2012, 1, 25), 700], [gd(2012, 1, 26), 250], [gd(2012, 1, 27), 700], [gd(2012, 1, 28), 880],
+            [gd(2012, 1, 29), 100], [gd(2012, 1, 30), 300], [gd(2012, 1, 31), 800]
         ];
 
         var data3 = [

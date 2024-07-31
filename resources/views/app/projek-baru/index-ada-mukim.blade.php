@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    Permohonan Projek
+    Kemaskini Projek
 @endsection
 @section('custom-css')
     <link href="{{ asset("/template/css/plugins/footable/footable.core.css") }}" rel="stylesheet">
@@ -34,7 +34,7 @@
                 <h5>SILING PERUNTUKAN  (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right"><b id="siling"></b></h1>
+                <h1 class="no-margins text-right"><b>@duit(1500000)</b></h1>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
                 <h5>BAKI SILING (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right"><b id="baki"></b></h1>
+                <h1 class="no-margins text-right">@duit($tolak)</h1>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
                 <h5>JUMLAH PERMOHONAN  (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right"><b id="jumlah"></b></h1>
+                <h1 class="no-margins text-right">@duit($jumlah)</h1>
             </div>
         </div>
     </div>
@@ -82,43 +82,63 @@
                                 {{ Form::select('cari-negeri', dropdownNegeri(), session('negeri'), ['class'=>'form-control', 'id'=>'cari-negeri']) }}
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Fasiliti</label>
-                                <span id="list-fasiliti">
-                                    {{ Form::select('cari-fasiliti', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'cari-fasiliti']) }}
+                                <label>Daerah</label>
+                                <span id="list-daerah">
+                                    {{ Form::select('cari-daerah', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'cari-daerah']) }}
                                 </span>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
+                                <label>Mukim/Bandar</label>
+                                <span id="list-mukim">
+                                    {{ Form::select('cari-bandar', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'cari-bandar']) }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Fasiliti</label>
+                                {{ Form::select('fasiliti', dropdownFasiliti(), session('fasiliti'), ['class'=>'form-control', 'id'=>'fasiliti']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
                                 <label>Pelaksana</label>
-                                {{ Form::select('cari-pelaksana', dropdownPelaksana(), session('pelaksana'), ['class'=>'form-control', 'id'=>'cari-pelaksana']) }}
+                                {{ Form::select('pelaksana', dropdownPelaksana(), session('pelaksana'), ['class'=>'form-control', 'id'=>'pelaksana']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Fasiliti</label>
+                                {{ Form::select('fasiliti', dropdownFasiliti(), session('fasiliti'), ['class'=>'form-control', 'id'=>'fasiliti']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Kategori Projek</label>
-                                {{ Form::select('cari-kategori', dropdownProjekKategori(), session('kategori'), ['class'=>'form-control', 'id'=>'cari-kategori']) }}
+                                {{ Form::select('kategori', dropdownProjekKategori(), session('kategori'), ['class'=>'form-control', 'id'=>'kategori']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Status Permohonan</label>
-                                {{ Form::select('cari-status', [''=>'--Sila Pilih--', '1'=>'Aktif', '2'=>'Proses'], session('status'), ['class'=>'form-control', 'id'=>'cari-status']) }}
+                                {{ Form::select('status', [''=>'--Sila Pilih--', '1'=>'Baru', '2'=>'Proses'], session('status'), ['class'=>'form-control', 'id'=>'status']) }}
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Nama Projek</label>
-                                {{ Form::text('cari-projek', session('projek'), ['class'=>'form-control', 'id'=>'cari-projek']) }}
+                                {{ Form::text('projek', session('projek'), ['class'=>'form-control', 'id'=>'projek']) }}
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-12">
-                            <a href="/permohonan/baru/main" class="btn btn-default">Set Semula</a>
-                            <button class="btn btn-primary float-right" id="carian" value="Carian">Carian</button>
+                            <a href="/permohonan/baru/senarai" class="btn btn-default">Set Semula</a>
+                            <input type="submit" class="btn btn-primary float-right" id="carian" value="Carian">
                         </div>
                     </div>
                 </form>
@@ -171,17 +191,25 @@
 @section('custom-js')
 <script>
 $(document).ready(function(){
-    //SET DEFAULT
-    let cariNegeri1 = $('#cari-negeri').val();
-    // alert(cariNegeri1);
-    getFasiliti(cariNegeri1, 'cari-fasilti', '#list-fasiliti');
     //ON CHANGE NEGERI DROPDOWN EVENT
     $('#cari-negeri').on('change', function() {
         var cariNegeri = $(this).val();
-        getFasiliti(cariNegeri, 'cari-fasilti', '#list-fasiliti');
+        getDaerah(cariNegeri, 'cari-daerah', '#list-daerah');
     });
 
-       // LOAD DATA WHEN OPEN THIS PAGE
+    $('#cari-daerah').on('change', function() {
+        var cariDaerah = $(this).val();
+        alert(cariDaerah);
+        // getDaerah(cariNegeri, 'cari-daerah', '#list-daerah');
+    });
+
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    // });
+
+    // LOAD DATA WHEN OPEN THIS PAGE
     fetchPermohonan();
      $(document).on('click', '#emelPemakluman', function (e) {
         e.preventDefault();
@@ -215,20 +243,7 @@ $(document).ready(function(){
         });
     });
 
-    // SEARCH BUTTON CLICK
-    $('#carian').click(function(e){
-            e.preventDefault();
-            let cariProgram = $('#cari-program').val();
-            let cariNegeri = $('#cari-negeri').val();
-            let cariFasiliti = $('#cari-fasiliti').val();
-            let cariPelaksana = $('#cari-pelaksana').val();
-            let cariKategori = $('#cari-kategori').val();
-            let cariStatus = $('#cari-status').val();
-            let cariProjek = $('#cari-projek').val();
-            fetchPermohonan(cariProgram, cariNegeri, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek);
-        });
-
-    function fetchPermohonan(cariProgram, cariNegeri, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek){
+    function fetchPermohonan(){
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -237,61 +252,50 @@ $(document).ready(function(){
         $.ajax({
             type: "post",
             url: "/permohonan/baru/senarai",
-            data:{
-                program:cariProgram,
-                negeri:cariNegeri,
-                fasiliti:cariFasiliti,
-                pelaksana:cariPelaksana,
-                kategori_id:cariKategori,
-                status:cariStatus,
-                projek:cariProjek
-            },
+            // data:{
+            //     sil_program_id:sil_program_id_cari,
+            //     sil_status:sil_status_cari
+            // },
             dataType: "json",
             success: function (response) {
-                $('tbody').html("");
-                if (response.length==0) {
-                    alert('kosong');
-                }
-                else{
-                    $.each(response.data.projek, function (key, item) {
-                        // Statussprojek
-                        if(item.proj_status_complete == 1){
-                            text = 'fa-close text-danger';
-                        }
-                        else {
-                            text = 'fa-check text-navy';
-                        }
-                        // Status Rekod
-                        if(item.proj_status == 1){
-                            status = '<span class="badge badge-primary">Aktif</span>';
-                        }
-                        else {
-                            status = '<span class="badge badge-warning">Proses</span>';
-                        }
+                // var sil-status="";
 
-                        $('tbody').append('<tr>\
-                            <td class="text-center"><i class="fa '+text+'"></i></td>\
-                            <td>' + item.pro_kat_short_nama + '</td>\
-                            <td>' + item.prog_name + '</td>\
-                            <td>' + item.fas_name + '</td>\
-                            <td>' + item.proj_nama + '</td>\
-                            <td class="text-right">' + financial(item.proj_kos_mohon) + '</td>\
-                            <td>' + status + '</td>\
-                            <td><a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>\
-                            <a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>\
-                            <a href="/projek/padam/'+item.projek_id+'/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a></td>\
-                        \</tr>');
-                    });
-                    if(response.data.baki < 0){
-                        baki = '<span class="text-danger">'+financial(response.data.baki)+'</span>';
+                $('tbody').html("");
+                $.each(response.projek, function (key, item) {
+                    // let amount = financial(item.sil_amount);
+                    // let baki = financial(item.sil_balance);
+                    // let Starikh = new Date(item.sil_sdate);
+                    // let Etarikh = new Date(item.sil_edate);
+                    // let status = "";
+                    // let emel = "";
+
+                    if(item.proj_status_complete == 1){
+                        text = 'fa-close text-danger';
                     }
-                    else{
-                        baki = financial(response.data.baki);
+                    else {
+                        text = 'fa-check text-navy';
                     }
-                    $('#siling').html(financial(response.data.siling));
-                    $('#baki').html(baki);
-                    $('#jumlah').html(financial(response.data.jumlah));
-                }
+
+                    if(item.proj_status == 1){
+                        status = '<span class="badge badge-primary">Aktif</span>';
+                    }
+                    else {
+                        status = '<span class="badge badge-warning">Batal</span>';
+                    }
+
+                    $('tbody').append('<tr>\
+                        <td class="text-center"><i class="fa '+text+'"></i></td>\
+                        <td>' + item.pro_kat_short_nama + '</td>\
+                        <td>' + item.prog_name + '</td>\
+                        <td>' + item.fas_name + '</td>\
+                        <td class="text-right">' + item.proj_nama + '</td>\
+                        <td class="text-right">' + financial(item.proj_kos_mohon) + '</td>\
+                        <td>' + status + '</td>\
+                        <td><a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>\
+                        <a href="/projek/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>\
+                        <a href="/projek/padam/'+item.projek_id+'/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a></td>\
+                    \</tr>');
+                });
             }
         });
     }
@@ -300,9 +304,22 @@ $(document).ready(function(){
         return Number.parseFloat(x).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     }
 
+    //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
    //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
-   function getFasiliti(cariNegeri='0', inputname='0', list='0', select='99') {
-        let url = "/ajax/ajax-fasiliti/" + cariNegeri + "/" + inputname + "/" + select;
+   function getDaerah(cariNegeri, inputname, list, select='99') {
+        let url = "/ajax/ajax-daerah/" + cariNegeri + "/" + inputname + "/" + select;
+        $.get(url, function(data) {
+            $(list).html(data);
+            $('#cari-daerah').change(function() {
+                let cariDerah = $(this).val();
+                // alert(cariDerah);
+                getMukim(cariDerah, 'cari-bandar', '#list-mukim');
+            });
+        });
+    }
+
+    function getMukim(cariDaerah, inputname, list, select='99') {
+        let url = '/ajax/ajax-mukim/' + cariDaerah + '/' + inputname+ '/' + select;
         $.get(url, function(data) {
             $(list).html(data);
         });

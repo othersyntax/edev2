@@ -8,12 +8,13 @@ use App\Models\Fasiliti;
 use App\Models\Siling;
 use App\Models\BakulJimat;
 use App\Models\Modul;
+use Carbon\Carbon;
 
 function dropdownNegeri(){
     $negeri = Negeri::where('neg_status', '1')
         ->orderBy('neg_nama_negeri')
         ->pluck('neg_nama_negeri', 'neg_negeri_id')
-        ->prepend('--Sila Pilih--', '');
+        ->prepend('--Sila Pilih--', '99');
     return $negeri;
 }
 function dropdownDaerah(){
@@ -72,8 +73,6 @@ function dropdownProKateSiling(){
     return $projKatSil;
 }
 
-
-
 function dropdownModul(){
     $modul = Modul::where('status', '1')
         ->orderBy('modul')
@@ -121,7 +120,7 @@ function getStatusJimat($id){
 
 function cekSiling(string $id){
     $sil = Siling::where('sil_fasiliti_id', $id)
-            ->where('sil_edate', '>', now())
+            ->where('sil_edate', '>=', Carbon::now())
             ->where('sil_status', 1)
             ->first();
 

@@ -11,6 +11,8 @@ use App\Http\Controllers\AjaxController;
 
 // GENERAL AJAX
 Route::get('/ajax/ajax-daerah/{id}/{input}/{select}', [AjaxController::class, 'ajaxDaerah']);
+Route::get('/ajax/ajax-mukim/{id}/{input}/{select}', [AjaxController::class, 'ajaxMukim']);
+Route::get('/ajax/ajax-fasiliti/{id}/{input}/{select}', [AjaxController::class, 'ajaxFasiliti']);
 
 // NEGERI
 Route::get('/pentadbiran/negeri', [NegeriController::class, 'index']);

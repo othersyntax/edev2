@@ -186,7 +186,22 @@ class SilingController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $siling = Siling::find($id);
+        if($siling)
+        {
+            $siling->delete();
+            return response()->json([
+                'status'=>200,
+                'message'=>'Maklumat Siling Berjaya Dipadam.'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'Maklumat Siling Tidak Wujud'
+            ]);
+        }
     }
 
     public function emel(){

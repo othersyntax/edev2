@@ -11,16 +11,16 @@ use Illuminate\Support\Facades\Auth;
 
 class ProgramController extends Controller
 {
-    
-    
+
+
     public function index()
     {
         $program = Program::all();
-        
+
         return view("pentadbiran.program.index", compact('program'));
     }
 
-   
+
 
     public function ajaxAll(Request $req){
         if($req->isMethod('post')) {
@@ -29,7 +29,7 @@ class ProgramController extends Controller
             // dd($req);
             if(!empty($carian_type)){
                 $query = DB::table('tblprogram')
-                            ->where(function($q) use ($carian_type, $carian_text){ 
+                            ->where(function($q) use ($carian_type, $carian_text){
                                 if(!empty($carian_type)){
                                     if($carian_type=='Kod'){
                                         $q->where('prog_name', $carian_text);
@@ -42,7 +42,7 @@ class ProgramController extends Controller
                 $Program = $query->get();
             }
             else{
-                $Program =  Program::all();             
+                $Program =  Program::all();
             }
         }
         else{
@@ -65,17 +65,17 @@ class ProgramController extends Controller
         //
      }
 
-    
+
 
     public function store(Request $req)
     {
         $validator = Validator::make($req->all(), [
             'prog_name'=> 'required',
-            
+
         ],
         [
             'prog_name.required'=> 'Sila masukkan nama program',
-           
+
         ]);
 
         if($validator->fails())
@@ -96,12 +96,12 @@ class ProgramController extends Controller
                 'status'=>200,
                 'message'=>'Maklumat berjaya ditambah'
          ]);
-        }   
+        }
     }
 
     public function show(string $id)
     {
-    
+
     }
 
     public function edit(string $id)
@@ -121,17 +121,17 @@ class ProgramController extends Controller
                 'message'=>'Maklumat program tidak dijumpai.'
          ]);
         }
-    
+
     }
     public function update(Request $req, string $id)
     {
         $validator = Validator::make($req->all(), [
             'prog_name'=> 'required',
-            
+
         ],
         [
             'prog_name.required'=> 'Sila masukkan Nama Program',
-            
+
         ]);
 
         if($validator->fails())
@@ -148,7 +148,7 @@ class ProgramController extends Controller
                 $kate->prog_name = $req->input('prog_name');
                 $kate->prog_status = $req->input('prog_status');
                 $kate->update();
-                
+
                 return response()->json([
                     'status'=>200,
                     'message'=>'Maklumat Program berjaya dikemaskini'
@@ -182,6 +182,6 @@ class ProgramController extends Controller
                 'status'=>404,
                 'message'=>'Maklumat Program Tidak Wujud'
             ]);
-}
+        }
     }
 }
