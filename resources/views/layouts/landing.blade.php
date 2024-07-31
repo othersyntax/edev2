@@ -88,11 +88,11 @@
         </div>
         <div class="col-md-3 text-center wow fadeInRight">
             <div>
-                <i class="fa fa-bar-chart features-icon"></i>
+                <i class="fa fa-archive features-icon"></i>
                 <h3>memastikan pemilik projek menguruskan projek masing-masing dengan lebih efisyen dan efektif</h3>
             </div>
             <div class="m-t-lg">
-                <i class="fa fa-area-chart features-icon"></i>
+                <i class="fa fa-users features-icon"></i>
                 <h3>Penyediaan laporan juga boleh disediakan secara seragam, dengan menggunakan data yang tepat dan terkini</h3>
             </div>
         </div>
