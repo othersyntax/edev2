@@ -205,7 +205,7 @@ class SilingController extends Controller
     }
 
     public function emel(){
-        $mail = Mail::to('anas.fikhri@gmail.com')->send(new MaklumanSiling());
+        $mail = Mail::to('usup.keram@moh.gov.my')->send(new MaklumanSiling());
 
         if($mail){
             Siling::query()->update([

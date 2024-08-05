@@ -59,15 +59,16 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     Route::get('/projek/ubah/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'edit'])->name('projek.ubah');
     Route::get('/projek/papar/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'view'])->name('projek.papar');
 
-    // PERMOHONAN
+    // PERMOHONAN BARU
     Route::get('/permohonan/baru/main', [App\Http\Controllers\Projek\ProjekBaruController::class, 'showList'])->name('projek.baru.main');
     Route::any('/permohonan/baru/senarai', [App\Http\Controllers\Projek\ProjekBaruController::class, 'index']);
     Route::get('/permohonan/baru/tambah', [App\Http\Controllers\Projek\ProjekBaruController::class, 'create'])->name('permohonan.baru.tambah');
     Route::post('/permohonan/baru/simpan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'store'])->name('permohonan.baru.simpan');
-    Route::post('/permohonan/baru/upload', [App\Http\Controllers\Projek\ProjekBaruController::class, 'upload'])->name('permohonan.baru.simpan');
-    Route::get('/permohonan/baru/papar/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'add2'])->name('permohonan.baru.simpan');
+    Route::post('/permohonan/baru/upload', [App\Http\Controllers\Projek\ProjekBaruController::class, 'upload'])->name('permohonan.baru.upload');
+    Route::get('/permohonan/baru/papar/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'add2'])->name('permohonan.baru.papar');
     Route::post('/permohonan/baru/emel', [App\Http\Controllers\Projek\ProjekBaruController::class, 'emel'])->name('permohonan.baru.emel');
-    // Route::get('/projek/ubah/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'edit'])->name('projek.ubah');
+    Route::get('/permohonan/baru/ubah/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'edit'])->name('permohonan.baru.ubah');
+    Route::post('/permohonan/baru/update', [App\Http\Controllers\Projek\ProjekBaruController::class, 'update'])->name('permohonan.baru.update');
     // Route::get('/projek/papar/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'view'])->name('projek.papar');
 
     // RUNCIT

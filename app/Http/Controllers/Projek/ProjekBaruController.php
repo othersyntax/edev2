@@ -64,7 +64,7 @@ class ProjekBaruController extends Controller
                     ->leftJoin('tblfasiliti as b','a.proj_fasiliti_id','b.fas_ptj_code')
                     ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
                     ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
-                    ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fas_ptj_code')
+                    ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fasiliti_id')
                     ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
                     ->where('proj_pemilik', auth()->user()->program_id)
                     ->where(function($q) use ($program, $negeri, $fasiliti, $pelaksana, $kategori, $status, $projek){
@@ -117,20 +117,13 @@ class ProjekBaruController extends Controller
     }
 
     public function store(Request $req){
-        $addValidate[]="";
-        $addMsgValidate[]="";
-        if($req->proj_pelaksana==2){
-            $addValidate = [
-                'proj_pelaksana_agensi' => 'required',
-            ];
-            $addMsgValidate = [
-                'proj_pelaksana_agensi.required' => 'Sila pilih agensi pelaksana',
-            ];
-        }
 
         $validated = $req->validate([
+            'proj_negeri' => 'required',
             'proj_kod_subsetia' => 'required',
+            'proj_pemilik' => 'required',
             'proj_fasiliti_id' => 'required',
+            'proj_kategori_id' => 'required',
             'proj_struktur' => 'required',
             'proj_kos_mohon' => 'required',
             'proj_nama' => 'required',
@@ -139,8 +132,11 @@ class ProjekBaruController extends Controller
             'proj_ulasan_teknikal' => 'required',
         ],
         [
+            'proj_negeri.required' => 'Sila pilih negeri',
             'proj_kod_subsetia.required' => 'Sila masukkan Kod Subsetia',
+            'proj_pemilik.required' => 'Sila pilih pemilik projek',
             'proj_fasiliti_id.required' => 'Sila pilih fasiliti',
+            'proj_kategori_id.required' => 'Sila pilih kategori projek',
             'proj_struktur.required' => 'Adakah melibatkan struktur',
             'proj_kos_mohon.required' => 'Sila masukkan anggaran kos pelaksanaan',
             'proj_nama.required' => 'Sila nyatakan Nama Projek',
@@ -152,8 +148,9 @@ class ProjekBaruController extends Controller
 
         $projek = new ProjekBaru();
         $projek->proj_negeri = $req->proj_negeri;
-        $projek->proj_parlimen = $req->proj_parlimen;
-        $projek->proj_dun = $req->proj_dun;
+        $projek->proj_fasiliti_id = $req->proj_fasiliti_id;
+        $projek->proj_parlimen = 1;
+        $projek->proj_dun = 1;
         $projek->proj_kod_agensi = $req->proj_kod_agensi;
         $projek->proj_kod_projek = $req->proj_kod_projek;
         $projek->proj_kod_setia = $req->proj_kod_setia;
@@ -161,20 +158,18 @@ class ProjekBaruController extends Controller
         $projek->proj_pemilik = $req->proj_pemilik;
         $projek->proj_pelaksana = $req->proj_pelaksana;
         $projek->proj_pelaksana_agensi = $req->proj_pelaksana_agensi;
-        $projek->proj_fasiliti_id = $req->proj_fasiliti_id;
-        $projek->proj_kategori_id = $req->proj_kategori_id;
         $projek->proj_struktur = $req->proj_struktur;
-        $projek->proj_bulan = $req->proj_bulan;
+        $projek->proj_kos_mohon = $req->proj_kos_mohon;
         $projek->proj_tahun = $req->proj_tahun;
+        $projek->proj_bulan = $req->proj_bulan;
+        $projek->proj_laksana_mula = Carbon::createFromFormat('d/m/Y', $req->proj_laksana_mula)->format('Y-m-d');
+        $projek->proj_laksana_tamat = Carbon::createFromFormat('d/m/Y', $req->proj_laksana_tamat)->format('Y-m-d');
+        $projek->proj_kategori_id = $req->proj_kategori_id;
         $projek->proj_nama = $req->proj_nama;
         $projek->proj_skop = $req->proj_skop;
         $projek->proj_justifikasi = $req->proj_justifikasi;
         $projek->proj_ulasan_teknikal = $req->proj_ulasan_teknikal;
         $projek->proj_catatan = $req->proj_catatan;
-        $projek->proj_kos_mohon = $req->proj_kos_mohon;
-        $projek->proj_laksana_mula = Carbon::createFromFormat('d/m/Y', $req->proj_laksana_mula)->format('Y-m-d');
-        // $projek->proj_laksana_mula = date('Y-m-d', strtotime($req->proj_laksana_mula));
-        $projek->proj_laksana_tamat = Carbon::createFromFormat('d/m/Y', $req->proj_laksana_tamat)->format('Y-m-d');
         $projek->proj_created_by = auth()->user()->id;
         $projek->proj_updated_by = auth()->user()->id;
         $projek->save();
@@ -230,24 +225,116 @@ class ProjekBaruController extends Controller
     }
 
     public function emel(){
-        $pemilik = auth()->user()->id;
+        $pemilik = auth()->user()->program_id;
         $mail = Mail::to('usup.keram@moh.gov.my')->send(new MaklumanProjekBaharu());
         // dd($mail);
         if($mail){
-            ProjekBaru::query()->update([
-                'proj_status_complete'=>2
-            ])->where([
+            ProjekBaru::where([
                 'proj_pemilik'=>$pemilik
+            ])->query()->update([
+                'sil_emel'=>2
             ]);
-            return response()->json([
-                'status'=>200,
-                'message'=>'Pengesahan Berjaya dihantar'
-            ]);
+            // $projek = ProjekBaru::where('proj_pemilik',$pemilik)->first();
+            // $projek->proj_status_complete = 2;
+            // $projek->save();;
+            if($projek){
+                return response()->json([
+                    'status'=>200,
+                    'message'=>'Pengesahan Berjaya dihantar'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'status'=>400,
+                    'message'=>'Rekod gagal dikemaskini.'
+                ]);
+            }
+
         }
         else{
             return response()->json([
                 'status'=>400,
                 'message'=>'Rekod tidak dijumpai.'
+            ]);
+        }
+    }
+
+    public function edit(string $id){
+        $data['projek']=ProjekBaru::find($id);
+        return view('app.projek-baru.ubah', $data);
+    }
+
+    public function update(Request $req){
+        $validated = $req->validate([
+            'proj_negeri' => 'required',
+            'proj_kod_subsetia' => 'required',
+            'proj_pemilik' => 'required',
+            'proj_fasiliti_id' => 'required',
+            'proj_kategori_id' => 'required',
+            'proj_struktur' => 'required',
+            'proj_kos_mohon' => 'required',
+            'proj_nama' => 'required',
+            'proj_skop' => 'required',
+            'proj_justifikasi' => 'required',
+            'proj_ulasan_teknikal' => 'required',
+        ],
+        [
+            'proj_negeri.required' => 'Sila pilih negeri',
+            'proj_kod_subsetia.required' => 'Sila masukkan Kod Subsetia',
+            'proj_pemilik.required' => 'Sila pilih pemilik projek',
+            'proj_fasiliti_id.required' => 'Sila pilih fasiliti',
+            'proj_kategori_id.required' => 'Sila pilih kategori projek',
+            'proj_struktur.required' => 'Adakah melibatkan struktur',
+            'proj_kos_mohon.required' => 'Sila masukkan anggaran kos pelaksanaan',
+            'proj_nama.required' => 'Sila nyatakan Nama Projek',
+            'proj_skop.required' => 'Sila nyatakan Skop Projek',
+            'proj_justifikasi.required' => 'Sila nyatakan Justifikasi Projek',
+            'proj_ulasan_teknikal.required' => 'Sila nyatakan Ulasan Unit Kejuruteraan',
+        ]);
+        // dd($req->all());
+
+        $projek = ProjekBaru::find($req->projek_id);
+        $projek->proj_negeri = $req->proj_negeri;
+        $projek->proj_fasiliti_id = $req->proj_fasiliti_id;
+        $projek->proj_parlimen = 1;
+        $projek->proj_dun = 1;
+        $projek->proj_kod_agensi = $req->proj_kod_agensi;
+        $projek->proj_kod_projek = $req->proj_kod_projek;
+        $projek->proj_kod_setia = $req->proj_kod_setia;
+        $projek->proj_kod_subsetia = $req->proj_kod_subsetia;
+        $projek->proj_pemilik = $req->proj_pemilik;
+        $projek->proj_pelaksana = $req->proj_pelaksana;
+        $projek->proj_pelaksana_agensi = $req->proj_pelaksana_agensi;
+        $projek->proj_struktur = $req->proj_struktur;
+        $projek->proj_kos_mohon = $req->proj_kos_mohon;
+        $projek->proj_tahun = $req->proj_tahun;
+        $projek->proj_bulan = $req->proj_bulan;
+        $projek->proj_laksana_mula = Carbon::createFromFormat('d/m/Y', $req->proj_laksana_mula)->format('Y-m-d');
+        $projek->proj_laksana_tamat = Carbon::createFromFormat('d/m/Y', $req->proj_laksana_tamat)->format('Y-m-d');
+        $projek->proj_kategori_id = $req->proj_kategori_id;
+        $projek->proj_nama = $req->proj_nama;
+        $projek->proj_skop = $req->proj_skop;
+        $projek->proj_justifikasi = $req->proj_justifikasi;
+        $projek->proj_ulasan_teknikal = $req->proj_ulasan_teknikal;
+        $projek->proj_catatan = $req->proj_catatan;
+        $projek->proj_created_by = auth()->user()->id;
+        $projek->proj_updated_by = auth()->user()->id;
+        $projek->save();
+
+        if($projek){
+            return redirect('/permohonan/baru/main')
+            ->with([
+                'title'=>'Berjaya',
+                'msg'=>'Rekod permohonan berjaya dikemaskini',
+                'type'=>'success'
+            ]);
+        }
+        else{
+            return redirect('/permohonan/baru/main')
+            ->with([
+                'title'=>'Gagal',
+                'msg'=>'Rekod gagal dikemaskini',
+                'type'=>'danger'
             ]);
         }
     }

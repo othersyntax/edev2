@@ -14,7 +14,7 @@ function dropdownNegeri(){
     $negeri = Negeri::where('neg_status', '1')
         ->orderBy('neg_nama_negeri')
         ->pluck('neg_nama_negeri', 'neg_negeri_id')
-        ->prepend('--Sila Pilih--', '99');
+        ->prepend('--Sila Pilih--', '');
     return $negeri;
 }
 function dropdownDaerah(){
@@ -44,6 +44,7 @@ function dropdownFasiliti(){
 function dropdownProgram(){
     $program = Program::where('prog_code', '1')
         ->where('prog_status', 1)
+        ->orderBy('prog_sort')
         ->orderBy('prog_name')
         ->pluck('prog_name', 'program_id')
         ->prepend('--Sila Pilih--', '');
@@ -58,9 +59,20 @@ function dropdownPelaksana(){
     return $program;
 }
 
-function dropdownProjekKategori(){
-    $projKat = KategoriProjek::where('pro_kat_status', '1')
-        ->orderBy('pro_kat_nama')
+function dropdownProjekKategori($kat=''){
+    if($kat=='siling'){
+        $where = [
+            'pro_kat_status'=> '1',
+            'pro_siling'=> 'SILING'
+        ];
+    }
+    else{
+        $where = [
+            'pro_kat_status'=> '1'
+        ];
+    }
+    $projKat = KategoriProjek::where($where)
+        ->orderBy('pro_kat_sort')
         ->pluck('pro_kat_nama', 'proj_kategori_id')
         ->prepend('--Sila Pilih--', '');
     return $projKat;
@@ -141,4 +153,3 @@ function cekJimat($id){
     else
         return false;
 }
-

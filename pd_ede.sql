@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2024-07-31 16:24:44
+Date: 2024-08-05 11:30:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3109,6 +3109,7 @@ CREATE TABLE `tblprogram` (
   `prog_name` varchar(150) NOT NULL,
   `prog_short` varchar(50) DEFAULT '',
   `prog_kategori` varchar(50) DEFAULT '',
+  `prog_sort` tinyint(2) DEFAULT NULL,
   `prog_status` tinyint(1) NOT NULL DEFAULT 1,
   `prog_created_by` int(6) DEFAULT NULL,
   `prog_updated_by` int(6) DEFAULT NULL,
@@ -3120,60 +3121,60 @@ CREATE TABLE `tblprogram` (
 -- ----------------------------
 -- Records of tblprogram
 -- ----------------------------
-INSERT INTO `tblprogram` VALUES ('1000', '109', '1', 'Jabatan Kesihatan Negeri Perlis', null, 'JKN', '1', null, null, null, '2024-07-22 14:10:38');
-INSERT INTO `tblprogram` VALUES ('1001', '102', '1', 'Jabatan Kesihatan Negeri Kedah', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1002', '107', '1', 'Jabatan Kesihatan Negeri Pulau Pinang', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1003', '108', '1', 'Jabatan Kesihatan Negeri Perak', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1004', '110', '1', 'Jabatan Kesihatan Negeri Selangor', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1005', '105', '1', 'Jabatan Kesihatan Negeri Sembilan', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1006', '104', '1', 'Jabatan Kesihatan Negeri Melaka', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1007', '101', '1', 'Jabatan Kesihatan Negeri Johor', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1008', '106', '1', 'Jabatan Kesihatan Negeri Pahang', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1009', '111', '1', 'Jabatan Kesihatan Negeri Terengganu', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1010', '103', '1', 'Jabatan Kesihatan Negeri Kelantan', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1011', '112', '1', 'Jabatan Kesihatan Negeri  Sabah', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1012', '113', '1', 'Jabatan Kesihatan Negeri Sarawak', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1013', '114', '1', 'Jabatan Kesihatan W.P. Kuala Lumpur & Putrajaya', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1014', '115', '1', 'Jabatan Kesihatan W.P. Labuan', null, 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1015', '116', '1', 'Bahagian Khidmat Pengurusan', 'BKP', 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1016', '116', '1', 'Bahagian Sumber Manusia', 'BSM', 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1017', '116', '1', 'Bahagian Kewangan', 'BK', 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1018', '116', '1', 'Bahagian Perancangan', null, 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1019', '116', '1', 'Program Perkhidmatan Farmasi', 'PPF', 'Program', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1020', '116', '1', 'Bahagian Pengurusan Latihan', 'BPL', 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1021', '116', '1', 'Bahagian Perkembangan Perubatan', 'BPP', 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1022', '116', '1', 'Bahagian Perkembangan Kesihatan Awam', 'BPKA', 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1023', '116', '1', 'Bahagian Perkhidmatan Kejuruteraan', 'BPKj', 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1024', '116', '1', 'Program Kesihatan Pergigian', 'PKP', 'Program', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1025', '116', '1', 'Bahagian Pengurusan Maklumat', 'BPM', 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1026', '116', '1', 'Bahagian Perubatan Tradisional & Komplementari', 'T&CM', 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1027', '116', '1', 'Bahagian Pembangunan Kompetensi', 'BPK', 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1028', '116', '1', 'Bahagian Kejururawatan', null, 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1029', '116', '1', 'Program Keselamatan Dan Kualiti Makanan', 'PKKM', 'Program', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1030', '116', '1', 'Bahagian Audit Dalam', null, 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1031', '116', '1', 'Bahagian Dasar Dan Hubungan Antarabangsa', 'BDHA', 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1032', '116', '1', 'Bahagian Pembangunan', null, 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1033', '116', '1', 'Bahagian Perolehan Dan Penswastaan', 'BPPs', 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1034', '116', '1', 'Bahagian Akaun', null, 'Bahagian', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1035', '116', '1', 'Institut Kesihatan Umum', null, 'Institusi', '1', null, null, null, '2024-07-30 17:19:52');
-INSERT INTO `tblprogram` VALUES ('1036', '108', '1', 'Pusat Pergigian Kanak-kanak Dan Institut Latihan Kementerian Kesihatan Malaysia (Pergigian) Georgetown, Pulau Pinang', 'PPKK&ILKKM', 'Institusi', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1037', '114', '1', 'Institut Penyelidikan Perubatan', null, 'Institut', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1038', '112', '1', 'Institut Pengurusan Kesihatan', null, 'Institusi', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1040', '114', '1', 'Hospital Kuala Lumpur', 'HKL', 'JKN', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1041', '114', '1', 'Pusat Darah Negara', 'PDN', 'Institusi', '1', null, null, null, '2024-07-30 17:19:49');
-INSERT INTO `tblprogram` VALUES ('1042', '116', '1', 'Institut Kanser Negara', 'IKN', 'Institusi', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1043', '114', '1', 'Institut Kesihatan Negara', 'NIH', 'Institusi', '1', null, null, null, '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1044', '114', '2', 'Cawangan Kerja Kesihatan, JKR', 'JKR-CKK', 'JKR', '1', null, null, null, '2024-07-25 14:29:04');
-INSERT INTO `tblprogram` VALUES ('1045', '114', '2', 'Cawangan Senggara Fasiliti Bangunan, JKR', 'JKR-CFFB', 'JKR', '1', null, null, null, '2024-07-25 14:29:05');
-INSERT INTO `tblprogram` VALUES ('1046', '114', '2', 'Cawangan Kejuruteraan  Mekanikal, JKR', null, 'JKR', '1', null, null, null, '2024-07-25 14:29:06');
-INSERT INTO `tblprogram` VALUES ('1047', '114', '2', 'Cawangan Kejuruteraan Elektrik, JKR', 'JKR-CKE', 'JKR', '1', null, null, null, '2024-07-25 14:29:07');
-INSERT INTO `tblprogram` VALUES ('1048', '114', '2', 'Cawangan Kejuruteraan Cerun, JKR', 'JKR-CKC', 'JKR', '1', null, null, null, '2024-07-25 14:29:07');
-INSERT INTO `tblprogram` VALUES ('1049', '112', '2', 'JKR Sabah', 'JKR Sabah', 'JKR', '1', null, null, null, '2024-07-25 14:29:08');
-INSERT INTO `tblprogram` VALUES ('1050', '113', '2', 'JKR Sarawak', 'JKR Sarawak', 'JKR', '1', null, null, null, '2024-07-25 14:29:12');
-INSERT INTO `tblprogram` VALUES ('1051', '113', '2', 'Jabatan Pengairan dan Saliran', 'JPS', '', '1', null, null, null, '2024-07-30 17:29:27');
-INSERT INTO `tblprogram` VALUES ('1052', '114', '2', 'Jabatan Perkhidmatan Pembentungan', null, '', '1', null, null, null, '2024-07-30 17:29:22');
-INSERT INTO `tblprogram` VALUES ('1054', '116', '1', 'Bahagian Pembangunan Kesihatan Keluarga', 'BPKK', 'Bahagian', '1', null, null, '2024-07-22 16:09:09', '2024-07-25 14:28:48');
-INSERT INTO `tblprogram` VALUES ('1055', '114', '1', 'Bahagian Regulatori Farmasi Negara', 'NPRA', 'Bahagian', '1', null, null, '2024-07-22 16:10:30', '2024-07-25 14:28:48');
+INSERT INTO `tblprogram` VALUES ('1000', '109', '1', 'Jabatan Kesihatan Negeri Perlis', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:43');
+INSERT INTO `tblprogram` VALUES ('1001', '102', '1', 'Jabatan Kesihatan Negeri Kedah', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:43');
+INSERT INTO `tblprogram` VALUES ('1002', '107', '1', 'Jabatan Kesihatan Negeri Pulau Pinang', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:43');
+INSERT INTO `tblprogram` VALUES ('1003', '108', '1', 'Jabatan Kesihatan Negeri Perak', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:43');
+INSERT INTO `tblprogram` VALUES ('1004', '110', '1', 'Jabatan Kesihatan Negeri Selangor', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:43');
+INSERT INTO `tblprogram` VALUES ('1005', '105', '1', 'Jabatan Kesihatan Negeri Sembilan', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:44');
+INSERT INTO `tblprogram` VALUES ('1006', '104', '1', 'Jabatan Kesihatan Negeri Melaka', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:44');
+INSERT INTO `tblprogram` VALUES ('1007', '101', '1', 'Jabatan Kesihatan Negeri Johor', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:44');
+INSERT INTO `tblprogram` VALUES ('1008', '106', '1', 'Jabatan Kesihatan Negeri Pahang', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:44');
+INSERT INTO `tblprogram` VALUES ('1009', '111', '1', 'Jabatan Kesihatan Negeri Terengganu', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:45');
+INSERT INTO `tblprogram` VALUES ('1010', '103', '1', 'Jabatan Kesihatan Negeri Kelantan', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:45');
+INSERT INTO `tblprogram` VALUES ('1011', '112', '1', 'Jabatan Kesihatan Negeri  Sabah', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:45');
+INSERT INTO `tblprogram` VALUES ('1012', '113', '1', 'Jabatan Kesihatan Negeri Sarawak', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:45');
+INSERT INTO `tblprogram` VALUES ('1013', '114', '1', 'Jabatan Kesihatan W.P. Kuala Lumpur & Putrajaya', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:45');
+INSERT INTO `tblprogram` VALUES ('1014', '115', '1', 'Jabatan Kesihatan W.P. Labuan', null, 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:46');
+INSERT INTO `tblprogram` VALUES ('1015', '116', '1', 'Bahagian Khidmat Pengurusan', 'BKP', 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:38:46');
+INSERT INTO `tblprogram` VALUES ('1016', '116', '1', 'Bahagian Sumber Manusia', 'BSM', 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:38:53');
+INSERT INTO `tblprogram` VALUES ('1017', '116', '1', 'Bahagian Kewangan', 'BK', 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:38:56');
+INSERT INTO `tblprogram` VALUES ('1018', '116', '1', 'Bahagian Perancangan', null, 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:01');
+INSERT INTO `tblprogram` VALUES ('1019', '116', '1', 'Program Perkhidmatan Farmasi', 'PPF', 'Program', '1', '1', null, null, null, '2024-07-25 14:28:48');
+INSERT INTO `tblprogram` VALUES ('1020', '116', '1', 'Bahagian Pengurusan Latihan', 'BPL', 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:02');
+INSERT INTO `tblprogram` VALUES ('1021', '116', '1', 'Bahagian Perkembangan Perubatan', 'BPP', 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:02');
+INSERT INTO `tblprogram` VALUES ('1022', '116', '1', 'Bahagian Perkembangan Kesihatan Awam', 'BPKA', 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:03');
+INSERT INTO `tblprogram` VALUES ('1023', '116', '1', 'Bahagian Perkhidmatan Kejuruteraan', 'BPKj', 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:03');
+INSERT INTO `tblprogram` VALUES ('1024', '116', '1', 'Program Kesihatan Pergigian', 'PKP', 'Program', '1', '1', null, null, null, '2024-07-25 14:28:48');
+INSERT INTO `tblprogram` VALUES ('1025', '116', '1', 'Bahagian Pengurusan Maklumat', 'BPM', 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:03');
+INSERT INTO `tblprogram` VALUES ('1026', '116', '1', 'Bahagian Perubatan Tradisional & Komplementari', 'T&CM', 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:03');
+INSERT INTO `tblprogram` VALUES ('1027', '116', '1', 'Bahagian Pembangunan Kompetensi', 'BPK', 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:04');
+INSERT INTO `tblprogram` VALUES ('1028', '116', '1', 'Bahagian Kejururawatan', null, 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:04');
+INSERT INTO `tblprogram` VALUES ('1029', '116', '1', 'Program Keselamatan Dan Kualiti Makanan', 'PKKM', 'Program', '1', '1', null, null, null, '2024-07-25 14:28:48');
+INSERT INTO `tblprogram` VALUES ('1030', '116', '1', 'Bahagian Audit Dalam', null, 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:04');
+INSERT INTO `tblprogram` VALUES ('1031', '116', '1', 'Bahagian Dasar Dan Hubungan Antarabangsa', 'BDHA', 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:04');
+INSERT INTO `tblprogram` VALUES ('1032', '116', '1', 'Bahagian Pembangunan', null, 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:04');
+INSERT INTO `tblprogram` VALUES ('1033', '116', '1', 'Bahagian Perolehan Dan Penswastaan', 'BPPs', 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:09');
+INSERT INTO `tblprogram` VALUES ('1034', '116', '1', 'Bahagian Akaun', null, 'Bahagian', '2', '1', null, null, null, '2024-08-01 22:39:05');
+INSERT INTO `tblprogram` VALUES ('1035', '116', '1', 'Institut Kesihatan Umum', null, 'Institusi', '3', '1', null, null, null, '2024-08-01 22:39:26');
+INSERT INTO `tblprogram` VALUES ('1036', '108', '1', 'Pusat Pergigian Kanak-kanak Dan Institut Latihan Kementerian Kesihatan Malaysia (Pergigian) Georgetown, Pulau Pinang', 'PPKK&ILKKM', 'Institusi', '3', '1', null, null, null, '2024-08-01 22:39:27');
+INSERT INTO `tblprogram` VALUES ('1037', '114', '1', 'Institut Penyelidikan Perubatan', null, 'Institut', '3', '1', null, null, null, '2024-08-01 22:41:49');
+INSERT INTO `tblprogram` VALUES ('1038', '112', '1', 'Institut Pengurusan Kesihatan', null, 'Institusi', '3', '1', null, null, null, '2024-08-01 22:39:27');
+INSERT INTO `tblprogram` VALUES ('1040', '114', '1', 'Hospital Kuala Lumpur', 'HKL', 'JKN', '4', '1', null, null, null, '2024-08-01 22:39:47');
+INSERT INTO `tblprogram` VALUES ('1041', '114', '1', 'Pusat Darah Negara', 'PDN', 'Institusi', '3', '1', null, null, null, '2024-08-01 22:39:27');
+INSERT INTO `tblprogram` VALUES ('1042', '116', '1', 'Institut Kanser Negara', 'IKN', 'Institusi', '3', '1', null, null, null, '2024-08-01 22:39:27');
+INSERT INTO `tblprogram` VALUES ('1043', '114', '1', 'Institut Kesihatan Negara', 'NIH', 'Institusi', '3', '1', null, null, null, '2024-08-01 22:39:28');
+INSERT INTO `tblprogram` VALUES ('1044', '114', '2', 'Cawangan Kerja Kesihatan, JKR', 'JKR-CKK', 'JKR', '1', '1', null, null, null, '2024-07-25 14:29:04');
+INSERT INTO `tblprogram` VALUES ('1045', '114', '2', 'Cawangan Senggara Fasiliti Bangunan, JKR', 'JKR-CFFB', 'JKR', '1', '1', null, null, null, '2024-07-25 14:29:05');
+INSERT INTO `tblprogram` VALUES ('1046', '114', '2', 'Cawangan Kejuruteraan  Mekanikal, JKR', null, 'JKR', '1', '1', null, null, null, '2024-07-25 14:29:06');
+INSERT INTO `tblprogram` VALUES ('1047', '114', '2', 'Cawangan Kejuruteraan Elektrik, JKR', 'JKR-CKE', 'JKR', '1', '1', null, null, null, '2024-07-25 14:29:07');
+INSERT INTO `tblprogram` VALUES ('1048', '114', '2', 'Cawangan Kejuruteraan Cerun, JKR', 'JKR-CKC', 'JKR', '1', '1', null, null, null, '2024-07-25 14:29:07');
+INSERT INTO `tblprogram` VALUES ('1049', '112', '2', 'JKR Sabah', 'JKR Sabah', 'JKR', '1', '1', null, null, null, '2024-07-25 14:29:08');
+INSERT INTO `tblprogram` VALUES ('1050', '113', '2', 'JKR Sarawak', 'JKR Sarawak', 'JKR', '1', '1', null, null, null, '2024-07-25 14:29:12');
+INSERT INTO `tblprogram` VALUES ('1051', '113', '2', 'Jabatan Pengairan dan Saliran', 'JPS', '', '1', '1', null, null, null, '2024-07-30 17:29:27');
+INSERT INTO `tblprogram` VALUES ('1052', '114', '2', 'Jabatan Perkhidmatan Pembentungan', null, '', '1', '1', null, null, null, '2024-07-30 17:29:22');
+INSERT INTO `tblprogram` VALUES ('1054', '116', '1', 'Bahagian Pembangunan Kesihatan Keluarga', 'BPKK', 'Bahagian', '2', '1', null, null, '2024-07-22 16:09:09', '2024-08-01 22:39:05');
+INSERT INTO `tblprogram` VALUES ('1055', '114', '1', 'Bahagian Regulatori Farmasi Negara', 'NPRA', 'Bahagian', '2', '1', null, null, '2024-07-22 16:10:30', '2024-08-01 22:39:06');
 
 -- ----------------------------
 -- Table structure for `tblprojek`
@@ -3753,14 +3754,16 @@ CREATE TABLE `tblprojek_baru` (
   `proj_updated_date` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`projek_id`),
   KEY `projek_nama` (`proj_nama`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of tblprojek_baru
 -- ----------------------------
-INSERT INTO `tblprojek_baru` VALUES ('1', '101', '1', '1', 'P42', '00600', '117', '1001', '1032', '2', '1045', '42031901', '1006', '1', 'Julai', '2024', 'Cubaan Nama Projek', 'Cubaan Sko Projek', 'Cubaan Justifikasi Projek', 'Cubaan Ulasn Projek', 'Cubaan catatan Projek', '450000.00', '1970-01-01', '1970-01-01', '2', '1', '1', '1', '2024-07-26 00:08:37', '2024-07-31 12:58:37');
-INSERT INTO `tblprojek_baru` VALUES ('2', '103', '1', '1', 'P42', '00600', '117', '1001', '1032', '2', '1048', '42010611', '1006', '1', 'Februari', '2024', 'Kerja-kerja Menaik Taraf Bangunan Dan Kawalan Koloni Kelawar Serta Lain-lain Berkaitan Di Klinik Kesihatan Sri Merlong, Batu Pahat', 'Projek Klinik Daif Tahun 2023 Yang Tidak Dapat Membuat Pembayaran Pada Tahun 2023', 'Minit Ceraian Bil. 4/2024 : Kelulusan TKSU (K)Dato\' Sri Norazman Ayob rujukan fail KKM.400-4/2/31 Jld. 9 (16) bertarikh 23.03.2024', 'Minit Ceraian Bil. 4/2024 : Kelulusan TKSU (K)Dato\' Sri Norazman Ayob rujukan fail KKM.400-4/2/31 Jld. 9 (16) bertarikh 23.03.2024', 'Minit Ceraian Bil. 4/2024 : Kelulusan TKSU (K)Dato\' Sri Norazman Ayob rujukan fail KKM.400-4/2/31 Jld. 9 (16) bertarikh 23.03.2024', '50000.00', '2024-07-17', '2025-07-17', '2', '1', '1', '1', '2024-07-26 00:31:04', '2024-07-31 12:58:43');
-INSERT INTO `tblprojek_baru` VALUES ('3', '102', '1', '1', 'P42', '00600', '117', '1001', '1007', '2', null, '42010619', '1006', '1', 'Julai', '2024', 'Kerja-kerja Menaik Taraf Bangunan Dan Kawalan Koloni Kelawar Serta Lain-lain Berkaitan Di Klinik Kesihatan Sri Merlong, Batu Pahat', 'Projek Klinik Daif Tahun 2023 Yang Tidak Dapat Membuat Pembayaran Pada Tahun 2023', 'Projek Klinik Daif Tahun 2023 Yang Tidak Dapat Membuat Pembayaran Pada Tahun 2023', 'Projek boleh dilaksanakan dalam tahun semasa', 'Mohon Luluskan permohonan saya....', '50000.00', '2025-01-01', '2025-12-01', '2', '1', '1', '1', '2024-07-26 16:16:32', '2024-07-30 17:03:57');
+INSERT INTO `tblprojek_baru` VALUES ('1', '101', '1', '1', 'P42', '00600', '117', '1001', '1032', '1', '1045', '10000031', '1006', '1', 'Julai', '2024', 'Cubaan Nama Projek', 'Cubaan Sko Projek', 'Cubaan Justifikasi Projek', 'Cubaan Ulasn Projek', 'Cubaan catatan Projek', '450000.00', '1970-01-01', '1970-01-01', '2', '1', '1', '1', '2024-07-26 00:08:37', '2024-08-02 16:36:25');
+INSERT INTO `tblprojek_baru` VALUES ('2', '103', '1', '1', 'P42', '00600', '117', '1001', '1032', '1', '1048', '10000079', '1006', '1', 'Februari', '2024', 'Kerja-kerja Menaik Taraf Bangunan Dan Kawalan Koloni Kelawar Serta Lain-lain Berkaitan Di Klinik Kesihatan Sri Merlong, Batu Pahat', 'Projek Klinik Daif Tahun 2023 Yang Tidak Dapat Membuat Pembayaran Pada Tahun 2023', 'Minit Ceraian Bil. 4/2024 : Kelulusan TKSU (K)Dato\' Sri Norazman Ayob rujukan fail KKM.400-4/2/31 Jld. 9 (16) bertarikh 23.03.2024', 'Minit Ceraian Bil. 4/2024 : Kelulusan TKSU (K)Dato\' Sri Norazman Ayob rujukan fail KKM.400-4/2/31 Jld. 9 (16) bertarikh 23.03.2024', 'Minit Ceraian Bil. 4/2024 : Kelulusan TKSU (K)Dato\' Sri Norazman Ayob rujukan fail KKM.400-4/2/31 Jld. 9 (16) bertarikh 23.03.2024', '50000.00', '2024-07-17', '2025-07-17', '1', '1', '1', '1', '2024-07-26 00:31:04', '2024-08-02 16:35:16');
+INSERT INTO `tblprojek_baru` VALUES ('3', '102', '1', '1', 'P42', '00600', '117', '1001', '1007', '1', null, '10000051', '1006', '1', 'Julai', '2024', 'Kerja-kerja Menaik Taraf Bangunan Dan Kawalan Koloni Kelawar Serta Lain-lain Berkaitan Di Klinik Kesihatan Sri Merlong, Batu Pahat', 'Projek Klinik Daif Tahun 2023 Yang Tidak Dapat Membuat Pembayaran Pada Tahun 2023', 'Projek Klinik Daif Tahun 2023 Yang Tidak Dapat Membuat Pembayaran Pada Tahun 2023', 'Projek boleh dilaksanakan dalam tahun semasa', 'Mohon Luluskan permohonan saya....', '50000.00', '2025-01-01', '2025-12-01', '1', '1', '1', '1', '2024-07-26 16:16:32', '2024-08-02 16:35:17');
+INSERT INTO `tblprojek_baru` VALUES ('4', '113', '1', '1', 'P42', '00600', '117', '1001', '1032', '3', '1050', '10000377', '1008', '1', 'July', '2024', 'Cubaan tambah projek baharu bagi negeri sarawak', 'Melakukan ubah suaian', 'amat diperlukan', 'KK bersetuju', null, '500000.00', '2024-07-01', '2024-11-30', '1', '1', '1', '1', '2024-07-31 23:12:08', '2024-08-02 16:35:17');
+INSERT INTO `tblprojek_baru` VALUES ('5', '106', '1', '1', 'P42', '00600', '117', '1001', '1032', '3', '1044', '10000152', '1006', '1', 'Ogos', '2024', 'Cubaan Projek Bahagian Pembangunan di Pahang', 'Maklumat sub projek', 'Ini adalah justifikasi projek', 'kami bersetuju', null, '250000.00', '2024-08-01', '2024-10-31', '1', '1', '1', '1', '2024-08-01 15:52:51', '2024-08-02 16:35:19');
 
 -- ----------------------------
 -- Table structure for `tblprojek_baru_dokumen`
@@ -4358,13 +4361,13 @@ CREATE TABLE `tblprojek_kategori` (
 -- ----------------------------
 -- Records of tblprojek_kategori
 -- ----------------------------
-INSERT INTO `tblprojek_kategori` VALUES ('1001', 'TAK LEPAS', 'PROJEK TIDAK LEPAS BAYAR / REVOTE', '1', 'SILING', '1', '100000', '100000', '2024-05-16 23:39:12', '2024-07-18 16:05:24');
-INSERT INTO `tblprojek_kategori` VALUES ('1002', 'SAMBUNGAN', 'PROJEK DALAM PERLAKSANAAN (PROJEK SAMBUNGAN)', '2', 'SILING', '1', '100000', '100000', '2024-05-16 23:39:37', '2024-07-18 16:05:27');
+INSERT INTO `tblprojek_kategori` VALUES ('1001', 'TAK LEPAS', 'PROJEK TIDAK LEPAS BAYAR / REVOTE', '2', 'SILING', '1', '100000', '100000', '2024-05-16 23:39:12', '2024-07-31 22:54:17');
+INSERT INTO `tblprojek_kategori` VALUES ('1002', 'SAMBUNGAN', 'PROJEK DALAM PERLAKSANAAN (PROJEK SAMBUNGAN)', '1', 'SILING', '1', '100000', '100000', '2024-05-16 23:39:37', '2024-07-31 22:54:16');
 INSERT INTO `tblprojek_kategori` VALUES ('1003', 'YBMK', 'PROJEK PENGURUSAN TERTINGGI (YBMK)', '3', 'LUAR SILING', '1', '100000', '100000', '2024-05-16 23:40:16', '2024-07-18 16:05:41');
 INSERT INTO `tblprojek_kategori` VALUES ('1004', 'YBTMK', 'PROJEK PENGURUSAN TERTINGGI (YBTMK)', '4', 'LUAR SILING', '1', '100000', '100000', '2024-05-31 11:25:40', '2024-07-22 14:20:42');
-INSERT INTO `tblprojek_kategori` VALUES ('1006', 'FASA 1', ' PROJEK BAHARU (FASA 1)', '6', 'SILING', '1', '100000', '100000', '2024-05-16 23:40:39', '2024-07-19 16:07:13');
+INSERT INTO `tblprojek_kategori` VALUES ('1006', 'FASA 1', ' PROJEK BAHARU (FASA 1)', '3', 'SILING', '1', '100000', '100000', '2024-05-16 23:40:39', '2024-07-31 22:54:30');
 INSERT INTO `tblprojek_kategori` VALUES ('1007', 'KECEMASAN', ' PROJEK BAHARU (KECEMASAN)', '7', 'LUAR SILING', '1', '100000', '100000', '2024-05-16 23:41:02', '2024-07-19 16:09:04');
-INSERT INTO `tblprojek_kategori` VALUES ('1008', 'FASA 2', ' PROJEK BAHARU (FASA 2)', '8', 'SILING', '1', '100000', '100000', '2024-05-31 11:27:08', '2024-07-19 16:07:16');
+INSERT INTO `tblprojek_kategori` VALUES ('1008', 'FASA 2', ' PROJEK BAHARU (FASA 2)', '4', 'SILING', '1', '100000', '100000', '2024-05-31 11:27:08', '2024-07-31 22:54:41');
 INSERT INTO `tblprojek_kategori` VALUES ('1009', 'BENCANA', 'DARURAT (BENCANA)', '9', 'LUAR SILING', '1', '100000', '100000', '2024-05-16 23:42:02', '2024-07-18 16:05:58');
 INSERT INTO `tblprojek_kategori` VALUES ('1010', 'BUKAN BENCANA', 'DARURAT (BUKAN BENCANA)', '10', 'LUAR SILING', '1', '100000', '100000', '2024-05-16 23:41:23', '2024-07-18 16:05:59');
 
@@ -5491,7 +5494,7 @@ CREATE TABLE `tblsiling` (
 -- ----------------------------
 INSERT INTO `tblsiling` VALUES ('100001', '1001', '2024', '1250000.00', '0.00', '2024-07-01 00:00:00', '2024-07-31 23:59:00', '2', '1', '1', '1', '2024-07-15 17:09:42', '2024-07-31 12:00:07');
 INSERT INTO `tblsiling` VALUES ('100003', '1000', '2024', '50000.00', '0.00', '2024-07-01 00:00:00', '2024-07-31 23:59:00', '2', '1', '1', '1', '2024-07-15 18:32:56', '2024-07-31 12:00:03');
-INSERT INTO `tblsiling` VALUES ('100007', '1032', '2024', '50000.00', '0.00', '2024-07-01 00:00:00', '2024-07-31 23:59:00', '2', '1', '1', '1', '2024-07-18 23:37:18', '2024-07-31 11:59:54');
+INSERT INTO `tblsiling` VALUES ('100007', '1032', '2024', '5000000.00', '0.00', '2024-07-01 00:00:00', '2024-07-31 00:00:00', '2', '1', '1', '1', '2024-07-18 23:37:18', '2024-08-02 16:38:48');
 
 -- ----------------------------
 -- Table structure for `tblsurat`

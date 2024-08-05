@@ -210,13 +210,9 @@
     </div>
     <div class="col-lg-12">
         <div class="ibox-content">
-            <div class="form-group row">
-                <div class="col-sm-4 col-sm-offset-2">
-                    <a href="/permohonan/baru/main" class="btn btn-white btn-sm">Batal</a>
-                    <button class="btn btn-primary btn-sm" type="submit">Simpan</button>
-                    {{-- <button class="btn btn-info btn-sm" type="submit">Simpan dan Salin</button> --}}
-                </div>
-            </div>
+            <a href="/permohonan/baru/main" class="btn btn-white btn-sm">Batal</a>
+            <button class="btn btn-primary btn-sm" type="submit">Simpan</button>
+            <a href="/permohonan/baru/main" class="btn btn-warning btn-sm float-right">Selesai</a>
         </div>
     </div>
 </form>

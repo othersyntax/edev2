@@ -19,7 +19,7 @@
             </div>
             <div class="ibox-content">
                 <small>Peruntukan Yang Diluluskan</small>
-                <h1 class="no-margins text-right text-info"><b>@duit(50000000)</b></h1>
+                <h1 class="no-margins text-right text-info"><strong>@duit(50000000)</strong></h1>
                 <div class="progress mt-2">
                     <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
                 </div>
@@ -28,7 +28,7 @@
     </div>
     <div class="col-lg-3">
         <div class="ibox ">
-            <div class="ibox-title bg-info">
+            <div class="ibox-title bg-primary">
                 <h5>AGIHAN WARAN (RM)</h5>
             </div>
             <div class="ibox-content">
@@ -40,10 +40,9 @@
             </div>
         </div>
     </div>
-
     <div class="col-lg-3">
         <div class="ibox ">
-            <div class="ibox-title bg-warning">
+            <div class="ibox-title bg-primary">
                 <h5>BAKI (RM)</h5>
             </div>
             <div class="ibox-content">
@@ -57,7 +56,7 @@
     </div>
     <div class="col-lg-3">
         <div class="ibox ">
-            <div class="ibox-title bg-success">
+            <div class="ibox-title bg-primary">
                 <h5>BELANJA (RM)</h5>
             </div>
             <div class="ibox-content">
@@ -69,7 +68,60 @@
             </div>
         </div>
     </div>
-
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="widget style1 blue-bg">
+            <div class="row">
+                <div class="col-4">
+                    <i class="fa fa-tasks fa-5x"></i>
+                </div>
+                <div class="col-8 text-right">
+                    <span class="text-uppercase">Jumlah Projek</span>
+                    <h2 class="font-bold">86</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="widget style1 lazur-bg">
+            <div class="row">
+                <div class="col-4">
+                    <i class="fa fa-bookmark fa-5x"></i>
+                </div>
+                <div class="col-8 text-right">
+                    <span class="text-uppercase">Pra Pelaksanaan</span>
+                    <h2 class="font-bold">100</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="widget style1 lazur-bg">
+            <div class="row">
+                <div class="col-4">
+                    <i class="fa fa-bookmark fa-5x"></i>
+                </div>
+                <div class="col-8 text-right">
+                    <span class="text-uppercase">Dalam Pelaksanaan</span>
+                    <h2 class="font-bold">300</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="widget style1 lazur-bg">
+            <div class="row">
+                <div class="col-4">
+                    <i class="fa fa-bookmark fa-5x"></i>
+                </div>
+                <div class="col-8 text-right">
+                    <span class="text-uppercase">Pasca Pelaksanaan</span>
+                    <h2 class="font-bold">300</h2>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {{-- CHART --}}
@@ -85,6 +137,9 @@
                         <div class="flot-chart">
                             <div class="flot-chart-content" id="flot-dashboard-chart"></div>
                         </div>
+                    </div>
+                    <div class="col-sm-12 text-right">
+                        <small class="text-info"><strong>PERHATIAN: </strong>Sila klik pada bar dan line chart untuk maklulmat lanjut</small>
                     </div>
                 </div>
             </div>
@@ -329,7 +384,7 @@
                         </tbody>
                     </table>
                     <div class="col-sm-12 text-right">
-                        <small><strong>PERHATIAN: </strong>Peratusan prestasi belanja adalah diuukur mengikut KPI nasional iaitu: 30%</small>
+                        <small><strong>PERHATIAN: </strong>Peratusan prestasi belanja adalah diuukur mengikut Purata Perbelanjaan Nasional sehingga 31 Ogos 2024 iaitu: 30%</small>
                     </div>
                 </div>
 

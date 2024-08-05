@@ -4,6 +4,7 @@
 @endsection
 @section('custom-css')
     <link href="{{ asset("/template/css/plugins/footable/footable.core.css") }}" rel="stylesheet">
+    <link href="{{ asset("/template/css/plugins/datapicker/datepicker3.css") }}" rel="stylesheet">
     <!-- Text spinners style -->
     <link href="{{ asset("/template/css/plugins/textSpinners/spinners.css") }}" rel="stylesheet">
 @endsection
@@ -58,7 +59,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -169,7 +169,19 @@
 
 @endsection
 @section('custom-js')
+<!-- Date range picker -->
+<script src="{{ asset("/template/js/plugins/datapicker/bootstrap-datepicker.js") }}"></script>
 <script>
+@if(Session::has('msg'))
+    var title = "{{ Session::get('title') }}";
+    var mesej = "{{ Session::get('msg') }}";
+    var type = "{{ Session::get('type') }}";
+    swal({
+        title: title,
+        text: mesej,
+        type: type
+    });
+@endif
 $(document).ready(function(){
     //SET DEFAULT
     let cariNegeri1 = $('#cari-negeri').val();
@@ -183,7 +195,9 @@ $(document).ready(function(){
 
        // LOAD DATA WHEN OPEN THIS PAGE
     fetchPermohonan();
-     $(document).on('click', '#emelPemakluman', function (e) {
+
+    // HANTE EMEL PEMAKLUMAN
+    $(document).on('click', '#emelPemakluman', function (e) {
         e.preventDefault();
         document.getElementById("emelButton").classList.add("loading");
         document.getElementById("emelButton").classList.add("open-circle");
@@ -201,6 +215,8 @@ $(document).ready(function(){
             success: function (response) {
                 if (response.status == 400) {
                     swal("Gagal", response.message, "error");
+                    document.getElementById("emelButton").classList.remove("loading");
+                    document.getElementById("emelButton").classList.remove("open-circle");
                 } else {
                     fetchPermohonan();
                     swal({
@@ -278,7 +294,7 @@ $(document).ready(function(){
                             <td class="text-right">' + financial(item.proj_kos_mohon) + '</td>\
                             <td>' + status + '</td>\
                             <td><a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>\
-                            <a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>\
+                            <a href="/permohonan/baru/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>\
                             <a href="/projek/padam/'+item.projek_id+'/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a></td>\
                         \</tr>');
                     });
@@ -307,6 +323,10 @@ $(document).ready(function(){
             $(list).html(data);
         });
     }
+
+    setTimeout(() => {
+        $('#msg').hide('slow');
+    }, 3000);
 });
 
 </script>
