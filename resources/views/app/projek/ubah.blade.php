@@ -273,6 +273,12 @@
                                 {{ Form::text('projd_waran_amaun', $details->projd_waran_amaun, ['class'=>'form-control text-right', 'id'=>'projd_waran_amaun']) }}
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Status Projek</label>
+                                {{ Form::select('proj_tukar_tajuk', ['1'=>'Aktif', '2'=>'Dibatalkan'], null, ['class'=>'form-control', 'id'=>'proj_tukar_tajuk']) }}
+                            </div>
+                        </div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group row">

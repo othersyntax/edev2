@@ -49,7 +49,6 @@
                                 <th width="5%" class="text-center">#Bil</th>
                                 <th width="65%">Projek</th>
                                 <th class="text-right" width="10%">Penjimatan</th>
-                                <th width="10%">Status</th>
                                 <th width="10%">Pilih</th>
                             </tr>
                         </thead>
@@ -63,7 +62,7 @@
                                         <td class="text-center">{{ $bil++ }}</td>
                                         <td>{{ $item->proj_nama }}</td>
                                         <td class="text-right">@duit($item->bj_amount_jimat)</td>
-                                        <td><span class="badge {{ $item->bj_status == 1 ? 'badge-primary' : 'badge-danger'}}">{{ getStatusJimat($item->bj_status) }}</span></td>
+                                        {{-- <td><span class="badge {{ $item->bj_status == 1 ? 'badge-primary' : 'badge-danger'}}">{{ getStatusJimat($item->bj_status) }}</span></td> --}}
                                         <td>
                                             <div><label><input class="pilihJimat" id="{{ $item->bakul_jimat_id }}" type="checkbox" value="{{ $item->bj_amount_jimat }}"></label></div>
                                         </td>

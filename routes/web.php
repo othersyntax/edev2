@@ -69,10 +69,13 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     Route::post('/permohonan/baru/emel', [App\Http\Controllers\Projek\ProjekBaruController::class, 'emel'])->name('permohonan.baru.emel');
     Route::get('/permohonan/baru/ubah/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'edit'])->name('permohonan.baru.ubah');
     Route::post('/permohonan/baru/update', [App\Http\Controllers\Projek\ProjekBaruController::class, 'update'])->name('permohonan.baru.update');
+    Route::post('/permohonan/baru/unjuran/simpan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'simpanUnjuran']);
+    Route::get('/permohonan/baru/unjuran/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiUnjuran']);
+    Route::get('/permohonan/baru/unjuran/padam/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'padamUnjuran']);
     // Route::get('/projek/papar/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'view'])->name('projek.papar');
 
     // RUNCIT
-    Route::any('/permohonan/runcit/senarai', [App\Http\Controllers\Projek\ProjekJimatController::class, 'index'])->name('projek.runcit.senarai');
+    Route::any('/permohonan/runcit/senarai', [App\Http\Controllers\Projek\ProjekRuncitController::class, 'index'])->name('projek.runcit.senarai');
     Route::get('/permohonan/runcit/tambah', [App\Http\Controllers\Projek\ProjekRuncitController::class, 'create'])->name('permohonan.runcit.tambah');
     Route::post('/permohonan/runcit/simpan', [App\Http\Controllers\Projek\ProjekRuncitController::class, 'store'])->name('permohonan.runcit.simpan');
 

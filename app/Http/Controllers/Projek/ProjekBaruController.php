@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Projek\ProjekBaru;
+use App\Models\Projek\ProjekBaruUnjuran;
 use App\Models\Siling;
 use App\Mail\MaklumanProjekBaharu;
 use Illuminate\Support\Facades\Mail;
@@ -229,26 +230,35 @@ class ProjekBaruController extends Controller
         $mail = Mail::to('usup.keram@moh.gov.my')->send(new MaklumanProjekBaharu());
         // dd($mail);
         if($mail){
-            ProjekBaru::where([
-                'proj_pemilik'=>$pemilik
-            ])->query()->update([
-                'sil_emel'=>2
+            // ProjekBaru::query()->update([
+            //     'sil_emel'=>2
+            // ]);
+            // ProjekBaru::where([
+            //     'proj_pemilik'=>$pemilik
+            // ])->query()->update([
+            //     'sil_emel'=>2
+            // ]);
+            // $projek = \DB::table('')
+
+            ProjekBaru::query()->update([
+                'proj_status'=>2,
+                'proj_status_complete' => 2
             ]);
-            // $projek = ProjekBaru::where('proj_pemilik',$pemilik)->first();
+            // ProjekBaru::where('proj_pemilik',$pemilik)->get();
             // $projek->proj_status_complete = 2;
-            // $projek->save();;
-            if($projek){
+            // $projek->save();
+            // if($projek){
                 return response()->json([
                     'status'=>200,
                     'message'=>'Pengesahan Berjaya dihantar'
                 ]);
-            }
-            else{
-                return response()->json([
-                    'status'=>400,
-                    'message'=>'Rekod gagal dikemaskini.'
-                ]);
-            }
+            // }
+            // else{
+            //     return response()->json([
+            //         'status'=>400,
+            //         'message'=>'Rekod gagal dikemaskini.'
+            //     ]);
+            // }
 
         }
         else{
@@ -335,6 +345,64 @@ class ProjekBaruController extends Controller
                 'title'=>'Gagal',
                 'msg'=>'Rekod gagal dikemaskini',
                 'type'=>'danger'
+            ]);
+        }
+    }
+
+    public function simpanUnjuran(Request $req){
+        $validator = Validator::make($req->all(), [
+            'proj_unjur_tahun'=> 'required',
+            'proj_unjur_siling'=> 'required',
+        ],
+        [
+            'proj_unjur_tahun.required'=> 'Sila masukkan tahun unjuran',
+            'proj_unjur_siling.required'=> 'Sila masukkan siling tahunan',
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>400,
+                'errors'=>$validator->messages()
+            ]);
+        }
+        else
+        {
+           $unjuran = new ProjekBaruUnjuran;
+           $unjuran->proj_unjur_projek_id = $req->input('proj_unjur_projek_id');
+           $unjuran->proj_unjur_tahun = $req->input('proj_unjur_tahun');
+           $unjuran->proj_unjur_siling = $req->input('proj_unjur_siling');
+            // dd($unjuran);
+           $unjuran->save();
+            return response()->json([
+                'status'=>200,
+                'message'=>'Berjaya ditambah'
+            ]);
+        }
+    }
+
+    public function senaraiUnjuran(string $id){
+        $unjuran = ProjekBaruUnjuran::where('proj_unjur_projek_id', $id)->get();
+        return response()->json([
+            'unjuran'=>$unjuran,
+        ]);
+    }
+
+    public function padamUnjuran(string $id){
+        $unjuran = ProjekBaruUnjuran::find($id);
+        if($unjuran)
+        {
+            $unjuran->delete();
+            return response()->json([
+                'status'=>200,
+                'message'=>'Maklumat Unjuran Berjaya Dipadam.'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'Maklumat Unjuran Tidak Wujud'
             ]);
         }
     }

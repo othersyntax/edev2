@@ -19,9 +19,9 @@
             </div>
             <div class="ibox-content">
                 <small>Peruntukan Yang Diluluskan</small>
-                <h1 class="no-margins text-right text-info"><strong>@duit(50000000)</strong></h1>
+                <h1 class="no-margins text-right text-success"><strong>@duit(50000000)</strong></h1>
                 <div class="progress mt-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-success" style="width: 100%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
@@ -33,9 +33,9 @@
             </div>
             <div class="ibox-content">
                 <small>Jumlah Waran Yang Diagihkan</small>
-                <h1 class="no-margins text-right">@duit(86200)</h1>
+                <h1 class="no-margins text-right">@duit(46150000)</h1>
                 <div class="progress mt-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 10%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">10%</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: 92.3%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">92.3%</div>
                 </div>
             </div>
         </div>
@@ -47,9 +47,9 @@
             </div>
             <div class="ibox-content">
                 <small>Baki Peruntukan</small>
-                <h1 class="no-margins text-right">@duit(106120)</h1>
+                <h1 class="no-margins text-right">@duit(3850000)</h1>
                 <div class="progress mt-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">15%</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: 7.7%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">7.7%</div>
                 </div>
             </div>
         </div>
@@ -61,9 +61,9 @@
             </div>
             <div class="ibox-content">
                 <small>Jumlah Yang Telah Dibelanjakan</small>
-                <h1 class="no-margins text-right">@duit(275800)</h1>
+                <h1 class="no-margins text-right">@duit(25600900)</h1>
                 <div class="progress mt-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">55%</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 55.47%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">55.47%</div>
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="col-8 text-right">
                     <span class="text-uppercase">Jumlah Projek</span>
-                    <h2 class="font-bold">86</h2>
+                    <h2 class="font-bold">489</h2>
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@
                 </div>
                 <div class="col-8 text-right">
                     <span class="text-uppercase">Dalam Pelaksanaan</span>
-                    <h2 class="font-bold">300</h2>
+                    <h2 class="font-bold">150</h2>
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
                 </div>
                 <div class="col-8 text-right">
                     <span class="text-uppercase">Pasca Pelaksanaan</span>
-                    <h2 class="font-bold">300</h2>
+                    <h2 class="font-bold">239</h2>
                 </div>
             </div>
         </div>

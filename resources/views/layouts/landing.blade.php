@@ -24,9 +24,9 @@
         <nav class="navbar navbar-default navbar-fixed-top navbar-expand-md" role="navigation">
             <div class="container">
                 <a class="navbar-brand" href="#page-top">
-                   <img src="{{ asset("/template/img/landing/logo-brand.png")}}" alt="" class="logo-brand"> 
+                   <img src="{{ asset("/template/img/landing/logo-brand.png")}}" alt="" class="logo-brand">
                 </a>
-                
+
                 <div class="collapse navbar-collapse justify-content-end" id="navbar">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a class="nav-link page-scroll" href="#page-top">Utama</a></li>
@@ -40,7 +40,11 @@
         </nav>
 </div>
 <div id="inSlider" class="carousel slide" data-ride="carousel" >
-    <div class="carousel-inner" role="listbox">
+    <ol class="carousel-indicators">
+        <li data-target="#inSlider" data-slide-to="0" class="active"></li>
+        <li data-target="#inSlider" data-slide-to="1"></li>
+    </ol>
+    {{-- <div class="carousel-inner" role="listbox">
         <div class="carousel-item active">
             <div class="container">
                 <div class="carousel-caption">
@@ -57,54 +61,82 @@
                 </div>
             </div>
             <!-- Set background for slide in css -->
-            <div class="header-back three"></div>
+            <div class="header-back one"></div>
+        </div>
+    </div> --}}
+
+    <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1 class="">
+                        Pengurusan Peruntukan<br/>
+                        Pembangunan<br/>
+                        Kementerian Kesihatan<br/>
+                        Malaysia
+                    </h1>
+                    <p>Sistem Maklumat Pengurusan Perutukan Pembangunan</p>
+                </div>
+                <div class="carousel-image wow zoomIn">
+                    <img src="{{ asset("/template/img/landing/laptop.png") }}" alt="Dashboard"/>
+                </div>
+            </div>
+            <!-- Set background for slide in css -->
+            <div class="header-back one"></div>
+
+        </div>
+        <div class="carousel-item">
+            <div class="container">
+                <div class="carousel-caption blank">
+                    <h1>We create meaningful <br/> interfaces that inspire.</h1>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                </div>
+            </div>
+            <!-- Set background for slide in css -->
+            <div class="header-back two"></div>
         </div>
     </div>
+    <a class="carousel-control-prev" href="#inSlider" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#inSlider" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
 </div>
-
 
 <section id="pengenalan" class="container services">
     <div class="row">
-        <div class="col-lg-12 text-center">
+        <div class="col-lg-12 text-justify">
             <div class="blue-line"></div>
             <h1>OBJEKTIF</span> </h1>
-            <p>Memastikan Peruntukan Pembangunan (DE) KKM melibatkan Butiran Projek (BP) one-line diuruskan mengikut tadbir urus yang 
-                teratur bagi memastikan prestasi perbelanjaan mencapai tahap yang optimum setiap tahun.</p>
+            <p>Memastikan Peruntukan Pembangunan (DE) KKM melibatkan Butiran Projek (BP) one-line diuruskan mengikut tadbir urus yang teratur bagi memastikan prestasi perbelanjaan mencapai tahap yang optimum setiap tahun.</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3 text-center wow fadeInLeft">
-            <div>
-                <i class="fa fa-desktop features-icon"></i>
-                <h3>dibangunkan untuk membolehkan pengurusan projek pembangunan bersifat one-line dilaksanakan dengan teratur</h3>
-            </div>
-            <div class="m-t-lg">
-                <i class="fa fa-area-chart features-icon"></i>
-                <h3>pengurusan dan pemantauan projek DE KKM akan dapat dilaksanakan dengan holistik</h3>
-            </div>
+        <div class="col-sm-3">
+            <h2>Pengurusan</h2>
+            <p>Dibangunkan untuk membolehkan pengurusan projek pembangunan bersifat one-line dilaksanakan dengan teratur</p>
         </div>
-        <div class="col-md-6 text-center  wow zoomIn">
-            <img src="{{ asset("/template/img/landing/#.png") }}" alt="" class="img-responsive">
+        <div class="col-sm-3">
+            <h2>Pemantauan</h2>
+            <p>Pengurusan dan pemantauan projek DE KKM akan dapat dilaksanakan dengan holistik, merangkumi permohonan projek, pelaksanaan projek dan penilaian serta pemantauan projek</p>
+            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
         </div>
-        <div class="col-md-3 text-center wow fadeInRight">
-            <div>
-                <i class="fa fa-archive features-icon"></i>
-                <h3>memastikan pemilik projek menguruskan projek masing-masing dengan lebih efisyen dan efektif</h3>
-            </div>
-            <div class="m-t-lg">
-                <i class="fa fa-users features-icon"></i>
-                <h3>Penyediaan laporan juga boleh disediakan secara seragam, dengan menggunakan data yang tepat dan terkini</h3>
-            </div>
+        <div class="col-sm-3">
+            <h2>Pengguna</h2>
+            <p>Pengguna sistem ini terdiri daripada Bahagian Pembangunan sebagai pentadbir projek, manakala pihak Program, Bahagian, Institusi dan Jabatan Kesihatan Negeri (JKN) pula merupakan pemilik projek</p>
+            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
         </div>
-    </div>
-    <div class="row m-t-lg">
-        <div class="col-lg-12 text-center">
-            <p>Pengguna sistem ini terdiri daripada Bahagian Pembangunan sebagai pentadbir projek, 
-                manakala pihak Program, Bahagian, Institusi dan Jabatan Kesihatan Negeri (JKN) pula merupakan pemilik projek.</p>
+        <div class="col-sm-3">
+            <h2>Efisyen & Efektif</h2>
+            <p>Memastikan pemilik projek menguruskan projek masing-masing dengan lebih efisyen dan efektif.</p>
+            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
         </div>
     </div>
 </section>
-
 <section id="muatturun" class="pricing">
     <div class="container">
         <div class="row m-b-lg">
@@ -115,7 +147,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6 wow zoomIn">
+            <div class="col-lg-4 wow zoomIn">
                 <ul class="pricing-plan list-unstyled">
                     <li class="pricing-title">
                         Pekeliling
@@ -123,18 +155,13 @@
                     <li class="pricing-desc">
                         Pekeliling / garis panduan berkaitan permohonan dan perolehan projek.
                     </li>
-                        <li style="text-align: left;">
-
-                        
-                        <a href="{{ asset("/storage/rujukan/12.01.2024_Pekeliling Perolehan MOF.pdf")}}" target="_blank">Pekeliling Perolehan MOF</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
-                    </li>
                     <li style="text-align: left;">
-                        <a href="{{ asset("/storage/rujukan/Blanket approval.pdf")}}" target="_blank">Blanket Approval</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
+                        <a href="{{ asset("/storage/dokumen/PK-Perolehan-MOF.pdf")}}" target="_blank">Pekeliling Perolehan MOF</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada:  {{ date('d-m-Y') }}</span>
                     </li>
                 </ul>
             </div>
 
-            <div class="col-lg-6 wow zoomIn">
+            <div class="col-lg-8 wow zoomIn">
                 <ul class="pricing-plan list-unstyled">
                     <li class="pricing-title">
                         Dokumen
@@ -142,13 +169,15 @@
                     <li class="pricing-desc">
                         Dokumen, manual dan templat berkaitan permohonan projek.
                     </li>
-                        
-                        <li style="text-align: left;">
-                        <a href="{{ asset("/storage/rujukan/EPU_Garis Panduan KSP RMKe-12 dan Permohonan Projek Pembangunan Tahun 2024-2025.pdf")}}" target="_blank">EPU_Garis Panduan KSP RMKe-12 dan Permohonan Projek Pembangunan Tahun 2024-2025</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
-                        </li>
-                        <li style="text-align: left;">
-                        <a href="{{ asset("/storage/rujukan/GP BP00600 tahun 2024 lengkap.pdf")}}" target="_blank">ALIRAN PROSES PROFIT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: null</span>
-                        </li>                                                                                                                                                         
+                    <li style="text-align: left;">
+                        <a href="{{ asset("/storage/dokumen/GP-KSP-RMK12-2425.pdf")}}" target="_blank">Garis Panduan KSP RMKe-12 dan Permohonan Projek Pembangunan Tahun 2024-2025</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: {{ date('d-m-Y') }}</span>
+                    </li>
+                    <li style="text-align: left;">
+                        <a href="{{ asset("/storage/dokumen/GP-BP00600-2024.pdf")}}" target="_blank">ALIRAN PROSES PROFIT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada:  {{ date('d-m-Y') }}</span>
+                    </li>
+                    <li style="text-align: left;">
+                        <a href="{{ asset("/storage/dokumen/BlanketApproval.pdf")}}" target="_blank">Blanket Approval</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada:  {{ date('d-m-Y') }}</span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -183,7 +212,7 @@
         </div>
         <div class="row">
             <div class="col-lg-12 text-center">
-                <a href="mailto:usup.keram@moh.gov.my" class="btn btn-primary">Hantarkan e-mel kepada kami</a>                
+                <a href="mailto:usup.keram@moh.gov.my" class="btn btn-primary">Hantarkan e-mel kepada kami</a>
             </div>
         </div>
         <div class="row">

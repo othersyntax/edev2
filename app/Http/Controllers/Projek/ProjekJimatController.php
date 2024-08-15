@@ -44,10 +44,10 @@ class ProjekJimatController extends Controller
 
         if ($queryType == 1) {
             $query = \DB::table('tblprojek_baru as a')
-                ->leftJoin('tblfasiliti as b','a.projek_fasiliti_id','b.fas_ptj_code')
+                ->leftJoin('tblfasiliti as b','a.projek_fasiliti_id','b.fasiliti_id')
                 ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
                 ->leftJoin('tblprogram as d','a.proj_program','d.program_id')
-                ->leftJoin('tblfasiliti as e','a.projek_fasiliti_id','e.fas_ptj_code')
+                ->leftJoin('tblfasiliti as e','a.projek_fasiliti_id','e.fasiliti_id')
                 ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_program', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_middle', 'a.proj_kod_group', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name');
             $jumlah =  $query->sum('proj_kos_mohon');
             $lulus =  ProjekBaru::where('proj_status', 2)->sum('proj_kos_mohon');
@@ -57,10 +57,10 @@ class ProjekJimatController extends Controller
         }
         else{
             $query = \DB::table('tblprojek_baru as a')
-                    ->leftJoin('tblfasiliti as b','a.projek_fasiliti_id','b.fas_ptj_code')
+                    ->leftJoin('tblfasiliti as b','a.projek_fasiliti_id','b.fasiliti_id')
                     ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
                     ->leftJoin('tblprogram as d','a.proj_program','d.program_id')
-                    ->leftJoin('tblfasiliti as e','a.projek_fasiliti_id','e.fas_ptj_code')
+                    ->leftJoin('tblfasiliti as e','a.projek_fasiliti_id','e.fasiliti_id')
                     ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_program', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_middle', 'a.proj_kod_group', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name')
                     ->where(function($q) use ($negeri, $fasiliti, $program, $kodProjek, $projek){
                         if(!empty($negeri)){

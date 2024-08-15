@@ -129,9 +129,9 @@
         </div>
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Maklumat Bayaran</h5>
+                <h5>Maklumat Belanja</h5>
                 <div class="ibox-tools">
-                    <button type="button" class="btn btn-sm btn-primary float-right" id="addBayaran">
+                    <button type="button" class="btn btn-sm btn-primary float-right" id="addBayaran1">
                         Tambah
                     </button>
                 </div>
@@ -280,6 +280,7 @@
 </div>
 @include('app/projek/_modal/add-utiliti')
 @include('app/projek/_modal/edit-utiliti')
+@include('app/projek/_modal/add-bayaran')
 @endsection
 @section('custom-js')
 <!-- Data picker -->
@@ -292,6 +293,12 @@ $(document).ready(function(){
     $('#add').click(function(e){
         e.preventDefault();
         $('#addModal').modal('show');
+    });
+
+    $(document).on('click', '#addBayaran1', function (e) {
+        e.preventDefault();
+        $('#addModalBayaran').modal('show');
+        // alert('cc');
     });
 
     $('#data_1 .input-group.date').datepicker({
@@ -370,6 +377,8 @@ $(document).ready(function(){
         });
         $('.btn-close').find('input').val('');
     });
+
+
 
     // SHOW RECORD TO DELETE
     $(document).on('click', '.deletebtn', function () {

@@ -44,6 +44,7 @@
                 </div>
             </div>
             <div class="ibox-content">
+                <input type="hidden" id="projek_id_allval" value="{{ $projek->projek_id }}">
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
@@ -190,10 +191,10 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th width="10%" class="text-center">#Bil</th>
-                                        <th width="10%">Tahun</th>
-                                        <th width="70%">Unjuran Kewangan</th>
-                                        <th width="10%">#</th>
+                                        <th width="15%" class="text-center">#Bil</th>
+                                        <th width="30%" class="text-center">Tahun</th>
+                                        <th width="35%" class="text-right">Unjuran Kewangan</th>
+                                        <th width="20%">#</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody-unjuran">
@@ -228,6 +229,7 @@
 <script src="{{ asset("/template/js/plugins/select2/select2.full.min.js") }}"></script>
 <script>
     $(document).ready(function(){
+        fetchUnjuran();
         //ADD BUTTON CLICK
         $('#add').click(function(e){
             e.preventDefault();
@@ -241,6 +243,8 @@
 
         $('#addUnjuran').click(function(e){
             e.preventDefault();
+            let projekID = $('#projek_id_allval').val();
+            $('#proj_unjur_projek_id').val(projekID);
             $('#addKewangan').modal('show');
         });
 
@@ -296,6 +300,132 @@
                 }
             });
         });
+
+        // ADD UNJURAN
+        $(document).on('click', '.addUnjuran', function (e) {
+            e.preventDefault();
+            var data = {
+                'proj_unjur_projek_id': $('#proj_unjur_projek_id').val(),
+                'proj_unjur_tahun': $('#proj_unjur_tahun').val(),
+                'proj_unjur_siling': $('#proj_unjur_siling').val(),
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/permohonan/baru/unjuran/simpan",
+                data: data,
+                dataType: "json",
+                success: function (response) {
+                    if (response.status == 400) {
+                        $('#save_msgList_unjuran').html("");
+                        $('#save_msgList_unjuran').addClass('alert alert-danger');
+                        $.each(response.errors, function (key, err_value) {
+                            $('#save_msgList_unjuran').append('<li>' + err_value + '</li>');
+                        });
+                    } else {
+                        $('#addKewangan').find('input').val('');
+                        $('#save_msgList_unjuran').html("");
+                        $('#addKewangan').modal('hide');
+                        fetchUnjuran();
+                        swal({
+                            title: "Unjuran Kewangan",
+                            text: response.message,
+                            type: "success"
+                        });
+                    }
+                }
+            });
+
+        });
+
+        // LIST UNJRUAN
+        function fetchUnjuran(){
+            let projekID = $('#projek_id_allval').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "get",
+                url: "/permohonan/baru/unjuran/senarai/"+projekID,
+                dataType: "json",
+                success: function (response) {
+                    var bil=1;
+                    if(response.unjuran.length>0){
+                        $('#tbody-unjuran').html("");
+                        $.each(response.unjuran, function (key, item) {
+                            $('#tbody-unjuran').append('<tr>\
+                                <td class="text-center">' + bil + '</td>\
+                                <td class="text-center">' + item.proj_unjur_tahun + '</td>\
+                                <td class="text-right">' + financial(item.proj_unjur_siling) + '</td>\
+                                <td><button type="button" value="' + item.proj_unjuran_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
+                                <button type="button" value="' + item.proj_unjuran_id + '" class="btn btn-default btn-xs deleteUnjuran" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
+                            \</tr>');
+                            bil++;
+                        });
+                    }
+                    else{
+                        $('#tbody-unjuran').html("");
+                        $('#tbody-unjuran').append('<tr>\
+                            <td colspan="4" class="font-italic text-small text-center">Tiada Rekod</td>\
+                        \</tr>');
+                    }
+                }
+            });
+        }
+
+        // SHOW RECORD TO DELETE
+        $(document).on('click', '.deleteUnjuran', function () {
+            var unjuranID = $(this).val();
+            swal({
+                    title: "Adakah anda pasti?",
+                    text: "Sila pastikan rekod yang hendak dipadam",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Ya, Padam",
+                    cancelButtonText: "Tidak, Batalkan",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+
+                        $.ajax({
+                            type: "get",
+                            url: "/permohonan/baru/unjuran/padam/" + unjuranID,
+                            dataType: "json",
+                            success: function (response) {
+                                if (response.status == 404) {
+                                    swal("Dibatalkan", response.message, "error");
+                                } else {
+                                    fetchUnjuran();
+                                    swal("Dipadam!", response.message, "success");
+                                }
+                            }
+                        });
+                    } else {
+                        swal("Dibatalkan", "Rekod unjuran tidak dipadam", "error");
+                    }
+                });
+        });
+
+        function financial(x) {
+            return Number.parseFloat(x).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
 
     });
 </script>

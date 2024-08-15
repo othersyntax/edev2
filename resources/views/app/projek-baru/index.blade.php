@@ -147,7 +147,7 @@
                     <table class="footable table table-stripped toggle-arrow-tiny">
                         <thead>
                             <tr>
-                                <th width="5%" class="text-center">Status</th>
+                                <th width="5%" class="text-center">Selesai</th>
                                 <th width="10%">Kategori</th>
                                 <th width="16%">Pemilik</th>
                                 <th width="16%">Fasiliti</th>
