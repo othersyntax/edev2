@@ -26,10 +26,16 @@
             <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group">
-                    <input type="email" name="email" class="form-control required" placeholder="Emel" required="">
+                    <input type="email" name="email" class="form-control required" placeholder="Emel">
+                    @error('email')
+                        <span class="text-danger">{{ $message}}</span>
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <input type="password"  name="password" class="form-control required" placeholder="Katalaluan" required="">
+                    <input type="password"  name="password" class="form-control required" placeholder="Katalaluan" >
+                    @error('password')
+                        <span class="text-danger">{{ $message}}</span>
+                    @enderror
                 </div>
                 <button type="submit" class="btn btn-primary block full-width m-b">Log-masuk</button>
 

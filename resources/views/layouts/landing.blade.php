@@ -88,9 +88,13 @@
         <div class="carousel-item">
             <div class="container">
                 <div class="carousel-caption blank">
-                    <h1>We create meaningful <br/> interfaces that inspire.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
-                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                    <h1 class="">
+                        Pengurusan Peruntukan<br/>
+                        Pembangunan<br/>
+                        Kementerian Kesihatan<br/>
+                        Malaysia
+                    </h1>
+                    <p>Sistem Maklumat Pengurusan Perutukan Pembangunan</p>
                 </div>
             </div>
             <!-- Set background for slide in css -->
@@ -170,13 +174,16 @@
                         Dokumen, manual dan templat berkaitan permohonan projek.
                     </li>
                     <li style="text-align: left;">
-                        <a href="{{ asset("/storage/dokumen/GP-KSP-RMK12-2425.pdf")}}" target="_blank">Garis Panduan KSP RMKe-12 dan Permohonan Projek Pembangunan Tahun 2024-2025</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: {{ date('d-m-Y') }}</span>
+                        <a href="{{ asset("/storage/dokumen/GP-KSP-RMK12-2425.pdf")}}" target="_blank">Garis Panduan KSP RMKe-12 dan Permohonan Projek Pembangunan Tahun 2024-2025</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 02-09-2024</span>
                     </li>
                     <li style="text-align: left;">
-                        <a href="{{ asset("/storage/dokumen/GP-BP00600-2024.pdf")}}" target="_blank">ALIRAN PROSES PROFIT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada:  {{ date('d-m-Y') }}</span>
+                        <a href="{{ asset("/storage/dokumen/GP-BP00600-2024.pdf")}}" target="_blank">Aliran Proses PROFIT</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 02-09-2024</span>
                     </li>
                     <li style="text-align: left;">
-                        <a href="{{ asset("/storage/dokumen/BlanketApproval.pdf")}}" target="_blank">Blanket Approval</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada:  {{ date('d-m-Y') }}</span>
+                        <a href="{{ asset("/storage/dokumen/BlanketApproval.pdf")}}" target="_blank">Blanket Approval</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 02-09-2024</span>
+                    </li>
+                    <li style="text-align: left;">
+                        <a href="{{ asset("/storage/dokumen/borang_pengguna_pukal.xlsx")}}">Borang Pengguna Pukal</a><br/><span class="label label-primary">XLSX</span><span class="small"> Kemaskini pada: 11-09-2024</span>
                     </li>
                 </ul>
             </div>

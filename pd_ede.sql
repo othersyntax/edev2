@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2024-08-05 11:30:04
+Date: 2024-08-15 13:05:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -2529,7 +2529,7 @@ CREATE TABLE `tblbakul_jimat` (
   `bj_created_at` timestamp NULL DEFAULT current_timestamp(),
   `bj_updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`bakul_jimat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of tblbakul_jimat
@@ -2538,6 +2538,9 @@ INSERT INTO `tblbakul_jimat` VALUES ('1', '10000014', null, '18662.75', '1', '1'
 INSERT INTO `tblbakul_jimat` VALUES ('2', '10000015', null, '100000.00', '1', '1', '1', '2024-07-24 13:01:57', '2024-07-24 13:01:57');
 INSERT INTO `tblbakul_jimat` VALUES ('3', '10000016', null, '14632.45', '1', '1', '1', '2024-07-24 13:03:15', '2024-07-24 13:03:15');
 INSERT INTO `tblbakul_jimat` VALUES ('4', '10000019', null, '10000.00', '1', '1', '1', '2024-07-24 15:38:26', '2024-07-24 15:38:26');
+INSERT INTO `tblbakul_jimat` VALUES ('5', '10000241', '1006', '15000.00', '1', '1', '1', '2024-08-07 09:36:44', '2024-08-07 09:36:44');
+INSERT INTO `tblbakul_jimat` VALUES ('6', '10000243', '1006', '100000.00', '1', '1', '1', '2024-08-07 10:32:45', '2024-08-07 10:32:45');
+INSERT INTO `tblbakul_jimat` VALUES ('7', '10000255', '1006', '10000.00', '1', '1', '1', '2024-08-07 11:32:41', '2024-08-07 11:32:41');
 
 -- ----------------------------
 -- Table structure for `tblcalendar`
@@ -3457,9 +3460,9 @@ INSERT INTO `tblprojek` VALUES ('10000237', '10000237', '1005', '105', '42079901
 INSERT INTO `tblprojek` VALUES ('10000238', '10000238', '1005', '105', '42079901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Menaik Taraf Pintu Utama Di Laluan Utama NICU Dan Kerja-kerja Lain Berkaitan Di Hospital Tuanku Ja\'afar, Seremban', '1. Kerja-kerja menaiktaraf pintu masuk utama melibatkan aktiviti berikut:\n- Kerja-kerja pendawaian elektrik di Distribution Board.\n- Kerja-kerja memasanag automatic drive system for swing doors.\n-Memasang door exit push button.\n\n2. Penyediaan emergency breakglass dan Interface Board.', null, '100100.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '100100.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
 INSERT INTO `tblprojek` VALUES ('10000239', '10000239', '1005', '105', '42079901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Mengubah Suai Sistem Pembetungan Di Balai Pelawat Hospital Jempol', 'Mengubahsuai  perpaipan  bagi  sistem  pembetungan  pada  blok bangunan  balai  pelawat  yang  melibatkan  masalah  man  hole  dan floor trap yang kerap tersumbat berpunca daripada masalah defect sewaktu kerja-kerja pembinaan hospital.', null, '104000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '104000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
 INSERT INTO `tblprojek` VALUES ('10000240', '10000240', '1005', '105', '42079901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Menaik Taraf Tandas Pesakit Di Unit Rehabilitasi (Pemulihan Carakerja) Serta Lain-lain Kerja Yang Berkaitan di Hospital Port Dickson', '                                                                                                                                                                                            1. Kerja-kerja ubahsuai ruang dalaman tandas.\n2. Kerja-kerja penggantian sistem paip air dalaman.\n3. Kerja-kerja pembaikan sistem sanitari.\n4. Kerja-kerja penyediaan ruang pengguna OKU.\n5. Kerja-kerja pendawaian dan pemasangan peralatan elektrik.\n6. Kerja-kerja am lain yang berkaitan.', null, '41175.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '41175.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
-INSERT INTO `tblprojek` VALUES ('10000241', '10000241', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Naik Taraf Dan Ubah Suai Ruang Serta Kerja-kerja Pembaikan Kerosakan Infrastruktur Di Klinik Kesihatan Ayer Keroh, Melaka', '\n 1. Kerja-Kerja Mengubahsuai Dan Menaiktaraf Ruang Kaunter Farmasi Walk-Thru Untuk Dijadikan Ruang Pengambilan Ubat Untuk Kegunaan Pesakit Berjangkit Di KK Ayer Keroh melibatkan skop kerja naiktaraf lantai dengan permukaan berkonkrit, kemasan jubin untuk dijadikan ruang menunggu, kerja-kerja mengalihkan/ divert longkang untuk binaan lantai baru serta membekal dan memasang sistem QMS\n 2. Kerja-Kerja Ubahsuai Dan Susun Atur Semula Kaunter Pendispens Ubat Farmasi melibatkan kerja-kerja memecah dan memotong tembok kaunter dan susunatur semula kaunter dengan menempatkan kaunter berdiri dan 1 kaunter untuk kemudahan OKU.\n 3. Kerja-kerja Naiktaraf Taman Permainan Kanak-Kanak Untuk Dijadikan Fever Centre dan lain-lain kerja Berkaitan di KK Ayer Keroh                                                                             4. Kerja-kerja lain yang berkaitan', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '215000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '215000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
+INSERT INTO `tblprojek` VALUES ('10000241', '10000241', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI', '2024', '1006', 'Kerja-kerja Naik Taraf Dan Ubah Suai Ruang Serta Kerja-kerja Pembaikan Kerosakan Infrastruktur Di Klinik Kesihatan Ayer Keroh, Melaka', '1. Kerja-Kerja Mengubahsuai Dan Menaiktaraf Ruang Kaunter Farmasi Walk-Thru Untuk Dijadikan Ruang Pengambilan Ubat Untuk Kegunaan Pesakit Berjangkit Di KK Ayer Keroh melibatkan skop kerja naiktaraf lantai dengan permukaan berkonkrit, kemasan jubin untuk dijadikan ruang menunggu, kerja-kerja mengalihkan/ divert longkang untuk binaan lantai baru serta membekal dan memasang sistem QMS\r\n 2. Kerja-Kerja Ubahsuai Dan Susun Atur Semula Kaunter Pendispens Ubat Farmasi melibatkan kerja-kerja memecah dan memotong tembok kaunter dan susunatur semula kaunter dengan menempatkan kaunter berdiri dan 1 kaunter untuk kemudahan OKU.\r\n 3. Kerja-kerja Naiktaraf Taman Permainan Kanak-Kanak Untuk Dijadikan Fever Centre dan lain-lain kerja Berkaitan di KK Ayer Keroh                                                                             4. Kerja-kerja lain yang berkaitan', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '215000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '15000.00', null, '200000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-08-07 09:36:44');
 INSERT INTO `tblprojek` VALUES ('10000242', '10000242', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Naik Taraf dan Ubah Suai Ruang Serta Lain-lain Kerja Berkaitan Di Klinik Kesihatan Ujong Pasir, Melaka', '1. Kerja ubahsuai bangunan untuk meluaskan unit Makmal 2. Ubahsuai ruang makmal sedi ada untuk membesarkan ruang farmasi.\n3. Menanggal pendawaian dan kelengkapan QMS dan dipasang semula ke kaunter baru termasuk konfigurasi semula sistem.\n 4. Menanggal kelengkapan sistem penghawa dingin dan dipasang semula ke tempat baru.\n5. Susunatur semula pendawaian dan lekapan kerja elektrik, telekomunikasi dan ICT.\n6. Baiki kerosakan ruang dengan menyediakan kemasan cat baru, siling baru, menyediakan kaunter pendaftaran lengkap dengan backdrop, keperluan ict, telefon, sistem penghawa dingin serta kerja pendawaian.', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '180000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '180000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
-INSERT INTO `tblprojek` VALUES ('10000243', '10000243', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Membaiki Sistem Perpaipan Paip Pili Bomba Serta Lain-lain Kerja Berkaitan Di Klinik Kesihatan Batu Berendam, Melaka', '1. Pembaikan keseluruhan sistem perpaipan baru bagi paip air Bomba Kerja-kerja menyediakan laluan paip baru secara surface termasuk bracket bagi menggantikan paip sedia ada.\n 2. Paip yang diganti melibatkan paip jenis mils steel berukuran 150mm diameter termasuk mengecat serta memabaiki kerosakan sekeliling kepada yang asal', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '200000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '200000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
+INSERT INTO `tblprojek` VALUES ('10000243', '10000243', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI', '2024', '1006', 'Kerja-kerja Membaiki Sistem Perpaipan Paip Pili Bomba Serta Lain-lain Kerja Berkaitan Di Klinik Kesihatan Batu Berendam, Melaka', '1. Pembaikan keseluruhan sistem perpaipan baru bagi paip air Bomba Kerja-kerja menyediakan laluan paip baru secara surface termasuk bracket bagi menggantikan paip sedia ada.\r\n 2. Paip yang diganti melibatkan paip jenis mils steel berukuran 150mm diameter termasuk mengecat serta memabaiki kerosakan sekeliling kepada yang asal', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '200000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '100000.00', null, '100000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-08-07 10:32:45');
 INSERT INTO `tblprojek` VALUES ('10000244', '10000244', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Pembaikan Laluan Masuk Yang Mendap, Naik Taraf Kaunter Pendispenan Ubat Serta Pembaikan Lain-lain Kemudahan Bangunan Di Klinik Kesihatan Masjid Tanah, Alor Gajah, Melaka', '1.Kerja-kerja pembaikan bekalan essential bangunan termasuk kelengkapan dan pendawaian\n2. Pembaikan laluan parkir kenderaan yang mendap termasuk menggantikan dengan box culvert dan kerja-kerja menurap semula permukaan                                                                                                                        3.Kerja-kerja ubahsuai dan naiktaraf Kaunter Pendispenan Farmasi dengan pemecahan dinding di bahagian dalam dan memanjangkan kaunter sehingga ke pintu farmasi \n4. Penambahan 1 kaunter penyaringan farmasi\n5. Penambahan 1 unit penghawa dingin 1.0hp di ruang kaunter yang diubahsuai\n6. Pemasangan roller shutter bagi kaunter yang akan diubahsuai', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '180000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '180000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
 INSERT INTO `tblprojek` VALUES ('10000245', '10000245', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Pembaikan Sistem Perpaipan Dalaman Dan Saluran Kumbahan Serta Lain-lain Kerja Yang Berkaitan Di Klinik Kesihatan Pengkalan Balak, Alor Gajah, Melaka', '\n1. Kerja-kerja penggantian sistem perpaiapan dalaman klinik kepada yang baharu.                                                                                               2. Kerja-kerja pembaikan saluran sistem paip kumbahan yang mendap dan tersumbat termasuk kerja-kerja lain yang berkaitan.                                                                                                 3. Kerja-kerja ubahsuai dan membaiki mana-mana salur air buangan keluar terus ke dalam manhole\n', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '110000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '110000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
 INSERT INTO `tblprojek` VALUES ('10000246', '10000246', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Pendawaian Elektrik Dan Pembaikan Lantai Bangunan Serta Lain-lain Kerja Yang Berkaitan Di Bangunan Baru Unit Inspektorat PKD Alor Gajah, Melaka', '1. Kerja-kerja pendawaian lampu dan soket elektrik di kawasan yang terlibat.                                                                             2. Kerja-kerja pembaikan lantai yang rosak\n', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '80000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '80000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
@@ -3471,7 +3474,7 @@ INSERT INTO `tblprojek` VALUES ('10000251', '10000251', '1006', '104', '42089901
 INSERT INTO `tblprojek` VALUES ('10000252', '10000252', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Menaik Taraf Sistem Kebakaran dan Keselamatan di Jabatan Dietetik Dan Sajian Yang bersambung Ke Panel Board Utama Serta Kerja-kerja Lain Berkaitan di Hospital Melaka', '1. Membekal dan memasang pendawaian dari sistem wet chemical di aras 2 ke panel board utama hospital\n2. Memasang break glass di aras 1 dan aras 2\n\n\n', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '60000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '60000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
 INSERT INTO `tblprojek` VALUES ('10000253', '10000253', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Menaik Taraf Bilik Mandi Dan Tandas Pesakit Wad C1 & Wad C2 Serta Kerja-kerja Lain Berkaitan di Unit Psikiatri Hospital Melaka', '1. Membuka dan melupuskan pintu dan jenang serta menyediakan permukaan dinding bagi penerimaan pintu yang baru\n2. Membekal dan memasang pintu acrylic termasuk kerja memasang bolt-bolt yang diperlukan.\n3. Membekal dan memasang jubin antislip pada lantai tandas san jenis ceramic berglip pada dinding\n4. Kerja-kerja mengecat dinding 2 lapisan menggunakan cat emulsi serta kemasan berkaitan', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '60000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '60000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
 INSERT INTO `tblprojek` VALUES ('10000254', '10000254', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Ubah Suai Dan Menaik Taraf Kafeteria Serta Kerja-kerja Lain Berkaitan Di Hospital Melaka', '1. Ruangan Dapur\n- Memecah dan menanggalkan tile dinding dan lantai\n- Pemasangan lantai homogenous antislip, dinding aluminium plate, floor & gress trap, plate besi bawah dapur, jaring besi dan kerja kemasan\n2. Ruangan Kafeteria\n- Kerja-kerja pemasanagan dinding sesekat                                                                                                            - Penggantian tile jenis anti-slip\n- Kerja-kerja mencabut dan melupuskan railing, bumbung, dan lampu termasuk pendawaian sedia ada                                                             ', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '200000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '200000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
-INSERT INTO `tblprojek` VALUES ('10000255', '10000255', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Menaik Taraf Di Unit Pemulihan Cara Kerja EG Serta Kerja-kerja lain Berkaitan Di Hospital Melaka', '1. Naik taraf bilik terapi kepada Sensory Integration Room.\n2. Naik taraf tandas kepada tandas mesra OKU.\n3. Pemasangan pintu sliding untuk ruang kerja kakitangan.\n4. Kaunter pegawai perhubungan awam (PRO).\n5. Naik taraf shutter door kepada pintu kaca.\n6. Naik taraf bumbung di Unit Pemulihan Cara Kerja Kanak-kanak.', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '80000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '80000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
+INSERT INTO `tblprojek` VALUES ('10000255', '10000255', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI', '2024', '1006', 'Kerja-kerja Menaik Taraf Di Unit Pemulihan Cara Kerja EG Serta Kerja-kerja lain Berkaitan Di Hospital Melaka', '1. Naik taraf bilik terapi kepada Sensory Integration Room.\r\n2. Naik taraf tandas kepada tandas mesra OKU.\r\n3. Pemasangan pintu sliding untuk ruang kerja kakitangan.\r\n4. Kaunter pegawai perhubungan awam (PRO).\r\n5. Naik taraf shutter door kepada pintu kaca.\r\n6. Naik taraf bumbung di Unit Pemulihan Cara Kerja Kanak-kanak.', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '80000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '10000.00', null, '70000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-08-07 11:32:41');
 INSERT INTO `tblprojek` VALUES ('10000256', '10000256', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Menaik Taraf Bilik Respiratory Lab Unit Rawatan Rapi (ICU) Serta Lain-lain Kerja Yang Berkaitan Di Hospital Jasin, Melaka ', '1. Kerja memecahkan dinding sediaada yang bersaiz 15\' x 10’.\n2. Kerja membina dinding (batu merah) serta plaster dengan ukuran   (15\'x10°x10\').\n3.  Kerja membekal dan pemasangan pintu 2 daun beserta jenang.\n4.  Kerja memecah magkuk tandas sedia ada\n5. Kerja memasang jubin lantai tandas yang pecah beserta kerja-kerja waterproofing.\n6. Kerja membekal dan memasang bedpan washer. \n7. Lain-lain kerja berkaitan.', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '65000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '65000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
 INSERT INTO `tblprojek` VALUES ('10000257', '10000257', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Menaik Taraf Unit Rawatan Harian (Daycare) Serta Lain-lain Kerja Yang Berkaitan Di Hospital Jasin, Melaka', 'Kerja-kerja naiktaraf Pusat Rawatan Harian berkeluasan [22 (L) x 25 (P)] dan lain-lain kerja berkaitan.\n1. Mempunyai dua ruang katil pemerhatian beserta railing partition\n2. Bilik Persalinan dan Loker pesakit\n3. Kaunter Pendaftaran\n4. Ruang menunggu yang boleh menempatkan 8 individu (waris / pesakit)\n5. Kipas \n6. Pintu kaca 2 daun\n7. Papan Tanda\n8. Membina dinding bata bersama tingkap\n9. Penghawa Dingin\n10. Perabot dan kerusi menunggu\n11. Rak Fail Pesakit berututp\n12.Lain-lain kerja berkaitan.', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '180000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '180000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
 INSERT INTO `tblprojek` VALUES ('10000258', '10000258', '1006', '104', '42089901', 'P42', '00600', '117', '4001', 'JANUARI ', '2024', '1006', 'Kerja-kerja Menaik Taraf Anjung Budi Untuk Dijadikan Discharge Lounge Serta Lain-lain Kerja Yang Berkaitan Di Hospital Jasin, Melaka ', 'Menaiktaraf ruangan Anjung Budi kepada Discharge lounge untuk dijadikan ruang menunggu khas untuk pesakit yang dibenarkan pulang  bagi mengatasi tempoh menunggu terlalu lama khususnya bagi pesakit untuk mendapatkan katil di wad. Kerja -kerja naiktaraf adalah seperti berikut:\n1. Kaunter \n2. Ruang menunggu pesakit lelaki dan perempuan \n3. Tandas lelaki dan perempuan \n4. Penghawa dingin.\n5. Perabot dan Television  \n6. Pemasangan soket, internet, dan telefon', 'KELULUSAN KSU DATO\' SERI IR DR ZAINI BIN UJANG BERTARIKH 28.12.2023. Rujukan Fail : KKM.400-4/2/31 JLD.8 (1)', '180000.00', 'KKM.400-4/2/31 JLD.8(5)', '0.00', '0.00', '0.00', null, '180000.00', '0', '1', '0', '0', '0000-00-00 00:00:00', '2024-07-18 19:32:47');
@@ -3754,16 +3757,13 @@ CREATE TABLE `tblprojek_baru` (
   `proj_updated_date` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`projek_id`),
   KEY `projek_nama` (`proj_nama`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of tblprojek_baru
 -- ----------------------------
-INSERT INTO `tblprojek_baru` VALUES ('1', '101', '1', '1', 'P42', '00600', '117', '1001', '1032', '1', '1045', '10000031', '1006', '1', 'Julai', '2024', 'Cubaan Nama Projek', 'Cubaan Sko Projek', 'Cubaan Justifikasi Projek', 'Cubaan Ulasn Projek', 'Cubaan catatan Projek', '450000.00', '1970-01-01', '1970-01-01', '2', '1', '1', '1', '2024-07-26 00:08:37', '2024-08-02 16:36:25');
-INSERT INTO `tblprojek_baru` VALUES ('2', '103', '1', '1', 'P42', '00600', '117', '1001', '1032', '1', '1048', '10000079', '1006', '1', 'Februari', '2024', 'Kerja-kerja Menaik Taraf Bangunan Dan Kawalan Koloni Kelawar Serta Lain-lain Berkaitan Di Klinik Kesihatan Sri Merlong, Batu Pahat', 'Projek Klinik Daif Tahun 2023 Yang Tidak Dapat Membuat Pembayaran Pada Tahun 2023', 'Minit Ceraian Bil. 4/2024 : Kelulusan TKSU (K)Dato\' Sri Norazman Ayob rujukan fail KKM.400-4/2/31 Jld. 9 (16) bertarikh 23.03.2024', 'Minit Ceraian Bil. 4/2024 : Kelulusan TKSU (K)Dato\' Sri Norazman Ayob rujukan fail KKM.400-4/2/31 Jld. 9 (16) bertarikh 23.03.2024', 'Minit Ceraian Bil. 4/2024 : Kelulusan TKSU (K)Dato\' Sri Norazman Ayob rujukan fail KKM.400-4/2/31 Jld. 9 (16) bertarikh 23.03.2024', '50000.00', '2024-07-17', '2025-07-17', '1', '1', '1', '1', '2024-07-26 00:31:04', '2024-08-02 16:35:16');
-INSERT INTO `tblprojek_baru` VALUES ('3', '102', '1', '1', 'P42', '00600', '117', '1001', '1007', '1', null, '10000051', '1006', '1', 'Julai', '2024', 'Kerja-kerja Menaik Taraf Bangunan Dan Kawalan Koloni Kelawar Serta Lain-lain Berkaitan Di Klinik Kesihatan Sri Merlong, Batu Pahat', 'Projek Klinik Daif Tahun 2023 Yang Tidak Dapat Membuat Pembayaran Pada Tahun 2023', 'Projek Klinik Daif Tahun 2023 Yang Tidak Dapat Membuat Pembayaran Pada Tahun 2023', 'Projek boleh dilaksanakan dalam tahun semasa', 'Mohon Luluskan permohonan saya....', '50000.00', '2025-01-01', '2025-12-01', '1', '1', '1', '1', '2024-07-26 16:16:32', '2024-08-02 16:35:17');
-INSERT INTO `tblprojek_baru` VALUES ('4', '113', '1', '1', 'P42', '00600', '117', '1001', '1032', '3', '1050', '10000377', '1008', '1', 'July', '2024', 'Cubaan tambah projek baharu bagi negeri sarawak', 'Melakukan ubah suaian', 'amat diperlukan', 'KK bersetuju', null, '500000.00', '2024-07-01', '2024-11-30', '1', '1', '1', '1', '2024-07-31 23:12:08', '2024-08-02 16:35:17');
-INSERT INTO `tblprojek_baru` VALUES ('5', '106', '1', '1', 'P42', '00600', '117', '1001', '1032', '3', '1044', '10000152', '1006', '1', 'Ogos', '2024', 'Cubaan Projek Bahagian Pembangunan di Pahang', 'Maklumat sub projek', 'Ini adalah justifikasi projek', 'kami bersetuju', null, '250000.00', '2024-08-01', '2024-10-31', '1', '1', '1', '1', '2024-08-01 15:52:51', '2024-08-02 16:35:19');
+INSERT INTO `tblprojek_baru` VALUES ('1', '102', '1', '1', 'P42', '00600', '117', '1001', '1032', '3', '1046', '10000054', '1006', '1', 'August', '2025', 'Kerja-kerja Naik Taraf Lantai  Di Wad Bunga Raya Kepada Vinil Dan Kerja-kerja Lain Yang Berkaitan Di Hospital Sultan Abdul Halim, Kedah', 'Menanggalkan karpet sedia ada dan memasang kemasan lantai jenis homogenous vynil medical grade', 'Menanggalkan karpet sedia ada dan memasang kemasan lantai jenis homogenous vynil medical grade', 'Menanggalkan karpet sedia ada dan memasang kemasan lantai jenis homogenous vynil medical grade', null, '300000.00', '2025-06-01', '2025-08-31', '2', '2', '1', '1', '2024-08-07 08:55:55', '2024-08-07 09:15:41');
+INSERT INTO `tblprojek_baru` VALUES ('4', '102', '1', '1', 'P42', '00600', '117', '1001', '1032', '3', '1046', '10000043', '1006', '1', 'August', '2025', 'Projek 2', 'Projek 2', 'Projek 2', 'Projek 2', 'Projek 2', '300000.00', '2025-01-01', '2025-07-01', '2', '2', '1', '1', '2024-08-07 09:03:44', '2024-08-07 09:17:14');
 
 -- ----------------------------
 -- Table structure for `tblprojek_baru_dokumen`
@@ -3784,18 +3784,61 @@ CREATE TABLE `tblprojek_baru_dokumen` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `tblprojek_baru_kecemasan`
+-- ----------------------------
+DROP TABLE IF EXISTS `tblprojek_baru_kecemasan`;
+CREATE TABLE `tblprojek_baru_kecemasan` (
+  `projek_id` int(12) NOT NULL AUTO_INCREMENT,
+  `proj_negeri` int(4) DEFAULT NULL,
+  `proj_parlimen` int(2) NOT NULL,
+  `proj_dun` int(3) NOT NULL,
+  `proj_kod_agensi` char(3) NOT NULL,
+  `proj_kod_projek` char(5) NOT NULL,
+  `proj_kod_setia` char(3) NOT NULL,
+  `proj_kod_subsetia` char(4) NOT NULL,
+  `proj_pemilik` int(6) NOT NULL,
+  `proj_pelaksana` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1-Pemilik; 2- JKR atau lain2',
+  `proj_pelaksana_agensi` int(6) DEFAULT NULL,
+  `proj_fasiliti_id` int(4) DEFAULT NULL,
+  `proj_kategori_id` int(4) NOT NULL,
+  `proj_struktur` tinyint(1) DEFAULT 1 COMMENT '1-Ya 2-Tidak',
+  `proj_bulan` varchar(15) NOT NULL,
+  `proj_tahun` char(4) NOT NULL,
+  `proj_nama` varchar(255) NOT NULL,
+  `proj_skop` text DEFAULT NULL,
+  `proj_justifikasi` text DEFAULT NULL,
+  `proj_ulasan_teknikal` text DEFAULT NULL,
+  `proj_catatan` varchar(255) DEFAULT '',
+  `proj_kos_mohon` decimal(14,2) DEFAULT NULL,
+  `proj_laksana_mula` date DEFAULT NULL,
+  `proj_laksana_tamat` date DEFAULT NULL,
+  `proj_status_complete` tinyint(1) DEFAULT 1 COMMENT '1-Not 2-Complete',
+  `proj_status` tinyint(1) DEFAULT 1 COMMENT '1-Aktif, 2-Proses, 3- Batal',
+  `proj_created_by` int(6) NOT NULL,
+  `proj_updated_by` int(6) NOT NULL,
+  `proj_created_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `proj_updated_date` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`projek_id`),
+  KEY `projek_nama` (`proj_nama`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Records of tblprojek_baru_kecemasan
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `tblprojek_baru_unjuran`
 -- ----------------------------
 DROP TABLE IF EXISTS `tblprojek_baru_unjuran`;
 CREATE TABLE `tblprojek_baru_unjuran` (
-  `proj_unjuran_id` int(6) NOT NULL,
+  `proj_unjuran_id` int(6) NOT NULL AUTO_INCREMENT,
   `proj_unjur_projek_id` int(12) NOT NULL,
-  `proj_unjur_tahun` tinyint(4) NOT NULL,
+  `proj_unjur_tahun` int(4) NOT NULL,
   `proj_unjur_siling` decimal(15,2) NOT NULL,
   `proj_unjur_created_at` timestamp NULL DEFAULT current_timestamp(),
   `proj_unjur_updated_at` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`proj_unjuran_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of tblprojek_baru_unjuran
@@ -5487,14 +5530,12 @@ CREATE TABLE `tblsiling` (
   `sil_created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `sil_updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`siling_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100008 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of tblsiling
 -- ----------------------------
-INSERT INTO `tblsiling` VALUES ('100001', '1001', '2024', '1250000.00', '0.00', '2024-07-01 00:00:00', '2024-07-31 23:59:00', '2', '1', '1', '1', '2024-07-15 17:09:42', '2024-07-31 12:00:07');
-INSERT INTO `tblsiling` VALUES ('100003', '1000', '2024', '50000.00', '0.00', '2024-07-01 00:00:00', '2024-07-31 23:59:00', '2', '1', '1', '1', '2024-07-15 18:32:56', '2024-07-31 12:00:03');
-INSERT INTO `tblsiling` VALUES ('100007', '1032', '2024', '5000000.00', '0.00', '2024-07-01 00:00:00', '2024-07-31 00:00:00', '2', '1', '1', '1', '2024-07-18 23:37:18', '2024-08-02 16:38:48');
+INSERT INTO `tblsiling` VALUES ('2', '1032', '2025', '500000.00', '0.00', '2024-08-01 00:00:00', '2024-08-31 00:00:00', '1', '1', '1', '1', '2024-08-07 11:28:19', '2024-08-07 11:28:19');
 
 -- ----------------------------
 -- Table structure for `tblsurat`
