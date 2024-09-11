@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2024-08-15 13:05:32
+Date: 2024-09-11 09:43:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -2117,7 +2117,7 @@ CREATE TABLE `ddsa_kod_daerah` (
   `dae_upddate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `dae_log` datetime NOT NULL,
   PRIMARY KEY (`dae_daerah_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11608 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1130058 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- ----------------------------
 -- Records of ddsa_kod_daerah
@@ -2193,12 +2193,14 @@ INSERT INTO `ddsa_kod_daerah` VALUES ('10808', '0808', 'Hulu Perak', '108', '1',
 INSERT INTO `ddsa_kod_daerah` VALUES ('10809', '0809', 'Selama', '108', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:41');
 INSERT INTO `ddsa_kod_daerah` VALUES ('10810', '0810', 'Perak Tengah', '108', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:41');
 INSERT INTO `ddsa_kod_daerah` VALUES ('10811', '0811', 'Kampar', '108', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:41');
+INSERT INTO `ddsa_kod_daerah` VALUES ('10812', '0812', 'Bagan Datok', '108', '1', '100000', '100000', '2024-08-26 18:38:14', '2024-08-26 18:38:12');
+INSERT INTO `ddsa_kod_daerah` VALUES ('10813', '0813', 'Muallim', '108', '1', '100000', '100000', '2024-08-26 18:38:40', '2024-08-26 18:38:37');
 INSERT INTO `ddsa_kod_daerah` VALUES ('10900', '0900', 'Perlis', '109', '1', '0', '0', '2024-05-15 15:14:52', '2017-04-06 15:39:57');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11001', '1001', 'Klang', '110', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11002', '1002', 'Kuala Langat', '110', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11004', '1004', 'Kuala Selangor', '110', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11005', '1005', 'Sabak Bernam', '110', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
-INSERT INTO `ddsa_kod_daerah` VALUES ('11006', '1006', 'Ulu Langat', '110', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
+INSERT INTO `ddsa_kod_daerah` VALUES ('11006', '1006', 'Hulu Langat', '110', '1', '100000', '100000', '2024-08-27 10:47:01', '2017-01-19 17:44:42');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11007', '1007', 'Hulu Selangor', '110', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11008', '1008', 'Petaling', '110', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11009', '1009', 'Gombak', '110', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
@@ -2236,6 +2238,9 @@ INSERT INTO `ddsa_kod_daerah` VALUES ('11223', '1223', 'Pitas', '112', '1', '100
 INSERT INTO `ddsa_kod_daerah` VALUES ('11224', '1224', 'Kunak', '112', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11225', '1225', 'Tongod', '112', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11226', '1226', 'Putatan', '112', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
+INSERT INTO `ddsa_kod_daerah` VALUES ('11227', '1227', 'Beluran', '112', '1', '100000', '100000', '2024-08-26 18:52:41', '2024-08-26 18:51:43');
+INSERT INTO `ddsa_kod_daerah` VALUES ('11228', '1228', 'Nabawan', '112', '1', '100000', '100000', '2024-08-26 18:52:56', '2024-08-26 18:52:53');
+INSERT INTO `ddsa_kod_daerah` VALUES ('11229', '1229', 'Telupid', '112', '1', '100000', '100000', '2024-08-26 18:53:30', '2024-08-26 18:53:27');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11301', '1301', 'Kuching', '113', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11302', '1302', 'Sri Aman', '113', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11303', '1303', 'Sibu', '113', '1', '100000', '100000', '2024-05-15 15:14:52', '2017-01-19 17:44:42');
@@ -2251,6 +2256,34 @@ INSERT INTO `ddsa_kod_daerah` VALUES ('11400', '1400', 'Kuala Lumpur', '114', '1
 INSERT INTO `ddsa_kod_daerah` VALUES ('11401', '1401', 'Kuala Lumpur', '122', '1', '0', '0', '2024-05-15 15:14:52', '2017-04-06 15:39:57');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11501', '1501', 'Labuan', '115', '1', '0', '0', '2024-05-15 15:14:52', '2017-04-06 15:39:57');
 INSERT INTO `ddsa_kod_daerah` VALUES ('11601', '1601', 'Putrajaya', '116', '1', '0', '0', '2024-05-15 15:14:52', '2017-04-06 15:39:57');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113004', '13004', 'Lawas', '113', '1', '100000', '100000', '2024-08-27 11:56:27', '2024-08-27 11:56:23');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113005', '13005', 'Daro', '113', '1', '100000', '100000', '2024-08-27 11:57:22', '2024-08-27 11:57:20');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113007', '13007', 'Marudi', '113', '1', '100000', '100000', '2024-08-27 12:01:29', '2024-08-27 12:01:28');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113010', '13010', 'Meradong', '113', '1', '100000', '100000', '2024-08-27 12:03:39', '2024-08-27 12:03:37');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113018', '13018', 'Telang Usang', '113', '1', '100000', '100000', '2024-08-27 12:26:11', '2024-08-27 12:26:08');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113019', '13019', 'Beluru', '113', '1', '100000', '100000', '2024-08-27 12:51:53', '2024-08-27 12:51:51');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113020', '13020', 'Belaga', '113', '1', '100000', '100000', '2024-08-27 12:52:23', '2024-08-27 12:52:20');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113021', '13021', 'Bukit Mabong', '113', '1', '100000', '100000', '2024-08-27 12:52:56', '2024-08-27 12:52:54');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113022', '13022', 'Dalat', '113', '1', '100000', '100000', '2024-08-27 12:53:27', '2024-08-27 12:53:23');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113027', '13027', 'Lubok Antu', '113', '1', '100000', '100000', '2024-08-27 12:00:13', '2024-08-27 12:00:12');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113032', '13032', 'Pusa', '113', '1', '100000', '100000', '2024-08-27 12:09:56', '2024-08-27 12:09:53');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113033', '13033', 'Saratok', '113', '1', '100000', '100000', '2024-08-27 12:10:42', '2024-08-27 12:10:41');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113034', '13034', 'Kabong', '113', '1', '100000', '100000', '2024-08-27 11:58:50', '2024-08-27 11:58:48');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113035', '13035', 'Sebauh', '113', '1', '100000', '100000', '2024-08-27 12:11:53', '2024-08-27 12:11:21');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113042', '13042', 'Serian', '113', '1', '100000', '100000', '2024-08-27 12:13:58', '2024-08-27 12:13:56');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113043', '13043', 'Selangau', '113', '1', '100000', '100000', '2024-08-27 12:13:13', '2024-08-27 12:13:12');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113044', '13044', 'Tatau', '113', '1', '100000', '100000', '2024-08-27 12:24:17', '2024-08-27 12:24:03');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113045', '13045', 'Tebedu', '113', '1', '100000', '100000', '2024-08-27 12:24:59', '2024-08-27 12:24:52');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113052', '13052', 'Simunjan', '113', '1', '100000', '100000', '2024-08-27 12:14:30', '2024-08-27 12:14:28');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113056', '13056', 'Lundu', '113', '1', '100000', '100000', '2024-08-27 12:00:55', '2024-08-27 12:00:54');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113057', '13057', 'Matu', '113', '1', '100000', '100000', '2024-08-27 12:03:22', '2024-08-27 12:02:15');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113060', '13060', 'Kanowit', '113', '1', '100000', '100000', '2024-08-27 11:59:26', '2024-08-27 11:59:24');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113061', '13061', 'Julau', '113', '1', '100000', '100000', '2024-08-27 11:58:08', '2024-08-27 11:58:05');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113062', '13062', 'Pakan', '113', '1', '100000', '100000', '2024-08-27 12:09:14', '2024-08-27 12:04:17');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113064', '13064', 'Bau', '113', '1', '100000', '100000', '2024-08-27 10:37:09', '2024-08-27 10:37:05');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113065', '13065', 'Asajaya', '113', '1', '0', '0', '2024-08-27 10:44:17', '2024-08-27 10:44:15');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113070', '13070', 'Song', '113', '1', '100000', '100000', '2024-08-27 12:18:21', '2024-08-27 12:18:18');
+INSERT INTO `ddsa_kod_daerah` VALUES ('113071', '13071', 'Subis', '113', '1', '100000', '100000', '2024-08-27 12:23:24', '2024-08-27 12:23:23');
 
 -- ----------------------------
 -- Table structure for `ddsa_kod_negeri`
