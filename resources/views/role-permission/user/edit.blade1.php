@@ -52,6 +52,10 @@
                             <input type="text" name="email" readonly value="{{ $user->email }}" class="form-control" />
                         </div>
                         <div class="mb-3">
+                            <label for="">Program ID</label>
+                            <input type="text" name="program_id" readonly value="{{ $user->program_id }}" class="form-control" />
+                        </div>
+                        <div class="mb-3">
                             <label for="">Password</label>
                             <input type="text" name="password" class="form-control" />
                             @error('password') <span class="text-danger">{{ $message }}</span> @enderror

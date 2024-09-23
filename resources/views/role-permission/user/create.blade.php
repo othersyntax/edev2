@@ -54,11 +54,19 @@
                             @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
+                        
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Katalaluan</label>
                             <input type="password" name="password" class="form-control" />
                             @error('password') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">Program ID</label>
+                            {{ Form::select('program_id_add', dropdownProgram(), null, ['class'=>'form-control program_id_add']) }}
+                            @error('program_id') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -73,6 +81,8 @@
                             @error('roles') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
+
+                    
                     <div class="col-sm-12">
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Simpan</button>
