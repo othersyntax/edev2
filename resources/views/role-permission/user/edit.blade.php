@@ -54,6 +54,12 @@
                             <input type="text" name="email" readonly value="{{ $user->email }}" class="form-control" />
                         </div>
                     </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="">Program ID</label>
+                                <input type="text" name="program_id" readonly value="{{ $user->program_id }}" class="form-control" />
+                            </div>
+                        </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Katalaluan</label>
