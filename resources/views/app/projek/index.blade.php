@@ -100,8 +100,24 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
+                                <label>Daerah</label>
+                                <span id="list-daerah">
+                                    {{ Form::select('daerah', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'daerah']) }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
                                 <label>Fasiliti</label>
-                                {{ Form::select('fasiliti', dropdownFasiliti(), session('fasiliti'), ['class'=>'form-control', 'id'=>'fasiliti']) }}
+                                <span id="list-fasiliti">
+                                    {{ Form::select('fasiliti', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'fasiliti']) }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Kategori Projek</label>
+                                {{ Form::select('cari-kategori', dropdownProjekKategori(), session('kategori'), ['class'=>'form-control', 'id'=>'cari-kategori']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -204,6 +220,28 @@
 <!-- FooTable -->
 <script src="{{ asset("/template/js/plugins/footable/footable.all.min.js") }}"></script>
 <script>
+
+    $('#negeri').on('change', function() {
+        var cariNegeri = $(this).val();
+        getFasiliti(cariNegeri, 'daerah',  '#list-daerah');
+    });
+
+    //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
+    function getFasiliti(parID='0', inputname='0', list='0', select='99') {
+        let url = "/ajax/ajax-daerah/" + parID + "/" + inputname + "/" + select;
+        $.get(url, function(data) {
+            $(list).html(data);
+            $('#daerah').on('change', function() {
+                var daerahID = $(this).val();
+                var list = '#list-fasiliti';
+                var inputname = 'fasiliti';
+                let url = "/ajax/ajax-fasiliti/" + daerahID + "/" + inputname + "/" + select;
+                $.get(url, function(data) {
+                    $(list).html(data);
+                });
+            });
+        });
+    }
     // $(document).ready(function() {
     //     $('.footable').footable();
     // });

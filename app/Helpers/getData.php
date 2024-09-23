@@ -60,16 +60,21 @@ function dropdownPelaksana(){
 }
 
 function dropdownProjekKategori($kat=''){
-    if($kat=='siling'){
+    if($kat=='Siling'){
         $where = [
             'pro_kat_status'=> '1',
-            'pro_siling'=> 'SILING'
+            'pro_siling'=> 'Siling'
+        ];
+    }
+    else if($kat=='Luar Siling'){
+        $where = [
+            'pro_kat_status'=> '1',
+            'pro_siling'=> 'Luar SIling'
         ];
     }
     else{
         $where = [
-            'pro_kat_status'=> '1',
-            'pro_siling'=> 'LUAR SILING'
+            'pro_kat_status'=> '1'
         ];
     }
     $projKat = KategoriProjek::where($where)

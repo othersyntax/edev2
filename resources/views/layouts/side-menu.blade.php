@@ -28,7 +28,7 @@
                 <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'baru') ? 'active' : '' }}"><a href="/permohonan/baru/main">Baharu</a></li>
                     <li class="{{ (request()->segment(2) == 'kecemasan') ? 'active' : '' }}"><a href="/permohonan/kecemasan/main">Kecemasan</a></li>
-
+                    <li class="{{ (request()->segment(2) == 'semak') ? 'active' : '' }}"><a href="/permohonan/semak/main">Pengurusan</a></li>
                 </ul>
             </li>
             <li class="{{ (request()->segment(1) == 'projek') ? 'active' : '' }}">
@@ -40,13 +40,13 @@
                     <li class="{{ (request()->segment(2) == 'pulang') ? 'active' : '' }}"><a href="/projek/pulang">Tarik Balik</a></li>
                 </ul>
             </li>
-            <li class="{{ (request()->segment(1) == 'pengesahan') ? 'active' : '' }}">
+            {{-- <li class="{{ (request()->segment(1) == 'pengesahan') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Pengesahan</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'penjimatan') ? 'active' : '' }}"><a href="/pengesahan/penjimatan/senarai">Penjimatan</a></li>
                     <li class="{{ (request()->segment(2) == 'tukar') ? 'active' : '' }}"><a href="/pengesahan/tajuk/senarai">Tukar Tajuk</a></li>
                 </ul>
-            </li>
+            </li> --}}
             <li class="{{ (request()->segment(1) == 'siling') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-calculator"></i> <span class="nav-label">Siling</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -64,9 +64,9 @@
                     <li class="{{ (request()->segment(2) == 'fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/fasiliti">Fasiliti</a></li>
                     <li class="{{ (request()->segment(2) == 'kategori-fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/kategori-fasiliti">Kategori Fasiliti</a></li>
                     <li class="{{ (request()->segment(2) == 'kategori-projek') ? 'active' : '' }}"><a href="/pentadbiran/kategori-projek">Kategori Projek</a></li>
-                    <li class="{{ (request()->segment(2) == 'pengguna') ? 'active' : '' }}"><a href="/pentadbiran/pengguna">Pengguna</a></li>
+                    {{-- <li class="{{ (request()->segment(2) == 'pengguna') ? 'active' : '' }}"><a href="/pentadbiran/pengguna">Pengguna</a></li>
                     <li class="{{ (request()->segment(2) == 'peranan') ? 'active' : '' }}"><a href="/pentadbiran/peranan">Peranan</a></li>
-                    <li class="{{ (request()->segment(2) == 'capaian') ? 'active' : '' }}"><a href="/pentadbiran/capaian">Tahap Capaian</a></li>
+                    <li class="{{ (request()->segment(2) == 'capaian') ? 'active' : '' }}"><a href="/pentadbiran/capaian">Tahap Capaian</a></li> --}}
                 </ul>
             </li>
             <li class="{{ (request()->segment(1) == 'akses') ? 'active' : '' }}">

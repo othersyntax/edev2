@@ -15,7 +15,7 @@
             </li>
         </ol>
     </div>
-</div>    
+</div>
 @endsection
 
 @section('content')
@@ -37,15 +37,15 @@
             </div>
             <div class="ibox-content">
                 <form action="/akses/users" method="POST">
-                @csrf              
-                <div class="row">                    
+                @csrf
+                <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="">Nama</label>
                             <input type="text" name="name" class="form-control" />
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        
+
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -67,7 +67,7 @@
                             <select name="roles[]" class="form-control" multiple>
                                 <option value="">--Pilih Peranan--</option>
                                 @foreach ($roles as $role)
-                                <option value="{{ $role }}">{{ $role }}</option>
+                                <option value="{{ $role }}">{{ ucfirst($role) }}</option>
                                 @endforeach
                             </select>
                             @error('roles') <span class="text-danger">{{ $message }}</span> @enderror
@@ -77,9 +77,9 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
-                    </div>                                  
+                    </div>
                 </div>
-                </form>                
+                </form>
             </div>
         </div>
     </div>

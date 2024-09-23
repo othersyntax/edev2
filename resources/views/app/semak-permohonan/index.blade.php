@@ -1,0 +1,353 @@
+@extends('layouts.main')
+@section('title')
+    Semak Permohonan
+@endsection
+@section('custom-css')
+    <link href="{{ asset("/template/css/plugins/footable/footable.core.css") }}" rel="stylesheet">
+    <link href="{{ asset("/template/css/plugins/datapicker/datepicker3.css") }}" rel="stylesheet">
+    <!-- Text spinners style -->
+    <link href="{{ asset("/template/css/plugins/textSpinners/spinners.css") }}" rel="stylesheet">
+@endsection
+
+@section('breadcrumb')
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Senarai Permohonan Projek</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Projek</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Permohonan</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+@endsection
+
+@section('content')
+{{-- @inject('SilingTrait', 'App\Traits\Projek\SilingTrait') --}}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="ibox ">
+            <div class="ibox-title bg-primary">
+                <span class="label label-success float-right">{{ date('Y')+1 }}</span>
+                <h5>SILING PERUNTUKAN  (RM)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins text-right"><b id="siling"></b></h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="ibox ">
+            <div class="ibox-title bg-info">
+                <h5>BAKI SILING (RM)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins text-right"><b id="baki"></b></h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="ibox ">
+            <div class="ibox-title bg-success">
+                <h5>JUMLAH PERMOHONAN (RM)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins text-right"><b id="jumlah"></b></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Tapisan Projek</h5>
+            </div>
+            <div class="ibox-content">
+                <form action="/permohonan/semak/senarai" method="post">
+                    @csrf
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Pemilik</label>
+                                {{ Form::select('cari-program', dropdownProgram(), null, ['class'=>'form-control', 'id'=>'cari-program']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Negeri</label>
+                                {{ Form::select('cari-negeri', dropdownNegeri(), session('negeri'), ['class'=>'form-control', 'id'=>'cari-negeri']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Daerah</label>
+                                <span id="list-daerah">
+                                    {{ Form::select('cari-daerah', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'cari-daerah']) }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Fasiliti</label>
+                                <span id="list-fasiliti">
+                                    {{ Form::select('cari-fasiliti', [''=>'--Sila pilih--'], session('fasiliti'), ['class'=>'form-control', 'id'=>'cari-fasiliti']) }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Pelaksana</label>
+                                {{ Form::select('car-pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], session('pelaksana'), ['class'=>'form-control', 'id'=>'car-pelaksana']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Kategori Projek</label>
+                                {{ Form::select('cari-kategori', dropdownProjekKategori(), session('kategori'), ['class'=>'form-control', 'id'=>'cari-kategori']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Status Permohonan</label>
+                                {{ Form::select('cari-status', [''=>'--Sila Pilih--', '1'=>'Baharu', '2'=>'Proses', '3'=>'Proses'], session('status'), ['class'=>'form-control', 'id'=>'cari-status']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Nama Projek</label>
+                                {{ Form::text('cari-projek', session('projek'), ['class'=>'form-control', 'id'=>'cari-projek']) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-12">
+                            <a href="/permohonan/semak/main" class="btn btn-default">Set Semula</a>
+                            <button class="btn btn-primary float-right" id="carian" value="Carian">Carian</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Senarai Projek</h5>
+                <div class="ibox-tools">
+                    <a href="/permohonan/semak/tambah" class="btn btn-sm btn-primary">
+                        Tambah
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="footable table table-stripped toggle-arrow-tiny">
+                        <thead>
+                            <tr>
+                                <th width="5%" class="text-center">Selesai</th>
+                                <th width="10%">Kategori</th>
+                                <th width="16%">Pemilik</th>
+                                <th width="16%">Fasiliti</th>
+                                <th width="30%">Projek</th>
+                                <th width="10%" class="text-right">Amaun (RM)</th>
+                                <th width="5%">Status</th>
+                                <th width="8%" class="text-center">Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@endsection
+@section('custom-js')
+<!-- Date range picker -->
+<script src="{{ asset("/template/js/plugins/datapicker/bootstrap-datepicker.js") }}"></script>
+<script>
+@if(Session::has('msg'))
+    var title = "{{ Session::get('title') }}";
+    var mesej = "{{ Session::get('msg') }}";
+    var type = "{{ Session::get('type') }}";
+    swal({
+        title: title,
+        text: mesej,
+        type: type
+    });
+@endif
+$(document).ready(function(){
+    //SET DEFAULT
+    let cariNegeri1 = $('#cari-negeri').val();
+    // alert(cariNegeri1);
+    getFasiliti(cariNegeri1, 'cari-fasilti', '#list-fasiliti');
+    //ON CHANGE NEGERI DROPDOWN EVENT
+    $('#cari-negeri').on('change', function() {
+        var cariNegeri = $(this).val();
+        getFasiliti(cariNegeri, 'cari-daerah',  '#list-daerah');
+    });
+
+    // LOAD DATA WHEN OPEN THIS PAGE
+    fetchPermohonan();
+
+    // HANTE EMEL PEMAKLUMAN
+    // $(document).on('click', '#emelPemakluman', function (e) {
+    //     e.preventDefault();
+    //     document.getElementById("emelButton").classList.add("loading");
+    //     document.getElementById("emelButton").classList.add("open-circle");
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+
+    //     $.ajax({
+    //         type: "post",
+    //         url: "/permohonan/semak/emel",
+    //         data: null,
+    //         dataType: "json",
+    //         success: function (response) {
+    //             if (response.status == 400) {
+    //                 swal("Gagal", response.message, "error");
+    //                 document.getElementById("emelButton").classList.remove("loading");
+    //                 document.getElementById("emelButton").classList.remove("open-circle");
+    //             } else {
+    //                 fetchPermohonan();
+    //                 swal({
+    //                     title: "Emel Pemakluman",
+    //                     text: response.message,
+    //                     type: "success"
+    //                 });
+    //                 document.getElementById("emelButton").classList.remove("loading");
+    //                 document.getElementById("emelButton").classList.remove("open-circle");
+    //             }
+    //         }
+    //     });
+    // });
+
+    // SEARCH BUTTON CLICK
+    $('#carian').on('click', function(e){
+        // alert('aaa');
+        e.preventDefault();
+        let cariProgram = $('#cari-program').val();
+        let cariNegeri = $('#cari-negeri').val();
+        let cariFasiliti = $('#cari-fasiliti').val();
+        let cariPelaksana = $('#cari-pelaksana').val();
+        let cariKategori = $('#cari-kategori').val();
+        let cariStatus = $('#cari-status').val();
+        let cariProjek = $('#cari-projek').val();
+        fetchPermohonan(cariProgram, cariNegeri, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek);
+    });
+
+    function fetchPermohonan(cariProgram, cariNegeri, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "post",
+            url: "/permohonan/semak/senarai",
+            data:{
+                program:cariProgram,
+                negeri:cariNegeri,
+                fasiliti:cariFasiliti,
+                pelaksana:cariPelaksana,
+                kategori:cariKategori,
+                status:cariStatus,
+                projek:cariProjek
+            },
+            dataType: "json",
+            success: function (response) {
+                $('tbody').html("");
+                if (response.data.projek.length>0){
+                        $.each(response.data.projek, function (key, item) {
+                        // Statussprojek
+                        if(item.proj_status_complete == 1){
+                            text = 'fa-close text-danger';
+                        }
+                        else {
+                            text = 'fa-check text-navy';
+                        }
+                        // Status Rekod
+                        if(item.proj_status == 1){
+                            status = '<span class="badge badge-primary">Baharu</span>';
+                            button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
+                        }
+                        else {
+                            status = '<span class="badge badge-warning">Proses</span>';
+                            button = '<a href="/permohonan/semak/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/semak/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/projek/padam/'+item.projek_id+'/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>';
+                        }
+
+                        $('tbody').append('<tr>\
+                            <td class="text-center"><i class="fa '+text+'"></i></td>\
+                            <td>' + item.pro_kat_short_nama + '</td>\
+                            <td>' + item.prog_name + '</td>\
+                            <td>' + item.fas_name + '</td>\
+                            <td>' + item.proj_nama + '</td>\
+                            <td class="text-right">' + financial(item.proj_kos_mohon) + '</td>\
+                            <td>' + status + '</td>\
+                            <td>'+button+'</td>\
+                        \</tr>');
+                    });
+                    if(response.data.baki < 0){
+                        baki = '<span class="text-danger">'+financial(response.data.baki)+'</span>';
+                    }
+                    else{
+                        baki = financial(response.data.baki);
+                    }
+                    $('#siling').html(financial(response.data.siling));
+                    $('#baki').html(baki);
+                    $('#jumlah').html(financial(response.data.jumlah));
+                }
+                else{
+                    $('tbody').html("");
+                    $('tbody').append('<tr>\
+                        <td colspan="8" class="font-italic text-small text-center">Tiada Rekod</td>\
+                    \</tr>');
+                }
+            }
+        });
+    }
+
+    function financial(x) {
+        return Number.parseFloat(x).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    }
+
+    //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
+    function getFasiliti(parID='0', inputname='0', list='0', select='99') {
+        let url = "/ajax/ajax-daerah/" + parID + "/" + inputname + "/" + select;
+        $.get(url, function(data) {
+            $(list).html(data);
+            $('#cari-daerah').on('change', function() {
+                var daerahID = $(this).val();
+                var list = '#list-fasiliti';
+                var inputname = 'cari-fasiliti';
+                let url = "/ajax/ajax-fasiliti/" + daerahID + "/" + inputname + "/" + select;
+                $.get(url, function(data) {
+                    $(list).html(data);
+                    // $('#proj_fasiliti_id').on('change', function() {});
+                    // alert('AA');
+                    $('#proj_parlimen').val('P02 - Tiada Rekod');
+                    $('#proj_dun').val('N22 - Tiada Rekod');
+                });
+            });
+        });
+    }
+
+    setTimeout(() => {
+        $('#msg').hide('slow');
+    }, 3000);
+});
+
+</script>
+@endsection
