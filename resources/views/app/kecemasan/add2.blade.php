@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    Permohonan Baharu
+    Kecemasan
 @endsection
 @section('custom-css')
     <!-- Sweet Alert -->
@@ -204,7 +204,7 @@
                                 <tfoot>
                                     <tr>
                                         <td colspan="2" class="text-right"><b>Jumlah</b></td>
-                                        <td class="text-right jumUnjuran">RM @duit(0)</td>
+                                        <td class="text-right "><b><span class="jumUnjuran">@duit(0)</span></b></td>
                                         <td class="text-center"></td>
                                     </tr>
                                 </tfoot>
@@ -217,13 +217,13 @@
     </div>
     <div class="col-lg-12">
         <div class="ibox-content">
-            <a href="/permohonan/baru/main" class="btn btn-white btn-sm">Batal</a>
-            <a href="/permohonan/baru/main" class="btn btn-warning btn-sm float-right">Selesai</a>
+            <a href="/permohonan/kecemasan/main" class="btn btn-white btn-sm">Batal</a>
+            <a href="/permohonan/kecemasan/emel/{{ $projek->projek_id }}" class="btn btn-warning btn-sm float-right">Selesai</a>
         </div>
     </div>
 </div>
-@include('app/projek-baru/_modal/muat-naik')
-@include('app/projek-baru/_modal/add-kewangan')
+@include('app/kecemasan/_modal/muat-naik')
+@include('app/kecemasan/_modal/add-kewangan')
 @endsection
 @section('custom-js')
 <script src="{{ asset("/template/js/plugins/summernote/summernote-bs4.js") }}"></script>
@@ -263,7 +263,7 @@
         $("#frmUpload").on('submit',(function(e) {
             e.preventDefault();
             $.ajax({
-                url: "/permohonan/baru/upload",
+                url: "/permohonan/kecemasan/upload",
                 type: "POST",
                 data:  new FormData(this),
                 enctype: 'multipart/form-data',
@@ -315,7 +315,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/permohonan/baru/unjuran/simpan",
+                url: "/permohonan/kecemasan/unjuran/simpan",
                 data: data,
                 dataType: "json",
                 success: function (response) {
@@ -352,7 +352,7 @@
 
             $.ajax({
                 type: "get",
-                url: "/permohonan/baru/unjuran/senarai/"+projekID,
+                url: "/permohonan/kecemasan/unjuran/senarai/"+projekID,
                 dataType: "json",
                 success: function (response) {
                     var bil=1;
@@ -393,7 +393,7 @@
 
             $.ajax({
                 type: "get",
-                url: "/permohonan/baru/dokumen/senarai/"+projekID,
+                url: "/permohonan/kecemasan/dokumen/senarai/"+projekID,
                 dataType: "json",
                 success: function (response) {
                     var bil=1;
@@ -444,7 +444,7 @@
 
                         $.ajax({
                             type: "get",
-                            url: "/permohonan/baru/unjuran/padam/" + unjuranID,
+                            url: "/permohonan/kecemasan/unjuran/padam/" + unjuranID,
                             dataType: "json",
                             success: function (response) {
                                 if (response.status == 404) {
@@ -485,7 +485,7 @@
 
                         $.ajax({
                             type: "get",
-                            url: "/permohonan/baru/dokumen/padam/" + dokumenID,
+                            url: "/permohonan/kecemasan/dokumen/padam/" + dokumenID,
                             dataType: "json",
                             success: function (response) {
                                 if (response.status == 404) {

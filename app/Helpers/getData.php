@@ -68,7 +68,8 @@ function dropdownProjekKategori($kat=''){
     }
     else{
         $where = [
-            'pro_kat_status'=> '1'
+            'pro_kat_status'=> '1',
+            'pro_siling'=> 'LUAR SILING'
         ];
     }
     $projKat = KategoriProjek::where($where)

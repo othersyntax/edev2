@@ -67,7 +67,7 @@
                 <h5>Tapisan Projek</h5>
             </div>
             <div class="ibox-content">
-                <form action="/permohonan/baru/senarai" method="post">
+                <form action="/permohonan/kecemasan/senarai" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-sm-3">
@@ -107,7 +107,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Kategori Projek</label>
-                                {{ Form::select('cari-kategori', dropdownProjekKategori('siling'), session('kategori'), ['class'=>'form-control', 'id'=>'cari-kategori']) }}
+                                {{ Form::select('cari-kategori', dropdownProjekKategori('xsiling'), session('kategori'), ['class'=>'form-control', 'id'=>'cari-kategori']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -125,7 +125,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-12">
-                            <a href="/permohonan/baru/main" class="btn btn-default">Set Semula</a>
+                            <a href="/permohonan/kecemasan/main" class="btn btn-default">Set Semula</a>
                             <button class="btn btn-primary float-right" id="carian" value="Carian">Carian</button>
                         </div>
                     </div>
@@ -140,14 +140,9 @@
             <div class="ibox-title">
                 <h5>Senarai Projek</h5>
                 <div class="ibox-tools">
-                    @if(cekSiling(auth()->user()->program_id))
-                        <button type="button" class="btn btn-sm btn-warning" id="emelPemakluman">
-                            <span id="emelButton"></span> Hantar Permohonan
-                        </button>
-                        <a href="/permohonan/baru/tambah" class="btn btn-sm btn-primary">
-                            Tambah
-                        </a>
-                    @endif
+                    <a href="/permohonan/kecemasan/tambah" class="btn btn-sm btn-primary">
+                        Tambah
+                    </a>
                 </div>
             </div>
             <div class="ibox-content">
@@ -205,39 +200,39 @@ $(document).ready(function(){
     fetchPermohonan();
 
     // HANTE EMEL PEMAKLUMAN
-    $(document).on('click', '#emelPemakluman', function (e) {
-        e.preventDefault();
-        document.getElementById("emelButton").classList.add("loading");
-        document.getElementById("emelButton").classList.add("open-circle");
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+    // $(document).on('click', '#emelPemakluman', function (e) {
+    //     e.preventDefault();
+    //     document.getElementById("emelButton").classList.add("loading");
+    //     document.getElementById("emelButton").classList.add("open-circle");
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
 
-        $.ajax({
-            type: "post",
-            url: "/permohonan/baru/emel",
-            data: null,
-            dataType: "json",
-            success: function (response) {
-                if (response.status == 400) {
-                    swal("Gagal", response.message, "error");
-                    document.getElementById("emelButton").classList.remove("loading");
-                    document.getElementById("emelButton").classList.remove("open-circle");
-                } else {
-                    fetchPermohonan();
-                    swal({
-                        title: "Emel Pemakluman",
-                        text: response.message,
-                        type: "success"
-                    });
-                    document.getElementById("emelButton").classList.remove("loading");
-                    document.getElementById("emelButton").classList.remove("open-circle");
-                }
-            }
-        });
-    });
+    //     $.ajax({
+    //         type: "post",
+    //         url: "/permohonan/kecemasan/emel",
+    //         data: null,
+    //         dataType: "json",
+    //         success: function (response) {
+    //             if (response.status == 400) {
+    //                 swal("Gagal", response.message, "error");
+    //                 document.getElementById("emelButton").classList.remove("loading");
+    //                 document.getElementById("emelButton").classList.remove("open-circle");
+    //             } else {
+    //                 fetchPermohonan();
+    //                 swal({
+    //                     title: "Emel Pemakluman",
+    //                     text: response.message,
+    //                     type: "success"
+    //                 });
+    //                 document.getElementById("emelButton").classList.remove("loading");
+    //                 document.getElementById("emelButton").classList.remove("open-circle");
+    //             }
+    //         }
+    //     });
+    // });
 
     // SEARCH BUTTON CLICK
     $('#carian').on('click', function(e){
@@ -260,7 +255,7 @@ $(document).ready(function(){
         });
         $.ajax({
             type: "post",
-            url: "/permohonan/baru/senarai",
+            url: "/permohonan/kecemasan/senarai",
             data:{
                 negeri:cariNegeri,
                 fasiliti:cariFasiliti,
@@ -272,8 +267,8 @@ $(document).ready(function(){
             dataType: "json",
             success: function (response) {
                 $('tbody').html("");
-                if(response.data.projek.length>0) {
-                    $.each(response.data.projek, function (key, item) {
+                if (response.data.projek.length>0){
+                        $.each(response.data.projek, function (key, item) {
                         // Statussprojek
                         if(item.proj_status_complete == 1){
                             text = 'fa-close text-danger';
@@ -325,14 +320,6 @@ $(document).ready(function(){
     function financial(x) {
         return Number.parseFloat(x).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
     }
-
-   //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
-//    function getFasiliti(cariNegeri='0', inputname='0', list='0', select='99') {
-//         let url = "/ajax/ajax-fasiliti/" + cariNegeri + "/" + inputname + "/" + select;
-//         $.get(url, function(data) {
-//             $(list).html(data);
-//         });
-//     }
 
     //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
     function getFasiliti(parID='0', inputname='0', list='0', select='99') {

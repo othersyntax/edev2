@@ -34,7 +34,7 @@ class AjaxController extends Controller
     }
 
     function ajaxFasiliti(string $id, string $input, string $select) {
-        $rs = Fasiliti::where('fas_negeri_id', $id)
+        $rs = Fasiliti::where('fas_daerah_id', $id)
             ->orderBy('fas_name')
             ->pluck('fas_name', 'fasiliti_id')
             ->prepend('--Sila pilih--', '');

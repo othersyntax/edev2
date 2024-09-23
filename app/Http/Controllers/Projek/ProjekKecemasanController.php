@@ -9,16 +9,16 @@ use App\Models\Projek\ProjekBaru;
 use App\Models\Projek\ProjekDokumen;
 use App\Models\Projek\ProjekBaruUnjuran;
 use App\Models\Siling;
-use App\Mail\MaklumanProjekBaharu;
+use App\Mail\MaklumanProjekKecemasan;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
 
-class ProjekBaruController extends Controller
+class ProjekKecemasanController extends Controller
 {
     public function showList(){
-        return view('app.projek-baru.index');
+        return view('app.kecemasan.index');
     }
 
     public function index(Request $request){
@@ -47,7 +47,7 @@ class ProjekBaruController extends Controller
             $queryType = 2;
         }
         else{
-            session()->forget(['negeri', 'pelaksana', 'fasiliti', 'kategori', 'status', 'projek']);
+            session()->forget(['negeri', 'program', 'pelaksana', 'fasiliti', 'kategori', 'status', 'projek']);
         }
 
         if ($queryType == 1) {
@@ -57,6 +57,7 @@ class ProjekBaruController extends Controller
                 ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
                 ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fas_ptj_code')
                 ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
+                ->where('c.pro_siling', 'LUAR SILING')
                 ->where('proj_pemilik', auth()->user()->program_id);
 
             $projek = $query->get();
@@ -69,6 +70,7 @@ class ProjekBaruController extends Controller
                     ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
                     ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fasiliti_id')
                     ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
+                    ->where('c.pro_siling', 'LUAR SILING')
                     ->where('proj_pemilik', auth()->user()->program_id)
                     ->where(function($q) use ($program, $negeri, $fasiliti, $pelaksana, $kategori, $status, $projek){
                         if(!empty($negeri)){
@@ -77,11 +79,11 @@ class ProjekBaruController extends Controller
                         if(!empty($fasiliti)){
                             $q->where('a.projek_fasiliti_id',$fasiliti);
                         }
-                        if(!empty($kategori)){
-                            $q->where('a.proj_kategori_id',$kategori);
-                        }
                         if(!empty($pelaksana)){
                             $q->where('a.proj_pelaksana',$pelaksana);
+                        }
+                        if(!empty($kategori)){
+                            $q->where('a.proj_kategori_id',$kategori);
                         }
                         if(!empty($status)){
                             $q->where('a.proj_status',$status);
@@ -108,16 +110,10 @@ class ProjekBaruController extends Controller
     }
 
     public function create(){
-        // $sil = Siling::where('sil_fasiliti_id', auth()->user()->program_id)
-        //     ->where('sil_edate', '>', now())
-        //     ->where('sil_status', 1)
-        //     ->first();
-        // if()
-        return view('app.projek-baru.add');
+        return view('app.kecemasan.add');
     }
 
     public function store(Request $req){
-
         $validated = $req->validate([
             'proj_negeri' => 'required',
             'proj_kod_subsetia' => 'required',
@@ -142,8 +138,6 @@ class ProjekBaruController extends Controller
             'proj_justifikasi.required' => 'Sila nyatakan Justifikasi Projek',
             'proj_ulasan_teknikal.required' => 'Sila nyatakan Ulasan Unit Kejuruteraan',
         ]);
-        // dd($req->all());
-
         $projek = new ProjekBaru();
         $projek->proj_negeri = $req->proj_negeri;
         $projek->pro_daerah = $req->proj_daerah;
@@ -178,14 +172,14 @@ class ProjekBaruController extends Controller
 
         if($projek){
             // echo "berjaya";
-            return redirect('/permohonan/baru/papar/'.$projek->projek_id);
+            return redirect('/permohonan/kecemasan/papar/'.$projek->projek_id);
         }
 
     }
 
     public function add2(string $id){
         $data['projek'] = ProjekBaru::find($id);
-        return view('app.projek-baru.add2', $data);
+        return view('app.kecemasan.add2', $data);
     }
 
     public function upload(Request $req){
@@ -229,9 +223,9 @@ class ProjekBaruController extends Controller
 
     }
 
-    public function emel(){
+    public function emel(string $id){
         $pemilik = auth()->user()->program_id;
-        $mail = Mail::to('usup.keram@moh.gov.my')->send(new MaklumanProjekBaharu());
+        $mail = Mail::to('usup.keram@moh.gov.my')->send(new MaklumanProjekKecemasan());
         // dd($mail);
         if($mail){
             // ProjekBaru::query()->update([
@@ -244,7 +238,7 @@ class ProjekBaruController extends Controller
             // ]);
             // $projek = \DB::table('')
 
-            ProjekBaru::query()->update([
+            ProjekBaru::query()->where('projek_id', $id)->update([
                 'proj_status'=>2,
                 'proj_status_complete' => 2
             ]);
@@ -252,9 +246,11 @@ class ProjekBaruController extends Controller
             // $projek->proj_status_complete = 2;
             // $projek->save();
             // if($projek){
-                return response()->json([
-                    'status'=>200,
-                    'message'=>'Pengesahan Berjaya dihantar'
+                return redirect('/permohonan/kecemasan/main')
+                ->with([
+                    'title'=>'Berjaya',
+                    'msg'=>'Rekod permohonan berjaya dihantar',
+                    'type'=>'success'
                 ]);
             // }
             // else{
@@ -275,7 +271,7 @@ class ProjekBaruController extends Controller
 
     public function edit(string $id){
         $data['projek']=ProjekBaru::find($id);
-        return view('app.projek-baru.ubah', $data);
+        return view('app.kecemasan.ubah', $data);
     }
 
     public function update(Request $req){
@@ -337,7 +333,7 @@ class ProjekBaruController extends Controller
         $projek->save();
 
         if($projek){
-            return redirect('/permohonan/baru/main')
+            return redirect('/permohonan/kecemasan/main')
             ->with([
                 'title'=>'Berjaya',
                 'msg'=>'Rekod permohonan berjaya dikemaskini',
@@ -345,7 +341,7 @@ class ProjekBaruController extends Controller
             ]);
         }
         else{
-            return redirect('/permohonan/baru/main')
+            return redirect('/permohonan/kecemasan/main')
             ->with([
                 'title'=>'Gagal',
                 'msg'=>'Rekod gagal dikemaskini',

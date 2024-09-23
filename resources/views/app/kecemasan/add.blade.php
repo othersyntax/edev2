@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    Permohonan Baharu
+    Kecemasan
 @endsection
 @section('custom-css')
     <!-- Sweet Alert -->
@@ -17,7 +17,7 @@
                 <a href="#">Projek</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Baharu</strong>
+                <strong>Kecemasan</strong>
             </li>
         </ol>
     </div>
@@ -26,7 +26,7 @@
 
 @section('content')
 <div class="row">
-<form action="/permohonan/baru/simpan" method="post">
+<form action="/permohonan/kecemasan/simpan" method="post">
     @csrf
     <div class="col-lg-12">
         <div class="ibox">
@@ -214,7 +214,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Kategori Projek</label>
-                            {{ Form::select('proj_kategori_id', dropdownProjekKategori('siling'), null, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
+                            {{ Form::select('proj_kategori_id', dropdownProjekKategori('xsiling'), null, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
                             @error('proj_kategori_id')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -262,7 +262,7 @@
         <div class="ibox-content">
             <div class="form-group row">
                 <div class="col-sm-4 col-sm-offset-2">
-                    <a href="/permohonan/baru/senarai" class="btn btn-white btn-sm">Batal</a>
+                    <a href="/permohonan/kecemasan/senarai" class="btn btn-white btn-sm">Batal</a>
                     <button class="btn btn-primary btn-sm" type="submit">Simpan</button>
                     {{-- <button class="btn btn-info btn-sm" type="submit">Simpan dan Salin</button> --}}
                 </div>
@@ -375,12 +375,8 @@
                 '11': 'November',
                 '12': 'Disember'
             };
-
             return bulan[month];
-
         }
-
-
     });
 </script>
 

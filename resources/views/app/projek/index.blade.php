@@ -112,12 +112,6 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Sub Kategori Projek</label>
-                                {{ Form::select('kategori1', dropdownProjekKategori(), session('kategori1'), ['class'=>'form-control', 'id'=>'kategori1']) }}
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
                                 <label>Status</label>
                                 {{ Form::select('status', [''=>'--Sila Pilih--', '1'=>'Aktif', '2'=>'Batal'], session('status'), ['class'=>'form-control', 'id'=>'status']) }}
                             </div>

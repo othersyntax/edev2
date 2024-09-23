@@ -15,9 +15,9 @@ class ProjekController extends Controller
     public function index(Request $request){
         $queryType = 1; // default click pd menu
         if( $request->isMethod('post')) {
+            $program  =  $request->program;
             $negeri =  $request->negeri;
             $fasiliti =  $request->fasiliti;
-            $program  =  $request->program;
             $kategori  =  $request->kategori;
             $status  =  $request->status;
             $projek  =  $request->projek;
@@ -34,9 +34,9 @@ class ProjekController extends Controller
         }
         else{
             if( $request->has('page')) {
+                $program = session('program');
                 $negeri = session('negeri');
                 $fasiliti = session('fasiliti');
-                $program = session('program');
                 $kategori = session('kategori');
                 $status = session('status');
                 $projek = session('projek');
@@ -72,7 +72,7 @@ class ProjekController extends Controller
                     ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_program', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_middle', 'a.proj_kod_group', 'a.proj_kos_lulus', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name')
                     ->where(function($q) use ($negeri, $fasiliti, $program, $kategori, $status, $projek){
                         if(!empty($program)){
-                            $q->where('a.proj_program',$program);
+                            $q->where('a.proj_program','like', "%{$program}%");
                         }
                         if(!empty($negeri)){
                             $q->where('a.proj_negeri', 'like', "%{$negeri}%");
@@ -129,6 +129,7 @@ class ProjekController extends Controller
 
     public function store(Request $request){
         $projek = Projek::find($request->projek_id);
+        // dd($projek);
         $projek->proj_program = $request->proj_program;
         $projek->proj_kod_agensi = $request->proj_kod_agensi;
         $projek->proj_kod_projek = $request->proj_kod_projek;

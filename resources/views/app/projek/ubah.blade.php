@@ -155,7 +155,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Agensi Pelaksana?</label>
-                                {{ Form::select('proj_pelaksan', ['1'=>'Ya', '2'=>'Tidak'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status']) }}
+                                {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -276,7 +276,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Status Projek</label>
-                                {{ Form::select('proj_tukar_tajuk', ['1'=>'Aktif', '2'=>'Dibatalkan'], null, ['class'=>'form-control', 'id'=>'proj_tukar_tajuk']) }}
+                                {{ Form::select('proj_status', ['1'=>'Aktif', '2'=>'Tukar Tajuk', '3'=>'Dibatalkan'], null, ['class'=>'form-control', 'id'=>'proj_status']) }}
                             </div>
                         </div>
                     </div>

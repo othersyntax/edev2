@@ -129,7 +129,7 @@
         </div>
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Maklumat Belanja</h5>
+                <h5>Maklumat Kewangan</h5>
                 <div class="ibox-tools">
                     <button type="button" class="btn btn-sm btn-primary float-right" id="addBayaran1">
                         Tambah

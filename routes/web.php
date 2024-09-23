@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     Route::get('/projek/papar/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'view'])->name('projek.papar');
 
     // PERMOHONAN BARU
-    Route::get('/permohonan/baru/main', [App\Http\Controllers\Projek\ProjekBaruController::class, 'showList'])->name('projek.baru.main');
+    Route::get('/permohonan/baru/main', [App\Http\Controllers\Projek\ProjekBaruController::class, 'showList'])->name('projek.kecemasan.main');
     Route::any('/permohonan/baru/senarai', [App\Http\Controllers\Projek\ProjekBaruController::class, 'index']);
     Route::get('/permohonan/baru/tambah', [App\Http\Controllers\Projek\ProjekBaruController::class, 'create'])->name('permohonan.baru.tambah');
     Route::post('/permohonan/baru/simpan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'store'])->name('permohonan.baru.simpan');
@@ -71,7 +71,25 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     Route::post('/permohonan/baru/update', [App\Http\Controllers\Projek\ProjekBaruController::class, 'update'])->name('permohonan.baru.update');
     Route::post('/permohonan/baru/unjuran/simpan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'simpanUnjuran']);
     Route::get('/permohonan/baru/unjuran/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiUnjuran']);
+    Route::get('/permohonan/baru/dokumen/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiDokumen']);
     Route::get('/permohonan/baru/unjuran/padam/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'padamUnjuran']);
+    Route::get('/permohonan/baru/dokumen/padam/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'padamDokumen']);
+
+    // PERMOHONAN KECEMASAN
+    Route::get('/permohonan/kecemasan/main', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'showList'])->name('projek.kecemasan.main');
+    Route::any('/permohonan/kecemasan/senarai', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'index']);
+    Route::get('/permohonan/kecemasan/tambah', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'create'])->name('permohonan.kecemasan.tambah');
+    Route::post('/permohonan/kecemasan/simpan', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'store'])->name('permohonan.kecemasan.simpan');
+    Route::post('/permohonan/kecemasan/upload', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'upload'])->name('permohonan.kecemasan.upload');
+    Route::get('/permohonan/kecemasan/papar/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'add2'])->name('permohonan.kecemasan.papar');
+    Route::get('/permohonan/kecemasan/emel/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'emel'])->name('permohonan.kecemasan.emel');
+    Route::get('/permohonan/kecemasan/ubah/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'edit'])->name('permohonan.kecemasan.ubah');
+    Route::post('/permohonan/kecemasan/update', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'update'])->name('permohonan.kecemasan.update');
+    Route::post('/permohonan/kecemasan/unjuran/simpan', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'simpanUnjuran']);
+    Route::get('/permohonan/kecemasan/unjuran/senarai/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'senaraiUnjuran']);
+    Route::get('/permohonan/kecemasan/dokumen/senarai/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'senaraiDokumen']);
+    Route::get('/permohonan/kecemasan/unjuran/padam/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'padamUnjuran']);
+    Route::get('/permohonan/kecemasan/dokumen/padam/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'padamDokumen']);
     // Route::get('/projek/papar/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'view'])->name('projek.papar');
 
     // RUNCIT

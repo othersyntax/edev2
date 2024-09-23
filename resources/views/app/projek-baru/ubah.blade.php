@@ -17,7 +17,7 @@
                 <a href="#">Projek</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Baharu</strong>
+                <strong>Kecemasan</strong>
             </li>
         </ol>
     </div>
@@ -53,7 +53,18 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-sm-9">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Daerah</label>
+                            <span id="list-daerah">
+                                {{ Form::select('proj_daerah', [''=>'--Sila pilih--'], $projek->proj_nama, ['class'=>'form-control', 'id'=>'proj_daerah']) }}
+                            </span>
+                            @error('proj_daerah')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label>Fasiliti</label>
                             <span id="list-fasiliti">
@@ -173,18 +184,7 @@
                 <p class="text-info font-bold mt-3">3. BUTIRAN PROJEK</p>
                 <div class="hr-line-dashed"></div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Tahun</label>
-                            {{ Form::text('proj_tahun', $projek->proj_tahun, ['class'=>'form-control', 'id'=>'proj_tahun']) }}
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Bulan</label>
-                            {{ Form::text('proj_bulan', $projek->proj_bulan, ['class'=>'form-control', 'id'=>'proj_bulan']) }}
-                        </div>
-                    </div>
+
                     <div class="col-md-3">
                         <div class="form-group" id="data_1">
                             <label>Tarikh Mula Pelaksanaan</label>
@@ -199,6 +199,18 @@
                             <div class="input-group date">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="proj_laksana_tamat" name="proj_laksana_tamat" class="form-control" value="{{ date('d/m/Y', strtotime($projek->proj_laksana_tamat))}}">
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Tahun</label>
+                            {{ Form::text('proj_tahun', $projek->proj_tahun, ['class'=>'form-control', 'id'=>'proj_tahun']) }}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Bulan</label>
+                            {{ Form::text('proj_bulan', $projek->proj_bulan, ['class'=>'form-control', 'id'=>'proj_bulan']) }}
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -270,8 +282,9 @@
 <script>
     $(document).ready(function(){
         let negeriID = $('[name=proj_negeri]').val();
-        getFasiliti(negeriID, 'proj_fasiliti_id', '#list-fasiliti', {!! $projek->proj_fasiliti_id !!});
-
+        getFasiliti(negeriID, 'proj_daerah', '#list-daerah', {!! $projek->pro_daerah !!});
+        let daerahID = {!! $projek->pro_daerah !!};
+        getEditFasiliti(daerahID, 'proj_fasiliti_id', '#list-fasiliti', {!! $projek->proj_fasiliti_id !!});
         let plks = $('[name=proj_pelaksana]').val();
         pelaksana(plks);
 
@@ -293,8 +306,17 @@
         });
         //ON CHANGE NEGERI DROPDOWN EVENT
         $('#proj_negeri').on('change', function() {
-            var cariNegeri = $(this).val();
-            getFasiliti(cariNegeri, 'proj_fasiliti_id', '#list-fasiliti');
+            var parID = $(this).val();
+            getFasiliti(parID, 'proj_daerah', '#list-daerah');
+            // getFasiliti(cariNegeri, 'proj_fasiliti_id', '#list-fasiliti');
+        });
+
+        $('#proj_laksana_mula').on('change', function(){
+            var selDate = $(this).val();
+            var spilDate = selDate.split('/');
+            $('#proj_bulan').val(getMonth(spilDate[1]));
+            $('#proj_tahun').val(spilDate[2])
+            // alert(spilDate[0]);
         });
 
 
@@ -320,16 +342,52 @@
         }
 
         //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
-        function getFasiliti(cariNegeri='0', inputname='0', list='0', select='99') {
-            let url = "/ajax/ajax-fasiliti/" + cariNegeri + "/" + inputname + "/" + select;
+        function getFasiliti(parID='0', inputname='0', list='0', select='99') {
+            // alert({!! $projek->pro_daerah !!});
+            let url = "/ajax/ajax-daerah/" + parID + "/" + inputname + "/" + select;
             $.get(url, function(data) {
                 $(list).html(data);
-                $('#proj_fasiliti_id').on('change', function() {
-                    // alert('AA');
-                    $('#proj_parlimen').val('P02 - Parlimen Putrajaya');
-                    $('#proj_dun').val('N22 - Dun Gedong');
+                // $('#proj_daerah').val({!! $projek->pro_daerah !!});
+                $('#proj_daerah').on('change', function() {
+                    var daerahID = $(this).val();
+                    var list = '#list-fasiliti';
+                    var inputname = 'proj_fasiliti_id';
+                    let url = "/ajax/ajax-fasiliti/" + daerahID + "/" + inputname + "/" + select;
+                    $.get(url, function(data) {
+                        $(list).html(data);
+                        $('#proj_parlimen').val('P02 - Tiada Rekod');
+                        $('#proj_dun').val('N22 - Tiada Rekod');
+                    });
                 });
             });
+        }
+
+        function getEditFasiliti(daerahID='0', inputname='0', list='0', select='99'){
+            let url = "/ajax/ajax-fasiliti/" + daerahID + "/" + inputname + "/" + select;
+            $.get(url, function(data) {
+                $(list).html(data);
+            });
+        }
+
+
+        function getMonth(month){
+            let bulan={
+                '01': 'Januari',
+                '02': 'Februari',
+                '03': 'Mac',
+                '04': 'April',
+                '05': 'Mei',
+                '06': 'Jun',
+                '07': 'Julai',
+                '08': 'Ogos',
+                '09': 'September',
+                '10': 'Oktober',
+                '11': 'November',
+                '12': 'Disember'
+            };
+
+            return bulan[month];
+
         }
 
 
