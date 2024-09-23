@@ -34,7 +34,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Jenis Carian</label>{{--Untuk Search--}}
-                                {{ Form::select('carian_type', ['Kod'=>'Kod Ptj', 'Negeri'=>'Negeri' , 'kodkate'=>'Kod Kategori Fasiliti'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
+                                {{ Form::select('carian_type', ['Kod'=>'Kod Ptj', 'Negeri'=>'Negeri' , 'kodkate'=>'Kategori'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
 
                                 </select>
                             </div>
@@ -80,8 +80,8 @@
                                 <th class="text-center">#ID</th>
                                 <th class="text-center">Kod PTJ</th>
                                 <th>Nama Fasiliti</th>
-                                <th class="text-center">Kod Kategori Fasiliti</th>
-                                <th class="text-center">Kod Negeri</th>
+                                <th class="text-center">Negeri</th>
+                                <th class="text-center">Kategori</th>
                                 <th>Tindakan</th>
                             </tr>
                         </thead>
@@ -125,8 +125,8 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label>Kategori Fasiliti</label>
-                            {{ Form::select('faskat_kod_add', dropdownKatefas(), null, ['class'=>'form-control faskat_kod_add']) }}
+                            <label>Kategori</label>
+                            {{ Form::select('fas_jenis_add', dropdownKatefas(), null, ['class'=>'form-control fas_jenis_add']) }}
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -194,7 +194,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Kategori Fasiliti</label>
-                            {{ Form::select('fas_kat_kod_edit', dropdownKatefas(), null, ['class'=>'form-control', 'id'=>'fas_kat_kod_edit']) }}
+                            {{ Form::select('fas_jenis_edit', dropdownKatefas(), null, ['class'=>'form-control', 'id'=>'fas_jenis_edit']) }}
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -279,8 +279,8 @@
                             <td class="text-center">' + item.fasiliti_id + '</td>\
                             <td class="text-center">' + item.fas_ptj_code + '</td>\
                             <td>' + item.fas_name + '</td>\
-                            <td class="text-center">' + item.fas_kat_kod + '</td>\
                             <td class="text-center">' + item.neg_nama_negeri + '</td>\
+                            <td class="text-center">' + item.fas_jenis + '</td>\
                             <td><button type="button" value="' + item.fasiliti_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
                             <button type="button" value="' + item.fasiliti_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
                         \</tr>');
@@ -343,7 +343,7 @@
                 'fasiliti_id': $('#fasiliti_id_edit').val(),
                 'fas_ptj_code': $('#fas_ptj_code_edit').val(),
                 'fas_name': $('#fas_name_edit').val(),
-                'fas_kat_kod': $('#fas_kat_kod_edit').val(),
+                'fas_jenis': $('#fas_jenis_edit').val(),
                 'fas_negeri_id': $('#fas_negeri_id_edit').val(),
             }
 
@@ -396,7 +396,7 @@
             var data = {
                 'fas_ptj_code': $('.fas_ptj_code_add').val(),
                 'fas_name': $('.fas_name_add').val(),
-                'fas_kat_kod': $('.faskat_kod_add').val(),
+                'fas_jenis': $('.fas_jenis_add').val(),
                 'fas_negeri_id': $('.neg_nama_negeri_add').val(),
             }
 
@@ -454,7 +454,7 @@
                     } else {
                         $('#fas_ptj_code_edit').val(response.fasiliti.fas_ptj_code);
                         $('#fas_name_edit').val(response.fasiliti.fas_name);
-                        $('#fas_kat_kod_edit').val(response.fasiliti.fas_kat_kod);
+                        $('#fas_jenis_edit').val(response.fasiliti.fas_jenis);
                         $('#fas_negeri_id_edit').val(response.fasiliti.fas_negeri_id);
                         $('#fasiliti_id_edit').val(fasiliti_id);
                     }

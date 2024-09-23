@@ -237,7 +237,7 @@
                             <td class="text-center">' + item.program_id + '</td>\
                             <td class="text-center">' + item.prog_code + '</td>\
                             <td>' + item.prog_name + '</td>\
-                            <td class="text-center">' + item.prog_status + '</td>\
+                            <td class="text-center">' + getStatus(item.prog_status) + '</td>\
                             <td><button type="button" value="' + item.program_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
                             <button type="button" value="' + item.program_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
                         \</tr>');

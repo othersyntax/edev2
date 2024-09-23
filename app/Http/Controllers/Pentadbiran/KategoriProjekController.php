@@ -93,8 +93,9 @@ class KategoriProjekController extends Controller
            $katepro->pro_kat_short_nama = $req->input('pro_kat_short_nama');
            $katepro->pro_kat_nama = $req->input('pro_kat_nama');
            $katepro->pro_siling = $req->input('pro_siling');
-           $katepro->pro_kat_created_by = 100000;
-           $katepro->pro_kat_updated_by = 100000;
+           $katepro->pro_kat_sort = 9;
+           $katepro->pro_kat_created_by = auth()->user()->id;
+           $katepro->pro_kat_updated_by = auth()->user()->id;
            
 
             // dd($dae);            
@@ -140,9 +141,9 @@ class KategoriProjekController extends Controller
             'pro_siling'=> 'required',
         ],
         [
-            'pro_kat_short_nama.required'=> 'Sila masukkan Kategori Fasiliti',
-            'pro_kat_nama.required'=> 'Sila masukkan Deskripsi Kategori Fasiliti',
-            'pro_siling.required'=> 'Sila masukkan Kategori Fasiliti',
+            'pro_kat_short_nama.required'=> 'Sila Masukkan Nama Ringkas Projek',
+            'pro_kat_nama.required'=> 'Sila Masukkan Nama Projek',
+            'pro_siling.required'=> 'Sila Pilih Kategori Siling',
             
         ]);
 
