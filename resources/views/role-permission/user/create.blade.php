@@ -64,8 +64,8 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="">Program ID</label>
-                            {{ Form::select('program_id_add', dropdownProgram(), null, ['class'=>'form-control program_id_add']) }}
+                            <label for="">Program</label>
+                            {{ Form::select('program_id', dropdownProgram(), null, ['class'=>'form-control program_id']) }}
                             @error('program_id') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
