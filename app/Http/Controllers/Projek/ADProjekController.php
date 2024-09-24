@@ -12,11 +12,18 @@ use App\Models\Projek\ProjekUtilities;
 use App\Models\BakulJimat;
 use App\Models\Waran;
 
-class ProjekController extends Controller
+class ADProjekController extends Controller
 {
     public function index(Request $request){
         $queryType = 1; // default click pd menu
         if( $request->isMethod('post')) {
+            if(auth()->user()->role==1){
+                $setProgram = auth()->user()->program_id;
+            }
+            else{
+                $setProgram = $request->program;
+            }
+            $program  = $setProgram;
             $negeri =  $request->negeri;
             $fasiliti =  $request->fasiliti;
             $kategori  =  $request->kategori;
@@ -26,6 +33,7 @@ class ProjekController extends Controller
             session([
                 'negeri' => $negeri,
                 'fasiliti' => $fasiliti,
+                'program' => $program,
                 'kategori' => $kategori,
                 'status' => $status,
                 'projek' => $projek,
@@ -34,6 +42,7 @@ class ProjekController extends Controller
         }
         else{
             if( $request->has('page')) {
+                $program = session('program');
                 $negeri = session('negeri');
                 $fasiliti = session('fasiliti');
                 $kategori = session('kategori');
@@ -42,7 +51,7 @@ class ProjekController extends Controller
                 $queryType = 2;
             }
             else{
-                session()->forget(['negeri', 'fasiliti', 'kategori', 'status', 'projek']);
+                session()->forget(['negeri', 'fasiliti', 'program', 'kategori', 'status', 'projek']);
             }
         }
 
@@ -50,10 +59,9 @@ class ProjekController extends Controller
             $query = \DB::table('tblprojek as a')
                 ->leftJoin('tblfasiliti as b','a.projek_fasiliti_id','b.fas_ptj_code')
                 ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
-                ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
+                ->leftJoin('tblprogram as d','a.proj_program','d.program_id')
                 ->leftJoin('tblfasiliti as e','a.projek_fasiliti_id','e.fas_ptj_code')
-                ->select('a.*', 'c.pro_kat_short_nama', 'c.pro_kat_nama', 'd.prog_name', 'e.fas_name')
-                ->where('a.proj_pemilik', auth()->user()->program_id);
+                ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_program', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_middle', 'a.proj_kod_group', 'a.proj_kos_lulus', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name');
             $projek = $query->paginate(15);
             $jumlah =  $query->where('proj_status', 1)->sum('proj_kos_lulus');
             $jimat1 =  Projek::where('proj_status', 2)->sum('proj_kos_lulus');
@@ -67,11 +75,13 @@ class ProjekController extends Controller
             $query = \DB::table('tblprojek as a')
                     ->leftJoin('tblfasiliti as b','a.projek_fasiliti_id','b.fas_ptj_code')
                     ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
-                    ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
+                    ->leftJoin('tblprogram as d','a.proj_program','d.program_id')
                     ->leftJoin('tblfasiliti as e','a.projek_fasiliti_id','e.fas_ptj_code')
-                    ->select('a.*', 'c.pro_kat_short_nama', 'c.pro_kat_nama', 'd.prog_name', 'e.fas_name')
-                    ->where('a.proj_pemilik', auth()->user()->program_id)
-                    ->where(function($q) use ($negeri, $fasiliti, $kategori, $status, $projek){
+                    ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_program', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_middle', 'a.proj_kod_group', 'a.proj_kos_lulus', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name')
+                    ->where(function($q) use ($negeri, $fasiliti, $program, $kategori, $status, $projek){
+                        if(!empty($program)){
+                            $q->where('a.proj_program','like', "%{$program}%");
+                        }
                         if(!empty($negeri)){
                             $q->where('a.proj_negeri', 'like', "%{$negeri}%");
                         }

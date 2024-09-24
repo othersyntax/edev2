@@ -284,7 +284,7 @@ $(document).ready(function(){
                         // Status Rekod
                         if(item.proj_status == 1){
                             status = '<span class="badge badge-primary">Baharu</span>';
-                            button = '<a href="/permohonan/kecemasan/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/kecemasan/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/projek/padam/'+item.projek_id+'/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>';
+                            button = '<a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/baru/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/projek/padam/'+item.projek_id+'/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>';
                         }
                         else {
                             status = '<span class="badge badge-warning">Proses</span>';

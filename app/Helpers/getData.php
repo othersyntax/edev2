@@ -60,13 +60,13 @@ function dropdownPelaksana(){
 }
 
 function dropdownProjekKategori($kat=''){
-    if($kat=='Siling'){
+    if($kat=='siling'){
         $where = [
             'pro_kat_status'=> '1',
             'pro_siling'=> 'Siling'
         ];
     }
-    else if($kat=='Luar Siling'){
+    else if($kat=='xsiling'){
         $where = [
             'pro_kat_status'=> '1',
             'pro_siling'=> 'Luar SIling'
@@ -134,6 +134,14 @@ function getStatusJimat($id){
         return "Baru";
     else
         return "Telah Guna";
+}
+function getRole($id){
+    if($id==1)
+        return "Pemilik";
+    else if($id==2)
+        return "Pentadbir";
+    else
+        return "Super Admin";
 }
 
 function cekSiling(string $id){

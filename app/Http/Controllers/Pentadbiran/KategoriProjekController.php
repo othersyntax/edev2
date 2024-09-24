@@ -11,15 +11,15 @@ use Illuminate\Support\Facades\Auth;
 
 class KategoriProjekController extends Controller
 {
-    
+
     public function index()
     {
         $kategoriprojek = KategoriProjek::all();
-        
+
         return view("pentadbiran.kategoriprojek.index", compact('kategoriprojek'));
     }
 
-   
+
 
     public function ajaxAll(Request $req){
         if($req->isMethod('post')) {
@@ -28,7 +28,7 @@ class KategoriProjekController extends Controller
             // dd($req);
             if(!empty($carian_type)){
                 $query = DB::table('tblprojek_kategori')
-                            ->where(function($q) use ($carian_type, $carian_text){ 
+                            ->where(function($q) use ($carian_type, $carian_text){
                                 if(!empty($carian_type)){
                                     if($carian_type=='proj_kategori_id'){
                                         $q->where('proj_kategori_id', "%{$carian_text}%");
@@ -39,13 +39,13 @@ class KategoriProjekController extends Controller
                                     else{
                                         $q->where('pro_siling', $carian_text);
                                     }
-                                    
+
                                 }
                             });
                 $kategoriprojek = $query->get();
             }
             else{
-                $kategoriprojek =  KategoriProjek::all();             
+                $kategoriprojek =  KategoriProjek::all();
             }
         }
         else{
@@ -65,7 +65,7 @@ class KategoriProjekController extends Controller
         //
     }
 
-    
+
 
     public function store(Request $req)
     {
@@ -96,21 +96,21 @@ class KategoriProjekController extends Controller
            $katepro->pro_kat_sort = 9;
            $katepro->pro_kat_created_by = auth()->user()->id;
            $katepro->pro_kat_updated_by = auth()->user()->id;
-           
 
-            // dd($dae);            
+
+            // dd($dae);
            $katepro->save();
             return response()->json([
                 'status'=>200,
                 'message'=>'Berjaya ditambah'
             ]);
         }
-        
+
     }
 
     public function show(string $id)
     {
-    
+
     }
 
     public function edit(string $id)
@@ -130,21 +130,23 @@ class KategoriProjekController extends Controller
                 'message'=>'Maklumat kategori fasiliti tidak dijumpai.'
             ]);
         }
-    
+
     }
     public function update(Request $req )
     {
         $validator = Validator::make($req->all(), [
-            
+
             'pro_kat_short_nama'=> 'required',
             'pro_kat_nama'=> 'required',
             'pro_siling'=> 'required',
+            'pro_kat_sort'=> 'required',
         ],
         [
             'pro_kat_short_nama.required'=> 'Sila Masukkan Nama Ringkas Projek',
             'pro_kat_nama.required'=> 'Sila Masukkan Nama Projek',
             'pro_siling.required'=> 'Sila Pilih Kategori Siling',
-            
+            'pro_kat_sort.required'=> 'Sila masukkan keutamaan',
+
         ]);
 
         if($validator->fails())
@@ -160,9 +162,10 @@ class KategoriProjekController extends Controller
                 $katepro->pro_kat_short_nama = $req->input('pro_kat_short_nama');
                 $katepro->pro_kat_nama = $req->input('pro_kat_nama');
                 $katepro->pro_siling = $req->input('pro_siling');
+                $katepro->pro_kat_sort = $req->input('pro_kat_sort');
                 $katepro->pro_kat_status = $req->input('pro_kat_status');
                 $katepro->update();
-                
+
                 return response()->json([
                     'status'=>200,
                     'message'=>'Maklumat Kategori Projek berjaya Dikemaskini'

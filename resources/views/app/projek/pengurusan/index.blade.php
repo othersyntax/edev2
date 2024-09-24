@@ -83,21 +83,21 @@
                 </div>
             </div>
             <div class="ibox-content">
-                {{-- @php
+                @php
                     if(auth()->user()->role==1){
                         $setProgram = auth()->user()->program_id;
                     }
                     else{
                         $setProgram = session('program');
                     }
-                @endphp --}}
+                @endphp
                 <form action="/projek/senarai" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Program</label>
-                                {{ Form::select('program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'program', 'disabled'=>'true']) }}
+                                {{ Form::select('program', dropdownProgram(), $setProgram, ['class'=>'form-control', 'id'=>'program', 'readonly']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">

@@ -81,6 +81,7 @@
                                 <th>Nama Singkatan Projek</th>
                                 <th>Nama Projek</th>
                                 <th>Siling Projek</th>
+                                <th class="text-center">Keutamaan</th>
                                 <th class="text-center">Status</th>
                                 <th>Tindakan</th>
                             </tr>
@@ -120,14 +121,14 @@
                                 <div class="form-group">
                                     <label>Nama Projek</label>
                                     {{ Form::text('pro_kat_nama_add', null, ['class'=>'form-control pro_kat_nama_add']) }}
-                                </div>                          
+                                </div>
                             </div>
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label>Siling Projek</label>
                             {{ Form::select('pro_siling_add', dropdownProKateSiling(), null, ['class'=>'form-control pro_siling_add']) }}
-                        </div>                         
-                    </div> 
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -138,54 +139,6 @@
     </div>
 </div>
 
-{{--Untuk Edit // belom siap--}}
-{{--<div class="modal inmodal fade" id="editStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Kemaskini Maklumat Kategori Projek</h4>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="proj_kategori_id_edit">                   
-                <div class="row">
-                    <div class="col-lg-12">
-                        <ul id="save_msgList"></ul>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="form-group">
-                            <label>Nama Singkatan Projek</label>
-                            {{ Form::text('pro_kat_short_nama_edit', null, ['class'=>'form-control', 'id'=> 'pro_kat_short_nama_edit']) }}
-                        </div>                          
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Nama Projek</label>
-                            {{ Form::text('pro_kat_nama_edit', null, ['class'=>'form-control', 'id'=>'pro_kat_nama_edit']) }}
-                        </div>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="form-group">
-                            <label>Siling Projek</label>
-                            {{ Form::select('pro_siling_edit', dropdownProKateSiling(), null, ['class'=>'form-control pro_siling_edit']) }}
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Status</label>
-                            {{ Form::select('pro_kat_status_edit', ['1'=>'Aktif', '2'=>'Tidak Aktif'], null, ['class'=>'form-control', 'id'=>'pro_kat_status_edit']) }}
-                        </div>
-                    </div>
-                </div>                    
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-primary update_prokategori">Kemaskini</button>
-            </div>
-        </div>
-    </div>
-</div>--}}
-
 <div class="modal inmodal fade" id="editStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -194,7 +147,7 @@
                 <h4 class="modal-title">Kemaskini Maklumat Kategori Fasiliti</h4>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="proj_kategori_id_edit">                   
+                <input type="hidden" id="proj_kategori_id_edit">
                 <div class="row">
                     <div class="col-lg-12">
                         <ul id="save_msgList"></ul>
@@ -203,9 +156,9 @@
                         <div class="form-group">
                             <label>Nama Singkatan Kategori Projek</label>
                             {{ Form::text('pro_kat_short_nama_edit', null, ['class'=>'form-control', 'id'=> 'pro_kat_short_nama_edit']) }}
-                        </div>                          
+                        </div>
                     </div>
-                    
+
                     <div class="col-lg-8">
                         <div class="form-group">
                             <label>Nama Kategori Projek</label>
@@ -216,7 +169,13 @@
                         <div class="form-group">
                             <label>Kategori Siling</label>
                             {{ Form::select('pro_siling_edit',['Siling'=>'Siling', 'Luar Siling'=>'Luar Siling'], null, ['class'=>'form-control', 'id'=>'pro_siling_edit']) }}
-                        </div>                          
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Keutamaan</label>
+                            {{ Form::number('pro_kat_sort_edit', null, ['class'=>'form-control', 'id'=>'pro_kat_sort_edit']) }}
+                        </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
@@ -224,7 +183,7 @@
                             {{ Form::select('pro_kat_status_edit', ['1'=>'Aktif', '2'=>'Tidak Aktif'], null, ['class'=>'form-control', 'id'=>'pro_kat_status_edit']) }}
                         </div>
                     </div>
-                </div>                    
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Tutup</button>
@@ -272,7 +231,7 @@
             $carian_text = $('#carian_text').val();
             fetchKategoriProjek($carian_type, $carian_text);
         });
-       
+
 
         // ADD BUTTON CLICK
         $('#add').click(function(e)
@@ -280,7 +239,7 @@
             e.preventDefault();
             $('#addStateModal').modal('show');
         });
-     
+
 
         //READ CONTENT FROM DB
         function fetchKategoriProjek(carian_type='', carian_text=''){
@@ -307,6 +266,7 @@
                                 <td>' + item.pro_kat_short_nama + '</td>\
                                 <td>' + item.pro_kat_nama + '</td>\
                                 <td>' + item.pro_siling + '</td>\
+                                <td class="text-center">' + item.pro_kat_sort + '</td>\
                                 <td class="text-center">' + getStatus(item.pro_kat_status) + '</td>\
                                 <td><button type="button" value="' + item.proj_kategori_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
                                 <button type="button" value="' + item.proj_kategori_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
@@ -326,7 +286,7 @@
                          'pro_kat_short_nama': $('.pro_kat_short_nama_add').val(),
                          'pro_kat_nama': $('.pro_kat_nama_add').val(),
                          'pro_siling': $('.pro_siling_add').val(),
-                
+
                      }
 
                   $.ajaxSetup({
@@ -423,9 +383,10 @@
                         $('#editStateModal').modal('hide');
                     } else {
 
-                        $('#proj_kategori_id_edit').val(response.KategoriProjek.proj_kategori_id);                        
-                        $('#pro_kat_short_nama_edit').val(response.KategoriProjek.pro_kat_short_nama);                        
+                        $('#proj_kategori_id_edit').val(response.KategoriProjek.proj_kategori_id);
+                        $('#pro_kat_short_nama_edit').val(response.KategoriProjek.pro_kat_short_nama);
                         $('#pro_kat_nama_edit').val(response.KategoriProjek.pro_kat_nama);
+                        $('#pro_kat_sort_edit').val(response.KategoriProjek.pro_kat_sort);
                         $('#pro_kat_statuss_edit').val(response.KategoriProjek.pro_kat_status).change();
                         $('#proj_kategori_id_edit').val(proj_kategori_id);
                     }
@@ -442,10 +403,11 @@
             // alert(id);
 
             var edit_data = {
-                
+
                 'proj_kategori_id': $('#proj_kategori_id_edit').val(),
                 'pro_kat_short_nama': $('#pro_kat_short_nama_edit').val(),
                 'pro_kat_nama': $('#pro_kat_nama_edit').val(),
+                'pro_kat_sort': $('#pro_kat_sort_edit').val(),
                 'pro_kat_status': $('#pro_kat_status_edit').val(),
                 'pro_siling': $('#pro_siling_edit').val(),
             }
@@ -488,15 +450,15 @@
             });
 
         });
-        
+
 
     });
-       
+
 </script>
 @endsection
 
 
 
-  
+
 
 

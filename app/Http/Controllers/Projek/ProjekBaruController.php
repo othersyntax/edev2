@@ -57,6 +57,7 @@ class ProjekBaruController extends Controller
                 ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
                 ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fas_ptj_code')
                 ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
+                ->where('c.pro_siling', 'Siling')
                 ->where('proj_pemilik', auth()->user()->program_id);
 
             $projek = $query->get();
@@ -69,6 +70,7 @@ class ProjekBaruController extends Controller
                     ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
                     ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fasiliti_id')
                     ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
+                    ->where('c.pro_siling', 'Siling')
                     ->where('proj_pemilik', auth()->user()->program_id)
                     ->where(function($q) use ($program, $negeri, $fasiliti, $pelaksana, $kategori, $status, $projek){
                         if(!empty($negeri)){
