@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Projek;
 use App\Models\ProjekDetails;
 use App\Models\ProjekUtilities;
 use App\Models\Waran;
+use App\Models\Projek\Projek;
+use Illuminate\Support\Facades\DB;
+
 
 class PermohonanController extends Controller
 {
@@ -41,7 +43,7 @@ class PermohonanController extends Controller
         }
 
         if ($queryType == 1) {
-            $permohonan =  \DB::table('tblprojek_baru as a')
+            $permohonan =  DB::table('tblprojek_baru as a')
                 ->leftJoin('tblfasiliti as b','a.projek_fasiliti_id','b.fas_ptj_code')
                 ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
                 ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_program', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_middle', 'a.proj_kod_group', 'a.proj_bulan', 'a.proj_tahun', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status')
@@ -113,4 +115,10 @@ class PermohonanController extends Controller
             return redirect('/permohonan/senarai')->with(['success'=>'Rekod berjaya dikemaskini']);
         }
     }
+
+
+
+    
 }
+
+

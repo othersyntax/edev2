@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     // SEMAK PERMOHONAN
     Route::get('/permohonan/semak/main', [App\Http\Controllers\Projek\SemakProjekController::class, 'showList'])->name('projek.semak.main');
     Route::any('/permohonan/semak/senarai', [App\Http\Controllers\Projek\SemakProjekController::class, 'index']);
+    Route::any('/permohonan/semak/notifikasi/{id}', [App\Http\Controllers\Projek\SemakProjekController::class, 'emel']);
     // Route::get('/permohonan/semak/tambah', [App\Http\Controllers\Projek\SemakProjekController::class, 'create'])->name('permohonan.kecemasan.tambah');
     // Route::post('/permohonan/semak/simpan', [App\Http\Controllers\Projek\SemakProjekController::class, 'store'])->name('permohonan.kecemasan.simpan');
     // Route::post('/permohonan/semak/upload', [App\Http\Controllers\Projek\SemakProjekController::class, 'upload'])->name('permohonan.kecemasan.upload');

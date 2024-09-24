@@ -127,6 +127,8 @@
                         <div class="col-lg-12">
                             <a href="/permohonan/semak/main" class="btn btn-default">Set Semula</a>
                             <button class="btn btn-primary float-right" id="carian" value="Carian">Carian</button>
+                            
+                    </button>
                         </div>
                     </div>
                 </form>
@@ -281,11 +283,11 @@ $(document).ready(function(){
                         // Status Rekod
                         if(item.proj_status == 1){
                             status = '<span class="badge badge-primary">Baharu</span>';
-                            button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
+                            button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-envelope text-mute"></i>';
                         }
                         else {
                             status = '<span class="badge badge-warning">Proses</span>';
-                            button = '<a href="/permohonan/semak/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/semak/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/projek/padam/'+item.projek_id+'/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>';
+                            button = '<a href="/permohonan/semak/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/semak/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><button type="button" value="' + item.projek_id + '" class="btn btn-default btn-xs emelnotifikasi" title="Emel"><i class="fa fa-envelope text-danger"></i></button>';
                         }
 
                         $('tbody').append('<tr>\
@@ -347,6 +349,40 @@ $(document).ready(function(){
     setTimeout(() => {
         $('#msg').hide('slow');
     }, 3000);
+
+
+
+    $(document).on('click', '.emelnotifikasi', function () {
+        var projek_id = $(this).val();
+            // document.getElementById("emelButton").classList.add("loading");
+            // document.getElementById("emelButton").classList.add("open-circle");
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "post",
+                url: "/permohonan/semak/notifikasi/"+projek_id,
+                data: null,
+                dataType: "json",
+                success: function (response) {
+                    if (response.status == 400) {
+                        swal("Gagal", response.message, "error");
+                    } else {
+                        // fetchPermohonan();
+                        swal({
+                            title: "Emel Pemakluman",
+                            text: response.message,
+                            type: "success"
+                        });
+                        // document.getElementById("emelButton").classList.remove("loading");
+                        // document.getElementById("emelButton").classList.remove("open-circle");
+                    }
+                }
+            });
+        });
 });
 
 </script>

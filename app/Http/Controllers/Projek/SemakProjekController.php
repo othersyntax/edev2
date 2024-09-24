@@ -13,6 +13,9 @@ use App\Mail\MaklumanProjekKecemasan;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use App\Mail\MaklumanPermohonanProjek;
+use Illuminate\Support\Facades\DB;
+
 
 class SemakProjekController extends Controller
 {
@@ -50,7 +53,7 @@ class SemakProjekController extends Controller
         }
 
         if ($queryType == 1) {
-            $projek = \DB::table('tblprojek_baru as a')
+            $projek = DB::table('tblprojek_baru as a')
                 ->leftJoin('tblfasiliti as b','a.proj_fasiliti_id','b.fas_ptj_code')
                 ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
                 ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
@@ -59,7 +62,7 @@ class SemakProjekController extends Controller
                 ->get();
         }
         else{
-            $query = \DB::table('tblprojek_baru as a')
+            $query = DB::table('tblprojek_baru as a')
                 ->leftJoin('tblfasiliti as b','a.proj_fasiliti_id','b.fas_ptj_code')
                 ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
                 ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
@@ -102,5 +105,26 @@ class SemakProjekController extends Controller
         return response()->json([
             'data'=>$data,
         ]);
+    }
+
+
+    public function emel(){
+        $mail = Mail::to('anas.fikhri@gmail.com')->send(new MaklumanPermohonanProjek());
+
+        if($mail){
+            // MaklumanPermohonanProjek::query()->update([
+            //     'sil_emel'=>2
+            // ]);
+            return response()->json([
+                'status'=>200,
+                'message'=>'Berjaya dihantar'
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>400,
+                'message'=>'Rekod tidak dijumpai.'
+            ]);
+        }
     }
 }
