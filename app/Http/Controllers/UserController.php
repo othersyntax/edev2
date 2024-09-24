@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PermohonanAkaunBaru;
 
 class UserController extends Controller
 {
@@ -20,6 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::get();
+        
         return view('role-permission.user.index', ['users' => $users]);
     }
 
@@ -51,8 +54,11 @@ class UserController extends Controller
         $user = User::create([
                         'name' => $request->name,
                         'email' => $request->email,
-                        'password' => Hash::make($request->password),
+                        'password' => Hash::make('eDE@2024'),
+                        'program_id' => $request->program_id,
                     ]);
+        
+        $mail = Mail::to($request->email)->send(new PermohonanAkaunBaru($user));
 
         $user->syncRoles($request->roles);
 
@@ -102,4 +108,25 @@ class UserController extends Controller
 
         return redirect('/akses/users')->with('status','User Delete Successfully');
     }
+
+    public function emel(){
+        $mail = Mail::to('usup.keram@moh.gov.my')->send(new PermohonanAkaunBaru());
+
+        // if($mail){
+        //     Siling::query()->update([
+        //         'sil_emel'=>2
+        //     ]);
+        //     return response()->json([
+        //         'status'=>200,
+        //         'message'=>'Berjaya dihantar'
+        //     ]);
+        // }
+        // else{
+        //     return response()->json([
+        //         'status'=>400,
+        //         'message'=>'Rekod tidak dijumpai.'
+        //     ]);
+        // }
+    // }
+}
 }

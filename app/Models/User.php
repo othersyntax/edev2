@@ -48,7 +48,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+function userProgram(){
 
+return $this->belongsTo(\App\Models\Pentadbiran\Program::class, 'program_id', 'program_id');
+
+}
 
 
 
