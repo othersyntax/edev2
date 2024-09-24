@@ -44,24 +44,10 @@
             </div>
             <div class="ibox-content">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Parlimen</label>
-                            <div class="form-control">P.140 - Segamat</div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Dewan Undangan Negeri</label>
-                            <div class="form-control">N.02 - Jementah</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Program</label>
-                            {{ Form::select('proj_program', dropdownProgram(), $projek->proj_program, ['class'=>'form-control', 'id'=>'proj_program', 'disabled'=>'true']) }}
+                            {{ Form::select('proj_program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'proj_program', 'disabled'=>'true']) }}
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -84,6 +70,20 @@
                             <span id="list-fasiliti">
                                 {{ Form::select('proj_fasiliti_id', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'proj_fasiliti_id']) }}
                             </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Parlimen</label>
+                            <div class="form-control">P.140 - Tiada Rekod</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Dewan Undangan Negeri</label>
+                            <div class="form-control">N.02 - Tiada Rekod</div>
                         </div>
                     </div>
                 </div>
@@ -245,13 +245,13 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>No Waran Peruntukan (F4)</label>
+                                <>No Waran Peruntukan (F4)label>
                                 {{ Form::text('projd_waran_kecil', $details->projd_waran_kecil, ['class'=>'form-control text-right', 'id'=>'projd_waran_kecil']) }}
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Amaun Waran Peruntukan</label>
+                                <label>Amaun Waran Peruntukan Kecil</label>
                                 {{ Form::text('projd_waran_amaun', $details->projd_waran_amaun, ['class'=>'form-control text-right', 'id'=>'projd_waran_amaun']) }}
                             </div>
                         </div>
@@ -259,7 +259,7 @@
                     <p class="text-info font-bold mt-3">5. PELAKSANAAN PROJEK</p>
                     <div class="hr-line-dashed"></div>
                     <div class="row">
-                        {{-- <div class="col-md-3">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Jenis Perolehan</label>
                                 {{ Form::select('projd_jenis_perolehan', [''=>'--Sila Pilih--', '1'=>'Bekalan Perkhidmatan', '2'=>'Kerja'], null, ['class'=>'form-control', 'id'=>'projd_jenis_perolehan']) }}
@@ -282,7 +282,7 @@
                                 <label>Amaun Waran Peruntukan Kecil</label>
                                 {{ Form::text('projd_waran_amaun', $details->projd_waran_amaun, ['class'=>'form-control text-right', 'id'=>'projd_waran_amaun']) }}
                             </div>
-                        </div> --}}
+                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Status Projek</label>
@@ -313,7 +313,7 @@
     // }
     $('#proj_negeri').on('change', function() {
         var cariNegeri = $(this).val();
-        getFasiliti(cariNegeri, 'daerah',  '#list-daerah');
+        getFasiliti(cariNegeri, 'proj_daerah',  '#list-daerah');
     });
 
     //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
@@ -321,10 +321,10 @@
         let url = "/ajax/ajax-daerah/" + parID + "/" + inputname + "/" + select;
         $.get(url, function(data) {
             $(list).html(data);
-            $('#proj_aerah').on('change', function() {
+            $('#proj_daerah').on('change', function() {
                 var daerahID = $(this).val();
                 var list = '#list-fasiliti';
-                var inputname = 'fasiliti';
+                var inputname = 'proj_fasiliti_id';
                 let url = "/ajax/ajax-fasiliti/" + daerahID + "/" + inputname + "/" + select;
                 $.get(url, function(data) {
                     $(list).html(data);

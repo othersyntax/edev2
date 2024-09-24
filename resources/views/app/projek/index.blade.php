@@ -96,7 +96,7 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Program</label>
+                                <label>Pemilik</label>
                                 {{ Form::select('program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'program', 'disabled'=>'true']) }}
                             </div>
                         </div>
