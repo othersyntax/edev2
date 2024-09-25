@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Projek\ProjekBaru;
 
-class ProjekJimatController extends Controller
+class GunaBakiController extends Controller
 {
     public function index(Request $request){
         $queryType = 1; // default click pd menu
@@ -95,10 +95,14 @@ class ProjekJimatController extends Controller
         $bakulJimat = \DB::table('tblbakul_jimat as a')
                         ->join('tblprojek as b','a.bj_projek_id','b.projek_id')
                         ->select('a.*','b.proj_nama')
-                        // ->where('a.bj_program_id', auth()->user()->program_id)
+                        ->where('a.bj_program_id', auth()->user()->program_id)
                         ->get();
         $data['bakulJimat'] = $bakulJimat;
         // dd($data);
-        return view('app.projek-penjimatan.add', $data);
+        return view('app.guna-baki.add', $data);
+    }
+
+    public function store(Request $req){
+        dd(($req->all()));
     }
 }

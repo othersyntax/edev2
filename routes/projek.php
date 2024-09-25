@@ -50,12 +50,16 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     Route::get('/permohonan/runcit/tambah', [App\Http\Controllers\Projek\ProjekRuncitController::class, 'create'])->name('permohonan.runcit.tambah');
     Route::post('/permohonan/runcit/simpan', [App\Http\Controllers\Projek\ProjekRuncitController::class, 'store'])->name('permohonan.runcit.simpan');
 
+    // GUNA BAKI PERUNTUKAN
+    Route::get('/projek/baki/tambah', [App\Http\Controllers\Projek\GunaBakiController::class, 'create'])->name('projek.baki.tambah');
+    Route::post('/projek/baki/simpan', [App\Http\Controllers\Projek\GunaBakiController::class, 'store'])->name('projek.baki.simpan');
+
     // PENJIMATAN
     Route::any('/projek/penjimatan/senarai', [App\Http\Controllers\Projek\ProjekJimatController::class, 'index'])->name('projek.penjimatan.senarai');
     Route::get('/projek/penjimatan/tambah', [App\Http\Controllers\Projek\ProjekJimatController::class, 'create'])->name('permohonan.penjimatan.tambah');
     Route::post('/projek/penjimatan/simpan', [App\Http\Controllers\Projek\ProjekJimatController::class, 'store'])->name('permohonan.penjimatan.simpan');
 
-    // TUKAR GUNA
+    // PENJIMATAN
     Route::any('/pengesahan/penjimatan/senarai', [App\Http\Controllers\Projek\TukarGunaController::class, 'index'])->name('pengesahan.penjimatan.senarai');
 
     //SENARAI PERMOHONAN
@@ -68,7 +72,9 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     // Projek Utiliti
     Route::get('/projek/papar/utiliti/senarai/{id}', [App\Http\Controllers\Projek\UtilitiController::class, 'index']);
     Route::get('/projek/papar/utiliti/{id}', [App\Http\Controllers\Projek\UtilitiController::class, 'edit']);
+    Route::post('/projek/papar/utiliti/padam/{id}', [App\Http\Controllers\Projek\UtilitiController::class, 'delete']);
     Route::post('/projek/papar/utiliti/kemaskini', [App\Http\Controllers\Projek\UtilitiController::class, 'update']);
+    Route::post('/projek/papar/utiliti/tambah', [App\Http\Controllers\Projek\UtilitiController::class, 'store']);
 
     // SEMAK PERMOHONAN
     Route::get('/permohonan/semak/main', [App\Http\Controllers\Projek\SemakProjekController::class, 'showList'])->name('projek.semak.main');

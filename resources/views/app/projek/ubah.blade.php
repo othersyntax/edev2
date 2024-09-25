@@ -43,27 +43,9 @@
                 </div>
             </div>
             <div class="ibox-content">
+                <input type="hidden" name="proj_daerah_data" value="{{ $projek->proj_daerah}}">
+                <input type="hidden" name="proj_fasiliti_id_data" value="{{ $projek->proj_fasiliti_id}}">
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Parlimen</label>
-                            <div class="form-control">P.140 - Segamat</div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Dewan Undangan Negeri</label>
-                            <div class="form-control">N.02 - Jementah</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Program</label>
-                            {{ Form::select('proj_program', dropdownProgram(), $projek->proj_program, ['class'=>'form-control', 'id'=>'proj_program', 'disabled'=>'true']) }}
-                        </div>
-                    </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label>Negeri</label>
@@ -84,6 +66,20 @@
                             <span id="list-fasiliti">
                                 {{ Form::select('proj_fasiliti_id', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'proj_fasiliti_id']) }}
                             </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Parlimen</label>
+                            <div class="form-control">P.140 - Segamat</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Dewan Undangan Negeri</label>
+                            <div class="form-control">N.02 - Jementah</div>
                         </div>
                     </div>
                 </div>
@@ -125,13 +121,13 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Setia</label>
-                                {{ Form::text('proj_kod_middle', $projek->proj_kod_middle, ['class'=>'form-control', 'id'=>'proj_kod_middle']) }}
+                                {{ Form::text('proj_kod_setia', $projek->proj_kod_setia, ['class'=>'form-control', 'id'=>'proj_kod_setia']) }}
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Sub Setia</label>
-                                {{ Form::text('proj_kod_group', $projek->proj_kod_group, ['class'=>'form-control', 'id'=>'proj_kod_group']) }}
+                                {{ Form::text('proj_kod_subsetia', $projek->proj_kod_subsetia, ['class'=>'form-control', 'id'=>'proj_kod_subsetia']) }}
                             </div>
                         </div>
                     </div>
@@ -146,8 +142,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Program / Bahagian / Institusi / JKN</label>
-                                {{ Form::select('proj_program', dropdownProgram(), $projek->proj_program, ['class'=>'form-control', 'id'=>'proj_program']) }}
+                                <label>Pemilik</label>
+                                {{ Form::select('proj_pemilik', dropdownProgram(), $projek->proj_pemilik, ['class'=>'form-control', 'id'=>'proj_pemilik', 'disabled'=>'true']) }}
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -256,36 +252,12 @@
                             </div>
                         </div>
                     </div>
-                    <p class="text-info font-bold mt-3">5. PELAKSANAAN PROJEK</p>
+                    <p class="text-info font-bold mt-3">5. STATUS PROJEK</p>
                     <div class="hr-line-dashed"></div>
                     <div class="row">
-                        {{-- <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Jenis Perolehan</label>
-                                {{ Form::select('projd_jenis_perolehan', [''=>'--Sila Pilih--', '1'=>'Bekalan Perkhidmatan', '2'=>'Kerja'], null, ['class'=>'form-control', 'id'=>'projd_jenis_perolehan']) }}
-                            </div>
-                        </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Tarikh Di keluarkan</label>
-                                {{ Form::text('projd_jeinis_perolehan', null, ['class'=>'form-control', 'id'=>'projd_jeinis_perolehan']) }}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>No Waran Peruntukan Kecil</label>
-                                {{ Form::text('projd_waran_kecil', $details->projd_waran_kecil, ['class'=>'form-control text-right', 'id'=>'projd_waran_kecil']) }}
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Amaun Waran Peruntukan Kecil</label>
-                                {{ Form::text('projd_waran_amaun', $details->projd_waran_amaun, ['class'=>'form-control text-right', 'id'=>'projd_waran_amaun']) }}
-                            </div>
-                        </div> --}}
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Status Projek</label>
+                                <label>Status</label>
                                 {{ Form::select('proj_status', ['1'=>'Aktif', '2'=>'Tukar Tajuk', '3'=>'Dibatalkan'], null, ['class'=>'form-control', 'id'=>'proj_status']) }}
                             </div>
                         </div>
@@ -293,7 +265,7 @@
                     <div class="hr-line-dashed"></div>
                     <div class="form-group row">
                         <div class="col-sm-4 col-sm-offset-2">
-                            <button class="btn btn-white btn-sm" type="button">Batal</button>
+                            <a href="/projek/senarai" class="btn btn-white btn-sm" type="button">Batal</a>
                             <button class="btn btn-primary btn-sm" type="submit">Simpan</button>
                         </div>
                     </div>
@@ -308,41 +280,60 @@
   <!-- Switchery -->
   <script src="{{ asset('/template/js/plugins/switchery/switchery.js') }}"></script>
 <script>
-    // function financial(x) {
-    //     return Number.parseFloat(x).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    // }
-    $('#proj_negeri').on('change', function() {
-        var cariNegeri = $(this).val();
-        getFasiliti(cariNegeri, 'daerah',  '#list-daerah');
-    });
+    $(document).ready(function(){
+        // SET DEFAULT VALUE
+        let negeriID = $('[name=proj_negeri]').val();
+        let daerahID = $('[name=proj_daerah_data]').val();
+        let fasilitiID = $('[name=proj_fasiliti_id_data]').val();
+        // alert(daerahID);
+        if(!daerahID)
+            daerahID=99;
+        if(!fasilitiID)
+            fasilitiID=99;
+        getFasiliti(negeriID, 'proj_daerah', '#list-daerah', daerahID);
+        getEditFasiliti(daerahID, 'proj_fasiliti_id', '#list-fasiliti', fasilitiID);
 
-    //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
-    function getFasiliti(parID='0', inputname='0', list='0', select='99') {
-        let url = "/ajax/ajax-daerah/" + parID + "/" + inputname + "/" + select;
-        $.get(url, function(data) {
-            $(list).html(data);
-            $('#proj_aerah').on('change', function() {
-                var daerahID = $(this).val();
-                var list = '#list-fasiliti';
-                var inputname = 'fasiliti';
-                let url = "/ajax/ajax-fasiliti/" + daerahID + "/" + inputname + "/" + select;
-                $.get(url, function(data) {
-                    $(list).html(data);
+        $('#proj_negeri').on('change', function() {
+            var parID = $(this).val();
+            getFasiliti(parID, 'proj_daerah', '#list-daerah');
+            // getFasiliti(cariNegeri, 'proj_fasiliti_id', '#list-fasiliti');
+        });
+
+        //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
+        function getFasiliti(parID='0', inputname='0', list='0', select='99') {
+            let url = "/ajax/ajax-daerah/" + parID + "/" + inputname + "/" + select;
+            $.get(url, function(data) {
+                $(list).html(data);
+                $('#proj_daerah').on('change', function() {
+                    var daerahID = $(this).val();
+                    var list = '#list-fasiliti';
+                    var inputname = 'proj_fasiliti_id';
+                    let url = "/ajax/ajax-fasiliti/" + daerahID + "/" + inputname + "/" + select;
+                    $.get(url, function(data) {
+                        $(list).html(data);
+                    });
                 });
             });
+        }
+
+        $('#proj_kos_sebenar').change(function(){
+            let kos = $('#proj_kos_lulus').val();
+            let kosBaru = $(this).val();
+            let jimat = parseFloat(kos) - parseFloat(kosBaru);
+            jimat=jimat.toFixed(2);
+            $('#proj_penjimatan').val(jimat);
         });
-    }
 
-    $('#proj_kos_sebenar').change(function(){
-        let kos = $('#proj_kos_lulus').val();
-        let kosBaru = $(this).val();
-        let jimat = parseFloat(kos) - parseFloat(kosBaru);
-        jimat=jimat.toFixed(2);
-        $('#proj_penjimatan').val(jimat);
+        function getEditFasiliti(daerahID='0', inputname='0', list='0', select='99'){
+            let url = "/ajax/ajax-fasiliti/" + daerahID + "/" + inputname + "/" + select;
+            $.get(url, function(data) {
+                $(list).html(data);
+            });
+        }
+
+        var elem_2 = document.querySelector('.js-switch_2');
+        var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
     });
-
-    var elem_2 = document.querySelector('.js-switch_2');
-    var switchery_2 = new Switchery(elem_2, { color: '#ED5565' });
 
 </script>
 @endsection

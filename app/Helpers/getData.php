@@ -60,22 +60,37 @@ function dropdownPelaksana(){
 }
 
 function dropdownProjekKategori($kat=''){
+    $where=array();
+    // $where[] = ['field_a', '=', 'a'];
+    // $where[] = ['field_b', '=', 'test'];
     if($kat=='siling'){
-        $where = [
-            'pro_kat_status'=> '1',
-            'pro_siling'=> 'Siling'
-        ];
+        $where[] = ['pro_kat_status', '=', '1'];
+        $where[] = ['pro_siling', '=', 'Siling'];
     }
     else if($kat=='xsiling'){
-        $where = [
-            'pro_kat_status'=> '1',
-            'pro_siling'=> 'Luar SIling'
-        ];
+        $where[] = ['pro_kat_status', '=', '1'];
+        $where[] = ['pro_siling', '=', 'Luar Siling'];
+        // $where = [
+        //     'pro_kat_status'=> '1',
+        //     'pro_siling'=> 'Luar Siling'
+        // ];
+    }
+    else if($kat=='tukar'){
+        // $where = [
+        //     'pro_kat_status'=> '1',
+        //     'pro_siling'=> 'Guna Baki'
+        // ];
+        $where[] = ['pro_kat_status', '=', '1'];
+        $where[] = ['pro_siling', '=', 'Guna Baki'];
     }
     else{
-        $where = [
-            'pro_kat_status'=> '1'
-        ];
+        // $where = [
+        //     'pro_kat_status'=> '1',
+        //     'pro_siling'=> 'Siling',
+        //     'pro_siling'=> 'Luar Siling'
+        // ];
+        $where[] = ['pro_kat_status', '=', '1'];
+        $where[] = ['pro_siling', '!=', 'Guna Baki'];
     }
     $projKat = KategoriProjek::where($where)
         ->orderBy('pro_kat_sort')
@@ -110,8 +125,10 @@ function getListJKR(){
 function getStatus($id){
     if($id==1)
         return "Aktif";
+    else if($id==2)
+        return "Tukar Tajuk";
     else
-        return "Tidak Aktif";
+        return "Dibatalkan";
 }
 function getStatusProjek($id){
     if($id==1)
@@ -137,7 +154,7 @@ function getStatusJimat($id){
 }
 function getRole($id){
     if($id==1)
-        return "Pemilik";
+        return "Pengguna";
     else if($id==2)
         return "Pentadbir";
     else

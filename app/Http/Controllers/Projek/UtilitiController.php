@@ -48,6 +48,25 @@ class UtilitiController extends Controller
         }
     }
 
+    public function delete(string $id){
+        $porju = ProjekUtilities::find($id);
+        if($porju)
+        {
+            $porju->delete();
+            return response()->json([
+                'status'=>200,
+                'message'=>'Maklumat Aktiviti Berjaya Dipadam.'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'Maklumat Aktiviti Tidak Wujud'
+            ]);
+        }
+    }
+
     public function update(Request $req)
     {
         $validator = Validator::make($req->all(), [
@@ -75,6 +94,45 @@ class UtilitiController extends Controller
            $porju->projuti_ref_no = $req->input('projuti_ref_no');
            $porju->projuti_date = Carbon::createFromFormat('d/m/Y', $req->input('projuti_date'))->format('Y-m-d');
            $porju->projuti_catatan = $req->input('projuti_catatan');
+           $porju->projuti_updated_by = auth()->user()->id;
+
+            // dd($dae);
+           $porju->save();
+            return response()->json([
+                'status'=>200,
+                'message'=>'Berjaya dikemakini'
+            ]);
+        }
+    }
+
+    public function store(Request $req){
+        $validator = Validator::make($req->all(), [
+            'projuti_perihal'=> 'required',
+            'projuti_ref_no'=> 'required',
+            'projuti_date'=> 'required',
+        ],
+        [
+            'projuti_perihal.required'=> 'Sila pilih perihal',
+            'projuti_ref_no.required'=> 'Sila masukkan No Rujukan',
+            'projuti_date.required'=> 'Sila pilih tarikh',
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>400,
+                'errors'=>$validator->messages()
+            ]);
+        }
+        else
+        {
+           $porju = new ProjekUtilities();
+           $porju->projuti_projek_id = $req->input('projek_id');
+           $porju->projuti_perihal = $req->input('projuti_perihal');
+           $porju->projuti_ref_no = $req->input('projuti_ref_no');
+           $porju->projuti_date = Carbon::createFromFormat('d/m/Y', $req->input('projuti_date'))->format('Y-m-d');
+           $porju->projuti_catatan = $req->input('projuti_catatan');
+           $porju->projuti_created_by = auth()->user()->id;
            $porju->projuti_updated_by = auth()->user()->id;
 
             // dd($dae);

@@ -18,9 +18,9 @@ class PermohonanAkaunBaru extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(User $user)
+    public function __construct()
     {
-        $this->user=$user;
+        // $this->user=$user;
     }
 
     /**
@@ -38,11 +38,11 @@ class PermohonanAkaunBaru extends Mailable
      */
     public function content(): Content
     {
-           
+
             return new Content(
-                view: 'role-permission.emel.akaunbaru',
-                with: $this->user,
-            
+                view: 'role-permission.emel.akaunbaru'
+                // with: $this->user,
+
         );
     }
 

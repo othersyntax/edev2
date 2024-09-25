@@ -15,7 +15,7 @@
             </li>
         </ol>
     </div>
-</div>    
+</div>
 @endsection
 
 @section('content')
@@ -38,15 +38,15 @@
             <div class="ibox-content">
                 <form action="{{ url('/akses/users/'.$user->id) }}" method="POST">
                 @csrf
-                @method('PUT')           
-                <div class="row">                    
+                @method('PUT')
+                <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="">Nama</label>
                             <input type="text" name="name" value="{{ $user->name }}" class="form-control" />
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        
+
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -54,17 +54,24 @@
                             <input type="text" name="email" readonly value="{{ $user->email }}" class="form-control" />
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    {{-- <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Katalaluan</label>
                             <input type="text" name="password" class="form-control" />
                             @error('password') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Program</label>
-                            {{ Form::select('program_id_add', dropdownProgram(), null, ['class'=>'form-control program_id_add']) }}
+                            {{ Form::select('program_id', dropdownProgram(), $user->program_id, ['class'=>'form-control program_id']) }}
+                            @error('program_id') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">Role</label>
+                            {{ Form::select('role', ['1'=>'Pengguna', '2'=>'Pentadbir', '3'=>'Super Admin'], $user->role, ['class'=>'form-control']) }}
                             @error('program_id') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -88,9 +95,9 @@
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Kemaskini</button>
                         </div>
-                    </div>                                  
+                    </div>
                 </div>
-                </form>                
+                </form>
             </div>
         </div>
     </div>

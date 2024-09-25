@@ -15,7 +15,7 @@
             </li>
         </ol>
     </div>
-</div>    
+</div>
 @endsection
 
 @section('content')
@@ -27,14 +27,14 @@
                 <a href="/akses/users/create" class="btn btn-primary float-end">Tambah</a>
             @endcan
         </div>
-           
+
         </h4>
     </div>
     <div class="ibox-content">
         <div class="row">
             @if (session('status'))
                 <div class="alert alert-success">{{ session('status') }}</div>
-            @endif  
+            @endif
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -42,6 +42,7 @@
                         <th>Nama</th>
                         <th>E-mel</th>
                         <th>Program</th>
+                        <th>Role</th>
                         <th>Peranan</th>
                         <th>Tindakan</th>
                     </tr>
@@ -53,6 +54,7 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->userProgram->prog_name }}</td>
+                        <td>{{ getRole($user->role) }}</td>
                         <td>
                             @if (!empty($user->getRoleNames()))
                                 @foreach ($user->getRoleNames() as $rolename)

@@ -28,16 +28,19 @@
                 <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'baru') ? 'active' : '' }}"><a href="/permohonan/baru/main">Siling</a></li>
                     <li class="{{ (request()->segment(2) == 'kecemasan') ? 'active' : '' }}"><a href="/permohonan/kecemasan/main">Luar Siling</a></li>
+                    @if (auth()->user()->role==2 || auth()->user()->role==3)
                     <li class="{{ (request()->segment(2) == 'semak') ? 'active' : '' }}"><a href="/permohonan/semak/main">Pengurusan</a></li>
+                    @endif
                 </ul>
             </li>
             <li class="{{ (request()->segment(1) == 'projek') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Pemantauan</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/projek/senarai">Projek</a></li>
-                    <li class="{{ (request()->segment(2) == 'penjimatan') ? 'active' : '' }}"><a href="/projek/penjimatan/tambah">Penjimatan</a></li>
+                    <li class="{{ (request()->segment(2) == 'baki') ? 'active' : '' }}"><a href="/projek/baki/tambah">Baki Peruntukan</a></li>
+                    {{-- <li class="{{ (request()->segment(2) == 'penjimatan') ? 'active' : '' }}"><a href="/projek/penjimatan/tambah">Penjimatan</a></li>
                     <li class="{{ (request()->segment(2) == 'tajuk') ? 'active' : '' }}"><a href="/permohonan/tajuk/senarai">Tukar Tajuk</a></li>
-                    <li class="{{ (request()->segment(2) == 'pulang') ? 'active' : '' }}"><a href="/projek/pulang">Tarik Balik</a></li>
+                    <li class="{{ (request()->segment(2) == 'pulang') ? 'active' : '' }}"><a href="/projek/pulang">Tarik Balik</a></li> --}}
                 </ul>
             </li>
             {{-- <li class="{{ (request()->segment(1) == 'pengesahan') ? 'active' : '' }}">
@@ -54,6 +57,7 @@
                     <li class="{{ (request()->segment(2) == 'selenggara') ? 'active' : '' }}"><a href="#">Selenggara</a></li>
                 </ul>
             </li> --}}
+            @if (auth()->user()->role==2 || auth()->user()->role==3)
             <li class="{{ (request()->segment(1) == 'pentadbiran') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Pentadbiran</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -78,6 +82,7 @@
                     <li class="{{ (request()->segment(2) == 'users') ? 'active' : '' }}"><a href="/akses/users">Pengguna</a></li>
                 </ul>
             </li>
+            @endif
             <li>
                 <a href="{{ route('logout') }}" ><i class="fa fa-sign-out"></i> <span class="nav-label">Log-keluar</span></a>
             </li>

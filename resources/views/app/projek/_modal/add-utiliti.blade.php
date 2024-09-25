@@ -8,10 +8,12 @@
                 <small class="font-bold">Aktviti dan surat-menyurat berkaitan dengan projek ini</small>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="projek_uti_id_add">
+                <div class="col-lg-12">
+                    <ul id="save_msgList_aktiviti"></ul>
+                </div>
                 <div class="form-group">
                     <label>No Rujukan</label>
-                    <input type="tetx" class="form-control" id="no_rujukan_add">
+                    <input type="text" class="form-control" id="no_rujukan_add">
                 </div>
                 <div class="form-group">
                     <label>Perihal</label>
@@ -30,7 +32,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary updateUtiliti">Tambah</button>
+                <button type="button" class="btn btn-primary addUtiliti">Tambah</button>
             </div>
         </div>
     </div>

@@ -193,12 +193,15 @@
                                 <td>{{ $proj->prog_name }}</td>
                                 <td>{{ $proj->fas_name }}</td>
                                 <td>{{ $proj->proj_nama }}</td>
-                                <td class="text-right">@duit($proj->proj_kos_lulus)</td>
-                                <td><span class="label {{ $proj->proj_status == 1 ? 'label-primary' : 'label-default'}}">{{ getStatus($proj->proj_status) }}</span></td>
+                                <td class="text-right">
+                                     @duit($proj->proj_kos_lulus)<br>
+                                    <span class="text-navy">@duit($proj->proj_kos_sebenar)</span>
+                                </td>
+                                <td><span class="label {{ $proj->proj_status == 1 ? 'label-primary' : 'label-warning'}}">{{ getStatus($proj->proj_status) }}</span></td>
                                 <td class="text-center">
                                     <a href="/projek/papar/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>
                                     <a href="/projek/ubah/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>
-                                    <a href="/projek/padam/{{ $proj->projek_id }}/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>
+                                    {{-- <a href="/projek/padam/{{ $proj->projek_id }}/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a> --}}
                                 </td>
                             </tr>
                             @endforeach

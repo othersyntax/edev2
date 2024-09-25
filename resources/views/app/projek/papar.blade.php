@@ -34,38 +34,24 @@
             </div>
             <div class="ibox-content">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label class="text-uppercase">Kod Subprojek</label>
-                            <div class="form-control">
-                                {{ $projek->proj_kod_agensi }}-{{ $projek->proj_kod_projek }}-{{ $projek->proj_kod_middle }}-{{ $projek->proj_kod_group }}
-                            </div>
+                            <label class="text-uppercase">Pemilik</label>
+                            <div class="form-control">{{ $projek->program->prog_name }}</div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="text-uppercase">Negeri</label>
-                            <div class="form-control">{{ $projek->proj_negeri }}</div>
+                            <label class="text-uppercase">Kod Subprojek</label>
+                            <div class="form-control">
+                                {{ $projek->proj_kod_agensi }}-{{ $projek->proj_kod_projek }}-{{ $projek->proj_kod_setia }}-{{ $projek->proj_kod_subsetia }}
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="text-uppercase">Bulan dan Tahun</label>
                             <div class="form-control">{{ $projek->proj_bulan }}, {{ $projek->proj_tahun }}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="text-uppercase">Program</label>
-                            <div class="form-control">{{ $projek->proj_program }}</div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="text-uppercase">Fasiliti</label>
-                            <div class="form-control">{{ $projek->proj_program }}</div>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -160,7 +146,7 @@
     <div class="col-lg-4">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Maklumat Program</h5>
+                <h5>Maklumat Lokaliti</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -172,18 +158,16 @@
             </div>
             <div class="ibox-content">
                 <div class="form-group">
-                    <label class="text-uppercase">Jenis Program</label>
-                    <div class="form-control">
-                        Program / JKN / Bahagian
-                    </div>
+                    <label class="text-uppercase">Negeri</label>
+                    <div class="form-control">{{ $projek->proj_negeri ? $projek->negeri->neg_nama_negeri : 'Tiada Rekod' }}</div>
                 </div>
                 <div class="form-group">
-                    <label class="text-uppercase">Nama Program</label>
-                    <div class="form-control">JKN Kedah</div>
+                    <label class="text-uppercase">Daerah</label>
+                    <div class="form-control">{{ $projek->proj_daerah ? $projek->daerah->dae_nama_daerah : 'Tiada Rekod' }}</div>
                 </div>
                 <div class="form-group">
                     <label class="text-uppercase">Fasiliti</label>
-                    <div class="form-control">Klinik Kesihatan Alor Setar</div>
+                    <div class="form-control">{{ $projek->proj_fasiliti_id ? $projek->fasiliti->fas_name : 'Tiada Rekod' }}</div>
                 </div>
             </div>
         </div>
@@ -402,8 +386,8 @@ $(document).ready(function(){
                     }
                 });
                 $.ajax({
-                    type: "DELETE",
-                    url: "/projek/utiliti/padam/" + projek_uti_id,
+                    type: "post",
+                    url: "/projek/papar/utiliti/padam/" + projek_uti_id,
                     dataType: "json",
                     success: function (response) {
                         if (response.status == 404) {
@@ -412,6 +396,7 @@ $(document).ready(function(){
                             // fetchBandar();
                             swal("Dipadam!", response.message, "success");
                         }
+                        fetchUtiliti();
                     }
                 });
             } else {
@@ -455,6 +440,55 @@ $(document).ready(function(){
                     $('#update_msgList').html("");
                     $('#myModal').find('input').val('');
                     $('#myModal').modal('hide');
+                    fetchUtiliti();
+                    swal({
+                        title: "Aktiviti",
+                        text: response.message,
+                        type: "success"
+                    });
+                }
+            }
+        });
+
+    });
+
+    // ADD UTILITI
+    $(document).on('click', '.addUtiliti', function (e) {
+        e.preventDefault();
+        $(this).text('Tambah...');
+        var edit_data = {
+            'projek_id': $('#page_projek_id').val(),
+            'projuti_ref_no': $('#no_rujukan_add').val(),
+            'projuti_perihal': $('#perihal_add').val(),
+            'projuti_date': $('#tarikh_add').val(),
+            'projuti_catatan': $('#catatan_add').val(),
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/projek/papar/utiliti/tambah",
+            data: edit_data,
+            dataType: "json",
+            success: function (response) {
+                if (response.status == 400) {
+                    $('#save_msgList_aktiviti').html("");
+                    $('#save_msgList_aktiviti').addClass('alert alert-danger');
+                    $.each(response.errors, function (key, err_value) {
+                        $('#save_msgList_aktiviti').append('<li>' + err_value +
+                            '</li>');
+                    });
+                    // alert('aa');
+                } else {
+                    $('#save_msgList_aktiviti').html("");
+                    $('#addModal').find('input').val('');
+                    $('#addModal').find('textarea').val('');
+                    $('#addModal').modal('hide');
                     fetchUtiliti();
                     swal({
                         title: "Aktiviti",

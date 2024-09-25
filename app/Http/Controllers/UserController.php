@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::get();
-        
+
         return view('role-permission.user.index', ['users' => $users]);
     }
 
@@ -49,7 +49,7 @@ class UserController extends Controller
             'password.min' => 'Katalaluan sekurang-kurangnya 8 aksara',
             'roles.required' => 'Sila pilih peranan'
         ]);
-        
+
 
         $user = User::create([
                         'name' => $request->name,
@@ -57,8 +57,8 @@ class UserController extends Controller
                         'password' => Hash::make('eDE@2024'),
                         'program_id' => $request->program_id,
                     ]);
-        
-        $mail = Mail::to($request->email)->send(new PermohonanAkaunBaru($user));
+
+        $mail = Mail::to($request->email)->send(new PermohonanAkaunBaru());
 
         $user->syncRoles($request->roles);
 
@@ -87,6 +87,8 @@ class UserController extends Controller
         $data = [
             'name' => $request->name,
             'email' => $request->email,
+            'role' => $request->role,
+            'program_id' => $request->program_id,
         ];
 
         if(!empty($request->password)){
@@ -128,5 +130,5 @@ class UserController extends Controller
         //     ]);
         // }
     // }
-}
+    }
 }
