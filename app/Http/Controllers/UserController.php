@@ -39,6 +39,7 @@ class UserController extends Controller
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|string|min:8|max:20',
             'roles' => 'required'
+
         ],
         [
             'name.required' => 'Sila masukkan nama',
@@ -72,7 +73,9 @@ class UserController extends Controller
         return view('role-permission.user.edit', [
             'user' => $user,
             'roles' => $roles,
-            'userRoles' => $userRoles
+            'userRoles' => $userRoles,
+            
+            
         ]);
     }
 
@@ -81,14 +84,17 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'password' => 'nullable|string|min:8|max:20',
-            'roles' => 'required'
+            'roles' => 'required',
+            
         ]);
 
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
+            'users_status'=> $request->users_status,
             'program_id' => $request->program_id,
+            
         ];
 
         if(!empty($request->password)){
