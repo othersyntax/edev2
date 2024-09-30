@@ -42,9 +42,9 @@
                         <th>Nama</th>
                         <th>E-mel</th>
                         <th>Program</th>
+                        <th>Status</th>
                         <th>Role</th>
                         <th>Peranan</th>
-                        <th>Status</th>
                         <th>Tindakan</th>
                     </tr>
                 </thead>
