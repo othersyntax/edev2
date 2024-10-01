@@ -94,7 +94,7 @@ class GunaBakiController extends Controller
     public function create(){
         $bakulJimat = \DB::table('tblbakul_jimat as a')
                         ->join('tblprojek as b','a.bj_projek_id','b.projek_id')
-                        ->select('a.*','b.proj_nama')
+                        ->select('a.*','b.proj_nama','b.proj_kod_subsetia')
                         ->where('a.bj_program_id', auth()->user()->program_id)
                         ->get();
         $data['bakulJimat'] = $bakulJimat;

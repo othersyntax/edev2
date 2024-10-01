@@ -275,6 +275,7 @@ class ProjekKecemasanController extends Controller
     }
 
     public function update(Request $req){
+        // dd($req->all());
         $validated = $req->validate([
             'proj_negeri' => 'required',
             'proj_kod_subsetia' => 'required',
@@ -301,7 +302,6 @@ class ProjekKecemasanController extends Controller
             'proj_justifikasi.required' => 'Sila nyatakan Justifikasi Projek',
             'proj_ulasan_teknikal.required' => 'Sila nyatakan Ulasan Unit Kejuruteraan',
         ]);
-        // dd($req->all());
 
         $projek = ProjekBaru::find($req->projek_id);
         $projek->proj_negeri = $req->proj_negeri;

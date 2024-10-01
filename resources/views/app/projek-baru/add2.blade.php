@@ -382,7 +382,7 @@
             });
         }
 
-        // LIST UNJRUAN
+        // LIST DOKUMEN
         function fetchDokumen(){
             let projekID = $('#projek_id_allval').val();
             $.ajaxSetup({

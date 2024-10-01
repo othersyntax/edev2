@@ -52,13 +52,13 @@ class UserController extends Controller
 
 
         $user = User::create([
-                        'name' => $request->name,
-                        'email' => $request->email,
-                        'password' => Hash::make('eDE@2024'),
-                        'program_id' => $request->program_id,
-                    ]);
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make('eDE@2024'),
+            'program_id' => $request->program_id,
+        ]);
 
-        $mail = Mail::to($request->email)->send(new PermohonanAkaunBaru());
+        // $mail = Mail::to($request->email)->send(new PermohonanAkaunBaru());
 
         $user->syncRoles($request->roles);
 

@@ -17,7 +17,7 @@
                 <a href="#">Projek</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Kecemasan</strong>
+                <strong>Luar Siling</strong>
             </li>
         </ol>
     </div>
@@ -151,15 +151,6 @@
                             {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
                         </div>
                     </div>
-                    <div id="pilihJkr" class="col-md-6" style="display:none">
-                        <div class="form-group">
-                            <label>Cawangan JKR</label>
-                            {{ Form::select('proj_pelaksana_agensi', getListJKR(), null, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
-                            @error('proj_pelaksana_agensi')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
-                        </div>
-                    </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Melibatkan Struktur</label>
@@ -169,19 +160,16 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div id="pilihJkr" class="col-md-6" style="display:none">
                         <div class="form-group">
-                            <label>Anggaran Kos (RM)</label>
-                            {{ Form::number('proj_kos_mohon', null, ['class'=>'form-control text-right', 'id'=>'proj_kos_mohon']) }}
-                            @error('proj_kos_mohon')
+                            <label>Cawangan JKR</label>
+                            {{ Form::select('proj_pelaksana_agensi', getListJKR(), null, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
+                            @error('proj_pelaksana_agensi')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
                     </div>
-
                 </div>
-                <p class="text-info font-bold mt-3">3. BUTIRAN PROJEK</p>
-                <div class="hr-line-dashed"></div>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group" id="data_1">
@@ -220,6 +208,19 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group has-success">
+                            <label>Anggaran Kos (RM)</label>
+                            {{ Form::number('proj_kos_mohon', null, ['class'=>'form-control text-right', 'id'=>'proj_kos_mohon']) }}
+                            @error('proj_kos_mohon')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <p class="text-info font-bold mt-3">3. BUTIRAN PROJEK</p>
+                <div class="hr-line-dashed"></div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Nama Projek</label>
@@ -262,7 +263,7 @@
         <div class="ibox-content">
             <div class="form-group row">
                 <div class="col-sm-4 col-sm-offset-2">
-                    <a href="/permohonan/kecemasan/senarai" class="btn btn-white btn-sm">Batal</a>
+                    <a href="/permohonan/kecemasan/main" class="btn btn-white btn-sm">Batal</a>
                     <button class="btn btn-primary btn-sm" type="submit">Simpan</button>
                     {{-- <button class="btn btn-info btn-sm" type="submit">Simpan dan Salin</button> --}}
                 </div>

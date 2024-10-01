@@ -17,7 +17,7 @@
                 <a href="#">Projek</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Kecemasan</strong>
+                <strong>Baharu</strong>
             </li>
         </ol>
     </div>
@@ -78,13 +78,13 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Parlimen</label>
-                            {{ Form::text('proj_parlimen','P02 - Parlimen Putrajaya', ['class'=>'form-control', 'id'=>'proj_parlimen']) }}
+                            {{ Form::text('proj_parlimen','P02 - tiada rekod', ['class'=>'form-control', 'id'=>'proj_parlimen']) }}
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Dewan Undangan Negeri</label>
-                            {{ Form::text('proj_dun', 'N22 - Dun Gedong', ['class'=>'form-control', 'id'=>'proj_dun']) }}
+                            {{ Form::text('proj_dun', 'N22 - tiada rekod', ['class'=>'form-control', 'id'=>'proj_dun']) }}
                         </div>
                     </div>
                 </div>
@@ -129,8 +129,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Sub Setia</label>
-                            {{ Form::select('proj_kod_subsetia', ['1001'=>'1001', '4001'=>'4001', '4003'=>'4003'], $projek->proj_kod_subsetia, ['class'=>'form-control', 'id'=>'proj_kod_subsetia']) }}
-                            {{-- {{ Form::text('proj_kod_subsetia', null, ['class'=>'form-control', 'id'=>'proj_kod_subsetia']) }} --}}
+                            {{ Form::select('proj_kod_subsetia', ['1001'=>'1001', '4001'=>'4001','4003'=>'4003'], $projek->proj_kod_subsetia, ['class'=>'form-control', 'id'=>'proj_kod_subsetia']) }}
                             @error('proj_kod_subsetia')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -143,22 +142,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pemilik</label>
-                            {{ Form::select('proj_pemilik', dropdownProgram(), $projek->proj_pemilik, ['class'=>'form-control', 'id'=>'proj_pemilik']) }}
+                            {{ Form::select('proj_pemilik', dropdownProgram(), $projek->proj_pemilik, ['class'=>'form-control', 'id'=>'proj_pemilik', 'disabled'=>'true' ]) }}
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Agensi Pelaksana?</label>
                             {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], $projek->proj_pelaksana, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
-                        </div>
-                    </div>
-                    <div id="pilihJkr" class="col-md-6" style="display:none">
-                        <div class="form-group">
-                            <label>Cawangan JKR</label>
-                            {{ Form::select('proj_pelaksana_agensi', getListJKR(), $projek->proj_pelaksana_agensi, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
-                            @error('proj_pelaksana_agensi')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -170,21 +160,17 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div id="pilihJkr" class="col-md-6" style="display:none">
                         <div class="form-group">
-                            <label>Anggaran Kos (RM)</label>
-                            {{ Form::number('proj_kos_mohon', $projek->proj_kos_mohon, ['class'=>'form-control text-right', 'id'=>'proj_kos_mohon']) }}
-                            @error('proj_kos_mohon')
+                            <label>Cawangan JKR</label>
+                            {{ Form::select('proj_pelaksana_agensi', getListJKR(), $projek->proj_pelaksana_agensi, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
+                            @error('proj_pelaksana_agensi')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
                     </div>
-
                 </div>
-                <p class="text-info font-bold mt-3">3. BUTIRAN PROJEK</p>
-                <div class="hr-line-dashed"></div>
                 <div class="row">
-
                     <div class="col-md-3">
                         <div class="form-group" id="data_1">
                             <label>Tarikh Mula Pelaksanaan</label>
@@ -222,6 +208,21 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="form-group has-success">
+                            <label>Anggaran Kos (RM)</label>
+                            {{ Form::number('proj_kos_mohon', $projek->proj_kos_mohon, ['class'=>'form-control text-right', 'id'=>'proj_kos_mohon']) }}
+                            @error('proj_kos_mohon')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <p class="text-info font-bold mt-3">3. BUTIRAN PROJEK</p>
+                <div class="hr-line-dashed"></div>
+                <div class="row">
+
+
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Nama Projek</label>

@@ -28,4 +28,12 @@ class Projek extends Model
     function fasiliti(){
         return $this->belongsTo(\App\Models\Fasiliti::class, 'proj_fasiliti_id', 'fasiliti_id');
     }
+
+    function projekProgram(){
+        return $this->belongsTo(\App\Models\Projek\ProjekProgram::class, 'proj_program', 'proj_program_id');
+    }
+
+    function jkr(){
+        return $this->belongsTo(\App\Models\Pentadbiran\Program::class, 'proj_pelaksana_agensi', 'program_id');
+    }
 }

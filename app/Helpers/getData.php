@@ -4,6 +4,7 @@ use App\Models\Daerah;
 use App\Models\Pentadbiran\KategoriFasiliti;
 use App\Models\Pentadbiran\Program;
 use App\Models\Pentadbiran\KategoriProjek;
+use App\Models\Projek\ProjekProgram;
 use App\Models\Fasiliti;
 use App\Models\Siling;
 use App\Models\BakulJimat;
@@ -51,18 +52,16 @@ function dropdownProgram(){
     return $program;
 }
 
-function dropdownPelaksana(){
-    $program = Program::where('prog_status', '1')
-        ->orderBy('prog_name')
-        ->pluck('prog_name', 'program_id')
-        ->prepend('--Sila Pilih--', '');
-    return $program;
-}
+// function dropdownPelaksana(){
+//     $program = Program::where('prog_status', '1')
+//         ->orderBy('prog_name')
+//         ->pluck('prog_name', 'program_id')
+//         ->prepend('--Sila Pilih--', '');
+//     return $program;
+// }
 
 function dropdownProjekKategori($kat=''){
     $where=array();
-    // $where[] = ['field_a', '=', 'a'];
-    // $where[] = ['field_b', '=', 'test'];
     if($kat=='siling'){
         $where[] = ['pro_kat_status', '=', '1'];
         $where[] = ['pro_siling', '=', 'Siling'];
@@ -70,25 +69,12 @@ function dropdownProjekKategori($kat=''){
     else if($kat=='xsiling'){
         $where[] = ['pro_kat_status', '=', '1'];
         $where[] = ['pro_siling', '=', 'Luar Siling'];
-        // $where = [
-        //     'pro_kat_status'=> '1',
-        //     'pro_siling'=> 'Luar Siling'
-        // ];
     }
     else if($kat=='tukar'){
-        // $where = [
-        //     'pro_kat_status'=> '1',
-        //     'pro_siling'=> 'Guna Baki'
-        // ];
         $where[] = ['pro_kat_status', '=', '1'];
         $where[] = ['pro_siling', '=', 'Guna Baki'];
     }
     else{
-        // $where = [
-        //     'pro_kat_status'=> '1',
-        //     'pro_siling'=> 'Siling',
-        //     'pro_siling'=> 'Luar Siling'
-        // ];
         $where[] = ['pro_kat_status', '=', '1'];
         $where[] = ['pro_siling', '!=', 'Guna Baki'];
     }
@@ -104,6 +90,14 @@ function dropdownProKateSiling(){
         ->pluck('pro_siling', 'pro_siling')
         ->prepend('--Sila Pilih--', '');
     return $projKatSil;
+}
+
+function dropdownProjekProgram(){
+    $program = ProjekProgram::where('proj_prog_status', '1')
+        ->orderBy('proj_prog_nama')
+        ->pluck('proj_prog_nama', 'proj_program_id')
+        ->prepend('--Sila Pilih--', '0');
+    return $program;
 }
 
 function dropdownModul(){
@@ -148,9 +142,9 @@ function getStatusMohonProjek($id){
 }
 function getStatusJimat($id){
     if($id==1)
-        return "Baru";
+        return "Penjimatan";
     else
-        return "Telah Guna";
+        return "Tukar Tajuk";
 }
 function getRole($id){
     if($id==1)
@@ -160,6 +154,15 @@ function getRole($id){
     else
         return "Super Admin";
 }
+function getPelaksana($id){
+    if($id==1)
+        return "Pemilik";
+    else if($id==2)
+        return "BPKj";
+    else
+        return "JKR";
+}
+
 
 function cekSiling(string $id){
     $sil = Siling::where('sil_fasiliti_id', $id)

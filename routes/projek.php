@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
+Route::group(['middleware' => ['auth','role:super-admin|admin|user']], function() {
     // PERMOHONAN
     Route::any('/projek/senarai', [App\Http\Controllers\Projek\ProjekController::class, 'index'])->name('projek.senarai');
     Route::get('/projek/tambah', [App\Http\Controllers\Projek\ProjekController::class, 'create'])->name('projek.tambah');
@@ -75,6 +75,25 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     Route::post('/projek/papar/utiliti/padam/{id}', [App\Http\Controllers\Projek\UtilitiController::class, 'delete']);
     Route::post('/projek/papar/utiliti/kemaskini', [App\Http\Controllers\Projek\UtilitiController::class, 'update']);
     Route::post('/projek/papar/utiliti/tambah', [App\Http\Controllers\Projek\UtilitiController::class, 'store']);
+
+    // PROJEK BAYARAN
+    Route::get('/projek/papar/bayaran/senarai/{id}', [App\Http\Controllers\Projek\BayaranController::class, 'index']);
+    Route::get('/projek/papar/bayaran/{id}', [App\Http\Controllers\Projek\BayaranController::class, 'edit']);
+    Route::post('/projek/papar/bayaran/padam/{id}', [App\Http\Controllers\Projek\BayaranController::class, 'delete']);
+    Route::post('/projek/papar/bayaran/kemaskini', [App\Http\Controllers\Projek\BayaranController::class, 'update']);
+    Route::post('/projek/papar/bayaran/tambah', [App\Http\Controllers\Projek\BayaranController::class, 'store']);
+
+    // PROJEK UNJURAN
+    Route::post('/projek/papar/unjuran/simpan', [App\Http\Controllers\Projek\UnjuranController::class, 'simpanUnjuran']);
+    Route::get('/projek/papar/unjuran/senarai/{id}', [App\Http\Controllers\Projek\UnjuranController::class, 'index']);
+    Route::get('/projek/papar/unjuran/padam/{id}', [App\Http\Controllers\Projek\UnjuranController::class, 'padamUnjuran']);
+    Route::get('/projek/papar/unjuran/edit/{id}', [App\Http\Controllers\Projek\UnjuranController::class, 'edit']);
+
+    // PROJEK UNJURAN
+    Route::post('/projek/papar/peruntukan/simpan', [App\Http\Controllers\Projek\PeruntukanController::class, 'store']);
+    Route::get('/projek/papar/peruntukan/senarai/{id}', [App\Http\Controllers\Projek\PeruntukanController::class, 'index']);
+    Route::get('/projek/papar/peruntukan/padam/{id}', [App\Http\Controllers\Projek\PeruntukanController::class, 'delete']);
+    Route::get('/projek/papar/peruntukan/edit/{id}', [App\Http\Controllers\Projek\PeruntukanController::class, 'edit']);
 
     // SEMAK PERMOHONAN
     Route::get('/permohonan/semak/main', [App\Http\Controllers\Projek\SemakProjekController::class, 'showList'])->name('projek.semak.main');

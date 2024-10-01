@@ -110,7 +110,7 @@
                             <div class="form-group">
                                 <label>Daerah</label>
                                 <span id="list-daerah">
-                                    {{ Form::select('daerah', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'daerah']) }}
+                                    {{ Form::select('daerah', [''=>'--Sila pilih--'], session('daerah'), ['class'=>'form-control', 'id'=>'daerah']) }}
                                 </span>
                             </div>
                         </div>
@@ -126,6 +126,18 @@
                             <div class="form-group">
                                 <label>Kategori Projek</label>
                                 {{ Form::select('kategori', dropdownProjekKategori(), session('kategori'), ['class'=>'form-control', 'id'=>'kategori']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Program</label>
+                                {{ Form::select('projekProgram', dropdownProjekProgram(), session('projekProgram'), ['class'=>'form-control', 'id'=>'projekProgram']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Pelaksana</label>
+                                {{ Form::select('pelaksana', ['0'=>'--Sila Pilih--','1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], session('pelaksana'), ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -171,9 +183,8 @@
                     <table class="footable table table-stripped toggle-arrow-tiny">
                         <thead>
                             <tr>
-                                <th width="5%" class="text-center">#Bil</th>
-                                <th width="10%">Kategori</th>
-                                <th width="16%">Program</th>
+                                <th width="15%">Kategori / Program</th>
+                                <th width="16%">Pemilik</th>
                                 <th width="16%">Fasiliti</th>
                                 <th width="30%">Projek</th>
                                 <th width="10%" class="text-right">Amaun (RM)</th>
@@ -183,13 +194,12 @@
                         </thead>
                         <tbody>
                         @if ($projek->count()>0)
-                            @php
-                                $bil = $projek->firstItem();
-                            @endphp
                             @foreach ($projek as $proj)
                             <tr>
-                                <td class="text-center">{{ $bil++ }} </td>
-                                <td>{{ $proj->pro_kat_short_nama }}</td>
+                                <td>
+                                    {{ $proj->pro_kat_short_nama }}<br>
+                                    <small>{{ $proj->proj_prog_nama }}</small>
+                                </td>
                                 <td>{{ $proj->prog_name }}</td>
                                 <td>{{ $proj->fas_name }}</td>
                                 <td>{{ $proj->proj_nama }}</td>
@@ -197,10 +207,34 @@
                                      @duit($proj->proj_kos_lulus)<br>
                                     <span class="text-navy">@duit($proj->proj_kos_sebenar)</span>
                                 </td>
-                                <td><span class="label {{ $proj->proj_status == 1 ? 'label-primary' : 'label-warning'}}">{{ getStatus($proj->proj_status) }}</span></td>
+                                <td>
+                                    @php
+                                        if($proj->proj_status==1){
+                                            $label = 'label-primary';
+                                        }
+                                        else if($proj->proj_status==2){
+                                            $label = 'label-warning';
+                                        }
+                                        else{
+                                            $label = 'label-danger';
+                                        }
+                                    @endphp
+                                    <span class="label {{ $label }}">{{ getStatus($proj->proj_status) }}</span>
+                                </td>
                                 <td class="text-center">
-                                    <a href="/projek/papar/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>
-                                    <a href="/projek/ubah/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>
+                                    @if ($proj->proj_status<>1)
+                                        @if (auth()->user()->role <>1)
+                                            <a href="/projek/papar/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>
+                                            <a href="/projek/ubah/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>
+                                        @else
+                                            <a href="#" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-mute"></i></a>
+                                            <a href="#" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-mute"></i></a>
+                                        @endif
+                                    @else
+                                        <a href="/projek/papar/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>
+                                        <a href="/projek/ubah/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>
+                                    @endif
+
                                     {{-- <a href="/projek/padam/{{ $proj->projek_id }}/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a> --}}
                                 </td>
                             </tr>

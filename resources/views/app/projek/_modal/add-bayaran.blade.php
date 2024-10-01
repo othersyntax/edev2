@@ -7,29 +7,32 @@
                 <h4 class="modal-title">Maklumat Belanja</h4>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="projek_uti_id_add">
+                <div class="col-lg-12">
+                    <ul id="save_msgList_kew"></ul>
+                </div>
+                <input type="hidden" id="bayaran_id_add">
                 <div class="form-group">
-                    <label>No Rujukan</label>
-                    <input type="tetx" class="form-control" id="no_rujukan_add">
+                    <label>No Rujukan <small>(jika ada)</small></label>
+                    <input type="tetx" class="form-control" id="kew_no_rujukan_add">
                 </div>
                 <div class="form-group">
                     <label>Perihal</label>
-                    <input type="text" class="form-control" id="perihal_add">
+                    <input type="text" class="form-control" id="kew_perihal_add">
                 </div>
-                <div class="form-group" id="data_2">
+                <div class="form-group" id="data_3">
                     <label>Tarikh</label>
                     <div class="input-group date">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="tarikh_add" class="form-control">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="kew_tarikh_add" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Amun (RM)</label>
-                    <input type="number" class="form-control" id="perihal_add">
+                    <label>Amaun (RM)</label>
+                    <input type="number" class="form-control" id="kew_amount_add">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-white" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary updateUtiliti">Tambah</button>
+                <button type="button" class="btn btn-primary addBayaran">Tambah</button>
             </div>
         </div>
     </div>
