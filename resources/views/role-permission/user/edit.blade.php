@@ -75,6 +75,13 @@
                             @error('program_id') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Status</label>
+                            {{ Form::select('users_status_edit', ['1'=>'Aktif', '2'=>'Tidak Aktif'], null, ['class'=>'form-control', 'id'=>'users_status_edit']) }}
+                            @error('users_status') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Peranan</label>

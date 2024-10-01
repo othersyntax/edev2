@@ -42,6 +42,7 @@
                         <th>Nama</th>
                         <th>E-mel</th>
                         <th>Program</th>
+                        <th>Status</th>
                         <th>Role</th>
                         <th>Peranan</th>
                         <th>Tindakan</th>
@@ -54,6 +55,7 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->userProgram->prog_name }}</td>
+                        <td>{{ $user->users_status ==1 ? 'Aktif' : 'Tidak Aktif' }}</td>
                         <td>{{ getRole($user->role) }}</td>
                         <td>
                             @if (!empty($user->getRoleNames()))
