@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-6">
                         <div class="form-group">
-                            <label>Masa Mula</label>
+                            <label>Masa Tamat</label>
                             <div class="input-group clockpicker" data-autoclose="true">
                                 <input type="text" class="form-control" value="23:59" >
                                 <span class="input-group-addon">
