@@ -27,23 +27,20 @@ class ProjekBaruController extends Controller
         // Statistik
 
         if( $request->isMethod('post')) {
-            $program  =  auth()->user()->program_id;
+            if(auth()->user()->role==1){
+                $program  =  auth()->user()->program_id;
+            }
+            else{
+                $program = $request->program;
+            }
             $negeri =  $request->negeri;
+            $daerah =  $request->daerah;
             $pelaksana  =  $request->pelaksana;
             $fasiliti =  $request->fasiliti;
             $kategori  =  $request->kategori;
             $status  =  $request->status;
             $projek  =  $request->projek;
-            // dd($request->method());
-            session([
-                'negeri' => $negeri,
-                'program' => $program,
-                'pelaksana' => $pelaksana,
-                'fasiliti' => $fasiliti,
-                'kategori' => $kategori,
-                'status' => $status,
-                'projek' => $projek
-            ]);
+
             $queryType = 2;
         }
         else{
@@ -72,12 +69,18 @@ class ProjekBaruController extends Controller
                     ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
                     ->where('c.pro_siling', 'Siling')
                     ->where('proj_pemilik', auth()->user()->program_id)
-                    ->where(function($q) use ($program, $negeri, $fasiliti, $pelaksana, $kategori, $status, $projek){
+                    ->where(function($q) use ($program, $negeri, $daerah, $fasiliti, $pelaksana, $kategori, $status, $projek){
+                        if(!empty($program)){
+                            $q->where('a.proj_pemilik', $program);
+                        }
                         if(!empty($negeri)){
                             $q->where('a.proj_negeri', $negeri);
                         }
+                        if(!empty($daerah)){
+                            $q->where('a.proj_daerah', $daerah);
+                        }
                         if(!empty($fasiliti)){
-                            $q->where('a.projek_fasiliti_id',$fasiliti);
+                            $q->where('a.proj_fasiliti_id',$fasiliti);
                         }
                         if(!empty($kategori)){
                             $q->where('a.proj_kategori_id',$kategori);
@@ -148,7 +151,7 @@ class ProjekBaruController extends Controller
 
         $projek = new ProjekBaru();
         $projek->proj_negeri = $req->proj_negeri;
-        $projek->pro_daerah = $req->proj_daerah;
+        $projek->proj_daerah = $req->proj_daerah;
         $projek->proj_fasiliti_id = $req->proj_fasiliti_id;
         $projek->proj_parlimen = 1;
         $projek->proj_dun = 1;

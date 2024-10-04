@@ -163,7 +163,7 @@ class ProjekController extends Controller
             // 'proj_justifikasi' => 'required',
             // 'proj_ulasan_teknikal' => 'required',
             'proj_pelaksana' => 'required',
-            'proj_pelaksana_agensi' => 'required_if:proj_pelaksana,3',
+            'proj_pelaksana_agensi' => 'required_if:proj_pelaksana,3,4',
             'proj_status' => 'required',
             'proj_memo' => 'required_if:proj_status,2,3',
 
@@ -199,7 +199,7 @@ class ProjekController extends Controller
         $projek->proj_tahun = $request->proj_tahun;
         $projek->proj_bulan = $request->proj_bulan;
         $projek->proj_pelaksana = $request->proj_pelaksana;
-        if($request->proj_pelaksana==3){
+        if($request->proj_pelaksana==3 || $request->proj_pelaksana==4){
             $projek->proj_pelaksana_agensi = $request->proj_pelaksana_agensi;
         }
         $projek->proj_struktur = $request->proj_struktur;

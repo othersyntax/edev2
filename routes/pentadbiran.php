@@ -13,6 +13,7 @@ use App\Http\Controllers\AjaxController;
 Route::get('/ajax/ajax-daerah/{id}/{input}/{select}', [AjaxController::class, 'ajaxDaerah']);
 Route::get('/ajax/ajax-mukim/{id}/{input}/{select}', [AjaxController::class, 'ajaxMukim']);
 Route::get('/ajax/ajax-fasiliti/{id}/{input}/{select}', [AjaxController::class, 'ajaxFasiliti']);
+Route::get('/ajax/ajax-agensi-pelaksana/{data}/{input}/{select}', [AjaxController::class, 'ajaxAgensiPelaksana']);
 
 // NEGERI
 Route::get('/pentadbiran/negeri', [NegeriController::class, 'index']);

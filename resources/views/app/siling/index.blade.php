@@ -40,15 +40,13 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Program / Bahagian / Institusi / JKN</label>
-                            {{ Form::select('sil_program_id_cari', dropdownProgram(), session('sil_program_id_cari'), ['class'=>'form-control', 'id'=>'sil_program_id_cari']) }}
+                            {{ Form::select('sil_program_id_cari', dropdownProgram(), null, ['class'=>'form-control', 'id'=>'sil_program_id_cari']) }}
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Status</label>
-                            <span id="list-daerah">
-                                {{ Form::select('sil_status_cari', [''=>'--Sila Pilih--','1'=>'Buka', '2'=>'Tutup'], session('sil_status_cari'), ['class'=>'form-control', 'id'=>'sil_status_cari']) }}
-                            </span>
+                            {{ Form::select('sil_status_cari', [''=>'--Sila Pilih--','1'=>'Buka', '2'=>'Tutup'], null, ['class'=>'form-control', 'id'=>'sil_status_cari']) }}
                         </div>
                     </div>
                 </div>

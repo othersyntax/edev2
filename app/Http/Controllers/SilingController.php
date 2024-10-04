@@ -23,14 +23,13 @@ class SilingController extends Controller
     public function showList(Request $req)
     {
         if($req->isMethod('post')) {
-            $sil_program_id = $req->sil_program_id_cari;
-            $sil_status = $req->sil_status_cari;
+            $sil_program_id = $req->sil_program_id;
+            $sil_status = $req->sil_status;
 
 
             $query = DB::table('tblsiling as a')
                 ->join('tblprogram as b', 'a.sil_fasiliti_id', '=', 'b.program_id')
                 ->select('a.*', 'b.prog_name')
-                ->orderBy('prog_name')
                 ->where(function($q) use ($sil_program_id, $sil_status){
                     if(!empty($sil_status)){
                         $q->where('a.sil_status', $sil_status);
@@ -39,7 +38,8 @@ class SilingController extends Controller
                         $q->where('a.sil_fasiliti_id', $sil_program_id);
                     }
                 });
-                $siling = $query->get();
+                $siling = $query->orderBy('prog_name')->get();
+                // dd($siling);
         }
         else{
             $siling = DB::table('tblsiling as a')

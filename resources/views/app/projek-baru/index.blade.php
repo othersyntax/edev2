@@ -67,8 +67,8 @@
                 <h5>Tapisan Projek</h5>
             </div>
             <div class="ibox-content">
-                <form action="/permohonan/baru/senarai" method="post">
-                    @csrf
+                {{-- <form action="/permohonan/baru/senarai" method="post">
+                    @csrf --}}
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
@@ -79,7 +79,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Negeri</label>
-                                {{ Form::select('cari-negeri', dropdownNegeri(), session('negeri'), ['class'=>'form-control', 'id'=>'cari-negeri']) }}
+                                {{ Form::select('cari-negeri', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'cari-negeri']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -101,25 +101,25 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Pelaksana</label>
-                                {{ Form::select('car-pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], session('pelaksana'), ['class'=>'form-control', 'id'=>'car-pelaksana']) }}
+                                {{ Form::select('cari-pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], null, ['class'=>'form-control', 'id'=>'cari-pelaksana']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Kategori Projek</label>
-                                {{ Form::select('cari-kategori', dropdownProjekKategori('siling'), session('kategori'), ['class'=>'form-control', 'id'=>'cari-kategori']) }}
+                                {{ Form::select('cari-kategori', dropdownProjekKategori('siling'), null, ['class'=>'form-control', 'id'=>'cari-kategori']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Status Permohonan</label>
-                                {{ Form::select('cari-status', [''=>'--Sila Pilih--', '1'=>'Baharu', '2'=>'Proses'], session('status'), ['class'=>'form-control', 'id'=>'cari-status']) }}
+                                {{ Form::select('cari-status', [''=>'--Sila Pilih--', '1'=>'Baharu', '2'=>'Proses'], null, ['class'=>'form-control', 'id'=>'cari-status']) }}
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Nama Projek</label>
-                                {{ Form::text('cari-projek', session('projek'), ['class'=>'form-control', 'id'=>'cari-projek']) }}
+                                {{ Form::text('cari-projek', null, ['class'=>'form-control', 'id'=>'cari-projek']) }}
                             </div>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                             <button class="btn btn-primary float-right" id="carian" value="Carian">Carian</button>
                         </div>
                     </div>
-                </form>
+                {{-- </form> --}}
             </div>
         </div>
     </div>
@@ -243,16 +243,18 @@ $(document).ready(function(){
     $('#carian').on('click', function(e){
         // alert('aaa');
         e.preventDefault();
+        let cariProgram = $('#cari-program').val();
         let cariNegeri = $('#cari-negeri').val();
+        let cariDaerah = $('#cari-daerah').val();
         let cariFasiliti = $('#cari-fasiliti').val();
         let cariPelaksana = $('#cari-pelaksana').val();
         let cariKategori = $('#cari-kategori').val();
         let cariStatus = $('#cari-status').val();
         let cariProjek = $('#cari-projek').val();
-        fetchPermohonan(cariNegeri, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek);
+        fetchPermohonan(cariProgram, cariNegeri, cariDaerah, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek);
     });
 
-    function fetchPermohonan(cariNegeri, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek){
+    function fetchPermohonan(cariProgram, cariNegeri, cariDaerah, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek){
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -262,7 +264,9 @@ $(document).ready(function(){
             type: "post",
             url: "/permohonan/baru/senarai",
             data:{
+                program:cariProgram,
                 negeri:cariNegeri,
+                daerah:cariDaerah,
                 fasiliti:cariFasiliti,
                 pelaksana:cariPelaksana,
                 kategori:cariKategori,

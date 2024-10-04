@@ -46,6 +46,7 @@
             <div class="ibox-content">
                 <input type="hidden" name="proj_daerah_data" value="{{ $projek->proj_daerah}}">
                 <input type="hidden" name="proj_fasiliti_id_data" value="{{ $projek->proj_fasiliti_id}}">
+                <input type="hidden" name="proj_pelaksana_agensi_data" value="{{ $projek->proj_pelaksana_agensi}}">
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="form-group">
@@ -202,7 +203,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Agensi Pelaksana?</label>
-                            {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
+                            {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '4'=>'JKN', '3'=>'JKR'], $projek->proj_pelaksana, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
                             @error('proj_pelaksana')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -210,8 +211,10 @@
                     </div>
                     <div id="pilihJkr" class="col-md-6" style="display:none">
                         <div class="form-group">
-                            <label>Cawangan JKR</label>
-                            {{ Form::select('proj_pelaksana_agensi', getListJKR(), null, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
+                            <label id="agensiLaksanaTitle">Pelaksana</label>
+                            <span id="list-agensi-pelaksana">
+                                {{ Form::select('proj_pelaksana_agensi',  [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
+                            </span>
                             @error('proj_pelaksana_agensi')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -372,9 +375,16 @@
         let daerahID = $('[name=proj_daerah_data]').val();
         let fasilitiID = $('[name=proj_fasiliti_id_data]').val();
         let laksana = $('[name=proj_pelaksana]').val();
+        let agensi = $('[name=proj_pelaksana_agensi_data]').val();
         let statusID = $('[name=proj_status]').val();
+        pilihPelaksana(laksana, agensi);
+        // if(laksana==3){
+        //     getAgensiPelaksana('JKR', 'proj_pelaksana_agensi', '#list-agensi-pelaksana', agensi);
+        // }
+        // if(laksana==4){{
+        //     getAgensiPelaksana('JKN', 'proj_pelaksana_agensi', '#list-agensi-pelaksana', agensi);
+        // }
 
-        pilihPelaksana(laksana);
         pilihStatus(statusID);
 
         // alert(daerahID);
@@ -435,15 +445,30 @@
                 $('#pilihStatus').show();
             }
         }
-        function pilihPelaksana(select){
+        function pilihPelaksana(select, selectAgensi='99'){
             if(select == 3){
                 $('#pilihJkr').show();
+                $('#agensiLaksanaTitle').html('Cawangan JKR');
+                getAgensiPelaksana('JKR', 'proj_pelaksana_agensi', '#list-agensi-pelaksana', selectAgensi);
+            }
+            else if(select == 4){
+                $('#pilihJkr').show();
+                $('#agensiLaksanaTitle').html('JKN Yang Melaksana');
+                getAgensiPelaksana('JKN', 'proj_pelaksana_agensi', '#list-agensi-pelaksana', selectAgensi);
             }
             else{
                 $('#pilihJkr').hide();
             }
         }
 
+
+        //GET PELAKSANA AGENSI JKR / JKN
+        function getAgensiPelaksana(data='',  inputname='', list='', select='99') {
+            let url = "/ajax/ajax-agensi-pelaksana/" + data + "/" + inputname + "/" + select;
+            $.get(url, function(data) {
+                $(list).html(data);
+            });
+        }
 
         //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
         function getFasiliti(parID='0', inputname='0', list='0', select='99') {

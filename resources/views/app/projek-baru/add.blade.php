@@ -147,8 +147,20 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Agensi Pelaksana?</label>
-                            {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
+                            <label>Projek Program</label>
+                            {{ Form::select('proj_program', dropdownProjekProgram(), null, ['class'=>'form-control', 'id'=>'proj_program']) }}
+                            @error('proj_program')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Kategori Projek</label>
+                            {{ Form::select('proj_kategori_id', dropdownProjekKategori('siling'), null, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
+                            @error('proj_kategori_id')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -160,17 +172,6 @@
                             @enderror
                         </div>
                     </div>
-                    <div id="pilihJkr" class="col-md-6" style="display:none">
-                        <div class="form-group">
-                            <label>Cawangan JKR</label>
-                            {{ Form::select('proj_pelaksana_agensi', getListJKR(), null, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
-                            @error('proj_pelaksana_agensi')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-3">
                         <div class="form-group" id="data_1">
                             <label>Tarikh Mula Pelaksanaan</label>
@@ -187,27 +188,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Tahun</label>
-                            {{ Form::text('proj_tahun', null, ['class'=>'form-control', 'id'=>'proj_tahun']) }}
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Bulan</label>
-                            {{ Form::text('proj_bulan', null, ['class'=>'form-control', 'id'=>'proj_bulan']) }}
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Kategori Projek</label>
-                            {{ Form::select('proj_kategori_id', dropdownProjekKategori('siling'), null, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
-                            @error('proj_kategori_id')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
-                        </div>
-                    </div>
+                    {{ Form::hidden('proj_tahun', null, ['class'=>'form-control', 'id'=>'proj_tahun']) }}
+                    {{ Form::hidden('proj_bulan', null, ['class'=>'form-control', 'id'=>'proj_bulan']) }}
                     <div class="col-md-3">
                         <div class="form-group has-success">
                             <label>Anggaran Kos (RM)</label>
@@ -217,15 +199,21 @@
                             @enderror
                         </div>
                     </div>
-                    {{-- <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label>Program</label>
-                            {{ Form::select('proj_kategori_id', dropdownProjekKategori('siling'), null, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
-                            @error('proj_kategori_id')
+                            <label>Agensi Pelaksana?</label>
+                            {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '4'=>'JKN', '3'=>'JKR'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
+                        </div>
+                    </div>
+                    <div id="pilihJkr" class="col-md-6" style="display:none">
+                        <div class="form-group">
+                            <label>Nama Pelaksana</label>
+                            {{ Form::select('proj_pelaksana_agensi', getListPelaksana(), null, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
+                            @error('proj_pelaksana_agensi')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
                 <p class="text-info font-bold mt-3">3. BUTIRAN PROJEK</p>
                 <div class="hr-line-dashed"></div>

@@ -159,8 +159,10 @@ function getPelaksana($id){
         return "Pemilik";
     else if($id==2)
         return "BPKj";
-    else
+    else if($id==3)
         return "JKR";
+    else
+        return "JKN";
 }
 
 

@@ -60,7 +60,7 @@
                             <dt class="col-md-4 ">Pelaksana</dt>
                             <dd class="col-md-8">
                                 {{ $projek->proj_pelaksana ? getPelaksana($projek->proj_pelaksana) : 'Tiada Rekod'  }}
-                                {{ $projek->proj_pelaksana==3 ? ' - '.$projek->jkr->prog_name : '' }}
+                                {{ $projek->proj_pelaksana>2 ? ' - '.$projek->jkr->prog_name : '' }}
                             </dd>
                             @php
                             if(strtotime($projek->proj_laksana_mula)<>0){

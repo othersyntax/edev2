@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Daerah;
 use App\Models\Pentadbiran\Bandar;
 use App\Models\Fasiliti;
+use App\Models\Pentadbiran\Program;
 use Form;
 
 class AjaxController extends Controller
@@ -37,6 +38,17 @@ class AjaxController extends Controller
         $rs = Fasiliti::where('fas_daerah_id', $id)
             ->orderBy('fas_name')
             ->pluck('fas_name', 'fasiliti_id')
+            ->prepend('--Sila pilih--', '');
+        if($select=='99'){
+            $select='';
+        }
+        echo Form::select($input, $rs, $select, ['class' => 'form-control', 'id' => $input,'name' => $input]);
+    }
+
+    function ajaxAgensiPelaksana(string $data, string $input, string $select) {
+        $rs = Program::where('prog_kategori', $data)
+            ->orderBy('prog_name')
+            ->pluck('prog_name', 'program_id')
             ->prepend('--Sila pilih--', '');
         if($select=='99'){
             $select='';

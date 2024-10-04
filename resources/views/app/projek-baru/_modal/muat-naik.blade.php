@@ -7,7 +7,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     {{-- <i class="fa fa-cogs modal-icon"></i> --}}
                     <h4 class="modal-title">Maklumat Dokumen</h4>
-                    <small class="font-bold">Dokumen yang dimuat naik mestilah dalam format PDF dan saiz tidak lebih 2MB</small>
+                    <small class="font-bold">Dokumen yang dimuat naik mestilah dalam format PDF dan XLXS dan saiz tidak lebih 2MB</small>
                 </div>
                 <div class="col-lg-12">
                     <ul id="save_msgList"></ul>
