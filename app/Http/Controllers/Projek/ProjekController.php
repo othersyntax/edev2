@@ -20,7 +20,9 @@ class ProjekController extends Controller
         $queryType = 1; // default click pd menu
         if( $request->isMethod('post')) {
             $negeri =  $request->negeri;
+            $daerah =  $request->daerah;
             $fasiliti =  $request->fasiliti;
+            $subsetia  =  $request->subsetia;
             $kategori  =  $request->kategori;
             $projekProgram  =  $request->projekProgram;
             $pelaksana  =  $request->pelaksana;
@@ -29,7 +31,9 @@ class ProjekController extends Controller
             // dd($request->method());
             session([
                 'negeri' => $negeri,
+                'daerah' => $daerah,
                 'fasiliti' => $fasiliti,
+                'subsetia' => $subsetia,
                 'kategori' => $kategori,
                 'projekProgram' => $projekProgram,
                 'pelaksana' => $pelaksana,
@@ -41,7 +45,9 @@ class ProjekController extends Controller
         else{
             if( $request->has('page')) {
                 $negeri = session('negeri');
+                $daerah = session('daerah');
                 $fasiliti = session('fasiliti');
+                $subsetia = session('subsetia');
                 $kategori = session('kategori');
                 $projekProgram = session('projekProgram');
                 $pelaksana = session('pelaksana');
@@ -50,7 +56,7 @@ class ProjekController extends Controller
                 $queryType = 2;
             }
             else{
-                session()->forget(['negeri', 'fasiliti', 'kategori', 'projekProgram', 'pelaksana', 'status', 'projek']);
+                session()->forget(['negeri', 'daerah', 'fasiliti', 'subsetia', 'kategori', 'projekProgram', 'pelaksana', 'status', 'projek']);
             }
         }
 
@@ -82,12 +88,18 @@ class ProjekController extends Controller
                     ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
                     ->leftJoin('tblprojek_program as e','a.proj_program','e.proj_program_id')
                     ->select('a.*', 'c.pro_kat_short_nama', 'c.pro_kat_nama', 'd.prog_name', 'b.fas_name', 'e.proj_prog_nama')
-                    ->where(function($q) use ($negeri, $fasiliti, $kategori, $projekProgram, $pelaksana, $status, $projek){
+                    ->where(function($q) use ($negeri, $daerah, $fasiliti, $subsetia, $kategori, $projekProgram, $pelaksana, $status, $projek){
                         if(!empty($negeri)){
                             $q->where('a.proj_negeri',$negeri);
                         }
+                        if(!empty($daerah)){
+                            $q->where('a.proj_daerah',$daerah);
+                        }
                         if(!empty($fasiliti)){
                             $q->where('a.proj_fasiliti_id',$fasiliti);
+                        }
+                        if(!empty($subsetia)){
+                            $q->where('a.proj_kod_subsetia',$subsetia);
                         }
                         if(!empty($kategori)){
                             $q->where('a.proj_kategori_id',$kategori);
@@ -136,18 +148,19 @@ class ProjekController extends Controller
 
     public function view($id){
         $projek = Projek::find($id);
-        $details = ProjekDetails::where('projd_projek_id', $id)->get();
+        // $details = ProjekDetails::where('projd_projek_id', $id)->get();
         $utilities = ProjekUtilities::where('projuti_projek_id', $id)->get();
         $waran = Waran::where('waran_projek_id', $id)->get();
 
         $data['projek'] = $projek;
-        $data['details'] = $details;
+        // $data['details'] = $details;
         $data['waran'] = $waran;
         $data['utilities'] = $utilities;
         return view('app.projek.papar', $data);
     }
 
     public function store(Request $request){
+        // dd($request->all());
         $validated = $request->validate([
             'proj_negeri' => 'required',
             'proj_daerah' => 'required',
@@ -157,14 +170,13 @@ class ProjekController extends Controller
             'proj_struktur' => 'required',
             'proj_laksana_mula' => 'required',
             'proj_laksana_tamat' => 'required',
-            // 'proj_kos_lulus' => 'required',
+            'proj_kos_lulus' => 'required',
             'proj_nama' => 'required',
-            'proj_skop' => 'required',
+            // 'proj_skop' => 'required',
             // 'proj_justifikasi' => 'required',
             // 'proj_ulasan_teknikal' => 'required',
             'proj_pelaksana' => 'required',
             'proj_pelaksana_agensi' => 'required_if:proj_pelaksana,3,4',
-            'proj_status' => 'required',
             'proj_memo' => 'required_if:proj_status,2,3',
 
         ],
@@ -177,11 +189,12 @@ class ProjekController extends Controller
             'proj_struktur.required' => 'Adakah melibatkan struktur',
             'proj_laksana_mula.required' => 'Sila masukkan Tarikh Mula Pelaksanaan',
             'proj_laksana_tamat.required' => 'Sila masukkan Tarikh Tamat Pelaksanaan',
-            // 'proj_kos_lulus.required' => 'Sila masukkan anggaran kos pelaksanaan',
+            'proj_kos_lulus.required' => 'Sila masukkan anggaran kos pelaksanaan',
             'proj_nama.required' => 'Sila nyatakan Nama Projek',
-            'proj_skop.required' => 'Sila nyatakan Skop Projek',
+            // 'proj_skop.required' => 'Sila nyatakan Skop Projek',
             // 'proj_justifikasi.required' => 'Sila nyatakan Justifikasi Projek',
             // 'proj_ulasan_teknikal.required' => 'Sila nyatakan Ulasan Unit Kejuruteraan',
+            'proj_pelaksana.required' => 'Silah pilih pelaksana',
             'proj_pelaksana_agensi.required_if' => 'Sila Pilih Cawangan JKR',
             'proj_memo.required_if' => 'Sila Masukkan Justifikasi Status',
         ]);
@@ -191,7 +204,7 @@ class ProjekController extends Controller
         $projek->proj_negeri = $request->proj_negeri;
         $projek->proj_daerah = $request->proj_daerah;
         $projek->proj_fasiliti_id = $request->proj_fasiliti_id;
-        $projek->proj_kod_subsetia = $request->proj_kod_subsetia;
+        // $projek->proj_kod_subsetia = $request->proj_kod_subsetia;
         $projek->proj_program = $request->proj_program;
         $projek->proj_kategori_id = $request->proj_kategori_id;
         $projek->proj_laksana_mula = Carbon::createFromFormat('d/m/Y', $request->proj_laksana_mula)->format('Y-m-d');
@@ -204,9 +217,9 @@ class ProjekController extends Controller
         }
         $projek->proj_struktur = $request->proj_struktur;
         $projek->proj_nama = $request->proj_nama;
-        $projek->proj_skop = $request->proj_skop;
-        $projek->proj_justifikasi = $request->proj_justifikasi;
-        $projek->proj_ulasan_teknikal = $request->proj_ulasan_teknikal;
+        // $projek->proj_skop = $request->proj_skop;
+        // $projek->proj_justifikasi = $request->proj_justifikasi;
+        // $projek->proj_ulasan_teknikal = $request->proj_ulasan_teknikal;
         $projek->proj_catatan = $request->proj_catatan;
         $projek->proj_kos_lulus = $request->proj_kos_lulus;
         $projek->proj_kos_sebenar = $request->proj_kos_sebenar;
@@ -220,47 +233,48 @@ class ProjekController extends Controller
 
         $projek->save();
         if($projek){
-            // insert penjimatan
-            if($request->proj_penjimatan>0){
-                // cek rekod dah wujud belum
-                $cek = BakulJimat::where('bj_projek_id',  $request->projek_id)->where('bj_program_id', $request->proj_pemilik)->first();
-                if($cek){
-                    // Update bakul
-                    $bakul = BakulJimat::find($cek->bakul_jimat_id);
-                    $bakul->bj_amount_jimat = $request->proj_penjimatan;
-                    $bakul->bj_updated_by = auth()->user()->id;
-                    $bakul->save();
+            // CEK KUASA PKN BARU MASUK BAKULs
+            if($projek->proj_kuasa_pkn==1){
+                // insert penjimatan
+                if($request->proj_penjimatan>0){
+                    // cek rekod dah wujud belum
+                    $cek = BakulJimat::where('bj_projek_id',  $request->projek_id)->where('bj_program_id', $request->proj_pemilik)->first();
+                    if($cek){
+                        // Update bakul
+                        $bakul = BakulJimat::find($cek->bakul_jimat_id);
+                        $bakul->bj_amount_jimat = $request->proj_penjimatan;
+                        $bakul->bj_updated_by = auth()->user()->id;
+                        $bakul->save();
+                    }
+                    else{
+                        // create bakul
+                        $bakul = new BakulJimat();
+                        $bakul->bj_projek_id = $request->projek_id;
+                        $bakul->bj_program_id = $projek->proj_pemilik;
+                        $bakul->bj_amount_jimat = $request->proj_penjimatan;
+                        $bakul->bj_created_by = auth()->user()->id;
+                        $bakul->bj_updated_by = auth()->user()->id;
+                        $bakul->save();
+                    }
                 }
-                else{
-                    // create bakul
-                    $bakul = new BakulJimat();
-                    $bakul->bj_projek_id = $request->projek_id;
-                    $bakul->bj_program_id = auth()->user()->program_id;
-                    $bakul->bj_amount_jimat = $request->proj_penjimatan;
-                    $bakul->bj_created_by = auth()->user()->id;
-                    $bakul->bj_updated_by = auth()->user()->id;
-                    $bakul->save();
+
+                // Tukar Tajuk
+                if($request->proj_status!=1){
+                    // cek rekod dah wujud belum
+                    $cek = BakulJimat::where('bj_projek_id',  $request->projek_id)->where('bj_program_id', $request->proj_pemilik)->first();
+                    if(!$cek){
+                        // create bakul
+                        $bakul = new BakulJimat();
+                        $bakul->bj_projek_id = $request->projek_id;
+                        $bakul->bj_program_id = auth()->user()->program_id;
+                        $bakul->bj_amount_jimat = $request->proj_kos_lulus;
+                        $bakul->bj_kategori = $request->proj_status;
+                        $bakul->bj_created_by = auth()->user()->id;
+                        $bakul->bj_updated_by = auth()->user()->id;
+                        $bakul->save();
+                    }
                 }
             }
-
-            // Tukar Tajuk
-            if($request->proj_status!=1){
-
-                // cek rekod dah wujud belum
-                $cek = BakulJimat::where('bj_projek_id',  $request->projek_id)->where('bj_program_id', $request->proj_pemilik)->first();
-                if(!$cek){
-                    // create bakul
-                    $bakul = new BakulJimat();
-                    $bakul->bj_projek_id = $request->projek_id;
-                    $bakul->bj_program_id = auth()->user()->program_id;
-                    $bakul->bj_amount_jimat = $request->proj_kos_lulus;
-                    $bakul->bj_kategori = $request->proj_status;
-                    $bakul->bj_created_by = auth()->user()->id;
-                    $bakul->bj_updated_by = auth()->user()->id;
-                    $bakul->save();
-                }
-            }
-
             return redirect('/projek/senarai')->with(['success'=>'Rekod berjaya dikemaskini']);
         }
     }

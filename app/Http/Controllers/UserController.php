@@ -19,10 +19,55 @@ class UserController extends Controller
         $this->middleware('permission:delete user', ['only' => ['destroy']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::get();
+        $queryType = 1; // default click pd menu
+        if( $request->isMethod('post')) {
+            $program =  $request->program;
+            $role =  $request->role;
+            $nama =  $request->nama;
+            $statusUser  =  $request->statusUser;
+            session([
+                'program' => $program,
+                'role' => $role,
+                'nama' => $nama,
+                'statusUser' => $statusUser
+            ]);
+            $queryType = 2;
+        }
+        else{
+            if( $request->has('page')) {
+                $program = session('program');
+                $role = session('role');
+                $nama = session('nama');
+                $statusUser = session('statusUser');
+                $queryType = 2;
+            }
+            else{
+                session()->forget(['program', 'role', 'nama', 'statusUser']);
+            }
+        }
 
+        if ($queryType == 1) {
+            $users = User::paginate(15);
+        }
+        else{
+            $query = User::where(function($q) use ($program, $role, $nama, $statusUser){
+                if(!empty($program)){
+                    $q->where('program_id',$program);
+                }
+                if(!empty($role)){
+                    $q->where('role',$role);
+                }
+                if(!empty($nama)){
+                    $q->where('name','LIKE', "%{$nama}%");
+                }
+                if(!empty($statusUser)){
+                    $q->where('user_status',$statusUser);
+                }
+            });
+            $users = $query->paginate(15);
+        }
         return view('role-permission.user.index', ['users' => $users]);
     }
 
@@ -74,8 +119,8 @@ class UserController extends Controller
             'user' => $user,
             'roles' => $roles,
             'userRoles' => $userRoles,
-            
-            
+
+
         ]);
     }
 
@@ -85,28 +130,28 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'password' => 'nullable|string|min:8|max:20',
             'roles' => 'required',
-            
+
         ]);
 
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
-            'users_status'=> $request->users_status,
+            'user_status'=> $request->user_status,
             'program_id' => $request->program_id,
-            
+
         ];
 
-        if(!empty($request->password)){
-            $data += [
-                'password' => Hash::make($request->password),
-            ];
-        }
+        // if(!empty($request->password)){
+        //     $data += [
+        //         'password' => Hash::make($request->password),
+        //     ];
+        // }
 
         $user->update($data);
         $user->syncRoles($request->roles);
 
-        return redirect('/akses/users')->with('status','User Updated Successfully with roles');
+        return redirect('/akses/users')->with('status','Maklumat pengguna berjaya dikemaskini');
     }
 
     public function destroy($userId)
@@ -119,22 +164,5 @@ class UserController extends Controller
 
     public function emel(){
         $mail = Mail::to('usup.keram@moh.gov.my')->send(new PermohonanAkaunBaru());
-
-        // if($mail){
-        //     Siling::query()->update([
-        //         'sil_emel'=>2
-        //     ]);
-        //     return response()->json([
-        //         'status'=>200,
-        //         'message'=>'Berjaya dihantar'
-        //     ]);
-        // }
-        // else{
-        //     return response()->json([
-        //         'status'=>400,
-        //         'message'=>'Rekod tidak dijumpai.'
-        //     ]);
-        // }
-    // }
     }
 }

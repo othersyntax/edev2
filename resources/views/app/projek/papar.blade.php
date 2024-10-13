@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h3 class="font-bold m-b-xs">
-                            PROJEK
+                            1.1 PROFIL PROJEK
                         </h3>
                         <p>{{ $projek->proj_nama }}</p>
                         <div class="m-t-md">
@@ -90,7 +90,47 @@
         </div>
         <div class="ibox collapsed">
             <div class="ibox-title">
-                <h5>Maklumat Perkara Berbangkit <span id="jum_aktiviti" class="badge badge-primary">0</span></h5>
+                <h5>2. Maklumat Perbelanjaan (<span id="jum_kew_bayar_head" class="text-warning">RM 0.00</span>)</h5>
+                <div class="ibox-tools">
+                    <a href="#" class="btn btn-xs btn-primary" id="addBayaran1">Tambah
+                        <i class="fa fa-plus"></i>
+                    </a>
+                    <a class="btn btn-xs btn-default collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="btn btn-xs btn-default close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th width="5%" class="text-center">#Bil</th>
+                                <th width="20%">No Rujukan</th>
+                                <th width="30%">Perihal</th>
+                                <th width="10%" class="text-center">Tarikh</th>
+                                <th width="20%" class="text-right">Amaun (RM)</th>
+                                <th width="15%">#</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-bayaran">
+                            <td colspan="6" class="text-center"><small><i>Tiada rekod</i></small></td>
+                        </tbody>
+                        <tfoot>
+                            <td colspan="4" class="text-right"><b>JUMLAH</b></td>
+                            <td class="text-right"><span id="jum_kew_bayar">0.00</span></td>
+                            <td></td>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="ibox collapsed">
+            <div class="ibox-title">
+                <h5>3. Maklumat Perkara Berbangkit <span id="jum_aktiviti" class="badge badge-primary">0</span></h5>
                 <div class="ibox-tools">
                     <a href="#" class="btn btn-xs btn-primary" id="add">Tambah
                         <i class="fa fa-plus"></i>
@@ -112,8 +152,8 @@
                                 <th width="25%">No Rujukan</th>
                                 <th width="20%">Perihal</th>
                                 <th width="10%" class="text-center">Tarikh</th>
-                                <th width="30%">Catatan</th>
-                                <th width="10%">#</th>
+                                <th width="25%">Catatan</th>
+                                <th width="15%">#</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-aktiviti">
@@ -124,9 +164,9 @@
         </div>
         <div class="ibox collapsed">
             <div class="ibox-title">
-                <h5>Maklumat Kewangan (<span id="jum_kew_bayar_head" class="text-warning">RM 0.00</span>)</h5>
+                <h5>4. Dokumen Sokongan <span id="jum_dokumen" class="badge badge-primary">0</span></h5>
                 <div class="ibox-tools">
-                    <a href="#" class="btn btn-xs btn-primary" id="addBayaran1">Tambah
+                    <a href="#" class="btn btn-xs btn-primary" id="addDokumen">Tambah
                         <i class="fa fa-plus"></i>
                     </a>
                     <a class="btn btn-xs btn-default collapse-link">
@@ -142,22 +182,16 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th width="5%" class="text-center">#Bil</th>
-                                <th width="25%">No Rujukan</th>
-                                <th width="20%">Perihal</th>
-                                <th width="10%" class="text-center">Tarikh</th>
-                                <th width="30%" class="text-right">Amaun (RM)</th>
-                                <th width="10%">#</th>
+                                <th width="10%" class="text-center">#Bil</th>
+                                <th width="65%">Perihal</th>
+                                <th width="25%">#</th>
                             </tr>
                         </thead>
-                        <tbody id="tbody-bayaran">
-                            <td colspan="6" class="text-center"><small><i>Tiada rekod</i></small></td>
+                        <tbody id="tbody-dokumen">
+                            <tr>
+                                <td colspan="4" class="font-italic text-small text-center">Tiada Rekod</td>
+                            </tr>
                         </tbody>
-                        <tfoot>
-                            <td colspan="4" class="text-right"><b>JUMLAH</b></td>
-                            <td class="text-right"><span id="jum_kew_bayar">0.00</span></td>
-                            <td></td>
-                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -166,7 +200,7 @@
     <div class="col-lg-5">
         <div class="ibox ">
             <div class="ibox-title">
-                <h5>Maklumat Lokaliti</h5>
+                <h5>1.2 Maklumat Lokaliti</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -202,7 +236,7 @@
         </div>
         <div class="ibox">
             <div class="ibox-title">
-                <h5>Peruntukan</h5>
+                <h5>1.3 Peruntukan</h5>
                 <div class="ibox-tools">
                     <a href="#" class="btn btn-xs btn-primary" id="addPeruntukan">Tambah
                         <i class="fa fa-plus"></i>
@@ -245,7 +279,7 @@
         </div>
         <div class="ibox collapsed">
             <div class="ibox-title">
-                <h5>Unjuran Kewangan</h5>
+                <h5>1.4 Unjuran Kewangan</h5>
                 <div class="ibox-tools">
                     <a href="#" class="btn btn-xs btn-primary" id="addUnjuran">Tambah
                         <i class="fa fa-plus"></i>
@@ -357,6 +391,7 @@
 @include('app/projek/_modal/add-bayaran')
 @include('app/projek/_modal/add-unjuran')
 @include('app/projek/_modal/add-peruntukan')
+@include('app/projek/_modal/muat-naik')
 @endsection
 @section('custom-js')
 <!-- Data picker -->
@@ -367,6 +402,7 @@ $(document).ready(function(){
     fetchBayaran();
     fetchUnjuran();
     fetchPeruntukan();
+    fetchDokumen();
 
     //ADD BUTTON CLICK
     $('#add').click(function(e){
@@ -382,6 +418,11 @@ $(document).ready(function(){
         $('#addModalBayaran').find('textarea').val('');
         $('#addModalBayaran').modal('show');
         // alert('cc');
+    });
+
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
 
     $('#data_1 .input-group.date').datepicker({
@@ -1114,6 +1155,136 @@ $(document).ready(function(){
         else
             return 'Peruntukan Tambahan';
     }
+
+
+    // LIST DOKUMEN
+    function fetchDokumen(){
+        let page_projek_id = $('#page_projek_id').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "get",
+            url: "/permohonan/papar/dokumen/senarai/"+page_projek_id,
+            dataType: "json",
+            success: function (response) {
+                var bil=1;
+                $('#jum_dokumen').html(response.doc.length);
+                if(response.doc.length>0){
+                    $('#tbody-dokumen').html("");
+                    $.each(response.doc, function (key, item) {
+                        $('#tbody-dokumen').append('<tr>\
+                            <td class="text-center">' + bil + '</td>\
+                            <td>' + item.proj_doc_perihal + '</td>\
+                            <td><a href="/storage/'+item.proj_doc_fail+'" title="Papar" target="_blank"><i class="fa fa-search text-navy"></i></a>\
+                            <button type="button" value="' + item.proj_document_id + '" class="btn btn-default btn-xs deleteDokumen" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
+                        \</tr>');
+                        bil++;
+                    });
+
+                }
+                else{
+                    $('#tbody-dokumen').html("");
+                    $('#tbody-dokumen').append('<tr>\
+                        <td colspan="3" class="font-italic text-small text-center">Tiada Rekod</td>\
+                    \</tr>');
+                }
+            }
+        });
+    }
+
+    $('#addDokumen').click(function(e){
+        e.preventDefault();
+
+        var baseUrl = (window.location).href;
+        var id = baseUrl.split("/").pop();
+        // alert(id);
+        $('#projek_id').val(id);
+        $('#addModalDokumen').modal('show');
+    });
+
+    // Muat Naik
+    $("#frmUpload").on('submit',(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: "/permohonan/papar/upload",
+            type: "POST",
+            data:  new FormData(this),
+            enctype: 'multipart/form-data',
+            contentType: false,
+            processData:false,
+            success: function(response)
+            {
+                if (response.status == 400) {
+                    $('#save_msgList').html("");
+                    $('#save_msgList').addClass('alert alert-danger');
+                    $.each(response.errors, function (key, err_value) {
+                        $('#save_msgList').append('<li>' + err_value +
+                            '</li>');
+                    });
+                }
+                else {
+                    // alert();
+                    $('#update_msgList').html("");
+                    $('#frmUpload').find('input').val('');
+                    $('#frmUpload').find('textarea').val('');
+                    $('#addModalDokumen').modal('hide');
+                    fetchDokumen();
+                    swal({
+                        title: "Dokumen Projek",
+                        text: response.message,
+                        type: "success"
+                    });
+                }
+            }
+
+
+        });
+    }));
+
+    // DELETE DOKUMEN
+    $(document).on('click', '.deleteDokumen', function () {
+        var dokumenID = $(this).val();
+        swal({
+                title: "Adakah anda pasti?",
+                text: "Sila pastikan rekod yang hendak dipadam",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya, Padam",
+                cancelButtonText: "Tidak, Batalkan",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        type: "get",
+                        url: "/permohonan/papar/dokumen/padam/" + dokumenID,
+                        dataType: "json",
+                        success: function (response) {
+                            if (response.status == 404) {
+                                swal("Dibatalkan", response.message, "error");
+                            } else {
+                                fetchDokumen();
+                                swal("Dipadam!", response.message, "success");
+                            }
+                        }
+                    });
+                } else {
+                    swal("Dibatalkan", "Rekod unjuran tidak dipadam", "error");
+                }
+            });
+        });
 
     function financial(x) {
         return Number.parseFloat(x).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');

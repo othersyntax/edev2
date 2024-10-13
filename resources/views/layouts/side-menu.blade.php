@@ -79,7 +79,7 @@
                 <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'roles') ? 'active' : '' }}"><a href="/akses/roles">Peranan</a></li>
                     <li class="{{ (request()->segment(2) == 'permissions') ? 'active' : '' }}"><a href="/akses/permissions">Capaian</a></li>
-                    <li class="{{ (request()->segment(2) == 'users') ? 'active' : '' }}"><a href="/akses/users">Pengguna</a></li>
+                    <li class="{{ (request()->segment(2) == 'users') ? 'active' : '' }}"><a href="/akses/pengguna">Pengguna</a></li>
                 </ul>
             </li>
             @endif

@@ -192,192 +192,192 @@
                         <tr>
                             <td>1</td>
                             <td>Johor</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>Kedah</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">55%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Kelantan</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"15%>15%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>Melaka</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 5%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">5%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>5</td>
                             <td>Negeri Sembilan</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 85%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">85%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>6</td>
                             <td>Pahang</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 65%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">65%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>7</td>
                             <td>Perlis</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 85%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">85%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>8</td>
                             <td>Perak</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">55%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>9</td>
                             <td>Pulau Pianng</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">15%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>10</td>
                             <td>Selangor</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 40%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">40%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>11</td>
                             <td>Terengganu</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>12</td>
                             <td>Sabah</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 55%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">55%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>13</td>
                             <td>Sarawak</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 15%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">15%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>14</td>
                             <td>W.P. Kuala Lumpur</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 50%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">50%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>15</td>
                             <td>W.P. Labuan</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 45%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">45%</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>16</td>
                             <td>W.P. Putrajaya</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
-                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(1250000)</td>
+                            <td class="text-right">@duit(900000)</td>
+                            <td class="text-right">@duit(2150000)</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 35%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">35%</div>
                                 </div>
                             </td>
                         </tr>

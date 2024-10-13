@@ -16,7 +16,7 @@ class KategoriProjekController extends Controller
     {
         $kategoriprojek = KategoriProjek::all();
 
-        return view("pentadbiran.kategoriprojek.index", compact('kategoriprojek'));
+        return view("pentadbiran.kategori-projek.index", compact('kategoriprojek'));
     }
 
 

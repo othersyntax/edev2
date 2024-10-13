@@ -15,7 +15,7 @@
             </li>
         </ol>
     </div>
-</div>    
+</div>
 @endsection
 
 @section('content')
@@ -35,7 +35,7 @@
                 <form action="{{ url('/akses/roles/'.$role->id.'/give-permissions') }}" method="POST">
                     @csrf
                     @method('PUT')
-                    <div class="row">                    
+                    <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 @error('permission')
@@ -45,8 +45,8 @@
                                 <label for="">Had Capaian</label>
                                 <div class="row">
                                     @foreach ($permissions as $permission)
-                                    <div class="col-md-2">
-                                        <label>
+                                    <div class="col-md-6">
+                                        <label>( {{ $permission->modul_id }})
                                             <input
                                                 type="checkbox"
                                                 name="permission[]"
@@ -62,7 +62,7 @@
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-primary">Kemaskini</button>
                             </div>
-                        </div>                    
+                        </div>
                     </div>
                 </form>
             </div>

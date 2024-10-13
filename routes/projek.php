@@ -22,11 +22,12 @@ Route::group(['middleware' => ['auth','role:super-admin|admin|user']], function(
     Route::post('/permohonan/baru/emel', [App\Http\Controllers\Projek\ProjekBaruController::class, 'emel'])->name('permohonan.baru.emel');
     Route::get('/permohonan/baru/ubah/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'edit'])->name('permohonan.baru.ubah');
     Route::post('/permohonan/baru/update', [App\Http\Controllers\Projek\ProjekBaruController::class, 'update'])->name('permohonan.baru.update');
-    Route::post('/permohonan/baru/unjuran/simpan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'simpanUnjuran']);
-    Route::get('/permohonan/baru/unjuran/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiUnjuran']);
-    Route::get('/permohonan/baru/dokumen/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiDokumen']);
-    Route::get('/permohonan/baru/unjuran/padam/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'padamUnjuran']);
-    Route::get('/permohonan/baru/dokumen/padam/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'padamDokumen']);
+    Route::get('/permohonan/baru/selesai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'selesai'])->name('permohonan.baru.selesai');
+    // Route::post('/permohonan/baru/unjuran/simpan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'simpanUnjuran']);
+    // Route::get('/permohonan/baru/unjuran/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiUnjuran']);
+    // Route::get('/permohonan/baru/dokumen/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiDokumen']);
+    // Route::get('/permohonan/baru/unjuran/padam/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'padamUnjuran']);
+    // Route::get('/permohonan/baru/dokumen/padam/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'padamDokumen']);
 
     // PERMOHONAN KECEMASAN
     Route::get('/permohonan/kecemasan/main', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'showList'])->name('projek.kecemasan.main');
@@ -38,11 +39,12 @@ Route::group(['middleware' => ['auth','role:super-admin|admin|user']], function(
     Route::get('/permohonan/kecemasan/emel/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'emel'])->name('permohonan.kecemasan.emel');
     Route::get('/permohonan/kecemasan/ubah/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'edit'])->name('permohonan.kecemasan.ubah');
     Route::post('/permohonan/kecemasan/update', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'update'])->name('permohonan.kecemasan.update');
-    Route::post('/permohonan/kecemasan/unjuran/simpan', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'simpanUnjuran']);
-    Route::get('/permohonan/kecemasan/unjuran/senarai/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'senaraiUnjuran']);
-    Route::get('/permohonan/kecemasan/dokumen/senarai/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'senaraiDokumen']);
-    Route::get('/permohonan/kecemasan/unjuran/padam/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'padamUnjuran']);
-    Route::get('/permohonan/kecemasan/dokumen/padam/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'padamDokumen']);
+    Route::get('/permohonan/kecemasan/selesai/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'selesai'])->name('permohonan.kecemasan.selesai');
+    // Route::post('/permohonan/kecemasan/unjuran/simpan', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'simpanUnjuran']);
+    // Route::get('/permohonan/kecemasan/unjuran/senarai/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'senaraiUnjuran']);
+    // Route::get('/permohonan/kecemasan/dokumen/senarai/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'senaraiDokumen']);
+    // Route::get('/permohonan/kecemasan/unjuran/padam/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'padamUnjuran']);
+    // Route::get('/permohonan/kecemasan/dokumen/padam/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'padamDokumen']);
     // Route::get('/projek/papar/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'view'])->name('projek.papar');
 
     // RUNCIT
@@ -53,6 +55,7 @@ Route::group(['middleware' => ['auth','role:super-admin|admin|user']], function(
     // GUNA BAKI PERUNTUKAN
     Route::get('/projek/baki/tambah', [App\Http\Controllers\Projek\GunaBakiController::class, 'create'])->name('projek.baki.tambah');
     Route::post('/projek/baki/simpan', [App\Http\Controllers\Projek\GunaBakiController::class, 'store'])->name('projek.baki.simpan');
+    // Route::any('/projek/baki/senarai', [App\Http\Controllers\Projek\GunaBakiController::class, 'index'])->name('projek.baki.senarai');
 
     // PENJIMATAN
     Route::any('/projek/penjimatan/senarai', [App\Http\Controllers\Projek\ProjekJimatController::class, 'index'])->name('projek.penjimatan.senarai');
@@ -95,20 +98,12 @@ Route::group(['middleware' => ['auth','role:super-admin|admin|user']], function(
     Route::get('/projek/papar/peruntukan/padam/{id}', [App\Http\Controllers\Projek\PeruntukanController::class, 'delete']);
     Route::get('/projek/papar/peruntukan/edit/{id}', [App\Http\Controllers\Projek\PeruntukanController::class, 'edit']);
 
+    // PROJEK DOKUMEN
+    Route::get('/permohonan/papar/dokumen/senarai/{id}', [App\Http\Controllers\Projek\DokumenController::class, 'index']);
+    Route::post('/permohonan/papar/upload', [App\Http\Controllers\Projek\DokumenController::class, 'upload']);
+    Route::get('/permohonan/papar/dokumen/padam/{id}', [App\Http\Controllers\Projek\DokumenController::class, 'padamDokumen']);
     // SEMAK PERMOHONAN
     Route::get('/permohonan/semak/main', [App\Http\Controllers\Projek\SemakProjekController::class, 'showList'])->name('projek.semak.main');
     Route::any('/permohonan/semak/senarai', [App\Http\Controllers\Projek\SemakProjekController::class, 'index']);
     Route::any('/permohonan/semak/notifikasi/{id}', [App\Http\Controllers\Projek\SemakProjekController::class, 'emel']);
-    // Route::get('/permohonan/semak/tambah', [App\Http\Controllers\Projek\SemakProjekController::class, 'create'])->name('permohonan.kecemasan.tambah');
-    // Route::post('/permohonan/semak/simpan', [App\Http\Controllers\Projek\SemakProjekController::class, 'store'])->name('permohonan.kecemasan.simpan');
-    // Route::post('/permohonan/semak/upload', [App\Http\Controllers\Projek\SemakProjekController::class, 'upload'])->name('permohonan.kecemasan.upload');
-    // Route::get('/permohonan/semak/papar/{id}', [App\Http\Controllers\Projek\SemakProjekController::class, 'add2'])->name('permohonan.kecemasan.papar');
-    // Route::get('/permohonan/semak/emel/{id}', [App\Http\Controllers\Projek\SemakProjekController::class, 'emel'])->name('permohonan.kecemasan.emel');
-    // Route::get('/permohonan/semak/ubah/{id}', [App\Http\Controllers\Projek\SemakProjekController::class, 'edit'])->name('permohonan.kecemasan.ubah');
-    // Route::post('/permohonan/semak/update', [App\Http\Controllers\Projek\SemakProjekController::class, 'update'])->name('permohonan.kecemasan.update');
-    // Route::post('/permohonan/semak/unjuran/simpan', [App\Http\Controllers\Projek\SemakProjekController::class, 'simpanUnjuran']);
-    // Route::get('/permohonan/semak/unjuran/senarai/{id}', [App\Http\Controllers\Projek\SemakProjekController::class, 'senaraiUnjuran']);
-    // Route::get('/permohonan/semak/dokumen/senarai/{id}', [App\Http\Controllers\Projek\SemakProjekController::class, 'senaraiDokumen']);
-    // Route::get('/permohonan/semak/unjuran/padam/{id}', [App\Http\Controllers\Projek\SemakProjekController::class, 'padamUnjuran']);
-    // Route::get('/permohonan/semak/dokumen/padam/{id}', [App\Http\Controllers\Projek\SemakProjekController::class, 'padamDokumen']);
 });

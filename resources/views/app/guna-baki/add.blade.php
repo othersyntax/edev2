@@ -67,7 +67,7 @@
                                         <td class="text-center"><span class="badge {{ $item->bj_kategori == 1 ? 'badge-primary' : 'badge-warning'}}">{{ getStatusJimat($item->bj_kategori) }}</span></td>
                                         <td class="text-right">@duit($item->bj_amount_jimat)</td>
                                         <td class="text-center">
-                                            <div><label><input name="sumberKewangan" class="pilihJimat" id="{{ $item->bakul_jimat_id }}" type="checkbox" value="{{ $item->bj_amount_jimat }}"></label></div>
+                                            <div><label><input name="sumberKewangan[]" class="pilihJimat" id="{{ $item->bakul_jimat_id }}" type="checkbox" value="{{ $item->bj_projek_id.'-'.$item->bj_amount_jimat }}"></label></div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -236,10 +236,8 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Anggaran Kos (RM)</label>
-                            {{ Form::number('proj_kos_mohon', null, ['class'=>'form-control text-right', 'id'=>'proj_kos_mohon']) }}
-                            @error('proj_kos_mohon')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
+                            <div class="form-control text-right" id="vwAnggaranKos">0.00</div>
+                            {{ Form::hidden('proj_kos_mohon', null, ['class'=>'form-control text-right', 'id'=>'proj_kos_mohon']) }}
                         </div>
                     </div>
 
@@ -263,18 +261,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Tahun</label>
-                            {{ Form::text('proj_tahun', null, ['class'=>'form-control', 'id'=>'proj_tahun']) }}
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Bulan</label>
-                            {{ Form::text('proj_bulan', null, ['class'=>'form-control', 'id'=>'proj_bulan']) }}
-                        </div>
-                    </div>
+                    {{ Form::hidden('proj_tahun', null, ['class'=>'form-control', 'id'=>'proj_tahun']) }}
+                    {{ Form::hidden('proj_bulan', null, ['class'=>'form-control', 'id'=>'proj_bulan']) }}
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Kategori Projek</label>
@@ -346,8 +334,12 @@
         let amount = 0;
 
         $('.pilihJimat').change(function(){
-            amount += Number($(this).val());
+            pjVal = $(this).val();
+            bjArray = pjVal.split("-");
+            amount += Number(bjArray[1]);
             $('#jum-select').html(financial(amount));
+            $('#vwAnggaranKos').html(financial(amount));
+            $('#proj_kos_mohon').val(amount);
             // alert(amount);));
             // alert(amount);
         });

@@ -116,11 +116,16 @@ class ProjekKecemasanController extends Controller
     public function store(Request $req){
         $validated = $req->validate([
             'proj_negeri' => 'required',
-            'proj_kod_subsetia' => 'required',
+            'proj_daerah' => 'required',
             'proj_fasiliti_id' => 'required',
+            'proj_kod_subsetia' => 'required',
+            'proj_program' => 'required',
             'proj_kategori_id' => 'required',
             'proj_struktur' => 'required',
+            'proj_laksana_mula' => 'required',
+            'proj_laksana_tamat' => 'required',
             'proj_kos_mohon' => 'required',
+            'proj_pelaksana_agensi' => 'required_if:proj_pelaksana,3,4',
             'proj_nama' => 'required',
             'proj_skop' => 'required',
             'proj_justifikasi' => 'required',
@@ -128,19 +133,26 @@ class ProjekKecemasanController extends Controller
         ],
         [
             'proj_negeri.required' => 'Sila pilih negeri',
-            'proj_kod_subsetia.required' => 'Sila masukkan Kod Subsetia',
+            'proj_daerah.required' => 'Sila pilih daerah',
             'proj_fasiliti_id.required' => 'Sila pilih fasiliti',
+            'proj_kod_subsetia.required' => 'Sila masukkan Kod Subsetia',
+            'proj_program.required' => 'Sila pilih projek program',
             'proj_kategori_id.required' => 'Sila pilih kategori projek',
             'proj_struktur.required' => 'Adakah melibatkan struktur',
+            'proj_laksana_mula.required' => 'Sila masukkan tarikh mula pelaksanaan',
+            'proj_laksana_tamat.required' => 'Sila masukkan tarikh tamatpelaksanaan',
             'proj_kos_mohon.required' => 'Sila masukkan anggaran kos pelaksanaan',
+            'proj_pelaksana_agensi.required_if' => 'Sila Pilih Cawangan JKR',
             'proj_nama.required' => 'Sila nyatakan Nama Projek',
             'proj_skop.required' => 'Sila nyatakan Skop Projek',
             'proj_justifikasi.required' => 'Sila nyatakan Justifikasi Projek',
             'proj_ulasan_teknikal.required' => 'Sila nyatakan Ulasan Unit Kejuruteraan',
         ]);
+        // dd($req->all());
+
         $projek = new ProjekBaru();
         $projek->proj_negeri = $req->proj_negeri;
-        $projek->pro_daerah = $req->proj_daerah;
+        $projek->proj_daerah = $req->proj_daerah;
         $projek->proj_fasiliti_id = $req->proj_fasiliti_id;
         $projek->proj_parlimen = 1;
         $projek->proj_dun = 1;
@@ -150,13 +162,14 @@ class ProjekKecemasanController extends Controller
         $projek->proj_kod_subsetia = $req->proj_kod_subsetia;
         $projek->proj_pemilik =auth()->user()->program_id;
         $projek->proj_pelaksana = $req->proj_pelaksana;
-        if($req->proj_pelaksana==3){
+        if($req->proj_pelaksana==3 || $req->proj_pelaksana==4){
             $projek->proj_pelaksana_agensi = $req->proj_pelaksana_agensi;
         }
         $projek->proj_struktur = $req->proj_struktur;
         $projek->proj_kos_mohon = $req->proj_kos_mohon;
         $projek->proj_tahun = $req->proj_tahun;
         $projek->proj_bulan = $req->proj_bulan;
+        $projek->proj_program = $req->proj_program;
         $projek->proj_laksana_mula = Carbon::createFromFormat('d/m/Y', $req->proj_laksana_mula)->format('Y-m-d');
         $projek->proj_laksana_tamat = Carbon::createFromFormat('d/m/Y', $req->proj_laksana_tamat)->format('Y-m-d');
         $projek->proj_kategori_id = $req->proj_kategori_id;
@@ -167,11 +180,8 @@ class ProjekKecemasanController extends Controller
         $projek->proj_catatan = $req->proj_catatan;
         $projek->proj_created_by = auth()->user()->id;
         $projek->proj_updated_by = auth()->user()->id;
-        // dd($projek);
         $projek->save();
-
         if($projek){
-            // echo "berjaya";
             return redirect('/permohonan/kecemasan/papar/'.$projek->projek_id);
         }
 
@@ -271,19 +281,23 @@ class ProjekKecemasanController extends Controller
 
     public function edit(string $id){
         $data['projek']=ProjekBaru::find($id);
-        return view('app.kecemasan.ubah', $data);
+        return view('app.kecemasan.edit', $data);
     }
 
     public function update(Request $req){
         // dd($req->all());
         $validated = $req->validate([
             'proj_negeri' => 'required',
-            'proj_kod_subsetia' => 'required',
-            'proj_pemilik' => 'required',
+            'proj_daerah' => 'required',
             'proj_fasiliti_id' => 'required',
+            'proj_kod_subsetia' => 'required',
+            'proj_program' => 'required',
             'proj_kategori_id' => 'required',
             'proj_struktur' => 'required',
+            'proj_laksana_mula' => 'required',
+            'proj_laksana_tamat' => 'required',
             'proj_kos_mohon' => 'required',
+            'proj_pelaksana_agensi' => 'required_if:proj_pelaksana,3,4',
             'proj_nama' => 'required',
             'proj_skop' => 'required',
             'proj_justifikasi' => 'required',
@@ -291,20 +305,26 @@ class ProjekKecemasanController extends Controller
         ],
         [
             'proj_negeri.required' => 'Sila pilih negeri',
-            'proj_kod_subsetia.required' => 'Sila masukkan Kod Subsetia',
-            'proj_pemilik.required' => 'Sila pilih pemilik projek',
+            'proj_daerah.required' => 'Sila pilih daerah',
             'proj_fasiliti_id.required' => 'Sila pilih fasiliti',
+            'proj_kod_subsetia.required' => 'Sila masukkan Kod Subsetia',
+            'proj_program.required' => 'Sila pilih projek program',
             'proj_kategori_id.required' => 'Sila pilih kategori projek',
             'proj_struktur.required' => 'Adakah melibatkan struktur',
+            'proj_laksana_mula.required' => 'Sila masukkan tarikh mula pelaksanaan',
+            'proj_laksana_tamat.required' => 'Sila masukkan tarikh tamatpelaksanaan',
             'proj_kos_mohon.required' => 'Sila masukkan anggaran kos pelaksanaan',
+            'proj_pelaksana_agensi.required_if' => 'Sila Pilih Cawangan JKR',
             'proj_nama.required' => 'Sila nyatakan Nama Projek',
             'proj_skop.required' => 'Sila nyatakan Skop Projek',
             'proj_justifikasi.required' => 'Sila nyatakan Justifikasi Projek',
             'proj_ulasan_teknikal.required' => 'Sila nyatakan Ulasan Unit Kejuruteraan',
         ]);
+        // dd($req->all());
 
         $projek = ProjekBaru::find($req->projek_id);
         $projek->proj_negeri = $req->proj_negeri;
+        $projek->proj_daerah = $req->proj_daerah;
         $projek->proj_fasiliti_id = $req->proj_fasiliti_id;
         $projek->proj_parlimen = 1;
         $projek->proj_dun = 1;
@@ -312,9 +332,10 @@ class ProjekKecemasanController extends Controller
         $projek->proj_kod_projek = $req->proj_kod_projek;
         $projek->proj_kod_setia = $req->proj_kod_setia;
         $projek->proj_kod_subsetia = $req->proj_kod_subsetia;
-        $projek->proj_pemilik = $req->proj_pemilik;
+        $projek->proj_pemilik =auth()->user()->program_id;
+        $projek->proj_program = $req->proj_program;
         $projek->proj_pelaksana = $req->proj_pelaksana;
-        if($req->proj_pelaksana==3){
+        if($req->proj_pelaksana==3 || $req->proj_pelaksana==4){
             $projek->proj_pelaksana_agensi = $req->proj_pelaksana_agensi;
         }
         $projek->proj_struktur = $req->proj_struktur;
@@ -350,87 +371,25 @@ class ProjekKecemasanController extends Controller
         }
     }
 
-    public function simpanUnjuran(Request $req){
-        $validator = Validator::make($req->all(), [
-            'proj_unjur_tahun'=> 'required',
-            'proj_unjur_siling'=> 'required',
-        ],
-        [
-            'proj_unjur_tahun.required'=> 'Sila masukkan tahun unjuran',
-            'proj_unjur_siling.required'=> 'Sila masukkan siling tahunan',
-        ]);
-
-        if($validator->fails())
-        {
-            return response()->json([
-                'status'=>400,
-                'errors'=>$validator->messages()
+    public function selesai(string $id){
+        $projek = ProjekBaru::find($id);
+        $projek->proj_status_complete=2;
+        $projek->proj_status=2;
+        $projek->save();
+        if($projek){
+            return redirect('/permohonan/kecemasan/main')
+            ->with([
+                'title'=>'Berjaya',
+                'msg'=>'Maklumat projek telah dihantar dan akan dioproses oleh Pentadbir Projek',
+                'type'=>'success'
             ]);
         }
-        else
-        {
-           $unjuran = new ProjekBaruUnjuran;
-           $unjuran->proj_unjur_projek_id = $req->input('proj_unjur_projek_id');
-           $unjuran->proj_unjur_tahun = $req->input('proj_unjur_tahun');
-           $unjuran->proj_unjur_siling = $req->input('proj_unjur_siling');
-            // dd($unjuran);
-           $unjuran->save();
-            return response()->json([
-                'status'=>200,
-                'message'=>'Berjaya ditambah'
-            ]);
-        }
-    }
-
-    public function senaraiUnjuran(string $id){
-        $unjuran = ProjekBaruUnjuran::where('proj_unjur_projek_id', $id)->get();
-        return response()->json([
-            'unjuran'=>$unjuran,
-        ]);
-    }
-
-    public function senaraiDokumen(string $id){
-        $doc = ProjekDokumen::where('proj_doc_projek_id', $id)->get();
-        return response()->json([
-            'doc'=> $doc,
-        ]);
-    }
-
-    public function padamUnjuran(string $id){
-        $unjuran = ProjekBaruUnjuran::find($id);
-        if($unjuran)
-        {
-            $unjuran->delete();
-            return response()->json([
-                'status'=>200,
-                'message'=>'Maklumat Unjuran Berjaya Dipadam.'
-            ]);
-        }
-        else
-        {
-            return response()->json([
-                'status'=>404,
-                'message'=>'Maklumat Unjuran Tidak Wujud'
-            ]);
-        }
-    }
-
-    public function padamDokumen(string $id){
-        $doc = ProjekDokumen::find($id);
-        if($doc)
-        {
-            $doc->delete();
-            Storage::delete('public/'.$doc->proj_doc_fail);
-            return response()->json([
-                'status'=>200,
-                'message'=>'Maklumat dokumen berjaya dipadam.'
-            ]);
-        }
-        else
-        {
-            return response()->json([
-                'status'=>404,
-                'message'=>'Maklumat Dokumen Tidak Wujud'
+        else{
+            return redirect('/permohonan/kecemasan/main')
+            ->with([
+                'title'=>'Gagal',
+                'msg'=>'Maklumat projek gagal dihantar',
+                'type'=>'error'
             ]);
         }
     }

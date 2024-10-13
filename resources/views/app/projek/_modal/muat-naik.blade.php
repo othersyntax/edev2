@@ -1,4 +1,4 @@
-<div class="modal inmodal" id="addModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal" id="addModalDokumen" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content animated bounceInRight">
             <form id="frmUpload">
@@ -7,7 +7,7 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     {{-- <i class="fa fa-cogs modal-icon"></i> --}}
                     <h4 class="modal-title">Maklumat Dokumen</h4>
-                    <small class="font-bold">Dokumen yang dimuat naik mestilah dalam format PDF dan saiz tidak lebih 2MB</small>
+                    <small class="font-bold">Dokumen yang dimuat naik mestilah dalam format PDF dan XLXS dan saiz tidak lebih 2MB</small>
                 </div>
                 <div class="col-lg-12">
                     <ul id="save_msgList"></ul>

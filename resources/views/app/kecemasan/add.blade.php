@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    Kecemasan
+    Permohonan Kecemasan
 @endsection
 @section('custom-css')
     <!-- Sweet Alert -->
@@ -17,7 +17,7 @@
                 <a href="#">Projek</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Luar Siling</strong>
+                <strong>Kecemasan</strong>
             </li>
         </ol>
     </div>
@@ -26,7 +26,7 @@
 
 @section('content')
 <div class="row">
-<form action="/permohonan/kecemasan/simpan" method="post">
+<form id="form1" action="/permohonan/kecemasan/simpan" method="post">
     @csrf
     <div class="col-lg-12">
         <div class="ibox">
@@ -77,13 +77,13 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Parlimen</label>
-                            {{ Form::text('proj_parlimen', null, ['class'=>'form-control', 'id'=>'proj_parlimen']) }}
+                            {{ Form::text('proj_parlimen', 'P00 - Tiada Rekod', ['class'=>'form-control', 'id'=>'proj_parlimen', 'readonly']) }}
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Dewan Undangan Negeri</label>
-                            {{ Form::text('proj_dun', null, ['class'=>'form-control', 'id'=>'proj_dun']) }}
+                            {{ Form::text('proj_dun', 'N00 - Tiada Rekod', ['class'=>'form-control', 'id'=>'proj_dun', 'readonly']) }}
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,6 @@
                         <div class="form-group">
                             <label>Sub Setia</label>
                             {{ Form::select('proj_kod_subsetia', ['1001'=>'1001', '4001'=>'4001','4003'=>'4003'], null, ['class'=>'form-control', 'id'=>'proj_kod_subsetia']) }}
-                            {{-- {{ Form::text('proj_kod_subsetia', null, ['class'=>'form-control', 'id'=>'proj_kod_subsetia']) }} --}}
                             @error('proj_kod_subsetia')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -147,8 +146,20 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Agensi Pelaksana?</label>
-                            {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
+                            <label>Projek Program</label>
+                            {{ Form::select('proj_program', dropdownProjekProgram(), '100004', ['class'=>'form-control', 'id'=>'proj_program']) }}
+                            @error('proj_program')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Kategori Projek</label>
+                            {{ Form::select('proj_kategori_id', dropdownProjekKategori('xsiling'), null, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
+                            @error('proj_kategori_id')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -160,23 +171,15 @@
                             @enderror
                         </div>
                     </div>
-                    <div id="pilihJkr" class="col-md-6" style="display:none">
-                        <div class="form-group">
-                            <label>Cawangan JKR</label>
-                            {{ Form::select('proj_pelaksana_agensi', getListJKR(), null, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
-                            @error('proj_pelaksana_agensi')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-3">
                         <div class="form-group" id="data_1">
                             <label>Tarikh Mula Pelaksanaan</label>
                             <div class="input-group date">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="proj_laksana_mula" class="form-control" name="proj_laksana_mula">
                             </div>
+                            @error('proj_laksana_mula')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -185,34 +188,35 @@
                             <div class="input-group date">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="proj_laksana_tamat" name="proj_laksana_tamat" class="form-control">
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Tahun</label>
-                            {{ Form::text('proj_tahun', null, ['class'=>'form-control', 'id'=>'proj_tahun']) }}
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Bulan</label>
-                            {{ Form::text('proj_bulan', null, ['class'=>'form-control', 'id'=>'proj_bulan']) }}
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Kategori Projek</label>
-                            {{ Form::select('proj_kategori_id', dropdownProjekKategori('xsiling'), null, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
-                            @error('proj_kategori_id')
+                            @error('proj_laksana_tamat')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
                     </div>
+                    {{ Form::hidden('proj_tahun', null, ['class'=>'form-control', 'id'=>'proj_tahun']) }}
+                    {{ Form::hidden('proj_bulan', null, ['class'=>'form-control', 'id'=>'proj_bulan']) }}
                     <div class="col-md-3">
                         <div class="form-group has-success">
                             <label>Anggaran Kos (RM)</label>
                             {{ Form::number('proj_kos_mohon', null, ['class'=>'form-control text-right', 'id'=>'proj_kos_mohon']) }}
                             @error('proj_kos_mohon')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Agensi Pelaksana?</label>
+                            {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '4'=>'JKN', '3'=>'JKR'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
+                        </div>
+                    </div>
+                    <div id="pilihJkr" class="col-md-6" style="display:none">
+                        <div class="form-group">
+                            <label id="agensiLaksanaTitle">Pelaksana</label>
+                            <span id="list-agensi-pelaksana">
+                                {{ Form::select('proj_pelaksana_agensi',  [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
+                            </span>
+                            @error('proj_pelaksana_agensi')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
@@ -255,6 +259,13 @@
                             {{ Form::textarea('proj_catatan', null, ['class'=>'form-control', 'id'=>'proj_catatan', 'rows'=>'4']) }}
                         </div>
                     </div>
+
+                    <div class="col-md-12">
+                        <fieldset>
+                            <p class="text-info font-bold mt-3">4. PENGESAHAN DAN PERAKUAN</p>
+                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Dengan ini saya mengesahkan bahawa permohonan ini telah disah dan diperakukan oleh Pengarah Kesihatan Negeri (PKN).</label>
+                        </fieldset>
+                    </div>
                 </div>
             </div>
         </div>
@@ -263,7 +274,7 @@
         <div class="ibox-content">
             <div class="form-group row">
                 <div class="col-sm-4 col-sm-offset-2">
-                    <a href="/permohonan/kecemasan/main" class="btn btn-white btn-sm">Batal</a>
+                    <a href="/permohonan/baru/main" class="btn btn-white btn-sm">Batal</a>
                     <button class="btn btn-primary btn-sm" type="submit">Simpan</button>
                     {{-- <button class="btn btn-info btn-sm" type="submit">Simpan dan Salin</button> --}}
                 </div>
@@ -281,6 +292,22 @@
 <script>
     $(document).ready(function(){
 
+        $('form').on('submit', function() {
+            let checked = $('input[name="acceptTerms"]:checked').length;
+            // alert(checked);
+            if (checked == 0) {
+                swal("Pengesahan", "Sila sahkan pengesahan PKN", "error");
+                return false;
+            } else {
+                return true;
+            }
+        });
+
+        // alert('aa');
+        let laksana = $('[name=proj_pelaksana]').val();
+        let agensi = $('[name=proj_pelaksana_agensi_data]').val();
+        pilihPelaksana(laksana, agensi);
+
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
             format: "dd/mm/yyyy",
@@ -297,12 +324,6 @@
             // calendarWeeks: true,
             autoclose: true
         });
-        //ON CHANGE NEGERI DROPDOWN EVENT
-        $('#proj_negeri').on('change', function() {
-            var parID = $(this).val();
-            getFasiliti(parID, 'proj_daerah', '#list-daerah');
-            // getFasiliti(cariNegeri, 'proj_fasiliti_id', '#list-fasiliti');
-        });
 
         $('#proj_laksana_mula').on('change', function(){
             var selDate = $(this).val();
@@ -312,33 +333,57 @@
             // alert(spilDate[0]);
         });
 
-
-        //ADD BUTTON CLICK
-        $('#add').click(function(e){
-            e.preventDefault();
-            $('#addModal').modal('show');
+        $('#proj_negeri').on('change', function() {
+            var parID = $(this).val();
+            getFasiliti(parID, 'proj_daerah', '#list-daerah');
+            // getFasiliti(cariNegeri, 'proj_fasiliti_id', '#list-fasiliti');
         });
 
-        $('#addUnjuran').click(function(e){
-            e.preventDefault();
-            $('#addKewangan').modal('show');
+        $('#proj_status').on('change', function(){
+            let pilih = $(this).val();
+            pilihStatus(pilih);
         });
 
         $('#proj_pelaksana').on('change', function(){
             let select = $(this).val();
+            pilihPelaksana(select);
+            // alert('aa');
 
+        });
+
+        function pilihStatus(pilih){
+            if(pilih == 1){
+                $('#pilihStatus').hide();
+            }
+            else{
+                $('#pilihStatus').show();
+            }
+        }
+        function pilihPelaksana(select, selectAgensi='99'){
+            // alert('aa');
             if(select == 3){
                 $('#pilihJkr').show();
+                $('#agensiLaksanaTitle').html('Cawangan JKR');
+                getAgensiPelaksana('JKR', 'proj_pelaksana_agensi', '#list-agensi-pelaksana', selectAgensi);
+            }
+            else if(select == 4){
+                $('#pilihJkr').show();
+                $('#agensiLaksanaTitle').html('JKN Yang Melaksana');
+                getAgensiPelaksana('JKN', 'proj_pelaksana_agensi', '#list-agensi-pelaksana', selectAgensi);
             }
             else{
                 $('#pilihJkr').hide();
             }
-        });
+        }
 
-        $('.custom-file-input').on('change', function() {
-            let fileName = $(this).val().split('\\').pop();
-            $(this).next('.custom-file-label').addClass("selected").html(fileName);
-        });
+
+        //GET PELAKSANA AGENSI JKR / JKN
+        function getAgensiPelaksana(data='',  inputname='', list='', select='99') {
+            let url = "/ajax/ajax-agensi-pelaksana/" + data + "/" + inputname + "/" + select;
+            $.get(url, function(data) {
+                $(list).html(data);
+            });
+        }
 
         //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
         function getFasiliti(parID='0', inputname='0', list='0', select='99') {
@@ -352,12 +397,15 @@
                     let url = "/ajax/ajax-fasiliti/" + daerahID + "/" + inputname + "/" + select;
                     $.get(url, function(data) {
                         $(list).html(data);
-                        // $('#proj_fasiliti_id').on('change', function() {});
-                        // alert('AA');
-                        $('#proj_parlimen').val('P02 - Tiada Rekod');
-                        $('#proj_dun').val('N22 - Tiada Rekod');
                     });
                 });
+            });
+        }
+
+        function getEditFasiliti(daerahID='0', inputname='0', list='0', select='99'){
+            let url = "/ajax/ajax-fasiliti/" + daerahID + "/" + inputname + "/" + select;
+            $.get(url, function(data) {
+                $(list).html(data);
             });
         }
 
@@ -378,7 +426,10 @@
             };
             return bulan[month];
         }
+
     });
+
+
 </script>
 
 @endsection

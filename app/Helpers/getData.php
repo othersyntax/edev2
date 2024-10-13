@@ -96,7 +96,7 @@ function dropdownProjekProgram(){
     $program = ProjekProgram::where('proj_prog_status', '1')
         ->orderBy('proj_prog_nama')
         ->pluck('proj_prog_nama', 'proj_program_id')
-        ->prepend('--Sila Pilih--', '0');
+        ->prepend('--Sila Pilih--', '');
     return $program;
 }
 
@@ -121,8 +121,10 @@ function getStatus($id){
         return "Aktif";
     else if($id==2)
         return "Tukar Tajuk";
-    else
+    else if($id==3)
         return "Dibatalkan";
+    else
+        return "Tarik Balik";
 }
 function getStatusProjek($id){
     if($id==1)
@@ -188,4 +190,14 @@ function cekJimat($id){
         return true;
     else
         return false;
+}
+
+function getProgram($id){
+    $prog = Program::where('program_id', $id)->select('prog_name')->first();
+    return $prog->prog_name;
+}
+
+function getModul($id){
+    $modul = \DB::table('tblmodul')->select('modul')->where('id', $id)->first();
+    return $modul->modul;
 }

@@ -54,7 +54,8 @@ class ProjekBaruController extends Controller
                 ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
                 ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fas_ptj_code')
                 ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
-                ->where('c.pro_siling', 'Siling')
+                ->orWhere('c.pro_siling', 'Siling')
+                ->orWhere('c.pro_siling', 'Guna Baki')
                 ->where('proj_pemilik', auth()->user()->program_id);
 
             $projek = $query->get();
@@ -67,7 +68,7 @@ class ProjekBaruController extends Controller
                     ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
                     ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fasiliti_id')
                     ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
-                    ->where('c.pro_siling', 'Siling')
+                    ->whereIn('c.pro_siling', ['Siling', 'Guna Baki'])
                     ->where('proj_pemilik', auth()->user()->program_id)
                     ->where(function($q) use ($program, $negeri, $daerah, $fasiliti, $pelaksana, $kategori, $status, $projek){
                         if(!empty($program)){
@@ -122,14 +123,18 @@ class ProjekBaruController extends Controller
     }
 
     public function store(Request $req){
-
         $validated = $req->validate([
             'proj_negeri' => 'required',
-            'proj_kod_subsetia' => 'required',
+            'proj_daerah' => 'required',
             'proj_fasiliti_id' => 'required',
+            'proj_kod_subsetia' => 'required',
+            'proj_program' => 'required',
             'proj_kategori_id' => 'required',
             'proj_struktur' => 'required',
+            'proj_laksana_mula' => 'required',
+            'proj_laksana_tamat' => 'required',
             'proj_kos_mohon' => 'required',
+            'proj_pelaksana_agensi' => 'required_if:proj_pelaksana,3,4',
             'proj_nama' => 'required',
             'proj_skop' => 'required',
             'proj_justifikasi' => 'required',
@@ -137,11 +142,16 @@ class ProjekBaruController extends Controller
         ],
         [
             'proj_negeri.required' => 'Sila pilih negeri',
-            'proj_kod_subsetia.required' => 'Sila masukkan Kod Subsetia',
+            'proj_daerah.required' => 'Sila pilih daerah',
             'proj_fasiliti_id.required' => 'Sila pilih fasiliti',
+            'proj_kod_subsetia.required' => 'Sila masukkan Kod Subsetia',
+            'proj_program.required' => 'Sila pilih projek program',
             'proj_kategori_id.required' => 'Sila pilih kategori projek',
             'proj_struktur.required' => 'Adakah melibatkan struktur',
+            'proj_laksana_mula.required' => 'Sila masukkan tarikh mula pelaksanaan',
+            'proj_laksana_tamat.required' => 'Sila masukkan tarikh tamatpelaksanaan',
             'proj_kos_mohon.required' => 'Sila masukkan anggaran kos pelaksanaan',
+            'proj_pelaksana_agensi.required_if' => 'Sila Pilih Cawangan JKR',
             'proj_nama.required' => 'Sila nyatakan Nama Projek',
             'proj_skop.required' => 'Sila nyatakan Skop Projek',
             'proj_justifikasi.required' => 'Sila nyatakan Justifikasi Projek',
@@ -160,8 +170,9 @@ class ProjekBaruController extends Controller
         $projek->proj_kod_setia = $req->proj_kod_setia;
         $projek->proj_kod_subsetia = $req->proj_kod_subsetia;
         $projek->proj_pemilik =auth()->user()->program_id;
+        $projek->proj_program = $req->proj_program;
         $projek->proj_pelaksana = $req->proj_pelaksana;
-        if($req->proj_pelaksana==3){
+        if($req->proj_pelaksana==3 || $req->proj_pelaksana==4){
             $projek->proj_pelaksana_agensi = $req->proj_pelaksana_agensi;
         }
         $projek->proj_struktur = $req->proj_struktur;
@@ -183,7 +194,7 @@ class ProjekBaruController extends Controller
 
         if($projek){
             // echo "berjaya";
-            return redirect('/permohonan/baru/papar/'.$projek->projek_id);
+            return redirect('/permohonan/baru/main'.$projek->projek_id);
         }
 
     }
@@ -280,18 +291,22 @@ class ProjekBaruController extends Controller
 
     public function edit(string $id){
         $data['projek']=ProjekBaru::find($id);
-        return view('app.projek-baru.ubah', $data);
+        return view('app.projek-baru.edit', $data);
     }
 
     public function update(Request $req){
         $validated = $req->validate([
             'proj_negeri' => 'required',
-            'proj_kod_subsetia' => 'required',
-            'proj_pemilik' => 'required',
+            'proj_daerah' => 'required',
             'proj_fasiliti_id' => 'required',
+            'proj_kod_subsetia' => 'required',
+            'proj_program' => 'required',
             'proj_kategori_id' => 'required',
             'proj_struktur' => 'required',
+            'proj_laksana_mula' => 'required',
+            'proj_laksana_tamat' => 'required',
             'proj_kos_mohon' => 'required',
+            'proj_pelaksana_agensi' => 'required_if:proj_pelaksana,3,4',
             'proj_nama' => 'required',
             'proj_skop' => 'required',
             'proj_justifikasi' => 'required',
@@ -299,12 +314,16 @@ class ProjekBaruController extends Controller
         ],
         [
             'proj_negeri.required' => 'Sila pilih negeri',
-            'proj_kod_subsetia.required' => 'Sila masukkan Kod Subsetia',
-            'proj_pemilik.required' => 'Sila pilih pemilik projek',
+            'proj_daerah.required' => 'Sila pilih daerah',
             'proj_fasiliti_id.required' => 'Sila pilih fasiliti',
+            'proj_kod_subsetia.required' => 'Sila masukkan Kod Subsetia',
+            'proj_program.required' => 'Sila pilih projek program',
             'proj_kategori_id.required' => 'Sila pilih kategori projek',
             'proj_struktur.required' => 'Adakah melibatkan struktur',
+            'proj_laksana_mula.required' => 'Sila masukkan tarikh mula pelaksanaan',
+            'proj_laksana_tamat.required' => 'Sila masukkan tarikh tamatpelaksanaan',
             'proj_kos_mohon.required' => 'Sila masukkan anggaran kos pelaksanaan',
+            'proj_pelaksana_agensi.required_if' => 'Sila Pilih Cawangan JKR',
             'proj_nama.required' => 'Sila nyatakan Nama Projek',
             'proj_skop.required' => 'Sila nyatakan Skop Projek',
             'proj_justifikasi.required' => 'Sila nyatakan Justifikasi Projek',
@@ -314,6 +333,7 @@ class ProjekBaruController extends Controller
 
         $projek = ProjekBaru::find($req->projek_id);
         $projek->proj_negeri = $req->proj_negeri;
+        $projek->proj_daerah = $req->proj_daerah;
         $projek->proj_fasiliti_id = $req->proj_fasiliti_id;
         $projek->proj_parlimen = 1;
         $projek->proj_dun = 1;
@@ -321,9 +341,10 @@ class ProjekBaruController extends Controller
         $projek->proj_kod_projek = $req->proj_kod_projek;
         $projek->proj_kod_setia = $req->proj_kod_setia;
         $projek->proj_kod_subsetia = $req->proj_kod_subsetia;
-        $projek->proj_pemilik = $req->proj_pemilik;
+        $projek->proj_pemilik =auth()->user()->program_id;
+        $projek->proj_program = $req->proj_program;
         $projek->proj_pelaksana = $req->proj_pelaksana;
-        if($req->proj_pelaksana==3){
+        if($req->proj_pelaksana==3 || $req->proj_pelaksana==4){
             $projek->proj_pelaksana_agensi = $req->proj_pelaksana_agensi;
         }
         $projek->proj_struktur = $req->proj_struktur;
@@ -339,6 +360,7 @@ class ProjekBaruController extends Controller
         $projek->proj_ulasan_teknikal = $req->proj_ulasan_teknikal;
         $projek->proj_catatan = $req->proj_catatan;
         $projek->proj_updated_by = auth()->user()->id;
+        // dd($projek);
         $projek->save();
 
         if($projek){
@@ -359,88 +381,104 @@ class ProjekBaruController extends Controller
         }
     }
 
-    public function simpanUnjuran(Request $req){
-        $validator = Validator::make($req->all(), [
-            'proj_unjur_tahun'=> 'required',
-            'proj_unjur_siling'=> 'required',
-        ],
-        [
-            'proj_unjur_tahun.required'=> 'Sila masukkan tahun unjuran',
-            'proj_unjur_siling.required'=> 'Sila masukkan siling tahunan',
-        ]);
+    // public function simpanUnjuran(Request $req){
+    //     $validator = Validator::make($req->all(), [
+    //         'proj_unjur_tahun'=> 'required',
+    //         'proj_unjur_siling'=> 'required',
+    //     ],
+    //     [
+    //         'proj_unjur_tahun.required'=> 'Sila masukkan tahun unjuran',
+    //         'proj_unjur_siling.required'=> 'Sila masukkan siling tahunan',
+    //     ]);
 
-        if($validator->fails())
-        {
-            return response()->json([
-                'status'=>400,
-                'errors'=>$validator->messages()
+    //     if($validator->fails())
+    //     {
+    //         return response()->json([
+    //             'status'=>400,
+    //             'errors'=>$validator->messages()
+    //         ]);
+    //     }
+    //     else
+    //     {
+    //        $unjuran = new ProjekBaruUnjuran;
+    //        $unjuran->proj_unjur_projek_id = $req->input('proj_unjur_projek_id');
+    //        $unjuran->proj_unjur_tahun = $req->input('proj_unjur_tahun');
+    //        $unjuran->proj_unjur_siling = $req->input('proj_unjur_siling');
+    //         // dd($unjuran);
+    //        $unjuran->save();
+    //         return response()->json([
+    //             'status'=>200,
+    //             'message'=>'Berjaya ditambah'
+    //         ]);
+    //     }
+    // }
+
+    public function selesai(string $id){
+        $projek = ProjekBaru::find($id);
+        $projek->proj_status_complete=2;
+        $projek->proj_status=2;
+        $projek->save();
+        if($projek){
+            return redirect('/permohonan/baru/main')
+            ->with([
+                'title'=>'Berjaya',
+                'msg'=>'Maklumat projek telah dihantar untuk semakan',
+                'type'=>'success'
             ]);
         }
-        else
-        {
-           $unjuran = new ProjekBaruUnjuran;
-           $unjuran->proj_unjur_projek_id = $req->input('proj_unjur_projek_id');
-           $unjuran->proj_unjur_tahun = $req->input('proj_unjur_tahun');
-           $unjuran->proj_unjur_siling = $req->input('proj_unjur_siling');
-            // dd($unjuran);
-           $unjuran->save();
-            return response()->json([
-                'status'=>200,
-                'message'=>'Berjaya ditambah'
+        else{
+            return redirect('/permohonan/baru/main')
+            ->with([
+                'title'=>'Gagal',
+                'msg'=>'Maklumat projek gagal dihantar',
+                'type'=>'error'
             ]);
         }
     }
 
-    public function senaraiUnjuran(string $id){
-        $unjuran = ProjekBaruUnjuran::where('proj_unjur_projek_id', $id)->get();
-        return response()->json([
-            'unjuran'=>$unjuran,
-        ]);
-    }
+    // public function senaraiDokumen(string $id){
+    //     $doc = ProjekDokumen::where('proj_doc_projek_id', $id)->get();
+    //     return response()->json([
+    //         'doc'=> $doc,
+    //     ]);
+    // }
 
-    public function senaraiDokumen(string $id){
-        $doc = ProjekDokumen::where('proj_doc_projek_id', $id)->get();
-        return response()->json([
-            'doc'=> $doc,
-        ]);
-    }
+    // public function padamUnjuran(string $id){
+    //     $unjuran = ProjekBaruUnjuran::find($id);
+    //     if($unjuran)
+    //     {
+    //         $unjuran->delete();
+    //         return response()->json([
+    //             'status'=>200,
+    //             'message'=>'Maklumat Unjuran Berjaya Dipadam.'
+    //         ]);
+    //     }
+    //     else
+    //     {
+    //         return response()->json([
+    //             'status'=>404,
+    //             'message'=>'Maklumat Unjuran Tidak Wujud'
+    //         ]);
+    //     }
+    // }
 
-    public function padamUnjuran(string $id){
-        $unjuran = ProjekBaruUnjuran::find($id);
-        if($unjuran)
-        {
-            $unjuran->delete();
-            return response()->json([
-                'status'=>200,
-                'message'=>'Maklumat Unjuran Berjaya Dipadam.'
-            ]);
-        }
-        else
-        {
-            return response()->json([
-                'status'=>404,
-                'message'=>'Maklumat Unjuran Tidak Wujud'
-            ]);
-        }
-    }
-
-    public function padamDokumen(string $id){
-        $doc = ProjekDokumen::find($id);
-        if($doc)
-        {
-            $doc->delete();
-            Storage::delete('public/'.$doc->proj_doc_fail);
-            return response()->json([
-                'status'=>200,
-                'message'=>'Maklumat dokumen berjaya dipadam.'
-            ]);
-        }
-        else
-        {
-            return response()->json([
-                'status'=>404,
-                'message'=>'Maklumat Dokumen Tidak Wujud'
-            ]);
-        }
-    }
+    // public function padamDokumen(string $id){
+    //     $doc = ProjekDokumen::find($id);
+    //     if($doc)
+    //     {
+    //         $doc->delete();
+    //         Storage::delete('public/'.$doc->proj_doc_fail);
+    //         return response()->json([
+    //             'status'=>200,
+    //             'message'=>'Maklumat dokumen berjaya dipadam.'
+    //         ]);
+    //     }
+    //     else
+    //     {
+    //         return response()->json([
+    //             'status'=>404,
+    //             'message'=>'Maklumat Dokumen Tidak Wujud'
+    //         ]);
+    //     }
+    // }
 }

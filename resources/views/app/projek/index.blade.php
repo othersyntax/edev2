@@ -31,7 +31,7 @@
                 <h5>BELANJA</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins  text-right">@duit(275800)</h1>
+                <h1 class="no-margins  text-right">@duit(0)</h1>
             </div>
         </div>
     </div>
@@ -52,7 +52,7 @@
                 <h5>JUMLAH BAKI</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins  text-right">@duit(106120)</h1>
+                <h1 class="no-margins  text-right">@duit(0)</h1>
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
         <div class="ibox ">
             <div class="ibox-title bg-primary">
                 <span class="label label-success float-right">{{ date('Y') }}</span>
-                <h5>JUMLAH DILULUSKAN</h5>
+                <h5>JUMLAH DIAGIHKAN</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins text-right font-bold">@duit($jumlah)</h1>
@@ -124,6 +124,12 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
+                                <label>Subsetia</label>
+                                {{ Form::select('subsetia', [''=>'--Sila Pilih--','1001'=>'1001', '4001'=>'4001', '4003'=>'4003',], session('subsetia'), ['class'=>'form-control', 'id'=>'subsetia']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
                                 <label>Kategori Projek</label>
                                 {{ Form::select('kategori', dropdownProjekKategori(), session('kategori'), ['class'=>'form-control', 'id'=>'kategori']) }}
                             </div>
@@ -143,7 +149,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Status</label>
-                                {{ Form::select('status', [''=>'--Sila Pilih--', '1'=>'Aktif', '2'=>'Batal'], session('status'), ['class'=>'form-control', 'id'=>'status']) }}
+                                {{ Form::select('status', [''=>'--Sila Pilih--', '1'=>'Aktif', '2'=>'Tukar Tajuk', '3'=>'Dibatalkan', '4'=>'Tarik Balik'], session('status'), ['class'=>'form-control', 'id'=>'status']) }}
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -213,6 +219,9 @@
                                             $label = 'label-primary';
                                         }
                                         else if($proj->proj_status==2){
+                                            $label = 'label-success';
+                                        }
+                                        else if($proj->proj_status==3){
                                             $label = 'label-warning';
                                         }
                                         else{
@@ -246,8 +255,9 @@
                         @endif
                         </tbody>
                     </table>
+                    <div class="text-center">{{ $projek->links() }}</div>
                 </div>
-                <div class="text-center">{{ $projek->links() }}</div>
+
             </div>
         </div>
     </div>

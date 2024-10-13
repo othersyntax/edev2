@@ -25,11 +25,11 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'modul_id'=> 'required',
+            // 'modul_id'=> 'required',
             'name_capaian'=> 'required'
         ],
         [
-            'modul_id.required'=> 'Sila pilih modul',
+            // 'modul_id.required'=> 'Sila pilih modul',
             'name_capaian.required'=> 'Sila masukkan nama Had Capaian'
         ]);
         // dd($validator->fails());

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('layouts.landing');
 });
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     Route::get('/akses/roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
     Route::put('/akses/roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'givePermissionToRole']);
 
+    Route::any('/akses/pengguna', [App\Http\Controllers\UserController::class, 'index']);
     Route::resource('/akses/users', App\Http\Controllers\UserController::class);
     Route::get('/akses/users/{userId}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
 
@@ -62,3 +64,5 @@ require __DIR__.'/pentadbiran.php';
 require __DIR__.'/projek.php';
 require __DIR__.'/wan.php';
 require __DIR__.'/anas.php';
+
+require __DIR__.'/auth.php';

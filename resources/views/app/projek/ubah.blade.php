@@ -90,7 +90,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Dewan Undangan Negeri</label>
-                            <div class="form-control">N.00 - Tida Rekod</div>
+                            <div class="form-control">N.00 - Tiada Rekod</div>
                         </div>
                     </div>
                 </div>
@@ -227,31 +227,23 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Nama Projek</label>
-                            {{ Form::textarea('proj_nama', $projek->proj_nama, ['class'=>'form-control', 'id'=>'proj_nama', 'rows'=>'3']) }}
-                            @error('proj_nama')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
+                            @if (auth()->user()->role>1)
+                               {{ Form::textarea('proj_nama', $projek->proj_nama, ['class'=>'form-control', 'id'=>'proj_nama', 'rows'=>'4']) }}
+                            @else
+                                <div class="form-control">{{ $projek->proj_nama }}</div>
+                            @endif
                         </div>
                         <div class="form-group">
                             <label>Skop Projek</label>
-                            {{ Form::textarea('proj_skop', $projek->proj_skop, ['class'=>'form-control', 'id'=>'proj_skop', 'rows'=>'3']) }}
-                            @error('proj_skop')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
+                            <div class="form-control">{{ $projek->proj_skop ? $projek->proj_skop : 'Tiada rekod' }}</div>
                         </div>
                         <div class="form-group">
                             <label>Justifikasi Projek</label>
-                            {{ Form::textarea('proj_justifikasi', $projek->proj_justifikasi, ['class'=>'form-control', 'id'=>'proj_justifikasi', 'rows'=>'3']) }}
-                            @error('proj_justifikasi')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
+                            <div class="form-control">{{ $projek->proj_justifikasi ? $projek->proj_justifikasi : 'Tiada rekod' }}</div>
                         </div>
                         <div class="form-group">
                             <label>Ulasan Teknikal (JKR / BPKj / Unit Kejuruteraan)</label>
-                            {{ Form::textarea('proj_ulasan_teknikal', $projek->proj_ulasan_teknikal, ['class'=>'form-control', 'id'=>'proj_ulasan_teknikal', 'rows'=>'3']) }}
-                            @error('proj_ulasan_teknikal')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
+                            <div class="form-control">{{ $projek->proj_ulasan_teknikal ? $projek->proj_ulasan_teknikal : 'Tiada rekod' }}</div>
                         </div>
                         <div class="form-group">
                             <label>Catatan</label>
@@ -261,7 +253,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Kos Yang Diluluskan</label>
-                            {{ Form::text('proj_kos_lulus', $projek->proj_kos_lulus, ['class'=>'form-control text-right', 'id'=>'proj_kos_lulus', 'readonly']) }}
+                            {{ Form::text('proj_kos_lulus', $projek->proj_kos_lulus, ['class'=>'form-control text-right', 'id'=>'proj_kos_lulus']) }}
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -311,10 +303,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>No Waran Peruntukan (F1)</label>
-                            <div class="form-control">{{ $projek->proj_waran_no }}</div>
+                            <div class="form-control">{{ $projek->proj_waran_no ? $projek->proj_waran_no : 'Tiada rekod' }}</div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
                         <div class="form-group">
                             <label>No Waran Peruntukan (F4)</label>
                             {{ Form::text('projd_waran_kecil', $details->projd_waran_kecil, ['class'=>'form-control text-right', 'id'=>'projd_waran_kecil']) }}
@@ -325,7 +317,7 @@
                             <label>Amaun Waran Peruntukan</label>
                             {{ Form::text('projd_waran_amaun', $details->projd_waran_amaun, ['class'=>'form-control text-right', 'id'=>'projd_waran_amaun']) }}
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <p class="text-info font-bold mt-3">5. STATUS PROJEK</p>
                 <div class="hr-line-dashed"></div>
@@ -333,7 +325,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Status</label>
-                            {{ Form::select('proj_status', ['1'=>'Aktif', '2'=>'Tukar Tajuk', '3'=>'Dibatalkan'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status']) }}
+                            {{ Form::select('proj_status', ['1'=>'Aktif', '2'=>'Tukar Tajuk', '3'=>'Dibatalkan', '4'=>'Tarik Balik'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status']) }}
                         </div>
                     </div>
                     <div id="pilihStatus" class="col-md-6" style="display:none">

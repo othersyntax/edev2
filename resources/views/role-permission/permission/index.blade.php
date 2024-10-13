@@ -42,7 +42,8 @@
                             <tr>
                                 <th width="5%" class="text-center">#ID</th>
                                 <th width="55%">Nama Peranan</th>
-                                <th width="40%">Tindakan</th>
+                                <th width="25%">Modul</th>
+                                <th width="15%">Tindakan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,7 +51,7 @@
                             <tr>
                                 <td class="text-center">{{ $permission->id }}</td>
                                 <td>{{ $permission->name }}</td>
-                                <td>{{ $permission->modul->name }}</td>
+                                <td>{{ $permission->modul_id ? getModul($permission->modul_id) : '-' }}</td>
                                 <td>
                                     @can('update permission')
                                         <button type="button" value="{{ $permission->id }}" class="btn btn-xs btn-success editbtn">Edit</button>

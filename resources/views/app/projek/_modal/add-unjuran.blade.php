@@ -18,7 +18,7 @@
                     <input type="tetx" class="form-control" id="proj_unjur_tahun">
                 </div>
                 <div class="form-group">
-                    <label>Siling Tahunan (RM)</label>
+                    <label>Unjuran Tahun Semasa (RM)</label>
                     <input type="number" class="form-control" id="proj_unjur_siling">
                 </div>
             </div>
