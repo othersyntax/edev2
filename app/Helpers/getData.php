@@ -9,6 +9,7 @@ use App\Models\Fasiliti;
 use App\Models\Siling;
 use App\Models\BakulJimat;
 use App\Models\Modul;
+use App\Models\Gelaran;
 use Carbon\Carbon;
 
 function dropdownNegeri(){
@@ -111,6 +112,14 @@ function getListJKR(){
     $modul = Program::where('prog_kategori', 'JKR')
         ->orderBy('prog_name')
         ->pluck('prog_name', 'program_id')
+        ->prepend('--Sila Pilih--', '');
+    return $modul;
+}
+
+function getListGelaran(){
+    $modul = Gelaran::where('status', 1)
+        ->orderBy('sort')
+        ->pluck('gelaran', 'id')
         ->prepend('--Sila Pilih--', '');
     return $modul;
 }

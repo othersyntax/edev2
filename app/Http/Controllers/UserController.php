@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -81,32 +82,51 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'nokp' => 'required|min:12|unique:users,nokp',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|max:20',
+            'program_id' => 'required',
+            'jawatan' => 'required',
+            'gred' => 'required',
+            'nophone_office' => 'required',
+            'tahap' => 'required',
             'roles' => 'required'
 
         ],
         [
             'name.required' => 'Sila masukkan nama',
+            'nokp.required' => 'Sila masukkan No. kad Pengenalan',
+            'nokp.min' => 'No. Kad Pengenalan hanya 12 aksara',
+            'nokp.unique' => 'No Kad Pengenalan telah wujud',
             'email.required' => 'Sila masukkan e-mel',
             'email.email' => 'Sila masukkan e-mel yang tepat',
-            'email.unique' => 'Maklumat e-mel teah wujud',
-            'password.required' => 'Sila masukkan katalaluan',
-            'password.min' => 'Katalaluan sekurang-kurangnya 8 aksara',
+            'email.unique' => 'Maklumat e-mel telah wujud',
+            'program_id.required' => 'Sila pilih Program/ Bahagian/ JKN/ Institusi',
+            'jawatan.required' => 'Sila masukkan jawatan',
+            'gred.required' => 'Sila masukkan Gred Jawatan',
+            'nophone_office.required' => 'Sila masukkan No. Telefon Pejabat',
+            'tahap.required' => 'Sila pilih Tahap Capaian',
             'roles.required' => 'Sila pilih peranan'
         ]);
 
 
         $user = User::create([
             'name' => $request->name,
+            'nokp' => $request->nokp,
+            'gelaran_id' => $request->gelaran_id,
             'email' => $request->email,
-            'password' => Hash::make('eDE@2024'),
             'program_id' => $request->program_id,
+            'jawatan' => $request->jawatan,
+            'gred' => $request->gred,
+            'nophone_office' => $request->nophone_office,
+            'nophone_mobile' => $request->nophone_mobile,
+            'role' => $request->tahap,
+            'password' => Hash::make('eDE@2024'),
         ]);
 
         // $mail = Mail::to($request->email)->send(new PermohonanAkaunBaru());
 
         $user->syncRoles($request->roles);
+        $mail = Mail::to($request->email)->send(new PermohonanAkaunBaru());
 
         return redirect('/akses/users')->with('status','Pengguna berjaya ditambah');
     }
@@ -119,8 +139,6 @@ class UserController extends Controller
             'user' => $user,
             'roles' => $roles,
             'userRoles' => $userRoles,
-
-
         ]);
     }
 
@@ -128,18 +146,43 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'password' => 'nullable|string|min:8|max:20',
-            'roles' => 'required',
+            'nokp' => 'required|min:12',
+            'email' => 'required|email|max:255',
+            'program_id' => 'required',
+            'jawatan' => 'required',
+            'gred' => 'required',
+            'nophone_office' => 'required',
+            'tahap' => 'required',
+            'roles' => 'required'
 
+        ],
+        [
+            'name.required' => 'Sila masukkan nama',
+            'nokp.required' => 'Sila masukkan No. kad Pengenalan',
+            'nokp.min' => 'No. Kad Pengenalan hanya 12 aksara',
+            'email.required' => 'Sila masukkan e-mel',
+            'email.email' => 'Sila masukkan e-mel yang tepat',
+            'email.unique' => 'Maklumat e-mel telah wujud',
+            'program_id.required' => 'Sila pilih Program/ Bahagian/ JKN/ Institusi',
+            'jawatan.required' => 'Sila masukkan jawatan',
+            'gred.required' => 'Sila masukkan Gred Jawatan',
+            'nophone_office.required' => 'Sila masukkan No. Telefon Pejabat',
+            'tahap.required' => 'Sila pilih Tahap Capaian',
+            'roles.required' => 'Sila pilih peranan'
         ]);
 
         $data = [
             'name' => $request->name,
+            'nokp' => $request->nokp,
+            'gelaran_id' => $request->gelaran_id,
             'email' => $request->email,
-            'role' => $request->role,
-            'user_status'=> $request->user_status,
             'program_id' => $request->program_id,
-
+            'jawatan' => $request->jawatan,
+            'gred' => $request->gred,
+            'nophone_office' => $request->nophone_office,
+            'nophone_mobile' => $request->nophone_mobile,
+            'role' => $request->tahap,
+            'updated_at' =>date('Y-m-d H:i:s'),
         ];
 
         // if(!empty($request->password)){

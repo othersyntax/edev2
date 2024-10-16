@@ -40,48 +40,63 @@
                 @csrf
                 @method('PUT')
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">MAKLUMAT PERIBADI</h3>
                         <div class="form-group">
                             <label for="">Nama</label>
-                            <input type="text" name="name" value="{{ $user->name }}" class="form-control" />
+                            {{ Form::text('name', $user->name, ['class'=>'form-control', 'id'=>'name']) }}
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-
-                    </div>
-                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">No. Kad Pengenalan</label>
+                            {{ Form::text('nokp',  $user->nokp, ['class'=>'form-control', 'id'=>'nokp']) }}
+                            @error('nokp') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="">Gelaran</label>
+                            {{ Form::select('gelaran_id', getListgelaran(),  $user->gelaran_id, ['class'=>'form-control', 'id'=>'gelaran_id']) }}
+                            @error('gelaran_id') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
                         <div class="form-group">
                             <label for="">E-mel</label>
-                            <input type="text" name="email" readonly value="{{ $user->email }}" class="form-control" />
+                            {{ Form::text('email',  $user->email, ['class'=>'form-control', 'id'=>'email']) }}
+                            @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
-                    {{-- <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="">Katalaluan</label>
-                            <input type="text" name="password" class="form-control" />
-                            @error('password') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                    </div> --}}
-                    <div class="col-sm-6">
+                    <div class="col-sm-6"><h3 class="m-t-none m-b">MAKLUMAT JAWATAN</h3>
                         <div class="form-group">
                             <label for="">Program</label>
-                            {{ Form::select('program_id', dropdownProgram(), $user->program_id, ['class'=>'form-control program_id']) }}
+                            {{ Form::select('program_id', dropdownProgram(),  $user->program_id, ['class'=>'form-control program_id']) }}
                             @error('program_id') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                    </div>
-                    <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="">Role</label>
-                            {{ Form::select('role', ['1'=>'Pengguna', '2'=>'Pentadbir', '3'=>'Super Admin'], $user->role, ['class'=>'form-control']) }}
-                            @error('program_id') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="">Jawatan</label>
+                            {{ Form::text('jawatan',  $user->jawatan, ['class'=>'form-control', 'id'=>'jawatan']) }}
+                            @error('jawatan') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">Gred <small>Cth: (M48)</small></label>
+                                    {{ Form::text('gred',  $user->gred, ['class'=>'form-control', 'id'=>'gred']) }}
+                                    @error('gred') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="">No. Telefon Pejabat</small></label>
+                                    {{ Form::text('nophone_office',  $user->nophone_office, ['class'=>'form-control', 'id'=>'nophone_office']) }}
+                                    @error('nophone_office') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">No. Telefon Bimbit</small></label>
+                                    {{ Form::text('nophone_mobile', $user->nophone_mobile, ['class'=>'form-control', 'id'=>'nophone_mobile']) }}
+                                    @error('nophone_mobile') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Status</label>
-                            {{ Form::select('user_status', ['1'=>'Aktif', '2'=>'Tidak Aktif'], null, ['class'=>'form-control', 'id'=>'user_status']) }}
-                            @error('user_status') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                    </div>
+                    <hr>
+                    <div class="col-12"><hr></div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Peranan</label>
@@ -96,6 +111,13 @@
                                 @endforeach
                             </select>
                             @error('roles') <span class="text-danger">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="">Tahap Capaian</label>
+                            {{ Form::select('tahap', [''=>'--Sila pilih--','1'=>'Pengguna', '2'=>'Pentadbir', '3'=>'Super Admin'], $user->role, ['class'=>'form-control','id'=>'tahap']) }}
+                            @error('tahap') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="col-sm-12">

@@ -32,9 +32,10 @@ class AppServiceProvider extends ServiceProvider
 
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
-                ->subject('Subject')
-                ->line('This is content.')
-                ->action('button', $url);
+                ->view('auth.emel.sahkan-emel', [
+                    'user'=>$notifiable,
+                    'url'=>$url,
+                ]);
         });
 
 
