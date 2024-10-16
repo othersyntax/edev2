@@ -366,7 +366,7 @@ class GunaBakiController extends Controller
 
     public function mohon(string $id){
         $penerima = \DB::table('vwuserperanan')
-            ->whereIn('role', [2])
+            ->where('program_id', auth()->user()->program_id)
             ->select('email')->groupBy('email')->get();
 
         $arrPenerima = $penerima->toArray();
