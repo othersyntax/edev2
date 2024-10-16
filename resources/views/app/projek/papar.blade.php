@@ -1152,8 +1152,10 @@ $(document).ready(function(){
     function jenisPeruntuka(jns) {
         if(jns==1)
             return 'Peruntukan Asal';
-        else
+        else if(jns==2)
             return 'Peruntukan Tambahan';
+        else
+            return 'Penjimatan / Tukar Tajuk';
     }
 
 

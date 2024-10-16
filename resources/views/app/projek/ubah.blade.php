@@ -231,11 +231,23 @@
                                {{ Form::textarea('proj_nama', $projek->proj_nama, ['class'=>'form-control', 'id'=>'proj_nama', 'rows'=>'4']) }}
                             @else
                                 <div class="form-control">{{ $projek->proj_nama }}</div>
+                                {{ Form::hidden('proj_nama', $projek->proj_nama, ['class'=>'form-control', 'id'=>'proj_nama']) }}
                             @endif
+                            @error('proj_nama')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label>Skop Projek</label>
+                            @if (auth()->user()->role>1)
+                               {{ Form::textarea('proj_skop', $projek->proj_skop, ['class'=>'form-control', 'id'=>'proj_skop', 'rows'=>'4']) }}
+                            @else
                             <div class="form-control">{{ $projek->proj_skop ? $projek->proj_skop : 'Tiada rekod' }}</div>
+                                {{ Form::hidden('proj_skop', $projek->proj_skop, ['class'=>'form-control', 'id'=>'proj_skop']) }}
+                            @endif
+                            @error('proj_skop')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label>Justifikasi Projek</label>
@@ -253,7 +265,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Kos Yang Diluluskan</label>
-                            {{ Form::text('proj_kos_lulus', $projek->proj_kos_lulus, ['class'=>'form-control text-right', 'id'=>'proj_kos_lulus']) }}
+                            {{ Form::text('proj_kos_lulus', $projek->proj_kos_lulus, ['class'=>'form-control text-right', 'id'=>'proj_kos_lulus', 'readonly']) }}
                         </div>
                     </div>
                     <div class="col-md-3">

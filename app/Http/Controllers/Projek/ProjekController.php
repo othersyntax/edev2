@@ -172,7 +172,7 @@ class ProjekController extends Controller
             'proj_laksana_tamat' => 'required',
             'proj_kos_lulus' => 'required',
             'proj_nama' => 'required',
-            // 'proj_skop' => 'required',
+            'proj_skop' => 'required',
             // 'proj_justifikasi' => 'required',
             // 'proj_ulasan_teknikal' => 'required',
             'proj_pelaksana' => 'required',
@@ -191,7 +191,7 @@ class ProjekController extends Controller
             'proj_laksana_tamat.required' => 'Sila masukkan Tarikh Tamat Pelaksanaan',
             'proj_kos_lulus.required' => 'Sila masukkan anggaran kos pelaksanaan',
             'proj_nama.required' => 'Sila nyatakan Nama Projek',
-            // 'proj_skop.required' => 'Sila nyatakan Skop Projek',
+            'proj_skop.required' => 'Sila nyatakan Skop Projek',
             // 'proj_justifikasi.required' => 'Sila nyatakan Justifikasi Projek',
             // 'proj_ulasan_teknikal.required' => 'Sila nyatakan Ulasan Unit Kejuruteraan',
             'proj_pelaksana.required' => 'Silah pilih pelaksana',
@@ -217,7 +217,7 @@ class ProjekController extends Controller
         }
         $projek->proj_struktur = $request->proj_struktur;
         $projek->proj_nama = $request->proj_nama;
-        // $projek->proj_skop = $request->proj_skop;
+        $projek->proj_skop = $request->proj_skop;
         // $projek->proj_justifikasi = $request->proj_justifikasi;
         // $projek->proj_ulasan_teknikal = $request->proj_ulasan_teknikal;
         $projek->proj_catatan = $request->proj_catatan;
@@ -236,9 +236,9 @@ class ProjekController extends Controller
             // CEK KUASA PKN BARU MASUK BAKULs
             if($projek->proj_kuasa_pkn==1){
                 // insert penjimatan
-                if($request->proj_penjimatan>0){
+                if($request->proj_penjimatan>0 &&  $request->proj_status==1){
                     // cek rekod dah wujud belum
-                    $cek = BakulJimat::where('bj_projek_id',  $request->projek_id)->where('bj_program_id', $request->proj_pemilik)->first();
+                    $cek = BakulJimat::where('bj_projek_id',  $request->projek_id)->first();
                     if($cek){
                         // Update bakul
                         $bakul = BakulJimat::find($cek->bakul_jimat_id);
@@ -251,15 +251,20 @@ class ProjekController extends Controller
                         $bakul = new BakulJimat();
                         $bakul->bj_projek_id = $request->projek_id;
                         $bakul->bj_program_id = $projek->proj_pemilik;
+                        $bakul->bj_title = $projek->proj_nama;
+                        $bakul->bj_subsetia = $projek->proj_kod_subsetia;
+                        $bakul->bj_kuasa_pkn = $projek->proj_kuasa_pkn;
                         $bakul->bj_amount_jimat = $request->proj_penjimatan;
+                        $bakul->bj_kategori = $request->proj_status;
                         $bakul->bj_created_by = auth()->user()->id;
                         $bakul->bj_updated_by = auth()->user()->id;
                         $bakul->save();
                     }
+                    // dd($cek);
                 }
 
                 // Tukar Tajuk
-                if($request->proj_status!=1){
+                if($request->proj_status!=1 && $request->proj_status!=3){
                     // cek rekod dah wujud belum
                     $cek = BakulJimat::where('bj_projek_id',  $request->projek_id)->where('bj_program_id', $request->proj_pemilik)->first();
                     if(!$cek){
@@ -267,6 +272,9 @@ class ProjekController extends Controller
                         $bakul = new BakulJimat();
                         $bakul->bj_projek_id = $request->projek_id;
                         $bakul->bj_program_id = auth()->user()->program_id;
+                        $bakul->bj_title = $projek->proj_nama;
+                        $bakul->bj_subsetia = $projek->proj_kod_subsetia;
+                        $bakul->bj_kuasa_pkn = $projek->proj_kuasa_pkn;
                         $bakul->bj_amount_jimat = $request->proj_kos_lulus;
                         $bakul->bj_kategori = $request->proj_status;
                         $bakul->bj_created_by = auth()->user()->id;

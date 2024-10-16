@@ -76,7 +76,6 @@ function dropdownProjekKategori($kat=''){
     }
     else{
         $where[] = ['pro_kat_status', '=', '1'];
-        $where[] = ['pro_siling', '!=', 'Guna Baki'];
     }
     $projKat = KategoriProjek::where($where)
         ->orderBy('pro_kat_sort')
@@ -145,8 +144,12 @@ function getStatusMohonProjek($id){
 function getStatusJimat($id){
     if($id==1)
         return "Penjimatan";
-    else
+    else if($id==2)
         return "Tukar Tajuk";
+    else if($id==3)
+        return "Dibatalkan";
+    else
+        return "Tarik Balik";
 }
 function getRole($id){
     if($id==1)

@@ -53,8 +53,14 @@ Route::group(['middleware' => ['auth','role:super-admin|admin|user']], function(
     Route::post('/permohonan/runcit/simpan', [App\Http\Controllers\Projek\ProjekRuncitController::class, 'store'])->name('permohonan.runcit.simpan');
 
     // GUNA BAKI PERUNTUKAN
+    Route::any('/projek/baki/senarai', [App\Http\Controllers\Projek\GunaBakiController::class, 'index'])->name('projek.baki.senarai');
     Route::get('/projek/baki/tambah', [App\Http\Controllers\Projek\GunaBakiController::class, 'create'])->name('projek.baki.tambah');
     Route::post('/projek/baki/simpan', [App\Http\Controllers\Projek\GunaBakiController::class, 'store'])->name('projek.baki.simpan');
+    Route::post('/projek/baki/pengesahan', [App\Http\Controllers\Projek\GunaBakiController::class, 'pengesahan']);
+    Route::get('/projek/baki/papar/{id}', [App\Http\Controllers\Projek\GunaBakiController::class, 'add2'])->name('permohonan.baki.papar');
+    Route::post('/projek/baki/update', [App\Http\Controllers\Projek\GunaBakiController::class, 'update'])->name('permohonan.baki.update');
+    Route::get('/projek/baki/ubah/{id}', [App\Http\Controllers\Projek\GunaBakiController::class, 'edit'])->name('permohonan.baki.ubah');
+    Route::post('/projek/baki/mohon/{id}', [App\Http\Controllers\Projek\GunaBakiController::class, 'mohon'])->name('permohonan.baki.hantar');
     // Route::any('/projek/baki/senarai', [App\Http\Controllers\Projek\GunaBakiController::class, 'index'])->name('projek.baki.senarai');
 
     // PENJIMATAN

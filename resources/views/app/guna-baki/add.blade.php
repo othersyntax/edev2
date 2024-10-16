@@ -28,6 +28,7 @@
 <div class="row">
 <form action="/projek/baki/simpan" method="post">
     @csrf
+    {{ Form::hidden('proj_kuasa_pkn', null, ['class'=>'form-control', 'id'=>'proj_kuasa_pkn']) }}
     <div class="col-lg-12">
         <div class="ibox">
             <div class="ibox-title">
@@ -47,7 +48,8 @@
                         <thead>
                             <tr>
                                 <th width="5%" class="text-center">#Bil</th>
-                                <th width="50%">Projek</th>
+                                <th width="40%">Projek</th>
+                                <th width="10%" class="text-center">Kuasa PKN</th>
                                 <th width="10%" class="text-center">Kod Subsetia</th>
                                 <th width="15%" class="text-center">Kategori</th>
                                 <th class="text-right" width="10%">Penjimatan</th>
@@ -62,12 +64,31 @@
                                 @foreach ($bakulJimat as $item)
                                     <tr>
                                         <td class="text-center">{{ $bil++ }}</td>
-                                        <td>{{ $item->proj_nama }}</td>
-                                        <td class="text-center">{{ $item->proj_kod_subsetia }}</td>
-                                        <td class="text-center"><span class="badge {{ $item->bj_kategori == 1 ? 'badge-primary' : 'badge-warning'}}">{{ getStatusJimat($item->bj_kategori) }}</span></td>
+                                        <td>{{ $item->bj_title }}</td>
+                                        <td class="text-center">
+                                            @if ($item->bj_kuasa_pkn==1)
+                                                <i class="fa fa-check text-navy"></i>
+                                            @else
+                                            <i class="fa fa-close text-danger"></i>
+                                            @endif
+
+                                        </td>
+                                        <td class="text-center">{{ $item->bj_subsetia }}</td>
+                                        <td class="text-center">
+                                            @php
+                                            if($item->bj_kategori == 1)
+                                                echo '<span class="badge badge-primary">'.getStatusJimat($item->bj_kategori).'</span>';
+                                            elseif($item->bj_kategori == 2)
+                                                echo '<span class="badge badge-info">'.getStatusJimat($item->bj_kategori).'</span>';
+                                            elseif($item->bj_kategori == 3)
+                                                 echo '<span class="badge badge-danger">'.getStatusJimat($item->bj_kategori).'</span>';
+                                            else
+                                                 echo '<span class="badge badge-warning">'.getStatusJimat($item->bj_kategori).'</span>';
+                                            @endphp
+                                        </td>
                                         <td class="text-right">@duit($item->bj_amount_jimat)</td>
                                         <td class="text-center">
-                                            <div><label><input name="sumberKewangan[]" class="pilihJimat" id="{{ $item->bakul_jimat_id }}" type="checkbox" value="{{ $item->bj_projek_id.'-'.$item->bj_amount_jimat }}"></label></div>
+                                            <div><label><input name="sumberKewangan[]" class="pilihJimat" id="{{ $item->bakul_jimat_id }}" type="checkbox" value="{{ $item->bj_projek_id.'-'.$item->bj_amount_jimat.'-'.$item->bj_subsetia.'-'.$item->bj_kategori.'-'.$item->bj_kuasa_pkn }}"></label></div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -81,10 +102,13 @@
                 </div>
                 <div class="hr-line-dashed"></div>
                 <div class="row">
-                    <div class="col-md-10 text-right">
+                    <div class="col-9">
+                        <small class="tetx-muted">* Penggabungan projek hanya dibenarkan kepada projek yang sama kategori, kod subsetia dan Kuasa PKN</small>
+                    </div>
+                    <div class="col-1 text-right">
                         JUMLAH :
                     </div>
-                    <div class="col-md-2 text-right">
+                    <div class="col-2 ">
                         <h3 id="jum-select">0.00</h3>
                     </div>
                 </div>
@@ -210,8 +234,20 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Agensi Pelaksana?</label>
-                            {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
+                            <label>Projek Program</label>
+                            {{ Form::select('proj_program', dropdownProjekProgram(), '100004', ['class'=>'form-control', 'id'=>'proj_program']) }}
+                            @error('proj_program')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Kategori Projek</label>
+                            {{ Form::select('proj_kategori_id', dropdownProjekKategori('tukar'), null, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
+                            @error('proj_kategori_id')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -223,34 +259,15 @@
                             @enderror
                         </div>
                     </div>
-                    <div id="pilihJkr" class="col-md-6" style="display:none">
-                        <div class="form-group">
-                            <label>Cawangan JKR</label>
-                            {{ Form::select('proj_pelaksana_agensi', getListJKR(), null, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
-                            @error('proj_pelaksana_agensi')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Anggaran Kos (RM)</label>
-                            <div class="form-control text-right" id="vwAnggaranKos">0.00</div>
-                            {{ Form::hidden('proj_kos_mohon', null, ['class'=>'form-control text-right', 'id'=>'proj_kos_mohon']) }}
-                        </div>
-                    </div>
-
-                </div>
-                <p class="text-info font-bold mt-3">3. BUTIRAN PROJEK</p>
-                <div class="hr-line-dashed"></div>
-                <div class="row">
                     <div class="col-md-3">
                         <div class="form-group" id="data_1">
                             <label>Tarikh Mula Pelaksanaan</label>
                             <div class="input-group date">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="proj_laksana_mula" class="form-control" name="proj_laksana_mula">
                             </div>
+                            @error('proj_laksana_mula')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -259,19 +276,32 @@
                             <div class="input-group date">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="proj_laksana_tamat" name="proj_laksana_tamat" class="form-control">
                             </div>
-                        </div>
-                    </div>
-                    {{ Form::hidden('proj_tahun', null, ['class'=>'form-control', 'id'=>'proj_tahun']) }}
-                    {{ Form::hidden('proj_bulan', null, ['class'=>'form-control', 'id'=>'proj_bulan']) }}
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Kategori Projek</label>
-                            {{ Form::select('proj_kategori_id', dropdownProjekKategori('tukar'), null, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
-                            @error('proj_kategori_id')
+                            @error('proj_laksana_tamat')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
                     </div>
+                    {{ Form::hidden('proj_tahun', null, ['class'=>'form-control', 'id'=>'proj_tahun']) }}
+                    {{ Form::hidden('proj_bulan', null, ['class'=>'form-control', 'id'=>'proj_bulan']) }}
+                    <div class="col-md-3">
+                        <div class="form-group has-success">
+                            <label>Anggaran Kos (RM)</label>
+                            {{ Form::number('proj_kos_mohon', null, ['class'=>'form-control text-right', 'id'=>'proj_kos_mohon']) }}
+                            @error('proj_kos_mohon')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Agensi Pelaksana?</label>
+                            {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
+                        </div>
+                    </div>
+                </div>
+                <p class="text-info font-bold mt-3">3. BUTIRAN PROJEK</p>
+                <div class="hr-line-dashed"></div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Nama Projek</label>
@@ -306,6 +336,13 @@
                             {{ Form::textarea('proj_catatan', null, ['class'=>'form-control', 'id'=>'proj_catatan', 'rows'=>'4']) }}
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <fieldset>
+                            <p class="text-info font-bold mt-3">4. PENGESAHAN DAN PERAKUAN</p>
+                            <div class="hr-line-dashed"></div>
+                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Dengan ini saya mengesahkan bahawa permohonan ini telah disah dan diperakukan oleh Pengarah Kesihatan Negeri (PKN).</label>
+                        </fieldset>
+                    </div>
                 </div>
             </div>
         </div>
@@ -332,16 +369,69 @@
 <script>
     $(document).ready(function(){
         let amount = 0;
-
+        let currSubS='';
+        let currType='';
+        let currPKN='';
         $('.pilihJimat').change(function(){
             pjVal = $(this).val();
             bjArray = pjVal.split("-");
-            amount += Number(bjArray[1]);
+            if($(this).prop("checked")){
+                // CEK SUBSETIA
+                if(currSubS==''){
+                    currSubS = bjArray[2];
+                    amount += Number(bjArray[1]);
+                }
+                else{
+                    if(currSubS!=bjArray[2]){
+                        swal("Kod Subsetia", "Sila pilih kod subsetia yang sama", "error");
+                        $(this).prop("checked", false);
+                        currSubS='';
+                        currType='';
+                        currPKN='';
+                    }
+                    else{
+                       amount += Number(bjArray[1]);
+                    }
+
+                }
+
+                // CEK KATEGORI
+                if(currType==''){
+                    currType=bjArray[3];
+                }
+                else{
+                    if(currType!=bjArray[3]){
+                        swal("Kategori ", "Sila pilih dalam kategori yang sama sahaja", "error");
+                        $(this).prop("checked", false);
+                        amount -= Number(bjArray[1]);
+                        currSubS='';
+                        currType='';
+                        currPKN='';
+                    }
+                }
+
+                // CEK PKN
+                if(currPKN==''){
+                    currPKN=bjArray[4];
+                    $('#proj_kuasa_pkn').val(currPKN);
+                }
+                else{
+                    if(currPKN!=bjArray[4]){
+                        swal("Kuasa PKN ", "Sila pilih dalam Punca kuasa yang sama sahaja", "error");
+                        $(this).prop("checked", false);
+                        amount -= Number(bjArray[1]);
+                        currSubS='';
+                        currType='';
+                        currPKN='';
+                    }
+                }
+
+            }
+            else{
+                amount -= Number(bjArray[1]);
+            }
             $('#jum-select').html(financial(amount));
-            $('#vwAnggaranKos').html(financial(amount));
             $('#proj_kos_mohon').val(amount);
-            // alert(amount);));
-            // alert(amount);
         });
 
         function financial(x) {
@@ -447,6 +537,23 @@
             return bulan[month];
 
         }
+
+        $('form').on('submit', function() {
+            let selAmaun = $('#jum-select').text();
+            let checked = $('input[name="acceptTerms"]:checked').length;
+            // alert(selAmaun);
+            if (selAmaun == 0.00) {
+                swal("Sumber Kewangan", "Sila pilih sumber kewangan", "error");
+                return false;
+            }
+
+            if (checked == 0) {
+                swal("Pengesahan", "Sila sahkan pengesahan PKN", "error");
+                return false;
+            }
+            return true;
+
+        });
 
 
     });
