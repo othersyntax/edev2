@@ -85,8 +85,8 @@
                         <hr>
                     </div>
                     {{-- JIKA PENGGUNA ADALAH ADMIN DAN PROJEK TELAH DIHANTAR STATUS COMPLETE =2 --}}
+                    @if (auth()->user()->role<>1 && $projek->proj_status_complete==2)
                     <div class="col-md-12">
-                        @if (auth()->user()->role<>1 && $projek->proj_status_complete==2)
                         <form action="/projek/baki/pengesahan" method="post">
                             @csrf
                             <input type="hidden" name="projek_id" value="{{ $projek->projek_id}}">
@@ -101,7 +101,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="kos-lulus">Amaun Diluluskan (RM)</label>
-                                        {{ Form::number('proj_kos_lulus', 0.00, ['class'=>'form-control text-right', 'id'=>'proj_kos_lulus'])}}
+                                        {{ Form::number('proj_kos_lulus', $projek->proj_kos_mohon, ['class'=>'form-control text-right', 'id'=>'proj_kos_lulus'])}}
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -111,14 +111,19 @@
                                 </div>
                             </div>
                         </form>
-                        @endif
                     </div>
+                    @endif
                     <div class="col-md-12">
-                        <a href="/projek/baki/senarai" class="btn btn-xs btn-white">Kembali</a>
                         @if ($projek->proj_status_complete==1)
+                        <div id="belumMohon">
+                            <a href="/projek/baki/senarai" class="btn btn-xs btn-white">Kembali</a>
                             <a href="/projek/baki/ubah/{{ $projek->projek_id }}" class="btn btn-xs btn-primary">Kemaskini</a>
                             <button value="{{ $projek->projek_id }}" class="btn btn-xs btn-warning float-right emelPemakluman"><span id="emelButton"></span> Hantar Permohonan</button>
+                        </div>
                         @endif
+                        <div id="dahMohon" style="display:none">
+                            <a href="/projek/baki/senarai" class="btn btn-xs btn-white">Kembali</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -676,7 +681,9 @@ $(document).ready(function(){
                     });
                     document.getElementById("emelButton").classList.remove("loading");
                     document.getElementById("emelButton").classList.remove("open-circle");
-                    location.reload();
+                    $('#dahMohon').show();
+                    $('#belumMohon').hide();
+                    // location.reload();
                 }
             }
         });

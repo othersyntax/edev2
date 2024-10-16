@@ -127,17 +127,14 @@
         <div class="col-sm-3">
             <h2>Pemantauan</h2>
             <p>Pengurusan dan pemantauan projek DE KKM akan dapat dilaksanakan dengan holistik, merangkumi permohonan projek, pelaksanaan projek dan penilaian serta pemantauan projek</p>
-            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
         </div>
         <div class="col-sm-3">
             <h2>Pengguna</h2>
             <p>Pengguna sistem ini terdiri daripada Bahagian Pembangunan sebagai pentadbir projek, manakala pihak Program, Bahagian, Institusi dan Jabatan Kesihatan Negeri (JKN) pula merupakan pemilik projek</p>
-            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
         </div>
         <div class="col-sm-3">
             <h2>Efisyen & Efektif</h2>
             <p>Memastikan pemilik projek menguruskan projek masing-masing dengan lebih efisyen dan efektif.</p>
-            <p><a class="navy-link" href="#" role="button">Details &raquo;</a></p>
         </div>
     </div>
 </section>
@@ -183,7 +180,7 @@
                         <a href="{{ asset("/storage/dokumen/BlanketApproval.pdf")}}" target="_blank">Blanket Approval</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 02-09-2024</span>
                     </li>
                     <li style="text-align: left;">
-                        <a href="{{ asset("/storage/dokumen/borang_pengguna_pukal.xlsx")}}">Borang Pengguna Pukal</a><br/><span class="label label-primary">XLSX</span><span class="small"> Kemaskini pada: 11-09-2024</span>
+                        <a href="{{ asset("/storage/dokumen/borang_penggunav1.pdf")}}" target="_blank">Borang Pendaftaran Pengguna</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 16-10-2024</span>
                     </li>
                 </ul>
             </div>
