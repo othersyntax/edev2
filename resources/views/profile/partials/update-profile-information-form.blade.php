@@ -27,11 +27,36 @@
         </div>
     </div>
     <div class="col-md-12">
-
-
-
+        <div class="form-group">
+            <label for="">Program</label>
+            {{ Form::select('program_id', dropdownProgram(),  $user->program_id, ['class'=>'form-control program_id']) }}
+            @error('program_id') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+        <div class="form-group">
+            <label for="">Jawatan</label>
+            {{ Form::text('jawatan',  $user->jawatan, ['class'=>'form-control', 'id'=>'jawatan']) }}
+            @error('jawatan') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
     </div>
-
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="">Gred <small>Cth: (M48)</small></label>
+            {{ Form::text('gred',  $user->gred, ['class'=>'form-control', 'id'=>'gred']) }}
+            @error('gred') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+        <div class="form-group">
+            <label for="">No. Telefon Pejabat</small></label>
+            {{ Form::text('nophone_office',  $user->nophone_office, ['class'=>'form-control', 'id'=>'nophone_office']) }}
+            @error('nophone_office') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-group">
+            <label for="">No. Telefon Bimbit</small></label>
+            {{ Form::text('nophone_mobile', $user->nophone_mobile, ['class'=>'form-control', 'id'=>'nophone_mobile']) }}
+            @error('nophone_mobile') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+    </div>
 </div>
 </form>
 
