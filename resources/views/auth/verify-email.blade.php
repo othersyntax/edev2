@@ -5,7 +5,7 @@
 
     @if (session('status') == 'verification-link-sent')
         <div class="mb-4 font-medium text-sm text-green-600">
-            {{ __('Capaian verikasi e-mel akan dihantar ke e-mel rasmi yang telah didaftar.') }}
+            {{ __('Capaian verifikasi e-mel akan dihantar ke e-mel rasmi yang telah didaftar.') }}
         </div>
     @endif
 
