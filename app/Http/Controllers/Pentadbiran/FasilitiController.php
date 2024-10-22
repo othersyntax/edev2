@@ -8,6 +8,7 @@ use App\Models\Fasiliti;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Daerah;
 
 
 class FasilitiController extends Controller
@@ -31,11 +32,10 @@ class FasilitiController extends Controller
         if($req->isMethod('post')) {
             $carian_type = $req->carian_type;
             $carian_text = $req->carian_text;
-           
-            if(!empty($carian_type)){
-                $query = DB::table('tblfasiliti')
+            $query = DB::table('tblfasiliti')
                             ->join('ddsa_kod_negeri', 'tblfasiliti.fas_negeri_id', '=', 'ddsa_kod_negeri.neg_negeri_id')
-                            ->select('tblfasiliti.*', 'ddsa_kod_negeri.neg_nama_negeri')
+                            ->join('ddsa_kod_daerah', 'tblfasiliti.fas_daerah_id', '=', 'ddsa_kod_daerah.dae_daerah_id')
+                            ->select('tblfasiliti.*', 'ddsa_kod_negeri.neg_nama_negeri','ddsa_kod_daerah.dae_nama_daerah')
                             ->where(function($q) use ($carian_type, $carian_text){ 
                                 if(!empty($carian_type)){
                                     if($carian_type=='Kod'){
@@ -46,18 +46,11 @@ class FasilitiController extends Controller
                                     }
                                     
                                     else{
-                                        $q->where('fas_name','like', "%{$carian_text}%");
+                                        $q->where('fas_negeri_id','like', "%{$carian_text}%");
                                     }
                                 }
                             });
                 $fasiliti = $query->get();
-            }
-            else{
-                $fasiliti = DB::table('tblfasiliti')
-            ->join('ddsa_kod_negeri', 'tblfasiliti.fas_negeri_id', '=', 'ddsa_kod_negeri.neg_negeri_id')
-            ->select('tblfasiliti.*', 'ddsa_kod_negeri.neg_nama_negeri')
-            ->get();             
-            }
 
             
 
@@ -67,11 +60,13 @@ class FasilitiController extends Controller
         else{
             $fasiliti = DB::table('tblfasiliti')
             ->join('ddsa_kod_negeri', 'tblfasiliti.fas_negeri_id', '=', 'ddsa_kod_negeri.neg_negeri_id')
-            ->select('tblfasiliti.*', 'ddsa_kod_negeri.neg_nama_negeri')
-            ->get();
+            ->join('ddsa_kod_daerah', 'tblfasiliti.fas_daerah_id', '=', 'ddsa_kod_daerah.dae_daerah_id')
+            ->select('tblfasiliti.*', 'ddsa_kod_negeri.neg_nama_negeri','ddsa_kod_daerah.dae_nama_daerah')
+                        ->get();
         }
         return response()->json([
             'fasiliti'=>$fasiliti,
+           
         ]);
 
     }
@@ -181,6 +176,7 @@ class FasilitiController extends Controller
                 $fas->fas_name = $req->input('fas_name');
                 $fas->fas_jenis = $req->input('fas_jenis');
                 $fas->fas_negeri_id = $req->input('fas_negeri_id');
+                $fas->fas_ptj_level = $req->input('fas_ptj_level');
                 $fas->update();
                 
                 return response()->json([
