@@ -31,7 +31,7 @@
     <div class="col-lg-4">
         <div class="ibox ">
             <div class="ibox-title bg-primary">
-                <span class="label label-success float-right">{{ date('Y')+1 }}</span>
+                <span id="siling-tahun" class="label label-success float-right">2024</span>
                 <h5>SILING PERUNTUKAN  (RM)</h5>
             </div>
             <div class="ibox-content">
@@ -73,7 +73,12 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Pemilik</label>
-                                {{ Form::select('cari-program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'cari-program', 'disabled'=>'true']) }}
+                                @if ((auth()->user()->role>1))
+                                    {{ Form::select('cari-program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'cari-program']) }}
+                                @else
+                                    {{ Form::select('cari-program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'cari-program', 'disabled'=>true]) }}
+                                @endif
+
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -141,17 +146,30 @@
                 <h5>Senarai Projek</h5>
                 <div class="ibox-tools">
                     @if(cekSiling(auth()->user()->program_id))
+                        @hasanyrole(['super-admin', 'admin', 'peraku'])
                         <button type="button" class="btn btn-sm btn-warning" id="emelPemakluman">
                             <span id="emelButton"></span> Hantar Permohonan
+                        </button>
+                        @endhasanyrole
+                        @hasanyrole(['super-admin', 'admin', 'pengesah'])
+                        <button type="button" class="btn btn-sm btn-warning" id="sahProjek">
+                            <span id="sahButton"></span> Hantar Untuk Perakuan
+                        </button>
+                        @endhasanyrole
+                        @hasanyrole(['super-admin', 'admin', 'penyedia'])
+                        <button type="button" class="btn btn-sm btn-warning" id="semakProjek">
+                            <span id="semakButton"></span> Hantar Untuk Pengesahan
                         </button>
                         <a href="/permohonan/baru/tambah" class="btn btn-sm btn-primary">
                             Tambah
                         </a>
+                        @endhasanyrole
                     @endif
                 </div>
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
+                    <input type="hidden" id="bil-rekod">
                     <table class="footable table table-stripped toggle-arrow-tiny">
                         <thead>
                             <tr>
@@ -204,7 +222,76 @@ $(document).ready(function(){
     // LOAD DATA WHEN OPEN THIS PAGE
     fetchPermohonan();
 
-    // HANTE EMEL PEMAKLUMAN
+
+    // HANTAR UNTUK PERAKUAN
+    $(document).on('click', '#sahProjek', function (e) {
+        e.preventDefault();
+        document.getElementById("sahButton").classList.add("loading");
+        document.getElementById("sahButton").classList.add("open-circle");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "post",
+            url: "/permohonan/baru/maklum-pengesahan",
+            data: null,
+            success: function (response) {
+                if (response.status == 400) {
+                    swal("Gagal", response.message, "error");
+                    document.getElementById("sahButton").classList.remove("loading");
+                    document.getElementById("sahButton").classList.remove("open-circle");
+                } else {
+                    fetchPermohonan();
+                    swal({
+                        title: "Semakan Projek",
+                        text: response.message,
+                        type: "success"
+                    });
+                    document.getElementById("sahButton").classList.remove("loading");
+                    document.getElementById("sahButton").classList.remove("open-circle");
+                }
+            }
+        });
+    });
+
+    // HANTAR UNTUK PENGESAHAN
+    $(document).on('click', '#semakProjek', function (e) {
+        e.preventDefault();
+        document.getElementById("semakButton").classList.add("loading");
+        document.getElementById("semakButton").classList.add("open-circle");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "post",
+            url: "/permohonan/baru/semakan",
+            data: null,
+            success: function (response) {
+                if (response.status == 400) {
+                    swal("Gagal", response.message, "error");
+                    document.getElementById("semakButton").classList.remove("loading");
+                    document.getElementById("semakButton").classList.remove("open-circle");
+                } else {
+                    fetchPermohonan();
+                    swal({
+                        title: "Semakan Projek",
+                        text: response.message,
+                        type: "success"
+                    });
+                    document.getElementById("semakButton").classList.remove("loading");
+                    document.getElementById("semakButton").classList.remove("open-circle");
+                }
+            }
+        });
+    });
+
+    // HANTAR EMEL PEMAKLUMAN
     $(document).on('click', '#emelPemakluman', function (e) {
         e.preventDefault();
         document.getElementById("emelButton").classList.add("loading");
@@ -215,28 +302,34 @@ $(document).ready(function(){
             }
         });
 
-        $.ajax({
-            type: "post",
-            url: "/permohonan/baru/emel",
-            data: null,
-            dataType: "json",
-            success: function (response) {
-                if (response.status == 400) {
-                    swal("Gagal", response.message, "error");
-                    document.getElementById("emelButton").classList.remove("loading");
-                    document.getElementById("emelButton").classList.remove("open-circle");
-                } else {
-                    fetchPermohonan();
-                    swal({
-                        title: "Emel Pemakluman",
-                        text: response.message,
-                        type: "success"
-                    });
-                    document.getElementById("emelButton").classList.remove("loading");
-                    document.getElementById("emelButton").classList.remove("open-circle");
+        if ($('#bil-rekod').val()> 0) {
+            $.ajax({
+                type: "post",
+                url: "/permohonan/baru/perakuan",
+                dataType: "json",
+                success: function (response) {
+                    if (response.status == 400) {
+                        swal("Gagal", response.message, "error");
+                        document.getElementById("emelButton").classList.remove("loading");
+                        document.getElementById("emelButton").classList.remove("open-circle");
+                    } else {
+                        fetchPermohonan();
+                        swal({
+                            title: "Emel Pemakluman",
+                            text: response.msg,
+                            type: "success"
+                        });
+                        document.getElementById("emelButton").classList.remove("loading");
+                        document.getElementById("emelButton").classList.remove("open-circle");
+                    }
                 }
-            }
-        });
+            });
+        }
+        else{
+            document.getElementById("emelButton").classList.remove("loading");
+            document.getElementById("emelButton").classList.remove("open-circle");
+            swal("Tiada Rekod", "Sila pastikan sekurang-kurangnya terdapat satu permohonan", "error");
+        }
     });
 
     // SEARCH BUTTON CLICK
@@ -287,12 +380,12 @@ $(document).ready(function(){
                         }
                         // Status Rekod
                         if(item.proj_status == 1){
-                            status = '<span class="badge badge-primary">Baharu</span>';
+                            status = '<span class="badge badge-primary">'+ statusProjek(item.proj_status) +'</span>';
                             button = '<a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/baru/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/projek/padam/'+item.projek_id+'/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>';
                         }
                         else {
-                            status = '<span class="badge badge-warning">Proses</span>';
-                            button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
+                            status = '<span class="badge badge-warning">'+ statusProjek(item.proj_status) +'</span>';
+                            button = '<a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
                         }
 
                         $('tbody').append('<tr>\
@@ -306,15 +399,6 @@ $(document).ready(function(){
                             <td>'+button+'</td>\
                         \</tr>');
                     });
-                    if(response.data.baki < 0){
-                        baki = '<span class="text-danger">'+financial(response.data.baki)+'</span>';
-                    }
-                    else{
-                        baki = financial(response.data.baki);
-                    }
-                    $('#siling').html(financial(response.data.siling));
-                    $('#baki').html(baki);
-                    $('#jumlah').html(financial(response.data.jumlah));
                 }
                 else{
                     $('tbody').html("");
@@ -322,6 +406,18 @@ $(document).ready(function(){
                         <td colspan="8" class="font-italic text-small text-center">Tiada Rekod</td>\
                     \</tr>');
                 }
+
+                if(response.data.baki < 0){
+                    baki = '<span class="text-danger">'+financial(response.data.baki)+'</span>';
+                }
+                else{
+                    baki = financial(response.data.baki);
+                }
+                $('#bil-rekod').val(response.data.projek.length);
+                $('#siling').html(financial(response.data.siling));
+                $('#baki').html(baki);
+                $('#jumlah').html(financial(response.data.jumlah));
+                $('#siling-tahun').html(response.data.silingTahun);
             }
         });
     }
@@ -357,6 +453,21 @@ $(document).ready(function(){
                 });
             });
         });
+    }
+
+    function statusProjek(id){
+        if(id==1)
+            return "Baharu";
+        else if(id==2)
+            return "Proses";
+        // else if(id==3)
+        //     return "Perakuan";
+        // else if(id==4)
+        //     return "Proses";
+        else if(id==5)
+            return "Diluluskan";
+        else
+            return "Tidak Diluluskan";
     }
 
     setTimeout(() => {

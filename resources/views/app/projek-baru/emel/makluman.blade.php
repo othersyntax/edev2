@@ -16,6 +16,6 @@
         BAHAGIAN PEMBANGUNAN<br>
         KEMENTERIAN KESIHATAN MALAYSIA
     </p><br>
-    <p><i><small>Emel ini adalah janaan komputer. Jangan balas emel ini</small></i></p>
+    <p><i><small>E-mel ini adalah janaan komputer. Tiada sebarang maklum balas diperlukan</small></i></p>
 </body>
 </html>

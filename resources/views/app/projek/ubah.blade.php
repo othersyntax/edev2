@@ -180,7 +180,7 @@
                         <div class="form-group" id="data_1">
                             <label>Tarikh Mula Pelaksanaan</label>
                             <div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="proj_laksana_mula" class="form-control" name="proj_laksana_mula" value="{{ date('d/m/Y', strtotime($projek->proj_laksana_mula))}}">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="proj_laksana_mula" class="form-control" name="proj_laksana_mula" value="{{ date('d/m/Y', strtotime($projek->proj_laksana_mula)) }}">
                             </div>
                             @error('proj_laksana_mula')
                                 <span class="text-danger">{{ $message}}</span>
@@ -337,7 +337,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Status</label>
-                            {{ Form::select('proj_status', ['1'=>'Aktif', '2'=>'Tukar Tajuk', '3'=>'Dibatalkan', '4'=>'Tarik Balik'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status']) }}
+                            {{ Form::select('proj_status', ['1'=>'Aktif', '2'=>'Tukar Tajuk', '3'=>'Dibatalkan', '4'=>'Tarik Balik', '5'=>'Selesai'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status']) }}
                         </div>
                     </div>
                     <div id="pilihStatus" class="col-md-6" style="display:none">
@@ -442,7 +442,7 @@
         });
 
         function pilihStatus(pilih){
-            if(pilih == 1){
+            if(pilih == 1 || pilih == 5){
                 $('#pilihStatus').hide();
             }
             else{

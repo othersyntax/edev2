@@ -95,7 +95,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="pengesahan">Status Permohonan</label>
-                                        {{ Form::select('status_permohonan', [''=>'--Sila pilih--', '1'=>'Diluluskan', '2'=>'Ditolak'], null, ['class'=>'form-control', 'id'=>'status_permohonan'])}}
+                                        {{ Form::select('status_permohonan', [''=>'--Sila pilih--', '1'=>'Diluluskan', '2'=>'Tidak Diluluskan'], null, ['class'=>'form-control', 'id'=>'status_permohonan'])}}
                                     </div>
                                 </div>
                                 <div class="col-6">

@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['middleware' => ['auth','role:super-admin|admin|user']], function() {
+Route::group(['middleware' => ['auth','role:super-admin|admin|penyedia|pengesah|peraku']], function() {
     // PERMOHONAN
     Route::any('/projek/senarai', [App\Http\Controllers\Projek\ProjekController::class, 'index'])->name('projek.senarai');
     Route::get('/projek/tambah', [App\Http\Controllers\Projek\ProjekController::class, 'create'])->name('projek.tambah');
@@ -23,6 +23,10 @@ Route::group(['middleware' => ['auth','role:super-admin|admin|user']], function(
     Route::get('/permohonan/baru/ubah/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'edit'])->name('permohonan.baru.ubah');
     Route::post('/permohonan/baru/update', [App\Http\Controllers\Projek\ProjekBaruController::class, 'update'])->name('permohonan.baru.update');
     Route::get('/permohonan/baru/selesai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'selesai'])->name('permohonan.baru.selesai');
+    Route::post('/permohonan/baru/semakan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'semakan']);
+    Route::post('/permohonan/baru/maklum-pengesahan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'maklumPengesahan']);
+    Route::post('/permohonan/baru/pengesahan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'pengesahan']);
+    Route::post('/permohonan/baru/perakuan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'perakuan']);
     // Route::post('/permohonan/baru/unjuran/simpan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'simpanUnjuran']);
     // Route::get('/permohonan/baru/unjuran/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiUnjuran']);
     // Route::get('/permohonan/baru/dokumen/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiDokumen']);

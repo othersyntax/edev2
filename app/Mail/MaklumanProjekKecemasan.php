@@ -27,7 +27,7 @@ class MaklumanProjekKecemasan extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject:'Makluman Penghantaran Permohonan Projek Kecemasan',
+            subject:'MAKLUMAN PENGHANTARAN PERMOHONAN BAHARU',
         );
     }
 

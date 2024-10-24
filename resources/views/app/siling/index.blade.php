@@ -79,7 +79,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th width="5%" class="text-center">#ID</th>
+                                <th width="5%" class="text-right">#<input type="checkbox" id="checkAll"></th>
                                 <th width="30%">Pemilik</th>
                                 <th width="10%">Fasa</th>
                                 <th width="5%">Mula</th>
@@ -132,6 +132,11 @@
             forceParse: false,
             // calendarWeeks: true,
             autoclose: true
+        });
+
+        // CHECK ALL CHECKBOX
+        $('#checkAll').change(function() {
+            $('.siling-checkbox').prop('checked', this.checked);
         });
 
         //ADD BUTTON CLICK
@@ -189,7 +194,7 @@
                         }
 
                         $('tbody').append('<tr>\
-                            <td class="text-center">' + item.siling_id + '</td>\
+                            <td class="text-right"><input type="checkbox" class="siling-checkbox" data-id="'+ item.siling_id +'" data-program="'+ item.program_id +'"></td>\
                             <td>' + item.prog_name + '</td>\
                             <td>Fasa 1</td>\
                             <td>' + Starikh.toLocaleDateString() + '</td>\
@@ -343,34 +348,82 @@
         // HANTAR EMEL PEMAKLUMAN
         $(document).on('click', '#emelPemakluman', function (e) {
             e.preventDefault();
+
             document.getElementById("emelButton").classList.add("loading");
             document.getElementById("emelButton").classList.add("open-circle");
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
 
-            $.ajax({
-                type: "post",
-                url: "/siling/senarai/emel",
-                data: null,
-                dataType: "json",
-                success: function (response) {
-                    if (response.status == 400) {
-                        swal("Gagal", response.message, "error");
-                    } else {
-                        fetchSiling();
-                        swal({
-                            title: "Emel Pemakluman",
-                            text: response.message,
-                            type: "success"
-                        });
-                        document.getElementById("emelButton").classList.remove("loading");
-                        document.getElementById("emelButton").classList.remove("open-circle");
-                    }
-                }
+            let selectedProgram = [];
+            $('.siling-checkbox:checked').each(function() {
+                let silingID = $(this).data('id');
+                let programID = $(this).data('program');
+
+                // Push user details to array
+                selectedProgram.push({
+                    id: silingID,
+                    program: programID
+                });
             });
+            // alert(selectedProgram);
+            // alert(selectedProgram.data("events").toSource());
+            // alert(JSON.stringify(selectedProgram, null, 4));
+
+            if (selectedProgram.length > 0) {
+                $.ajax({
+                    url: '/siling/senarai/emel',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}', // Include CSRF token
+                        siling: selectedProgram
+                    },
+                    success: function (response) {
+                        if (response.status == 400) {
+                            swal("Gagal", response.message, "error");
+                        } else {
+                            fetchSiling();
+                            swal({
+                                title: "Emel Pemakluman",
+                                text: response.message,
+                                type: "success"
+                            });
+                            document.getElementById("emelButton").classList.remove("loading");
+                            document.getElementById("emelButton").classList.remove("open-circle");
+                        }
+                    }
+                });
+            }
+            else{
+                document.getElementById("emelButton").classList.remove("loading");
+                document.getElementById("emelButton").classList.remove("open-circle");
+                swal("Tiada Rekod", "Sila pilih sekurang-kurangnya satu rekod", "error");
+            }
+
+
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     }
+            // });
+
+            // $.ajax({
+            //     type: "post",
+            //     url: "/siling/senarai/emel",
+            //     data: null,
+            //     dataType: "json",
+            //     success: function (response) {
+            //         if (response.status == 400) {
+            //             swal("Gagal", response.message, "error");
+            //         } else {
+            //             fetchSiling();
+            //             swal({
+            //                 title: "Emel Pemakluman",
+            //                 text: response.message,
+            //                 type: "success"
+            //             });
+            //             document.getElementById("emelButton").classList.remove("loading");
+            //             document.getElementById("emelButton").classList.remove("open-circle");
+            //         }
+            //     }
+            // });
         });
 
         // SHOW RECORD TO DELETE

@@ -53,7 +53,8 @@
                                 <th width="10%" class="text-center">Kod Subsetia</th>
                                 <th width="15%" class="text-center">Kategori</th>
                                 <th class="text-right" width="10%">Penjimatan</th>
-                                <th width="10%" class="text-center">Pilih</th>
+                                <th width="5%" class="text-center">Pilih</th>
+                                <th width="5%" class="text-center">#</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,6 +90,9 @@
                                         <td class="text-right">@duit($item->bj_amount_jimat)</td>
                                         <td class="text-center">
                                             <div><label><input name="sumberKewangan[]" class="pilihJimat" id="{{ $item->bakul_jimat_id }}" type="checkbox" value="{{ $item->bj_projek_id.'-'.$item->bj_amount_jimat.'-'.$item->bj_subsetia.'-'.$item->bj_kategori.'-'.$item->bj_kuasa_pkn }}"></label></div>
+                                        </td>
+                                        <td class="text-center">
+                                            <button value="{{ $item->bakul_jimat_id }}" class="btn btn-default btn-xs updateBakul" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -340,7 +344,7 @@
                         <fieldset>
                             <p class="text-info font-bold mt-3">4. PENGESAHAN DAN PERAKUAN</p>
                             <div class="hr-line-dashed"></div>
-                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Dengan ini saya mengesahkan bahawa permohonan ini telah disah dan diperakukan oleh Pengarah Kesihatan Negeri (PKN).</label>
+                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Dengan ini saya mengesahkan bahawa permohonan ini telah disahkan dan diperakukan oleh Pengarah Kesihatan Negeri (PKN).</label>
                         </fieldset>
                     </div>
                 </div>
@@ -383,7 +387,7 @@
                 }
                 else{
                     if(currSubS!=bjArray[2]){
-                        swal("Kod Subsetia", "Sila pilih kod subsetia yang sama", "error");
+                        swal("Kod Subsetia", "Sila pilih kod subsetia yang sama sahaja", "error");
                         $(this).prop("checked", false);
                         currSubS='';
                         currType='';
@@ -396,19 +400,19 @@
                 }
 
                 // CEK KATEGORI
-                if(currType==''){
-                    currType=bjArray[3];
-                }
-                else{
-                    if(currType!=bjArray[3]){
-                        swal("Kategori ", "Sila pilih dalam kategori yang sama sahaja", "error");
-                        $(this).prop("checked", false);
-                        amount -= Number(bjArray[1]);
-                        currSubS='';
-                        currType='';
-                        currPKN='';
-                    }
-                }
+                // if(currType==''){
+                //     currType=bjArray[3];
+                // }
+                // else{
+                //     if(currType!=bjArray[3]){
+                //         swal("Kategori ", "Sila pilih dalam kategori yang sama sahaja", "error");
+                //         $(this).prop("checked", false);
+                //         amount -= Number(bjArray[1]);
+                //         currSubS='';
+                //         currType='';
+                //         currPKN='';
+                //     }
+                // }
 
                 // CEK PKN
                 if(currPKN==''){
@@ -417,7 +421,7 @@
                 }
                 else{
                     if(currPKN!=bjArray[4]){
-                        swal("Kuasa PKN ", "Sila pilih dalam Punca kuasa yang sama sahaja", "error");
+                        swal("Kuasa PKN ", "Sila pilih punca kuasa yang sama sahaja", "error");
                         $(this).prop("checked", false);
                         amount -= Number(bjArray[1]);
                         currSubS='';
@@ -552,6 +556,10 @@
                 return false;
             }
             return true;
+
+        });
+
+        $('.updateBakul').on('click', function(){
 
         });
 

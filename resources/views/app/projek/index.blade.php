@@ -31,7 +31,7 @@
                 <h5>BELANJA</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins  text-right">@duit(0)</h1>
+                <h1 class="no-margins  text-right">@duit($belanja)</h1>
             </div>
         </div>
     </div>
@@ -52,7 +52,7 @@
                 <h5>JUMLAH BAKI</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins  text-right">@duit(0)</h1>
+                <h1 class="no-margins  text-right">@duit($baki)</h1>
             </div>
         </div>
     </div>

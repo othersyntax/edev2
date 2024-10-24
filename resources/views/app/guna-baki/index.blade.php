@@ -168,11 +168,11 @@
                                         }
                                         else if($proj->proj_status==3){
                                             $label = 'label-success';
-                                            $text = 'Berjaya';
+                                            $text = 'Diluluskan';
                                         }
                                         else{
                                             $label = 'label-danger';
-                                            $text = 'Ditolak';
+                                            $text = 'Tidak Diluluskan';
                                         }
                                     @endphp
                                     <span class="label {{ $label }}">{{ $text }}</span>

@@ -261,7 +261,7 @@ class GunaBakiController extends Controller
                 return redirect('/projek/papar/'.$projek->projek_id);
             }
 
-            return redirect('/permohonan/baki/papar/'.$projek->projek_id);
+            return redirect('/projek/baki/papar/'.$projek->projek_id);
         }
     }
 
@@ -367,6 +367,7 @@ class GunaBakiController extends Controller
     public function mohon(string $id){
         $penerima = \DB::table('vwuserperanan')
             ->where('program_id', auth()->user()->program_id)
+            ->orWhere('role', 2)
             ->select('email')->groupBy('email')->get();
 
         $arrPenerima = $penerima->toArray();

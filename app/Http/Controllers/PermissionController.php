@@ -18,18 +18,18 @@ class PermissionController extends Controller
 
     public function index()
     {
-        $permissions = Permission::get();
+        $permissions = Permission::paginate(15);
         return view('role-permission.permission.index', ['permissions' => $permissions]);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            // 'modul_id'=> 'required',
-            'name_capaian'=> 'required'
+            'modul_id'=> 'required',
+            'name'=> 'required'
         ],
         [
-            // 'modul_id.required'=> 'Sila pilih modul',
+            'modul_id.required'=> 'Sila pilih modul',
             'name_capaian.required'=> 'Sila masukkan nama Had Capaian'
         ]);
         // dd($validator->fails());
@@ -44,7 +44,7 @@ class PermissionController extends Controller
         {
             Permission::create([
                 'modul_id' => $request->modul_id,
-                'name' => $request->name_capaian
+                'name' => $request->name
             ]);
             return response()->json([
                 'status'=>200,

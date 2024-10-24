@@ -5,10 +5,10 @@
 </head>
 <body>
     <p>Assalammualaikum dan salam sejahtera,</p><br>
-    <p>YBhg. Datuk Dr./YBhg. Dato' Dr./YBrs. Dr./Tuan/Puan, <br></p>
-    <h3>MAKLUMAN PENGHANTARAN PERMOHONAN PROJEK KECEMASAN TAHUN 2024</h3>
+    <p>Tuan/Puan, <br></p>
+    <h3>PEMAKLUMAN PERMOHONAN GUNA BAKI OLEH PEMILIK PROJEK</h3>
     <p>
-        Sukacita dimaklumkan bahawa Unit Bajet RMK, Bahagian Pembangunan telah menerima permohonan projek.<br><br><br>
+        Sukacita dimaklumkan bahawa terdapat satu permohonan projek baharu dengan menggunakan baki penjimatan telah dibuat oleh pemilik projek. Sila ambil tindakan melalui sistem eDE.<br><br><br>
         Sekian, terima kasih.<br><br>
         <strong>“MALAYSIA MADANI”</strong><br><br>
         <strong>“BERKHIDMAT UNTUK NEGARA”</strong><br><br><br>

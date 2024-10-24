@@ -146,7 +146,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Projek Program</label>
+                            <label>Program</label>
                             {{ Form::select('proj_program', dropdownProjekProgram(), '100004', ['class'=>'form-control', 'id'=>'proj_program']) }}
                             @error('proj_program')
                                 <span class="text-danger">{{ $message}}</span>

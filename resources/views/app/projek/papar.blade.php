@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h3 class="font-bold m-b-xs">
-                            1.1 PROFIL PROJEK
+                            1 PROFIL PROJEK
                         </h3>
                         <p>{{ $projek->proj_nama }}</p>
                         <div class="m-t-md">
@@ -41,7 +41,7 @@
                         </div>
                         <hr>
 
-                        <h4>Maklumat Projek</h4>
+                        <h4>1.1 Maklumat Projek</h4>
 
                         <div class="normal text-muted">
                             <b>Skop</b><br/>
@@ -51,6 +51,8 @@
                             {{ $projek->proj_justifikasi ? $projek->proj_justifikasi: 'Tiada Rekod' }}
                         </div>
                         <dl class="row normal m-t-md">
+                            <dt class="col-md-4 ">#ID</dt>
+                            <dd class="col-md-8">{{ $projek->projek_id }}</dd>
                             <dt class="col-md-4 ">Pemilik</dt>
                             <dd class="col-md-8">{{ $projek->program->prog_name }}</dd>
                             <dt class="col-md-4 ">Kod Sub Projek</dt>
@@ -79,6 +81,8 @@
                             <dd class="col-md-8">{{ $diff }} hari</dd>
                             <dt class="col-md-4 ">Catatan</dt>
                             <dd class="col-md-8">{{ $projek->proj_catatan ? $projek->proj_catatan : 'Tiada Rekod' }}</dd>
+                            <dt class="col-md-4 ">Status</dt>
+                            <dd class="col-md-8">{{ getStatus($projek->proj_status) }}</dd>
                         </dl>
                     </div>
                     <div class="col-md-12">

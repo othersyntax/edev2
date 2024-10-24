@@ -32,12 +32,15 @@
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-md-12">
+                        <span class="product-price">
+                            {{ $projek->proj_sort }}
+                        </span>
                         <h3 class="font-bold m-b-xs">
                             1. PROFIL PROJEK
                         </h3>
                         <p>{{ $projek->proj_nama }}</p>
                         <div class="m-t-md">
-                            <h2 class="product-main-price" >RM <span id="main_amaun">@duit($projek->proj_kos_mohon)</span> <small class="text-muted">Kos Dipohon</small> </h2>
+                            <h2 class="product-main-price" >RM <span id="main_amaun">@duit($projek->proj_kos_mohon)</span> <small class="text-muted">Kos Dimohon</small> </h2>
                         </div>
                         <hr>
 
@@ -81,11 +84,41 @@
                             <dd class="col-md-8">{{ $projek->proj_catatan ? $projek->proj_catatan : 'Tiada Rekod' }}</dd>
                         </dl>
                     </div>
+                    {{-- JIKA PENGGUNA ADALAH ADMIN DAN PROJEK TELAH DIHANTAR STATUS COMPLETE =2 --}}
+                    @if (auth()->user()->hasRole('pengesah') && $projek->proj_wf_semak==2)
+                        <div class="col-md-12">
+                            <form action="/permohonan/baru/pengesahan" method="post">
+                                @csrf
+                                <input type="hidden" name="projek_id" value="{{ $projek->projek_id}}">
+                                <b>2. PENGESAHAN</b><br/>
+                                <div class="row mt-3">
+                                    {{-- <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="pengesahan">Status</label>
+                                            {{ Form::select('status_pengesahan', [''=>'--Sila pilih--', '1'=>'Disahkan', '2'=>'Tidak Disahkan'], null, ['class'=>'form-control', 'id'=>'status_pengesahan'])}}
+                                        </div>
+                                    </div> --}}
+                                    <div class="col-12">
+                                        <fieldset>
+                                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Dengan ini saya mengesahkan bahawa permohonan ini telah disemak dan disahkan betul.</label>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-12 mt-2">
+                                        <a href="/permohonan/baru/main" class="btn btn-xs btn-white">Kembali</a>
+                                        <button type="submit" class="btn btn-xs btn-primary float-right">Hantar</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
+                    @if (auth()->user()->hasRole('penyedia'))
                     <div class="col-md-12">
                         <a href="/permohonan/baru/main" class="btn btn-xs btn-white">Kembali</a>
                         <a href="/permohonan/baru/ubah/{{ $projek->projek_id }}" class="btn btn-xs btn-primary">Kemaskini</a>
-                        <a href="/permohonan/baru/selesai/{{ $projek->projek_id }}" class="btn btn-xs btn-warning float-right selesaiMohon">Selesai</a>
+                        {{-- <a href="/permohonan/baru/selesai/{{ $projek->projek_id }}" class="btn btn-xs btn-warning float-right selesaiMohon">Selesai</a> --}}
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

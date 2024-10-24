@@ -29,7 +29,7 @@ class SilingController extends Controller
 
             $query = DB::table('tblsiling as a')
                 ->join('tblprogram as b', 'a.sil_fasiliti_id', '=', 'b.program_id')
-                ->select('a.*', 'b.prog_name')
+                ->select('a.*', 'b.program_id', 'b.prog_name')
                 ->where(function($q) use ($sil_program_id, $sil_status){
                     if(!empty($sil_status)){
                         $q->where('a.sil_status', $sil_status);
@@ -204,13 +204,33 @@ class SilingController extends Controller
         }
     }
 
-    public function emel(){
-        $mail = Mail::to('usup.keram@moh.gov.my')->send(new MaklumanSiling());
+    public function emel(Request $req){
+        $selSiling = $req->input('siling');
+
+        // GET PROGRAM ID
+        foreach($selSiling as $sil) {
+            $programID[] = $sil['program'];
+        }
+        // $arrProgramID = $programID->toArray();
+
+        $penerima = \DB::table('vwuserperanan')
+            ->whereIn('program_id',$programID)
+            ->whereIn('peranan', ['pengesah', 'peraku'])
+            ->select('email')->groupBy('email')->get();
+
+        $arrPenerima = $penerima->toArray();
+        // dd($penerima);
+
+        $mail = Mail::to($arrPenerima)->send(new MaklumanSiling());
 
         if($mail){
-            Siling::query()->update([
-                'sil_emel'=>2
-            ]);
+            foreach ($selSiling as $sil) {
+                $silingID = $sil['id'];
+
+                Siling::where('siling_id',$silingID)->update([
+                    'sil_emel'  => 2
+                 ]);
+            }
             return response()->json([
                 'status'=>200,
                 'message'=>'Berjaya dihantar'

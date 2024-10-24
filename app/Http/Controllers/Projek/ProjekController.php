@@ -73,13 +73,6 @@ class ProjekController extends Controller
             else{
                 $projek = $query->paginate(15);
             }
-            $jumlah =  $query->where('proj_status', 1)->sum('proj_kos_lulus');
-            $jimat1 =  Projek::where('proj_status', 2)->sum('proj_kos_lulus');
-            $jimat2 =  Projek::where('proj_status', 1)->sum('proj_penjimatan');
-            // Belanja?
-            // Tanggung?
-            // Penjimatan kena ambil kira kos sebenar kurang
-
         }
         else{
             $query = \DB::table('tblprojek as a')
@@ -123,17 +116,24 @@ class ProjekController extends Controller
             else{
                 $projek = $query->paginate(15);
             }
-            $jumlah =  $query->where('proj_status', 1)->sum('proj_kos_lulus');
-            $jimat1 =  $query->where('proj_status', 2)->sum('proj_kos_lulus');
-            $jimat2 =  $query->where('proj_status', 1)->sum('proj_penjimatan');
             // Belanja?
             // Tanggung?
-
         }
-        // dd($projek);
+        $stats = Projek::where('proj_pemilik', auth()->user()->program_id)->where('proj_tahun', date('Y'));
+        $jumlah =   $stats->sum('proj_kos_lulus');
+        $jimat1 =  $stats->where('proj_status', 2)->sum('proj_kos_lulus');
+        $jimat2 =   $stats->where('proj_status', 1)->sum('proj_penjimatan');
+        $belanja = \DB::table('tblprojek_bayaran as a')
+                    ->leftJoin('tblprojek as b','a.byr_projk_id','b.projek_id')
+                    ->where('b.proj_pemilik', auth()->user()->program_id)
+                    ->sum('a.byr_amount');
+
         $data['jimat'] = $jimat1 + $jimat2;
         $data['projek'] = $projek;
+        $data['belanja'] = $belanja;
         $data['jumlah'] = $jumlah;
+        $data['baki'] = $jumlah - $belanja;
+
         // dd($data);
         return view('app.projek.index', $data);
     }
@@ -233,8 +233,8 @@ class ProjekController extends Controller
 
         $projek->save();
         if($projek){
-            // CEK KUASA PKN BARU MASUK BAKULs
-            if($projek->proj_kuasa_pkn==1){
+            // CEK KUASA PKN BARU MASUK BAKUL
+            // if($projek->proj_kuasa_pkn==1){
                 // insert penjimatan
                 if($request->proj_penjimatan>0 &&  $request->proj_status==1){
                     // cek rekod dah wujud belum
@@ -282,7 +282,10 @@ class ProjekController extends Controller
                         $bakul->save();
                     }
                 }
-            }
+            // }
+            // else{
+
+            // }
             return redirect('/projek/senarai')->with(['success'=>'Rekod berjaya dikemaskini']);
         }
     }

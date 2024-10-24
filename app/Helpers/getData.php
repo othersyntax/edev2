@@ -131,8 +131,10 @@ function getStatus($id){
         return "Tukar Tajuk";
     else if($id==3)
         return "Dibatalkan";
-    else
+    else if($id==4)
         return "Tarik Balik";
+    else
+        return "Selesai";
 }
 function getStatusProjek($id){
     if($id==1)
@@ -168,6 +170,7 @@ function getRole($id){
     else
         return "Super Admin";
 }
+
 function getPelaksana($id){
     if($id==1)
         return "Pemilik";

@@ -19,8 +19,11 @@
 
         Sekian, terima kasih.<br><br>
         <strong>“MALAYSIA MADANI”</strong><br><br>
-        <strong>“BERKHIDMAT UNTUK NEGARA”</strong><br><br>
-        Saya yang menjalankan amanah,
+        <strong>“BERKHIDMAT UNTUK NEGARA”</strong><br><br><br>
+        Saya yang menjalankan amanah,<br><br>
+        UNIT BAJEK RMK<br>
+        BAHAGIAN PEMBANGUNAN<br>
+        KEMENTERIAN KESIHATAN MALAYSIA
     </p><br>
     <p><i><small>Emel ini adalah janaan komputer. Jangan balas emel ini</small></i></p>
 </body>

@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class MaklumanProjekBaharu extends Mailable
+class MaklumanPengesahanProjek extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -27,7 +27,7 @@ class MaklumanProjekBaharu extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject:'PEMAKLUMAN PENERIMAAN PERMOHONAN BAHARU',
+            subject: 'PENGESAHAN PERMOHONAN BAHARU TAHUN 2025',
         );
     }
 
@@ -37,7 +37,7 @@ class MaklumanProjekBaharu extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'app.projek-baru.emel.makluman',
+            view: 'app.projek-baru.emel.semakan',
         );
     }
 
