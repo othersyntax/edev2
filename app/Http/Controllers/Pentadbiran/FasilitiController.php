@@ -22,30 +22,14 @@ class FasilitiController extends Controller
     }
 
     public function ajaxAll(Request $req){
-
-        // $negeri = Negeri::all();
-        // return response()->json ([
-        //     'negeri' => $negeri,
-
-        // ]);
-
         if($req->isMethod('post')) {
             $carian_type = $req->carian_type;
             $carian_text = $req->carian_text;
-<<<<<<< HEAD
-
-            if(!empty($carian_type)){
-                $query = DB::table('tblfasiliti')
-                            ->join('ddsa_kod_negeri', 'tblfasiliti.fas_negeri_id', '=', 'ddsa_kod_negeri.neg_negeri_id')
-                            ->select('tblfasiliti.*', 'ddsa_kod_negeri.neg_nama_negeri')
-                            ->where(function($q) use ($carian_type, $carian_text){
-=======
             $query = DB::table('tblfasiliti')
                             ->join('ddsa_kod_negeri', 'tblfasiliti.fas_negeri_id', '=', 'ddsa_kod_negeri.neg_negeri_id')
                             ->join('ddsa_kod_daerah', 'tblfasiliti.fas_daerah_id', '=', 'ddsa_kod_daerah.dae_daerah_id')
                             ->select('tblfasiliti.*', 'ddsa_kod_negeri.neg_nama_negeri','ddsa_kod_daerah.dae_nama_daerah')
-                            ->where(function($q) use ($carian_type, $carian_text){ 
->>>>>>> 750a69d9be7c546584733f503469c5310d523fcb
+                            ->where(function($q) use ($carian_type, $carian_text){
                                 if(!empty($carian_type)){
                                     if($carian_type=='Kod'){
                                         $q->where('fas_ptj_code', $carian_text);
@@ -60,21 +44,6 @@ class FasilitiController extends Controller
                                 }
                             });
                 $fasiliti = $query->get();
-<<<<<<< HEAD
-            }
-            else{
-                $fasiliti = DB::table('tblfasiliti')
-            ->join('ddsa_kod_negeri', 'tblfasiliti.fas_negeri_id', '=', 'ddsa_kod_negeri.neg_negeri_id')
-            ->select('tblfasiliti.*', 'ddsa_kod_negeri.neg_nama_negeri')
-            ->get();
-            }
-=======
->>>>>>> 750a69d9be7c546584733f503469c5310d523fcb
-
-
-
-
-
         }
         else{
             $fasiliti = DB::table('tblfasiliti')
@@ -85,7 +54,7 @@ class FasilitiController extends Controller
         }
         return response()->json([
             'fasiliti'=>$fasiliti,
-           
+
         ]);
 
     }
