@@ -34,7 +34,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Jenis Carian</label>{{--Untuk Search--}}
-                                {{ Form::select('carian_type', ['Kod'=>'Kod Ptj', 'Negeri'=>'Negeri' , 'kodkate'=>'Kategori'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
+                                {{ Form::select('carian_type', ['Kod'=>'Kod PTJ', 'Negeri'=>'Negeri' , 'kodkate'=>'Kategori'], session('carian_type'), ['class'=>'form-control', 'id'=>'carian_type']) }}
 
                                 </select>
                             </div>
@@ -81,7 +81,9 @@
                                 <th class="text-center">Kod PTJ</th>
                                 <th>Nama Fasiliti</th>
                                 <th class="text-center">Negeri</th>
+                                <th class="text-center">Daerah</th>
                                 <th class="text-center">Kategori</th>
+                                <th class="text-center">Status</th>
                                 <th>Tindakan</th>
                             </tr>
                         </thead>
@@ -131,7 +133,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label>ID Negeri</label>
+                            <label>Negeri</label>
                             {{ Form::select('neg_nama_negeri_add', dropdownNegeri(), null, ['class'=>'form-control neg_nama_negeri_add']) }}
                         </div>
                     </div>
@@ -201,6 +203,13 @@
                         <div class="form-group">
                             <label>ID Negeri</label>
                             {{ Form::select('fas_negeri_id_edit', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'fas_negeri_id_edit']) }}
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label>Status</label>
+                            {{ Form::select('fas_ptj_level_edit', ['1'=>'Aktif', '2'=>'Tidak Aktif'], null, ['class'=>'form-control', 'id'=>'fas_ptj_level_edit']) }}
                         </div>
                     </div>
                 </div>
@@ -280,7 +289,9 @@
                             <td class="text-center">' + item.fas_ptj_code + '</td>\
                             <td>' + item.fas_name + '</td>\
                             <td class="text-center">' + item.neg_nama_negeri + '</td>\
+                            <td class="text-center">' + item.dae_nama_daerah + '</td>\
                             <td class="text-center">' + item.fas_jenis + '</td>\
+                            <td class="text-center">' + getStatus(item.fas_ptj_level) + '</td>\
                             <td><button type="button" value="' + item.fasiliti_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
                             <button type="button" value="' + item.fasiliti_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
                         \</tr>');
@@ -344,6 +355,7 @@
                 'fas_ptj_code': $('#fas_ptj_code_edit').val(),
                 'fas_name': $('#fas_name_edit').val(),
                 'fas_jenis': $('#fas_jenis_edit').val(),
+                'fas_ptj_level': $('#fas_ptj_level_edit').val(),
                 'fas_negeri_id': $('#fas_negeri_id_edit').val(),
             }
 
@@ -456,6 +468,7 @@
                         $('#fas_name_edit').val(response.fasiliti.fas_name);
                         $('#fas_jenis_edit').val(response.fasiliti.fas_jenis);
                         $('#fas_negeri_id_edit').val(response.fasiliti.fas_negeri_id);
+                        $('#fas_ptj_level_edit').val(response.fasiliti.fas_ptj_level).change();
                         $('#fasiliti_id_edit').val(fasiliti_id);
                     }
                 }
