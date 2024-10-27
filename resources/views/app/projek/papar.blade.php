@@ -37,7 +37,25 @@
                         </h3>
                         <p>{{ $projek->proj_nama }}</p>
                         <div class="m-t-md">
-                            <h2 class="product-main-price">RM @duit($projek->proj_kos_lulus) <small class="text-muted">Peruntukan Diluluskan</small> </h2>
+                            <div class="row">
+                                <div class="col-4">
+                                    <small class="text-muted">Peruntukan Diluluskan</small>
+                                    <h2 class="product-main-price">RM @duit($projek->proj_kos_lulus)</h2>
+                                </div>
+                                <div class="col-4">
+                                    <small class="text-muted">Kos Sebenar</small>
+                                    <h2 class="product-main-price">RM @duit($projek->proj_kos_sebenar)</h2>
+                                </div>
+                                <div class="col-4">
+                                    <small class="text-muted">Penjimatan</small>
+                                    <h2 class="product-main-price">RM @duit($projek->proj_penjimatan)</h2>
+                                </div>
+                            </div>
+
+                            <h2 class="product-main-price">
+
+
+                            </h2>
                         </div>
                         <hr>
 
@@ -87,7 +105,9 @@
                     </div>
                     <div class="col-md-12">
                         <a href="/projek/senarai" class="btn btn-xs btn-white">Kembali</a>
+                        @hasanyrole(['super-admin', 'admin'])
                         <a href="/projek/ubah/{{ $projek->projek_id }}" class="btn btn-xs btn-primary">Kemaskini</a>
+                        @endhasanyrole
                     </div>
                 </div>
             </div>

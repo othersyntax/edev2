@@ -123,9 +123,12 @@
             <div class="ibox-title">
                 <h5>Senarai Permohonan Projek (Guna Baki)</h5>
                 <div class="ibox-tools">
-                    <a href="/projek/baki/tambah" class="btn btn-xs btn-primary">
-                        Tambah
-                    </a>
+                    <button class="btn btn-xs btn-primary projekSediaAda">
+                        Tambah Peruntukan Projek Sedia Ada
+                    </button>
+                    <button class="btn btn-warning btn-xs projekBaharu">
+                        Projek Baharu
+                    </button>
                 </div>
             </div>
             <div class="ibox-content">
@@ -216,10 +219,19 @@
 <!-- FooTable -->
 <script src="{{ asset("/template/js/plugins/footable/footable.all.min.js") }}"></script>
 <script>
-
     $('#negeri').on('change', function() {
         var cariNegeri = $(this).val();
         getFasiliti(cariNegeri, 'daerah',  '#list-daerah');
+    });
+
+    $('.projekBaharu').on('click', function(){
+        window.location.href = '/projek/baki/tambah-baharu';
+        return false;
+    });
+
+    $('.projekSediaAda').on('click', function(){
+        window.location.href = '/projek/baki/tambah-sedia-ada';
+        return false;
     });
 
     //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
