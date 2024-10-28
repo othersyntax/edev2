@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NegeriController;
 use App\Http\Controllers\Pentadbiran\DaerahController;
 use App\Http\Controllers\Pentadbiran\BandarController;
-use App\Http\Controllers\pentadbiran\FasilitiController;
+use App\Http\Controllers\Pentadbiran\FasilitiController;
 use App\Http\Controllers\Pentadbiran\KategoriFasilitiController;
 use App\Http\Controllers\Pentadbiran\KategoriProjekController;
 use App\Http\Controllers\Pentadbiran\ProgramController;

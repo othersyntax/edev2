@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Projek;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Projek\ProjekBaru;
+use App\Models\BakulJimat;
 
 class ProjekJimatController extends Controller
 {
@@ -100,5 +101,68 @@ class ProjekJimatController extends Controller
         $data['bakulJimat'] = $bakulJimat;
         // dd($data);
         return view('app.projek-penjimatan.add', $data);
+    }
+
+    public function update(Request $request){
+        $bakul = BakulJimat::find($request->bakul_jimat_id);
+        $bakul->bj_title = $request->bj_title;
+        $bakul->bj_subsetia = $request->bj_subsetia;
+        $bakul->bj_kategori = $request->bj_kategori;
+        $bakul->bj_amount_jimat = $request->bj_amount_jimat;
+        $bakul->bj_status = $request->bj_status;
+        $bakul->bj_created_by = auth()->user()->id;
+        $bakul->bj_updated_by = auth()->user()->id;
+        $bakul->save();
+        if($bakul)
+        {
+            return response()->json([
+                'status'=>200,
+                'message'=>'Penjimatan Berjaya Dikemaskini'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'Rekod tidak dijumpai.'
+            ]);
+        }
+    }
+
+    public function edit(string $id){
+        $bakulJimat = BakulJimat::find($id);
+        if($bakulJimat)
+        {
+            return response()->json([
+                'status'=>200,
+                'jimat'=> $bakulJimat,
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'Rekod tidak dijumpai.'
+            ]);
+        }
+    }
+
+    public function delete(string $id){
+        $bakulJimat = BakulJimat::find($id);
+        if($bakulJimat)
+        {
+            $bakulJimat->delete();
+            return response()->json([
+                'status'=>200,
+                'message'=>'Maklumat penjimatan.'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'Maklumat Penjimatan Tidak Wujud'
+            ]);
+        }
     }
 }

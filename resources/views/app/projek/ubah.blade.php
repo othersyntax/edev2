@@ -62,10 +62,10 @@
                             <label>Daerah</label>
                             <span id="list-daerah">
                                 {{ Form::select('proj_daerah', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'proj_daerah']) }}
-                                @error('proj_daerah')
-                                    <span class="text-danger">{{ $message}}</span>
-                                @enderror
                             </span>
+                            @error('proj_daerah')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -73,10 +73,10 @@
                             <label>Fasiliti</label>
                             <span id="list-fasiliti">
                                 {{ Form::select('proj_fasiliti_id', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'proj_fasiliti_id']) }}
-                                @error('proj_fasiliti_id')
-                                    <span class="text-danger">{{ $message}}</span>
-                                @enderror
                             </span>
+                            @error('proj_fasiliti_id')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pemilik</label>
-                            {{ Form::select('proj_pemilik', dropdownProgram(), $projek->proj_pemilik, ['class'=>'form-control', 'id'=>'proj_pemilik', 'disabled'=>'true']) }}
+                            {{ Form::select('proj_pemilik', dropdownProgram(), $projek->proj_pemilik, ['class'=>'form-control', 'id'=>'proj_pemilik']) }}
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -180,7 +180,7 @@
                         <div class="form-group" id="data_1">
                             <label>Tarikh Mula Pelaksanaan</label>
                             <div class="input-group date">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="proj_laksana_mula" class="form-control" name="proj_laksana_mula" value="{{ date('d/m/Y', strtotime($projek->proj_laksana_mula))}}">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="proj_laksana_mula" class="form-control" name="proj_laksana_mula" value="{{ date('d/m/Y', strtotime($projek->proj_laksana_mula)) }}">
                             </div>
                             @error('proj_laksana_mula')
                                 <span class="text-danger">{{ $message}}</span>
@@ -227,7 +227,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Nama Projek</label>
-                            @if (auth()->user()->role>1)
+                            @if (auth()->user()->role)
                                {{ Form::textarea('proj_nama', $projek->proj_nama, ['class'=>'form-control', 'id'=>'proj_nama', 'rows'=>'4']) }}
                             @else
                                 <div class="form-control">{{ $projek->proj_nama }}</div>
@@ -239,7 +239,7 @@
                         </div>
                         <div class="form-group">
                             <label>Skop Projek</label>
-                            @if (auth()->user()->role>1)
+                            @if (auth()->user()->role)
                                {{ Form::textarea('proj_skop', $projek->proj_skop, ['class'=>'form-control', 'id'=>'proj_skop', 'rows'=>'4']) }}
                             @else
                             <div class="form-control">{{ $projek->proj_skop ? $projek->proj_skop : 'Tiada rekod' }}</div>
@@ -289,7 +289,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Penjimatan (jika ada)</label>
-                            {{ Form::text('proj_penjimatan', $projek->proj_penjimatan, ['class'=>'form-control text-right', 'id'=>'proj_penjimatan', 'readonly'=>'']) }}
+                            {{ Form::text('proj_penjimatan', $projek->proj_penjimatan, ['class'=>'form-control text-right', 'id'=>'proj_penjimatan']) }}
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -337,7 +337,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Status</label>
-                            {{ Form::select('proj_status', ['1'=>'Aktif', '2'=>'Tukar Tajuk', '3'=>'Dibatalkan', '4'=>'Tarik Balik'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status']) }}
+                            {{ Form::select('proj_status', ['1'=>'Aktif', '2'=>'Tukar Tajuk', '3'=>'Dibatalkan', '4'=>'Tarik Balik', '5'=>'Selesai'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status']) }}
                         </div>
                     </div>
                     <div id="pilihStatus" class="col-md-6" style="display:none">
@@ -442,7 +442,7 @@
         });
 
         function pilihStatus(pilih){
-            if(pilih == 1){
+            if(pilih == 1 || pilih == 5){
                 $('#pilihStatus').hide();
             }
             else{

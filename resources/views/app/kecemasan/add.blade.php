@@ -146,7 +146,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Projek Program</label>
+                            <label>Program</label>
                             {{ Form::select('proj_program', dropdownProjekProgram(), '100004', ['class'=>'form-control', 'id'=>'proj_program']) }}
                             @error('proj_program')
                                 <span class="text-danger">{{ $message}}</span>
@@ -263,7 +263,7 @@
                     <div class="col-md-12">
                         <fieldset>
                             <p class="text-info font-bold mt-3">4. PENGESAHAN DAN PERAKUAN</p>
-                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Dengan ini saya mengesahkan bahawa permohonan ini telah disah dan diperakukan oleh Pengarah Kesihatan Negeri (PKN).</label>
+                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Dengan ini saya mengesahkan bahawa permohonan ini telah disahkan dan diperakukan oleh Pengarah Kesihatan Negeri (PKN).</label>
                         </fieldset>
                     </div>
                 </div>

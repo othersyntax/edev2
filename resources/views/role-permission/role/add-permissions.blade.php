@@ -43,21 +43,27 @@
                                 @enderror
 
                                 <label for="">Had Capaian</label>
+                                @foreach ($permissions as $modul=>$permission)
                                 <div class="row">
-                                    @foreach ($permissions as $permission)
-                                    <div class="col-md-6">
-                                        <label>( {{ $permission->modul_id }})
+                                    <div class="col-12">
+                                    <h4 class="text-uppercase">{{ getModul($modul) }}</h4>
+                                    </div>
+                                    @foreach ($permission as $item)
+                                    <div class="col-md-3">
+                                        <label>
                                             <input
                                                 type="checkbox"
                                                 name="permission[]"
-                                                value="{{ $permission->name }}"
-                                                {{ in_array($permission->id, $rolePermissions) ? 'checked':'' }}
+                                                value="{{ $item->name }}"
+                                                {{ in_array($item->id, $rolePermissions) ? 'checked':'' }}
                                             />
-                                            {{ $permission->name }}
+                                            {{ ucfirst($item->name) }}
                                         </label>
                                     </div>
                                     @endforeach
+                                    <div class="col-12"><hr></div>
                                 </div>
+                                @endforeach
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-primary">Kemaskini</button>

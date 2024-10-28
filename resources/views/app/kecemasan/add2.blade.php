@@ -37,7 +37,7 @@
                         </h3>
                         <p>{{ $projek->proj_nama }}</p>
                         <div class="m-t-md">
-                            <h2 class="product-main-price" >RM <span id="main_amaun">@duit($projek->proj_kos_mohon)</span> <small class="text-muted">Kos Dipohon</small> </h2>
+                            <h2 class="product-main-price" >RM <span id="main_amaun">@duit($projek->proj_kos_mohon)</span> <small class="text-muted">Kos Dimohon</small> </h2>
                         </div>
                         <hr>
 

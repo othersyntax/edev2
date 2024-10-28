@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['middleware' => ['auth','role:super-admin|admin|user']], function() {
+Route::group(['middleware' => ['auth','role:super-admin|admin|penyedia|pengesah|peraku']], function() {
     // PERMOHONAN
     Route::any('/projek/senarai', [App\Http\Controllers\Projek\ProjekController::class, 'index'])->name('projek.senarai');
     Route::get('/projek/tambah', [App\Http\Controllers\Projek\ProjekController::class, 'create'])->name('projek.tambah');
@@ -23,6 +23,10 @@ Route::group(['middleware' => ['auth','role:super-admin|admin|user']], function(
     Route::get('/permohonan/baru/ubah/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'edit'])->name('permohonan.baru.ubah');
     Route::post('/permohonan/baru/update', [App\Http\Controllers\Projek\ProjekBaruController::class, 'update'])->name('permohonan.baru.update');
     Route::get('/permohonan/baru/selesai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'selesai'])->name('permohonan.baru.selesai');
+    Route::post('/permohonan/baru/semakan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'semakan']);
+    Route::post('/permohonan/baru/maklum-pengesahan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'maklumPengesahan']);
+    Route::post('/permohonan/baru/pengesahan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'pengesahan']);
+    Route::post('/permohonan/baru/perakuan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'perakuan']);
     // Route::post('/permohonan/baru/unjuran/simpan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'simpanUnjuran']);
     // Route::get('/permohonan/baru/unjuran/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiUnjuran']);
     // Route::get('/permohonan/baru/dokumen/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiDokumen']);
@@ -54,19 +58,25 @@ Route::group(['middleware' => ['auth','role:super-admin|admin|user']], function(
 
     // GUNA BAKI PERUNTUKAN
     Route::any('/projek/baki/senarai', [App\Http\Controllers\Projek\GunaBakiController::class, 'index'])->name('projek.baki.senarai');
-    Route::get('/projek/baki/tambah', [App\Http\Controllers\Projek\GunaBakiController::class, 'create'])->name('projek.baki.tambah');
-    Route::post('/projek/baki/simpan', [App\Http\Controllers\Projek\GunaBakiController::class, 'store'])->name('projek.baki.simpan');
+    Route::get('/projek/baki/tambah-sedia-ada', [App\Http\Controllers\Projek\GunaBakiController::class, 'createCurrent']);
+    Route::get('/projek/baki/tambah-baharu', [App\Http\Controllers\Projek\GunaBakiController::class, 'createNew']);
+    Route::post('/projek/baki/simpan', [App\Http\Controllers\Projek\GunaBakiController::class, 'store']);
+    Route::post('/projek/baki/simpan-sedia-ada', [App\Http\Controllers\Projek\GunaBakiController::class, 'storeSediaAda']);
     Route::post('/projek/baki/pengesahan', [App\Http\Controllers\Projek\GunaBakiController::class, 'pengesahan']);
     Route::get('/projek/baki/papar/{id}', [App\Http\Controllers\Projek\GunaBakiController::class, 'add2'])->name('permohonan.baki.papar');
     Route::post('/projek/baki/update', [App\Http\Controllers\Projek\GunaBakiController::class, 'update'])->name('permohonan.baki.update');
     Route::get('/projek/baki/ubah/{id}', [App\Http\Controllers\Projek\GunaBakiController::class, 'edit'])->name('permohonan.baki.ubah');
     Route::post('/projek/baki/mohon/{id}', [App\Http\Controllers\Projek\GunaBakiController::class, 'mohon'])->name('permohonan.baki.hantar');
+
     // Route::any('/projek/baki/senarai', [App\Http\Controllers\Projek\GunaBakiController::class, 'index'])->name('projek.baki.senarai');
 
     // PENJIMATAN
     Route::any('/projek/penjimatan/senarai', [App\Http\Controllers\Projek\ProjekJimatController::class, 'index'])->name('projek.penjimatan.senarai');
     Route::get('/projek/penjimatan/tambah', [App\Http\Controllers\Projek\ProjekJimatController::class, 'create'])->name('permohonan.penjimatan.tambah');
     Route::post('/projek/penjimatan/simpan', [App\Http\Controllers\Projek\ProjekJimatController::class, 'store'])->name('permohonan.penjimatan.simpan');
+    Route::post('/projek/penjimatan/kemaskini', [App\Http\Controllers\Projek\ProjekJimatController::class, 'update']);
+    Route::get('/projek/penjimatan/padam/{id}', [App\Http\Controllers\Projek\ProjekJimatController::class, 'delete']);
+    Route::get('/projek/penjimatan/ubah/{id}', [App\Http\Controllers\Projek\ProjekJimatController::class, 'edit']);
 
     // PENJIMATAN
     Route::any('/pengesahan/penjimatan/senarai', [App\Http\Controllers\Projek\TukarGunaController::class, 'index'])->name('pengesahan.penjimatan.senarai');

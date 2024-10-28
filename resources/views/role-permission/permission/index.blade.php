@@ -50,7 +50,7 @@
                             @foreach ($permissions as $permission)
                             <tr>
                                 <td class="text-center">{{ $permission->id }}</td>
-                                <td>{{ $permission->name }}</td>
+                                <td>{{ ucfirst($permission->name) }}</td>
                                 <td>{{ $permission->modul_id ? getModul($permission->modul_id) : '-' }}</td>
                                 <td>
                                     @can('update permission')
@@ -64,6 +64,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="text-center">{{ $permissions->links() }}</div>
                 </div>
             </div>
         </div>
@@ -170,7 +171,7 @@
         $('.add_permission').click(function (e) {
             e.preventDefault();
             var data = {
-                'modul': $('#modul').val(),
+                'modul_id': $('#modul').val(),
                 'name': $('#name_capaian').val(),
             }
 

@@ -278,11 +278,11 @@ $(document).ready(function(){
                         }
                         // Status Rekod
                         if(item.proj_status == 1){
-                            status = '<span class="badge badge-primary">Baharu</span>';
+                            status = '<span class="badge badge-primary">'+ statusProjek(item.proj_status) +'</span>';
                             button = '<a href="/permohonan/kecemasan/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/kecemasan/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/projek/padam/'+item.projek_id+'/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>';
                         }
                         else {
-                            status = '<span class="badge badge-warning">Proses</span>';
+                            status = '<span class="badge badge-warning">'+ statusProjek(item.proj_status) +'</span>';
                             button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
                         }
 
@@ -342,6 +342,20 @@ $(document).ready(function(){
         });
     }
 
+    function statusProjek(id){
+        if(id==1)
+            return "Baharu";
+        // else if(id==2)
+        //     return "Pengesahan";
+        // else if(id==3)
+        //     return "Perakuan";
+        else if(id==2)
+            return "Proses";
+        else if(id==5)
+            return "Diluluskan";
+        else
+            return "Tidak Diluluskan";
+    }
     setTimeout(() => {
         $('#msg').hide('slow');
     }, 3000);

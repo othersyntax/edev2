@@ -28,7 +28,7 @@
                 <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'baru') ? 'active' : '' }}"><a href="/permohonan/baru/main">Siling</a></li>
                     <li class="{{ (request()->segment(2) == 'kecemasan') ? 'active' : '' }}"><a href="/permohonan/kecemasan/main">Luar Siling</a></li>
-                    @if (auth()->user()->role==2 || auth()->user()->role==3)
+                    @if(auth()->user()->hasAnyRole(['super-admin', 'admin']))
                     <li class="{{ (request()->segment(2) == 'semak') ? 'active' : '' }}"><a href="/permohonan/semak/main">Pengurusan</a></li>
                     @endif
                 </ul>
@@ -57,7 +57,7 @@
                     <li class="{{ (request()->segment(2) == 'selenggara') ? 'active' : '' }}"><a href="#">Selenggara</a></li>
                 </ul>
             </li> --}}
-            @if (auth()->user()->role==2 || auth()->user()->role==3)
+            @if(auth()->user()->hasAnyRole(['super-admin', 'admin']))
             <li class="{{ (request()->segment(1) == 'pentadbiran') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-gears"></i> <span class="nav-label">Pentadbiran</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -79,8 +79,10 @@
             <li class="{{ (request()->segment(1) == 'akses') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Akses</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="{{ (request()->segment(2) == 'roles') ? 'active' : '' }}"><a href="/akses/roles">Peranan</a></li>
-                    <li class="{{ (request()->segment(2) == 'permissions') ? 'active' : '' }}"><a href="/akses/permissions">Capaian</a></li>
+                    @if(auth()->user()->hasAnyRole(['super-admin', 'admin']))
+                        <li class="{{ (request()->segment(2) == 'roles') ? 'active' : '' }}"><a href="/akses/roles">Peranan</a></li>
+                        <li class="{{ (request()->segment(2) == 'permissions') ? 'active' : '' }}"><a href="/akses/permissions">Capaian</a></li>
+                    @endif
                     <li class="{{ (request()->segment(2) == 'users') ? 'active' : '' }}"><a href="/akses/pengguna">Pengguna</a></li>
                 </ul>
             </li>

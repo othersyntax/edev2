@@ -10,13 +10,18 @@ use App\Models\Projek\ProjekDokumen;
 use App\Models\Projek\ProjekBaruUnjuran;
 use App\Models\Siling;
 use App\Mail\MaklumanProjekBaharu;
+use App\Mail\MaklumanPerakuanProjek;
+use App\Mail\MaklumanPengesahanProjek;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use App\Traits\Projek\ProjekCountTrait;
 
 
 class ProjekBaruController extends Controller
 {
+    use ProjekCountTrait;
+
     public function showList(){
         return view('app.projek-baru.index');
     }
@@ -24,15 +29,8 @@ class ProjekBaruController extends Controller
     public function index(Request $request){
         $queryType = 1; // default click pd menu
         session()->forget(['negeri', 'pelaksana', 'fasiliti', 'kategori', 'status', 'projek']);
-        // Statistik
 
         if( $request->isMethod('post')) {
-            if(auth()->user()->role==1){
-                $program  =  auth()->user()->program_id;
-            }
-            else{
-                $program = $request->program;
-            }
             $negeri =  $request->negeri;
             $daerah =  $request->daerah;
             $pelaksana  =  $request->pelaksana;
@@ -57,7 +55,7 @@ class ProjekBaruController extends Controller
                 ->where('c.pro_siling', 'Siling')
                 ->where('proj_pemilik', auth()->user()->program_id);
 
-            $projek = $query->get();
+            $projek = $query->orderBy('proj_sort', 'ASC')->get();
 
         }
         else{
@@ -69,10 +67,7 @@ class ProjekBaruController extends Controller
                     ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
                     ->where('c.pro_siling', 'Siling')
                     ->where('proj_pemilik', auth()->user()->program_id)
-                    ->where(function($q) use ($program, $negeri, $daerah, $fasiliti, $pelaksana, $kategori, $status, $projek){
-                        if(!empty($program)){
-                            $q->where('a.proj_pemilik', $program);
-                        }
+                    ->where(function($q) use ($negeri, $daerah, $fasiliti, $pelaksana, $kategori, $status, $projek){
                         if(!empty($negeri)){
                             $q->where('a.proj_negeri', $negeri);
                         }
@@ -95,15 +90,21 @@ class ProjekBaruController extends Controller
                             $q->where('a.proj_nama','like', "%{$projek}%");
                         }
                     });
-            $projek = $query->get();
+            $projek = $query->orderBy('proj_sort', 'ASC')->get();
             // dd($projek);
         }
-        $siling = Siling::where('sil_fasiliti_id', auth()->user()->program_id)->select('sil_amount')->first();
+        $siling = Siling::where('sil_fasiliti_id', auth()->user()->program_id)
+                    ->where('sil_status', 1)
+                    ->select('sil_amount', 'sil_tahun')->first();
+                    // dd($siling);
+
         $jumlah = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->sum('proj_kos_mohon');
-        $tolak = ProjekBaru::where('proj_status', 3)->sum('proj_kos_mohon');
+        $data['silingTahun'] = $siling->sil_tahun ? $siling->sil_tahun :'-';
         // dd($jumlah);
-        $data['baki'] = $siling->sil_amount - $jumlah;
-        $data['siling'] = $siling->sil_amount;
+        $siling=floatval($siling->sil_amount);
+        $jumlah = floatval($jumlah);
+        $data['baki'] = $siling - $jumlah;
+        $data['siling'] = $siling ? $siling :0.00;
         $data['jumlah'] = $jumlah;
         $data['projek'] = $projek;
 
@@ -113,11 +114,6 @@ class ProjekBaruController extends Controller
     }
 
     public function create(){
-        // $sil = Siling::where('sil_fasiliti_id', auth()->user()->program_id)
-        //     ->where('sil_edate', '>', now())
-        //     ->where('sil_status', 1)
-        //     ->first();
-        // if()
         return view('app.projek-baru.add');
     }
 
@@ -167,6 +163,7 @@ class ProjekBaruController extends Controller
         $projek->proj_kod_agensi = $req->proj_kod_agensi;
         $projek->proj_kod_projek = $req->proj_kod_projek;
         $projek->proj_kod_setia = $req->proj_kod_setia;
+        $projek->proj_sort = $this->getNextNumber();
         $projek->proj_kod_subsetia = $req->proj_kod_subsetia;
         $projek->proj_pemilik =auth()->user()->program_id;
         $projek->proj_program = $req->proj_program;
@@ -193,7 +190,7 @@ class ProjekBaruController extends Controller
 
         if($projek){
             // echo "berjaya";
-            return redirect('/permohonan/baru/main'.$projek->projek_id);
+            return redirect('/permohonan/baru/papar/'.$projek->projek_id);
         }
 
     }
@@ -242,50 +239,6 @@ class ProjekBaruController extends Controller
             }
         }
 
-    }
-
-    public function emel(){
-        $pemilik = auth()->user()->program_id;
-        $mail = Mail::to('usup.keram@moh.gov.my')->send(new MaklumanProjekBaharu());
-        // dd($mail);
-        if($mail){
-            // ProjekBaru::query()->update([
-            //     'sil_emel'=>2
-            // ]);
-            // ProjekBaru::where([
-            //     'proj_pemilik'=>$pemilik
-            // ])->query()->update([
-            //     'sil_emel'=>2
-            // ]);
-            // $projek = \DB::table('')
-
-            ProjekBaru::query()->update([
-                'proj_status'=>2,
-                'proj_status_complete' => 2
-            ]);
-            // ProjekBaru::where('proj_pemilik',$pemilik)->get();
-            // $projek->proj_status_complete = 2;
-            // $projek->save();
-            // if($projek){
-                return response()->json([
-                    'status'=>200,
-                    'message'=>'Pengesahan Berjaya dihantar'
-                ]);
-            // }
-            // else{
-            //     return response()->json([
-            //         'status'=>400,
-            //         'message'=>'Rekod gagal dikemaskini.'
-            //     ]);
-            // }
-
-        }
-        else{
-            return response()->json([
-                'status'=>400,
-                'message'=>'Rekod tidak dijumpai.'
-            ]);
-        }
     }
 
     public function edit(string $id){
@@ -340,6 +293,7 @@ class ProjekBaruController extends Controller
         $projek->proj_kod_projek = $req->proj_kod_projek;
         $projek->proj_kod_setia = $req->proj_kod_setia;
         $projek->proj_kod_subsetia = $req->proj_kod_subsetia;
+        $projek->proj_sort = 1;
         $projek->proj_pemilik =auth()->user()->program_id;
         $projek->proj_program = $req->proj_program;
         $projek->proj_pelaksana = $req->proj_pelaksana;
@@ -380,45 +334,13 @@ class ProjekBaruController extends Controller
         }
     }
 
-    // public function simpanUnjuran(Request $req){
-    //     $validator = Validator::make($req->all(), [
-    //         'proj_unjur_tahun'=> 'required',
-    //         'proj_unjur_siling'=> 'required',
-    //     ],
-    //     [
-    //         'proj_unjur_tahun.required'=> 'Sila masukkan tahun unjuran',
-    //         'proj_unjur_siling.required'=> 'Sila masukkan siling tahunan',
-    //     ]);
-
-    //     if($validator->fails())
-    //     {
-    //         return response()->json([
-    //             'status'=>400,
-    //             'errors'=>$validator->messages()
-    //         ]);
-    //     }
-    //     else
-    //     {
-    //        $unjuran = new ProjekBaruUnjuran;
-    //        $unjuran->proj_unjur_projek_id = $req->input('proj_unjur_projek_id');
-    //        $unjuran->proj_unjur_tahun = $req->input('proj_unjur_tahun');
-    //        $unjuran->proj_unjur_siling = $req->input('proj_unjur_siling');
-    //         // dd($unjuran);
-    //        $unjuran->save();
-    //         return response()->json([
-    //             'status'=>200,
-    //             'message'=>'Berjaya ditambah'
-    //         ]);
-    //     }
-    // }
-
     public function selesai(string $id){
         $projek = ProjekBaru::find($id);
         $projek->proj_status_complete=2;
         $projek->proj_status=2;
         $projek->save();
         if($projek){
-            return redirect('/permohonan/baru/main')
+                 return redirect('/permohonan/baru/main')
             ->with([
                 'title'=>'Berjaya',
                 'msg'=>'Maklumat projek telah dihantar untuk semakan',
@@ -435,49 +357,125 @@ class ProjekBaruController extends Controller
         }
     }
 
-    // public function senaraiDokumen(string $id){
-    //     $doc = ProjekDokumen::where('proj_doc_projek_id', $id)->get();
-    //     return response()->json([
-    //         'doc'=> $doc,
-    //     ]);
-    // }
+    public function semakan(){
+        $projek=ProjekBaru::query()
+            ->where('proj_pemilik', auth()->user()->program_id) // Specify the condition (role)
+            ->update(['proj_status_complete' => 1, 'proj_wf_semak' => 2]); // Update the status field
 
-    // public function padamUnjuran(string $id){
-    //     $unjuran = ProjekBaruUnjuran::find($id);
-    //     if($unjuran)
-    //     {
-    //         $unjuran->delete();
-    //         return response()->json([
-    //             'status'=>200,
-    //             'message'=>'Maklumat Unjuran Berjaya Dipadam.'
-    //         ]);
-    //     }
-    //     else
-    //     {
-    //         return response()->json([
-    //             'status'=>404,
-    //             'message'=>'Maklumat Unjuran Tidak Wujud'
-    //         ]);
-    //     }
-    // }
+        // $transWF = TransWF::query();
 
-    // public function padamDokumen(string $id){
-    //     $doc = ProjekDokumen::find($id);
-    //     if($doc)
-    //     {
-    //         $doc->delete();
-    //         Storage::delete('public/'.$doc->proj_doc_fail);
-    //         return response()->json([
-    //             'status'=>200,
-    //             'message'=>'Maklumat dokumen berjaya dipadam.'
-    //         ]);
-    //     }
-    //     else
-    //     {
-    //         return response()->json([
-    //             'status'=>404,
-    //             'message'=>'Maklumat Dokumen Tidak Wujud'
-    //         ]);
-    //     }
-    // }
+        // NOTIFY PENGESAH
+        $penerima = \DB::table('vwuserperanan')
+            ->whereIn('program_id', [auth()->user()->program_id])
+            ->whereIn('peranan', ['pengesah'])
+            ->select('email')->groupBy('email')->get();
+
+        $arrPenerima = $penerima->toArray();
+        // dd($penerima);
+
+        $mail = Mail::to($arrPenerima)->send(new MaklumanPengesahanProjek());
+
+        if($mail){
+            return redirect('/permohonan/baru/main')
+            ->with([
+                'title'=>'Berjaya',
+                'msg'=>'Maklumat projek telah dihantar pengesahan',
+                'type'=>'success'
+            ]);
+        }
+        else{
+            return redirect('/permohonan/baru/main')
+            ->with([
+                'title'=>'Gagal',
+                'msg'=>'Maklumat projek gagal dihantar',
+                'type'=>'error'
+            ]);
+        }
+    }
+
+    public function pengesahan(Request $req){
+        // dd($req->all());
+        $projek = ProjekBaru::find($req->projek_id);
+        $projek->proj_status_complete = 1;
+        $projek->proj_wf_sah = 2;
+        $projek->save();
+
+        if($projek){
+            return redirect('/permohonan/baru/main')
+            ->with([
+                'title'=>'Berjaya',
+                'msg'=>'Maklumat projek telah disahkan',
+                'type'=>'success'
+            ]);
+        }
+        else{
+            return redirect('/permohonan/baru/main')
+            ->with([
+                'title'=>'Gagal',
+                'msg'=>'Maklumat projek gagal dihantar',
+                'type'=>'error'
+            ]);
+        }
+    }
+
+    public function maklumPengesahan(){
+        // NOTIFY PENGESAH
+        $penerima = \DB::table('vwuserperanan')
+            ->whereIn('program_id', [auth()->user()->program_id])
+            ->whereIn('peranan', ['peraku'])
+            ->select('email')->groupBy('email')->get();
+
+        $arrPenerima = $penerima->toArray();
+        // dd($penerima);
+
+        $mail = Mail::to($arrPenerima)->send(new MaklumanPerakuanProjek());
+
+        if($mail){
+            return redirect('/permohonan/baru/main')
+            ->with([
+                'title'=>'Berjaya',
+                'msg'=>'Maklumat projek telah dihantar diperakukan',
+                'type'=>'success'
+            ]);
+        }
+        else{
+            return redirect('/permohonan/baru/main')
+            ->with([
+                'title'=>'Gagal',
+                'msg'=>'Maklumat projek gagal dihantar',
+                'type'=>'error'
+            ]);
+        }
+    }
+
+    public function perakuan(Request $req){
+
+        // NOTIFY PENGESAH
+        $penerima = \DB::table('vwuserperanan')
+            ->whereIn('program_id', [auth()->user()->program_id])
+            ->whereIn('peranan', ['super-admin','admin'])
+            ->select('email')->groupBy('email')->get();
+
+        $arrPenerima = $penerima->toArray();
+        // dd($penerima);
+
+        $mail = Mail::to($arrPenerima)->send(new MaklumanProjekBaharu());
+
+        $projek=ProjekBaru::query()
+            ->where('proj_pemilik', auth()->user()->program_id) // Specify the condition (role)
+            ->update(['proj_status_complete' => 2, 'proj_wf_sah' => 2, 'proj_status' => 2]); // Update the status field
+
+        if($projek){
+            return response()->json([
+                'status'=>200,
+                'message'=>'Pengesahan Berjaya dihantar'
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>400,
+                'message'=>'Rekod gagal dikemaskini.'
+            ]);
+        }
+    }
 }

@@ -28,7 +28,7 @@
                     <h5>Maklumat Peribadi</h5>
                 </div>
                 <div>
-                    <div class="ibox-content no-padding border-left-right">
+                    <div class="ibox-content border-left-right">
                         <img alt="image" src="{{ asset('/template/img/unknown.jpeg') }}">
                     </div>
                     <div class="ibox-content profile-content">

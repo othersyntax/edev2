@@ -145,72 +145,7 @@
             </div>
         </div>
    </div> --}}
-   <div class="col-lg-12">
-        <div class="ibox">
-            <div class="ibox-title">
-                <h5>MAKLUMAT LOKALITI</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ibox-content">
-                <input type="hidden" name="proj_daerah_data" value="{{ $projek->proj_daerah}}">
-                <input type="hidden" name="proj_fasiliti_id_data" value="{{ $projek->proj_fasiliti_id}}">
-                <input type="hidden" name="proj_pelaksana_agensi_data" value="{{ $projek->proj_pelaksana_agensi}}">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Negeri</label>
-                            {{ Form::select('proj_negeri', dropdownNegeri(), $projek->proj_negeri, ['class'=>'form-control', 'id'=>'proj_negeri']) }}
-                            @error('proj_negeri')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label>Daerah</label>
-                            <span id="list-daerah">
-                                {{ Form::select('proj_daerah', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'proj_daerah']) }}
-                                @error('proj_daerah')
-                                    <span class="text-danger">{{ $message}}</span>
-                                @enderror
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Fasiliti</label>
-                            <span id="list-fasiliti">
-                                {{ Form::select('proj_fasiliti_id', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'proj_fasiliti_id']) }}
-                                @error('proj_fasiliti_id')
-                                    <span class="text-danger">{{ $message}}</span>
-                                @enderror
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Parlimen</label>
-                            <div class="form-control">P.000 - Tiada Rekod</div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Dewan Undangan Negeri</label>
-                            <div class="form-control">N.00 - Tiada Rekod</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-</div>
+ 
 
 {{--Untuk Delete // siap--}}
 <div class="modal inmodal fade" id="DeleteModal" tabindex="-1" role="dialog"  aria-hidden="true">

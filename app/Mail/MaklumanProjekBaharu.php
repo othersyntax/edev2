@@ -27,7 +27,7 @@ class MaklumanProjekBaharu extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject:'PEMAKLUMAN PENERIMAAN PERMOHONAN PROJEK BAHARU BP00600 TAHUN 2025',
+            subject:'PEMAKLUMAN PENERIMAAN PERMOHONAN BAHARU',
         );
     }
 

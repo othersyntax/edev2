@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\pentadbiran;
+namespace App\Http\Controllers\Pentadbiran;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,22 +13,15 @@ use App\Models\Daerah;
 
 class FasilitiController extends Controller
 {
-    
+
     public function index()
     {
         $fasiliti = Fasiliti::all();
-        
+
         return view("pentadbiran.fasiliti.index", compact('fasiliti'));
     }
 
     public function ajaxAll(Request $req){
-
-        // $negeri = Negeri::all();
-        // return response()->json ([
-        //     'negeri' => $negeri,
-
-        // ]);
-       
         if($req->isMethod('post')) {
             $carian_type = $req->carian_type;
             $carian_text = $req->carian_text;
@@ -36,7 +29,7 @@ class FasilitiController extends Controller
                             ->join('ddsa_kod_negeri', 'tblfasiliti.fas_negeri_id', '=', 'ddsa_kod_negeri.neg_negeri_id')
                             ->join('ddsa_kod_daerah', 'tblfasiliti.fas_daerah_id', '=', 'ddsa_kod_daerah.dae_daerah_id')
                             ->select('tblfasiliti.*', 'ddsa_kod_negeri.neg_nama_negeri','ddsa_kod_daerah.dae_nama_daerah')
-                            ->where(function($q) use ($carian_type, $carian_text){ 
+                            ->where(function($q) use ($carian_type, $carian_text){
                                 if(!empty($carian_type)){
                                     if($carian_type=='Kod'){
                                         $q->where('fas_ptj_code', $carian_text);
@@ -44,7 +37,7 @@ class FasilitiController extends Controller
                                     elseif($carian_type=='kodkate'){
                                         $q->where('fas_jenis', $carian_text);
                                     }
-                                    
+
                                     else{
                                         $q->where('neg_nama_negeri','like', "%{$carian_text}%");
                                     }
@@ -61,18 +54,18 @@ class FasilitiController extends Controller
         }
         return response()->json([
             'fasiliti'=>$fasiliti,
-           
+
         ]);
 
     }
 
-    
+
     public function create()
     {
-      
+
     }
 
-    
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -113,20 +106,20 @@ class FasilitiController extends Controller
                 'status'=>200,
                 'message'=>'Negeri berjaya ditambah'
          ]);
-        }   
+        }
     }
 
-    
+
     public function show(string $id)
     {
-       
+
     }
 
-   
+
     public function edit(string $id)
     {
-        
-        
+
+
         $fasiliti = Fasiliti::find($id);
         if($fasiliti)
         {
@@ -144,7 +137,7 @@ class FasilitiController extends Controller
         }
     }
 
-    
+
     public function update(Request $req )
     {
         $validator = Validator::make($req->all(), [
@@ -180,7 +173,7 @@ class FasilitiController extends Controller
                 $fas->fas_negeri_id = $req->input('fas_negeri_id');
                 $fas->fas_ptj_level = $req->input('fas_ptj_level');
                 $fas->update();
-                
+
                 return response()->json([
                     'status'=>200,
                     'message'=>'Maklumat fasiliti berjaya dikemaskini'
@@ -197,7 +190,7 @@ class FasilitiController extends Controller
         }
     }
 
-    
+
     public function destroy(string $id)
     {
         $fas = Fasiliti::find($id);

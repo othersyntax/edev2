@@ -48,7 +48,7 @@
                     @foreach ($roles as $role)
                     <tr>
                         <td class="text-center">{{ $role->id }}</td>
-                        <td>{{ $role->name }}</td>
+                        <td>{{ ucfirst($role->name) }}</td>
                         <td>
                             <a href="{{ url('/akses/roles/'.$role->id.'/give-permissions') }}" class="btn btn-xs btn-warning">
                                 Tambah / Kemaskini Role Permission

@@ -372,6 +372,18 @@ class ProjekKecemasanController extends Controller
     }
 
     public function selesai(string $id){
+
+        // NOTIFY PENGESAH
+        $penerima = \DB::table('vwuserperanan')
+        ->whereIn('program_id', [auth()->user()->program_id])
+        ->whereIn('peranan', ['penyedia','pengesah', 'peraku'])
+        ->select('email')->groupBy('email')->get();
+
+        $arrPenerima = $penerima->toArray();
+        // dd($penerima);
+
+        $mail = Mail::to($arrPenerima)->send(new MaklumanProjekKecemasan());
+
         $projek = ProjekBaru::find($id);
         $projek->proj_status_complete=2;
         $projek->proj_status=2;

@@ -3,7 +3,7 @@
     Kemaskini Projek
 @endsection
 @section('custom-css')
-    <link href="{{ asset("/template/css/plugins/footable/footable.core.css") }}" rel="stylesheet">
+    <link href="{{ asset('/template/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
 @endsection
 
 @section('breadcrumb')
@@ -28,10 +28,10 @@
     <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-success">
-                <h5>BELANJA</h5>
+                <h5>TANGUNGAN</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins  text-right">@duit(0)</h1>
+                <h1 class="no-margins  text-right">@duit($tangungan)</h1>
             </div>
         </div>
     </div>
@@ -49,10 +49,10 @@
     <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-warning">
-                <h5>JUMLAH BAKI</h5>
+                <h5>JUMLAH DILULUSKAN</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins  text-right">@duit(0)</h1>
+                <h1 class="no-margins  text-right">@duit($lulus)</h1>
             </div>
         </div>
     </div>
@@ -186,29 +186,45 @@
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
-                    <table class="footable table table-stripped toggle-arrow-tiny">
+                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
                         <thead>
                             <tr>
-                                <th width="15%">Kategori / Program</th>
-                                <th width="16%">Pemilik</th>
-                                <th width="16%">Fasiliti</th>
-                                <th width="30%">Projek</th>
+                                <th width="5%" class="text-center" data-toggle="true">Bil.</th>
+                                <th data-hide="all">Projek ID</th>
+                                <th data-hide="all">Kategori</th>
+                                <th data-hide="all">Program</th>
+                                <th data-hide="all">Tahun</th>
+                                <th data-hide="all">Tarikh Mula</th>
+                                <th data-hide="all">Tarikh Tamat</th>
+                                <th data-hide="all">Pelaksana</th>
+                                <th width="18%">Pemilik</th>
+                                <th width="13%">Fasiliti</th>
+                                <th width="32%">Projek</th>
+                                <th width="7%" class="text-center">Subsetia</th>
                                 <th width="10%" class="text-right">Amaun (RM)</th>
-                                <th width="5%">Status</th>
+                                <th width="7%">Status</th>
                                 <th width="8%" class="text-center">Tindakan</th>
                             </tr>
                         </thead>
                         <tbody>
+                        @php
+                            $no = 1;
+                        @endphp
                         @if ($projek->count()>0)
                             @foreach ($projek as $proj)
                             <tr>
-                                <td>
-                                    {{ $proj->pro_kat_short_nama }}<br>
-                                    <small>{{ $proj->proj_prog_nama }}</small>
-                                </td>
+                                <td class="text-center">{{ $no++ }}</td>
+                                <td>{{ $proj->projek_id }}</td>
+                                <td>{{ $proj->pro_kat_short_nama }}</td>
+                                <td>{{ $proj->proj_prog_nama }}</td>
+                                <td>{{ $proj->proj_tahun }}</td>
+                                <td>{{ date('d/m/Y', strtotime($proj->proj_laksana_mula)) }}</td>
+                                <td>{{ date('d/m/Y', strtotime($proj->proj_laksana_tamat)) }}</td>
+                                <td>{{ getPelaksana($proj->proj_pelaksana) }}</td>
                                 <td>{{ $proj->prog_name }}</td>
                                 <td>{{ $proj->fas_name }}</td>
                                 <td>{{ $proj->proj_nama }}</td>
+                                <td class="text-center">{{ $proj->proj_kod_subsetia }}</td>
                                 <td class="text-right">
                                      @duit($proj->proj_kos_lulus)<br>
                                     <span class="text-navy">@duit($proj->proj_kos_sebenar)</span>
@@ -236,7 +252,7 @@
                                             <a href="/projek/papar/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>
                                             <a href="/projek/ubah/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>
                                         @else
-                                            <a href="#" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-mute"></i></a>
+                                        <a href="/projek/papar/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>
                                             <a href="#" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-mute"></i></a>
                                         @endif
                                     @else
@@ -254,8 +270,15 @@
                             </tr>
                         @endif
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="14">
+                                    <ul class="pagination float-right"></ul>
+                                </td>
+                            </tr>
+                            </tfoot>
                     </table>
-                    <div class="text-center">{{ $projek->links() }}</div>
+                    {{-- <div class="text-center">{{ $projek->links() }}</div> --}}
                 </div>
 
             </div>
@@ -267,9 +290,9 @@
 @endsection
 @section('custom-js')
 <!-- FooTable -->
-<script src="{{ asset("/template/js/plugins/footable/footable.all.min.js") }}"></script>
+<script src="{{ asset('/template/js/plugins/footable/footable.all.min.js') }}"></script>
 <script>
-
+    $('.footable').footable();
     $('#negeri').on('change', function() {
         var cariNegeri = $(this).val();
         getFasiliti(cariNegeri, 'daerah',  '#list-daerah');
