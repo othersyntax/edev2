@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pentadbiran\PenggunaController;
 
+
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -29,3 +30,14 @@ Route::post('/email/verification-notification', function (Request $request) {
  
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+
+
+// PROGRAM
+// Route::get('#', [#::class, 'index']);
+// Route::any('#', [#::class, 'ajaxAll']);
+// Route::post('#', [#::class, 'store']);
+// Route::get('#/{id}', [#::class, 'edit']);
+// Route::post('#', [#::class, 'update']);
+// Route::delete('#/{id}', [#::class, 'destroy']);

@@ -8,6 +8,7 @@ use App\Http\Controllers\Pentadbiran\KategoriFasilitiController;
 use App\Http\Controllers\Pentadbiran\KategoriProjekController;
 use App\Http\Controllers\Pentadbiran\ProgramController;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\Pentadbiran\StatusProjekController;
 
 // GENERAL AJAX
 Route::get('/ajax/ajax-daerah/{id}/{input}/{select}', [AjaxController::class, 'ajaxDaerah']);
@@ -72,4 +73,7 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     Route::get('/pentadbiran/program/ubah/{id}', [ProgramController::class, 'edit']);
     Route::post('/pentadbiran/program/kemaskini', [ProgramController::class, 'update']);
     Route::delete('/pentadbiran/program/padam/{id}', [ProgramController::class, 'destroy']);
+
+    //Status Projek
+    Route::get('/pentadbiran/statusProjek', [StatusProjekController::class, 'index']);
 });
