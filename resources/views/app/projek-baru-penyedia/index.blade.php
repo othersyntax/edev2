@@ -18,7 +18,7 @@
                 <a href="#">Projek</a>
             </li>
             <li class="breadcrumb-item active">
-                <strong>Baharu</strong>
+                <strong>Baharu / Penyedia</strong>
             </li>
         </ol>
     </div>
@@ -130,7 +130,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-12">
-                            <a href="/permohonan/baru/main" class="btn btn-default">Set Semula</a>
+                            <a href="/permohonan/baru/main-penyedia" class="btn btn-default">Set Semula</a>
                             <button class="btn btn-primary float-right" id="carian" value="Carian">Carian</button>
                         </div>
                     </div>
@@ -146,24 +146,27 @@
                 <h5>Senarai Projek</h5>
                 <div class="ibox-tools">
                     @if(cekSiling(auth()->user()->program_id))
-                        @hasanyrole(['super-admin', 'admin', 'peraku'])
+                        {{-- @hasanyrole(['super-admin', 'admin', 'peraku'])
                         <button type="button" class="btn btn-sm btn-warning" id="emelPemakluman">
                             <span id="emelButton"></span> Hantar Permohonan
                         </button>
-                        {{-- @endhasanyrole
+                        @endhasanyrole --}}
                         @hasanyrole(['super-admin', 'admin', 'pengesah'])
                         <button type="button" class="btn btn-sm btn-warning" id="sahProjek">
                             <span id="sahButton"></span> Hantar Untuk Perakuan
                         </button>
-                        @endhasanyrole
-                        @hasanyrole(['super-admin', 'admin', 'penyedia'])
-                        <button type="button" class="btn btn-sm btn-warning" id="semakProjek">
-                            <span id="semakButton"></span> Hantar Untuk Pengesahan
-                        </button> --}}
                         <a href="/permohonan/baru/tambah" class="btn btn-sm btn-primary">
                             Tambah
                         </a>
                         @endhasanyrole
+                        {{-- @hasanyrole(['super-admin', 'admin', 'penyedia'])
+                        <button type="button" class="btn btn-sm btn-warning" id="semakProjek">
+                            <span id="semakButton"></span> Hantar Untuk Pengesahan
+                        </button>
+                        <a href="/permohonan/baru/tambah" class="btn btn-sm btn-primary">
+                            Tambah
+                        </a>
+                        @endhasanyrole --}}
                     @endif
                 </div>
             </div>

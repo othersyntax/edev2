@@ -1,8 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pentadbiran\PenggunaController;
-
-
+use App\Http\Controllers\ProjekExportController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -32,12 +31,12 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
+Route::get('/Cetak', [ProjekExportController::class, 'export']);
 
+ // PERMOHONAN BARU PENGESAHAN
+ Route::get('/permohonan/baru/main-pengesahan', [App\Http\Controllers\Projek\ProjekBaruPengesahanController::class, 'showList'])->name('projek.kecemasan.main');
+ Route::any('/permohonan/baru/senarai-pengesahan', [App\Http\Controllers\Projek\ProjekBaruPengesahanController::class, 'index']);
 
-// PROGRAM
-// Route::get('#', [#::class, 'index']);
-// Route::any('#', [#::class, 'ajaxAll']);
-// Route::post('#', [#::class, 'store']);
-// Route::get('#/{id}', [#::class, 'edit']);
-// Route::post('#', [#::class, 'update']);
-// Route::delete('#/{id}', [#::class, 'destroy']);
+  // PERMOHONAN BARU PENYEDIA
+  Route::get('/permohonan/baru/main-penyedia', [App\Http\Controllers\Projek\ProjekBaruPenyediaController::class, 'showList'])->name('projek.kecemasan.main');
+  Route::any('/permohonan/baru/senarai-penyedia', [App\Http\Controllers\Projek\ProjekBaruPenyediaController::class, 'index']);

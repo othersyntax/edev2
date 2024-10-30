@@ -163,6 +163,8 @@
                         <div class="col-lg-12">
                             <a href="/projek/senarai" class="btn btn-default">Set Semula</a>
                             <input type="submit" class="btn btn-primary float-right" id="carian" value="Carian">
+                            <a href="/Cetak" class="btn btn-default">Cetak Testing</a></li>
+                            {{-- <button type="button"  class="btn btn-xs btn-success editbtn">Cetak Testing</button> --}}
                         </div>
                     </div>
                 </form>
@@ -186,7 +188,9 @@
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
-                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+                    @include('app.projek.table')
+                   
+                    {{-- <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
                         <thead>
                             <tr>
                                 <th width="5%" class="text-center" data-toggle="true">Bil.</th>
@@ -258,10 +262,10 @@
                                     @else
                                         <a href="/projek/papar/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>
                                         <a href="/projek/ubah/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>
-                                    @endif
+                                    @endif --}}
 
                                     {{-- <a href="/projek/padam/{{ $proj->projek_id }}/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a> --}}
-                                </td>
+                                {{-- </td>
                             </tr>
                             @endforeach
                         @else
@@ -277,10 +281,10 @@
                                 </td>
                             </tr>
                             </tfoot>
-                    </table>
+                    </table> --}}
                     {{-- <div class="text-center">{{ $projek->links() }}</div> --}}
                 </div>
-
+                
             </div>
         </div>
     </div>
