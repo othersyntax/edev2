@@ -74,6 +74,9 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     Route::post('/pentadbiran/program/kemaskini', [ProgramController::class, 'update']);
     Route::delete('/pentadbiran/program/padam/{id}', [ProgramController::class, 'destroy']);
 
-    //Status Projek
+    //STATUS PROJEK
     Route::get('/pentadbiran/statusProjek', [StatusProjekController::class, 'index']);
+
+    //PROJEK (PENGURUSAN)
+    Route::any('/projek/projek-pengurusan', [App\Http\Controllers\Projek\PemantauanPengurusanController::class, 'index'])->name('projek.senarai');
 });

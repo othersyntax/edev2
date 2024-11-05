@@ -38,6 +38,7 @@
                 <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/projek/senarai">Projek</a></li>
                     <li class="{{ (request()->segment(2) == 'baki') ? 'active' : '' }}"><a href="/projek/baki/senarai">Baki Peruntukan</a></li>
+                    <li class="{{ (request()->segment(2) == 'projek-pengurusan') ? 'active' : '' }}"><a href="/projek/projek-pengurusan">Pengurusan</a></li>
                     {{-- <li class="{{ (request()->segment(2) == 'penjimatan') ? 'active' : '' }}"><a href="/projek/penjimatan/tambah">Penjimatan</a></li>
                     <li class="{{ (request()->segment(2) == 'tajuk') ? 'active' : '' }}"><a href="/permohonan/tajuk/senarai">Tukar Tajuk</a></li>
                     <li class="{{ (request()->segment(2) == 'pulang') ? 'active' : '' }}"><a href="/projek/pulang">Tarik Balik</a></li> --}}
