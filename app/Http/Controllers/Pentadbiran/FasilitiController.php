@@ -73,15 +73,14 @@ class FasilitiController extends Controller
             'fas_name'=> 'required',
             'fas_negeri_id'=> 'required',
             'fas_daerah_id'=> 'required',
-            // 'fas_jenis'=> 'required',
+            'fas_jenis'=> 'required',
         ],
         [
             'fas_ptj_code.required'=> 'Sila masukkan Kod PTJ',
             'fas_name.required'=> 'Sila masukkan nama fasiliti',
             'fas_negeri_id.required'=> 'Sila masukkan Negeri',
             'fas_daerah_id.required'=> 'Sila masukkan Daerah',
-            
-            // 'fas_jenis.required'=> 'Sila masukkan Kod Kategori Fasiliti',
+            'fas_jenis.required'=> 'Sila masukkan Kategori Fasiliti',
             
         ]);
 
@@ -99,6 +98,7 @@ class FasilitiController extends Controller
             $fas->fas_name = $request->input('fas_name');
             $fas->fas_negeri_id = $request->input('fas_negeri_id');
             $fas->fas_daerah_id = $request->input('fas_daerah_id');
+            $fas->fas_jenis = $request->input('fas_jenis');
             $fas->fas_created_by = auth()->user()->id;
             $fas->fas_udated_by = auth()->user()->id;
             $fas->save();

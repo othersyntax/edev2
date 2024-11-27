@@ -102,7 +102,7 @@
 
 {{--Untuk Add // siap--}}
 <div class="modal inmodal fade" id="addStateModal" tabindex="-1" role="dialog"  aria-hidden="true">
-    {{-- <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -127,6 +127,12 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
+                            <label>Kategori</label>
+                            {{ Form::select('fas_jenis_add', dropdownKatefas(), null, ['class'=>'form-control fas_jenis_add']) }}
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
                             <label>Negeri</label>
                             {{ Form::select('neg_nama_negeri_add', dropdownNegeri(), null, ['class'=>'form-control neg_nama_negeri_add']) }}
                         </div>
@@ -144,7 +150,7 @@
                 <button type="button" class="btn btn-primary add_state">Simpan</button>
             </div>
         </div>
-   </div> --}}
+   </div>
  
 
 {{--Untuk Delete // siap--}}
@@ -419,6 +425,7 @@
                 'fas_name': $('.fas_name_add').val(),
                 'fas_negeri_id': $('.neg_nama_negeri_add').val(),
                 'fas_daerah_id': $('.fas_daerah_id_add').val(),
+                'fas_jenis': $('.fas_jenis_add').val(),
             }
 
             $.ajaxSetup({
@@ -458,7 +465,7 @@
 
         });
 
-//edit
+    //edit
         $(document).on('click', '.editbtn', function (e) {
             e.preventDefault();
             var fasiliti_id = $(this).val();
