@@ -21,17 +21,36 @@ Route::group(['middleware' => ['auth','role:super-admin|admin|penyedia|pengesah|
     Route::get('/permohonan/baru/papar/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'add2'])->name('permohonan.baru.papar');
     Route::post('/permohonan/baru/emel', [App\Http\Controllers\Projek\ProjekBaruController::class, 'emel'])->name('permohonan.baru.emel');
     Route::get('/permohonan/baru/ubah/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'edit'])->name('permohonan.baru.ubah');
+    Route::get('/permohonan/baru/salin/{id}/{sumber}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'salin']);
     Route::post('/permohonan/baru/update', [App\Http\Controllers\Projek\ProjekBaruController::class, 'update'])->name('permohonan.baru.update');
     Route::get('/permohonan/baru/selesai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'selesai'])->name('permohonan.baru.selesai');
     Route::post('/permohonan/baru/semakan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'semakan']);
-    Route::post('/permohonan/baru/maklum-pengesahan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'maklumPengesahan']);
-    Route::post('/permohonan/baru/pengesahan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'pengesahan']);
+
+
+
     Route::post('/permohonan/baru/perakuan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'perakuan']);
-    // Route::post('/permohonan/baru/unjuran/simpan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'simpanUnjuran']);
-    // Route::get('/permohonan/baru/unjuran/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiUnjuran']);
-    // Route::get('/permohonan/baru/dokumen/senarai/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'senaraiDokumen']);
-    // Route::get('/permohonan/baru/unjuran/padam/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'padamUnjuran']);
-    // Route::get('/permohonan/baru/dokumen/padam/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'padamDokumen']);
+    Route::get('/permohonan/baru/revote-sambung', [App\Http\Controllers\Projek\ProjekBaruController::class, 'sambungan']);
+    Route::get('/permohonan/baru/main/excel', [App\Http\Controllers\Projek\ProjekBaruController::class, 'exportExcel']);
+
+    // PENGESAHAN PROJEK BAHARU
+    Route::get('/permohonan/baru/pengesahan', [App\Http\Controllers\Projek\PengesahanProjekController::class, 'index']);
+    Route::get('/permohonan/baru/pengesahan/papar/{id}', [App\Http\Controllers\Projek\PengesahanProjekController::class, 'view']);
+    Route::post('/permohonan/baru/pengesahan-satu', [App\Http\Controllers\Projek\PengesahanProjekController::class, 'sahkanSatu']);
+    Route::post('/permohonan/baru/pengesahan-pukal', [App\Http\Controllers\Projek\PengesahanProjekController::class, 'sahkanPukal']);
+    Route::post('/permohonan/baru/maklum-pengesahan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'maklumPengesahan']);
+
+    // PERAKUAN PROJEK BAHARU
+    Route::get('/permohonan/baru/perakuan', [App\Http\Controllers\Projek\PerakuanProjekController::class, 'index']);
+    Route::get('/permohonan/baru/perakuan/papar/{id}', [App\Http\Controllers\Projek\PerakuanProjekController::class, 'view']);
+    Route::post('/permohonan/baru/perakuan-satu', [App\Http\Controllers\Projek\PerakuanProjekController::class, 'perakuSatu']);
+    Route::post('/permohonan/baru/perakuan-pukal', [App\Http\Controllers\Projek\PerakuanProjekController::class, 'perakuPukal']);
+    Route::post('/permohonan/baru/maklum-perakuan', [App\Http\Controllers\Projek\ProjekBaruController::class, 'maklumPerakuan']);
+    Route::get('/permohonan/baru/padam/{id}', [App\Http\Controllers\Projek\ProjekBaruController::class, 'delete']);
+
+    // HANTAR PROJEK BAHARU
+    Route::get('/permohonan/baru/hantar-permohonan', [App\Http\Controllers\Projek\HantarPermohonanController::class, 'index']);
+    Route::post('/permohonan/baru/maklum-hantar', [App\Http\Controllers\Projek\ProjekBaruController::class, 'hantarPermohonan']);
+
 
     // PERMOHONAN KECEMASAN
     Route::get('/permohonan/kecemasan/main', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'showList'])->name('projek.kecemasan.main');
@@ -44,12 +63,6 @@ Route::group(['middleware' => ['auth','role:super-admin|admin|penyedia|pengesah|
     Route::get('/permohonan/kecemasan/ubah/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'edit'])->name('permohonan.kecemasan.ubah');
     Route::post('/permohonan/kecemasan/update', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'update'])->name('permohonan.kecemasan.update');
     Route::get('/permohonan/kecemasan/selesai/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'selesai'])->name('permohonan.kecemasan.selesai');
-    // Route::post('/permohonan/kecemasan/unjuran/simpan', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'simpanUnjuran']);
-    // Route::get('/permohonan/kecemasan/unjuran/senarai/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'senaraiUnjuran']);
-    // Route::get('/permohonan/kecemasan/dokumen/senarai/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'senaraiDokumen']);
-    // Route::get('/permohonan/kecemasan/unjuran/padam/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'padamUnjuran']);
-    // Route::get('/permohonan/kecemasan/dokumen/padam/{id}', [App\Http\Controllers\Projek\ProjekKecemasanController::class, 'padamDokumen']);
-    // Route::get('/projek/papar/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'view'])->name('projek.papar');
 
     // RUNCIT
     Route::any('/permohonan/runcit/senarai', [App\Http\Controllers\Projek\ProjekRuncitController::class, 'index'])->name('projek.runcit.senarai');
@@ -119,7 +132,16 @@ Route::group(['middleware' => ['auth','role:super-admin|admin|penyedia|pengesah|
     Route::post('/permohonan/papar/upload', [App\Http\Controllers\Projek\DokumenController::class, 'upload']);
     Route::get('/permohonan/papar/dokumen/padam/{id}', [App\Http\Controllers\Projek\DokumenController::class, 'padamDokumen']);
     // SEMAK PERMOHONAN
-    Route::get('/permohonan/semak/main', [App\Http\Controllers\Projek\SemakProjekController::class, 'showList'])->name('projek.semak.main');
-    Route::any('/permohonan/semak/senarai', [App\Http\Controllers\Projek\SemakProjekController::class, 'index']);
+    Route::any('/permohonan/semak/main/{pemilik}', [App\Http\Controllers\Projek\SemakProjekController::class, 'showList'])->name('projek.semak.main');
+    Route::any('/permohonan/semak/senarai', [App\Http\Controllers\Projek\SemakProjekController::class, 'indexMain']);
+    Route::any('/permohonan/semak/papar/{id}', [App\Http\Controllers\Projek\SemakProjekController::class, 'papar']);
+    Route::post('/permohonan/semak/pilihan', [App\Http\Controllers\Projek\SemakProjekController::class, 'kemaskini']);
     Route::any('/permohonan/semak/notifikasi/{id}', [App\Http\Controllers\Projek\SemakProjekController::class, 'emel']);
+    Route::get('/permohonan/semak/ubah/{id}', [App\Http\Controllers\Projek\SemakProjekController::class, 'edit']);
+    Route::post('/permohonan/semak/update', [App\Http\Controllers\Projek\SemakProjekController::class, 'update']);
+
+    // KELULUSAN
+    Route::get('/permohonan/kelulusan/senarai', [App\Http\Controllers\Projek\KelulusanController::class, 'index']);
+    // Route::get('/permohonan/kelulusan/pdf', [App\Http\Controllers\Projek\KelulusanController::class, 'pdf']);
+    Route::get('/permohonan/kelulusan/pdf/{id}',  [App\Http\Controllers\Projek\KelulusanController::class, 'cetakPermohonan']);
 });

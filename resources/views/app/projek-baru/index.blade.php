@@ -28,34 +28,59 @@
 @section('content')
 {{-- @inject('SilingTrait', 'App\Traits\Projek\SilingTrait') --}}
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-primary">
                 <span id="siling-tahun" class="label label-success float-right">2024</span>
-                <h5>SILING PERUNTUKAN  (RM)</h5>
+                <h5>SILING (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right"><b id="siling"></b></h1>
+                <h1 class="no-margins text-right"><b id="siling">0.00</b></h1>
+                <div class="stat-percent font-bold text-success" id="siling-tarikh">
+                </div>
+                <small>Tempoh</small>
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title bg-info">
+                <h5>REVOTE / SAMBUNGAN</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins text-right"><b id="sambung">0.00</b></h1>
+                <div class="stat-percent font-bold text-success peratusSambung">
+                    0%
+                </div>
+                <small>Peratusan</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-info">
                 <h5>BAKI SILING (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right"><b id="baki"></b></h1>
+                <h1 class="no-margins text-right"><b id="baki">0.00</b></h1>
+                <div class="stat-percent font-bold text-success peratusBaki">
+                    0%
+                </div>
+                <small>Peratusan</small>
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-3">
         <div class="ibox ">
             <div class="ibox-title bg-success">
-                <h5>JUMLAH PERMOHONAN  (RM)</h5>
+                <h5>JUMLAH (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right"><b id="jumlah"></b></h1>
+                <h1 class="no-margins text-right"><b id="jumlah">0.00</b></h1>
+                <div class="stat-percent font-bold text-success peratusMohon">
+                    0%
+                </div>
+                <small>Peratusan</small>
             </div>
         </div>
     </div>
@@ -73,12 +98,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Pemilik</label>
-                                @if ((auth()->user()->role>1))
-                                    {{ Form::select('cari-program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'cari-program']) }}
-                                @else
-                                    {{ Form::select('cari-program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'cari-program', 'disabled'=>true]) }}
-                                @endif
-
+                                {{ Form::select('cari-program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'cari-program', 'disabled'=>true]) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -105,8 +125,8 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Pelaksana</label>
-                                {{ Form::select('cari-pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], null, ['class'=>'form-control', 'id'=>'cari-pelaksana']) }}
+                                <label>Subsetia</label>
+                                {{ Form::select('subsetia', [''=>'--Sila Pilih--','1001'=>'1001', '4001'=>'4001', '4003'=>'4003',], session('subsetia'), ['class'=>'form-control', 'id'=>'subsetia']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -117,8 +137,20 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
+                                <label>Program</label>
+                                {{ Form::select('projekProgram', dropdownProjekProgram(), session('projekProgram'), ['class'=>'form-control', 'id'=>'projekProgram']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Pelaksana</label>
+                                {{ Form::select('cari-pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], null, ['class'=>'form-control', 'id'=>'cari-pelaksana']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
                                 <label>Status Permohonan</label>
-                                {{ Form::select('cari-status', [''=>'--Sila Pilih--', '1'=>'Baharu', '2'=>'Proses'], null, ['class'=>'form-control', 'id'=>'cari-status']) }}
+                                {{ Form::select('cari-status', [''=>'--Sila Pilih--', '1'=>'Baharu', '2'=>'Pengesahan', '3'=>'Perakuan', '4'=>'Proses'], null, ['class'=>'form-control', 'id'=>'cari-status']) }}
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -130,8 +162,10 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-12">
-                            <a href="/permohonan/baru/main" class="btn btn-default">Set Semula</a>
-                            <button class="btn btn-primary float-right" id="carian" value="Carian">Carian</button>
+                            <a href="/permohonan/baru/main" class="btn btn-xs btn-outline btn-primary dim"><i class="fa fa-refresh"></i> Set Semula</a>
+                            <a href="/permohonan/baru/main/excel" class="btn btn-xs btn-outline btn-success dim"><i class="fa fa-paste"></i> Eksport</a>
+                            <a href="/permohonan/baru/pdf" class="btn btn-xs btn-outline btn-success dim"><i class="fa fa-print"></i> Cetak</a>
+                            <button class="btn btn-xs btn-primary float-right" id="carian" value="Carian"><i class="fa fa-search"></i> Carian</button>
                         </div>
                     </div>
                 {{-- </form> --}}
@@ -146,23 +180,16 @@
                 <h5>Senarai Projek</h5>
                 <div class="ibox-tools">
                     @if(cekSiling(auth()->user()->program_id))
-                        @hasanyrole(['super-admin', 'admin', 'peraku'])
-                        <button type="button" class="btn btn-sm btn-warning" id="emelPemakluman">
-                            <span id="emelButton"></span> Hantar Permohonan
-                        </button>
-                        {{-- @endhasanyrole
-                        @hasanyrole(['super-admin', 'admin', 'pengesah'])
-                        <button type="button" class="btn btn-sm btn-warning" id="sahProjek">
-                            <span id="sahButton"></span> Hantar Untuk Perakuan
-                        </button>
-                        @endhasanyrole
-                        @hasanyrole(['super-admin', 'admin', 'penyedia'])
-                        <button type="button" class="btn btn-sm btn-warning" id="semakProjek">
-                            <span id="semakButton"></span> Hantar Untuk Pengesahan
-                        </button> --}}
-                        <a href="/permohonan/baru/tambah" class="btn btn-sm btn-primary">
-                            Tambah
-                        </a>
+                        @hasanyrole(['penyedia'])
+                            <button type="button" class="btn btn-xs btn-warning" id="semakProjek">
+                                <span id="semakButton"></span> Hantar Untuk Pengesahan <i class="fa fa-envelope"></i>
+                            </button>
+                            <a href="/permohonan/baru/revote-sambung" class="btn btn-xs btn-primary">
+                                Tambah Revote / Sambungan <i class="fa fa-plus"></i>
+                            </a>
+                            <a href="/permohonan/baru/tambah" class="btn btn-xs btn-primary">
+                                Tambah Baharu <i class="fa fa-plus"></i>
+                            </a>
                         @endhasanyrole
                     @endif
                 </div>
@@ -173,11 +200,12 @@
                     <table class="footable table table-stripped toggle-arrow-tiny">
                         <thead>
                             <tr>
-                                <th width="5%" class="text-center">Selesai</th>
+				                <th width="6%">Susunan</th>
+                                <th width="4%" class="text-center">Selesai</th>
                                 <th width="10%">Kategori</th>
-                                <th width="16%">Pemilik</th>
-                                <th width="16%">Fasiliti</th>
-                                <th width="30%">Projek</th>
+                                <th width="15%">Pemilik</th>
+                                <th width="15%">Fasiliti</th>
+                                <th width="27%">Projek</th>
                                 <th width="10%" class="text-right">Amaun (RM)</th>
                                 <th width="5%">Status</th>
                                 <th width="8%" class="text-center">Tindakan</th>
@@ -379,16 +407,25 @@ $(document).ready(function(){
                             text = 'fa-check text-navy';
                         }
                         // Status Rekod
-                        if(item.proj_status == 1){
+                        if(item.proj_status < 3){
                             status = '<span class="badge badge-primary">'+ statusProjek(item.proj_status) +'</span>';
-                            button = '<a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/baru/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/projek/padam/'+item.projek_id+'/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>';
+                            button = '<a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/baru/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/permohonan/baru/padam/'+item.projek_id+'" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>';
+                        }
+			else if(item.proj_status == 4) {
+                            status = '<span class="badge badge-warning">'+ statusProjek(item.proj_status) +'</span>';
+                            button = '<a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
+                        }
+			else if(item.proj_status == 5) {
+                            status = '<span class="badge badge-success">'+ statusProjek(item.proj_status) +'</span>';
+                            button = '<a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
                         }
                         else {
-                            status = '<span class="badge badge-warning">'+ statusProjek(item.proj_status) +'</span>';
+                            status = '<span class="badge badge-danger">'+ statusProjek(item.proj_status) +'</span>';
                             button = '<a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
                         }
 
                         $('tbody').append('<tr>\
+			                <td class="text-center">' + item.proj_sort + '</td>\
                             <td class="text-center"><i class="fa '+text+'"></i></td>\
                             <td>' + item.pro_kat_short_nama + '</td>\
                             <td>' + item.prog_name + '</td>\
@@ -413,11 +450,17 @@ $(document).ready(function(){
                 else{
                     baki = financial(response.data.baki);
                 }
+		        let silingTarikh = response.data.silingMula + '-' + response.data.silingTamat;
                 $('#bil-rekod').val(response.data.projek.length);
                 $('#siling').html(financial(response.data.siling));
+                $('#sambung').html(financial(response.data.sambung));
                 $('#baki').html(baki);
                 $('#jumlah').html(financial(response.data.jumlah));
-                $('#siling-tahun').html(response.data.silingTahun);
+                $('#siling-tarikh').html(silingTarikh);
+		        $('#siling-tahun').html(response.data.silingTahun);
+		        $('.peratusSambung').html(kiraPeratus(response.data.sambung, response.data.siling)+" %");
+		        $('.peratusBaki').html(kiraPeratus(response.data.baki, response.data.siling)+" %");
+		        $('.peratusMohon').html(kiraPeratus(response.data.jumlah, response.data.siling)+" %");
             }
         });
     }
@@ -459,15 +502,22 @@ $(document).ready(function(){
         if(id==1)
             return "Baharu";
         else if(id==2)
+            return "Pengesahan";
+        else if(id==3)
+            return "Perakuan";
+	else if(id==4)
             return "Proses";
-        // else if(id==3)
-        //     return "Perakuan";
-        // else if(id==4)
-        //     return "Proses";
-        else if(id==5)
+	else if(id==5)
             return "Diluluskan";
-        else
+	else if(id==6)
             return "Tidak Diluluskan";
+        else
+            return "Dibatalkan";
+    }
+
+    function kiraPeratus(part, whole) {
+        if (whole === 0) return 0; // Avoid division by zero
+        return ((part / whole) * 100).toFixed(2);
     }
 
     setTimeout(() => {

@@ -39,7 +39,7 @@ class FasilitiController extends Controller
                                     }
 
                                     else{
-                                        $q->where('neg_nama_negeri','like', "%{$carian_text}%");
+                                        $q->where('fas_negeri_id','like', "%{$carian_text}%");
                                     }
                                 }
                             });
@@ -71,17 +71,14 @@ class FasilitiController extends Controller
         $validator = Validator::make($request->all(), [
             'fas_ptj_code'=> 'required',
             'fas_name'=> 'required',
-            'fas_negeri_id'=> 'required',
-            'fas_daerah_id'=> 'required',
             'fas_jenis'=> 'required',
+            'fas_negeri_id'=> 'required',
         ],
         [
             'fas_ptj_code.required'=> 'Sila masukkan Kod PTJ',
             'fas_name.required'=> 'Sila masukkan nama fasiliti',
-            'fas_negeri_id.required'=> 'Sila masukkan Negeri',
-            'fas_daerah_id.required'=> 'Sila masukkan Daerah',
-            'fas_jenis.required'=> 'Sila masukkan Kategori Fasiliti',
-            
+            'fas_jenis.required'=> 'Sila masukkan Kod Kategori Fasiliti',
+            'fas_negeri_id.required'=> 'Sila masukkan ID Negeri',
         ]);
 
         if($validator->fails())
@@ -96,9 +93,8 @@ class FasilitiController extends Controller
             $fas = new Fasiliti;
             $fas->fas_ptj_code = $request->input('fas_ptj_code');
             $fas->fas_name = $request->input('fas_name');
-            $fas->fas_negeri_id = $request->input('fas_negeri_id');
-            $fas->fas_daerah_id = $request->input('fas_daerah_id');
             $fas->fas_jenis = $request->input('fas_jenis');
+            $fas->fas_negeri_id = $request->input('fas_negeri_id');
             $fas->fas_created_by = auth()->user()->id;
             $fas->fas_udated_by = auth()->user()->id;
             $fas->save();
@@ -143,16 +139,14 @@ class FasilitiController extends Controller
         $validator = Validator::make($req->all(), [
             'fas_ptj_code'=> 'required',
             'fas_name'=> 'required',
-            // 'fas_jenis'=> 'required',
-            'fas_daerah_id'=> 'required',
+            'fas_jenis'=> 'required',
             'fas_negeri_id'=> 'required',
         ],
         [
-            'fas_ptj_code.required'=> 'Sila masukkan Kod PTJ',
+            'fas_ptj_code.required'=> 'Sila masukkan Kod PTJ Fasiliti',
             'fas_name.required'=> 'Sila masukkan Nama Fasiliti',
-            // 'fas_jenis.required'=> 'Sila masukkan Kod Kategori',
-            'fas_daerah_id.required'=> 'Sila masukkan Daerah',
-            'fas_negeri_id.required'=> 'Sila masukkan Negeri',
+            'fas_jenis.required'=> 'Sila masukkan Kod Kategori',
+            'fas_negeri_id.required'=> 'Sila masukkan ID Negeri',
         ]);
 
         if($validator->fails())
@@ -168,8 +162,7 @@ class FasilitiController extends Controller
                 $fas->fasiliti_id = $req->input('fasiliti_id');
                 $fas->fas_ptj_code = $req->input('fas_ptj_code');
                 $fas->fas_name = $req->input('fas_name');
-                
-                $fas->fas_negeri_id = $req->input('fas_negeri_id');
+                $fas->fas_jenis = $req->input('fas_jenis');
                 $fas->fas_negeri_id = $req->input('fas_negeri_id');
                 $fas->fas_ptj_level = $req->input('fas_ptj_level');
                 $fas->update();

@@ -67,6 +67,7 @@ class GunaBakiController extends Controller
                 ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
                 ->leftJoin('tblprojek_program as e','a.proj_program','e.proj_program_id')
                 ->select('a.*', 'c.pro_kat_short_nama', 'c.pro_kat_nama', 'd.prog_name', 'b.fas_name', 'e.proj_prog_nama')
+		->where('a.proj_tahun', 2025)
                 ->whereIn('a.proj_kategori_id', [1011,1012]);
             if(auth()->user()->role==1){
                 $projek = $query->where('a.proj_pemilik', auth()->user()->program_id)->paginate(15);
@@ -86,6 +87,7 @@ class GunaBakiController extends Controller
                     ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
                     ->leftJoin('tblprojek_program as e','a.proj_program','e.proj_program_id')
                     ->select('a.*', 'c.pro_kat_short_nama', 'c.pro_kat_nama', 'd.prog_name', 'b.fas_name', 'e.proj_prog_nama')
+		    ->where('a.proj_tahun', 2025)
                     ->whereIn('a.proj_kategori_id', [1011,1012])
                     ->where(function($q) use ($negeri, $daerah, $fasiliti, $subsetia, $kategori, $projekProgram, $pelaksana, $status, $projek){
                         if(!empty($negeri)){
@@ -151,6 +153,7 @@ class GunaBakiController extends Controller
                         ->where('bj_status', 1);
         $bakulJimat = $query->get();
         $projek = Projek::where('proj_pemilik', auth()->user()->program_id)
+ 			->where('proj_tahun',2025)
                         ->where('proj_status', 1)
                         ->where('proj_kuasa_pkn',1)
                         ->get();

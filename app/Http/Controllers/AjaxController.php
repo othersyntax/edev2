@@ -14,6 +14,7 @@ class AjaxController extends Controller
     function ajaxDaerah(string $id, string $input, string $select) {
         $kodNegeri = $id;
         $rs = Daerah::where('dae_kod_negeri', $kodNegeri)
+	    ->where('dae_status', 1)
             ->orderBy('dae_nama_daerah')
             ->pluck('dae_nama_daerah', 'dae_daerah_id')
             ->prepend('--Sila pilih--', '');

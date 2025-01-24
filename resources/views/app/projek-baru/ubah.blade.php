@@ -129,7 +129,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Sub Setia</label>
-                            {{ Form::select('proj_kod_subsetia', ['1001'=>'1001', '4001'=>'4001','4003'=>'4003'], $projek->proj_kod_subsetia, ['class'=>'form-control', 'id'=>'proj_kod_subsetia']) }}
+                            {{ Form::select('proj_kod_subsetia', ['1001'=>'1001', '4001'=>'4001','4003'=>'4003','5003'=>'5003'], $projek->proj_kod_subsetia, ['class'=>'form-control', 'id'=>'proj_kod_subsetia']) }}
                             @error('proj_kod_subsetia')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror

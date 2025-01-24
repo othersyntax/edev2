@@ -115,7 +115,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label>Kod PTJ </label>
+                            <label>Kod PTJ Fasiliti</label>
                             {{ Form::text('fas_ptj_code_add', null, ['class'=>'form-control fas_ptj_code_add']) }}
                         </div>
                     </div>
@@ -137,12 +137,6 @@
                             {{ Form::select('neg_nama_negeri_add', dropdownNegeri(), null, ['class'=>'form-control neg_nama_negeri_add']) }}
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Daerah</label>
-                            {{ Form::select('fas_daerah_id_add', dropdownDaerah(), null, ['class'=>'form-control fas_daerah_id_add']) }}
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -151,7 +145,7 @@
             </div>
         </div>
    </div>
- 
+</div>
 
 {{--Untuk Delete // siap--}}
 <div class="modal inmodal fade" id="DeleteModal" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -207,18 +201,10 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label>Negeri</label>
+                            <label>ID Negeri</label>
                             {{ Form::select('fas_negeri_id_edit', dropdownNegeri(), null, ['class'=>'form-control', 'id'=>'fas_negeri_id_edit']) }}
                         </div>
                     </div>
-
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label>Daerah</label>
-                            {{ Form::select('fas_daerah_id_add', dropdownDaerah(), null, ['class'=>'form-control fas_daerah_id_add']) }}
-                        </div>
-                    </div>
-                
 
                     <div class="col-lg-4">
                         <div class="form-group">
@@ -371,7 +357,6 @@
                 'fas_jenis': $('#fas_jenis_edit').val(),
                 'fas_ptj_level': $('#fas_ptj_level_edit').val(),
                 'fas_negeri_id': $('#fas_negeri_id_edit').val(),
-                'fas_daerah_id': $('.fas_daerah_id_add').val(),
             }
 
             $.ajaxSetup({
@@ -423,9 +408,8 @@
             var data = {
                 'fas_ptj_code': $('.fas_ptj_code_add').val(),
                 'fas_name': $('.fas_name_add').val(),
-                'fas_negeri_id': $('.neg_nama_negeri_add').val(),
-                'fas_daerah_id': $('.fas_daerah_id_add').val(),
                 'fas_jenis': $('.fas_jenis_add').val(),
+                'fas_negeri_id': $('.neg_nama_negeri_add').val(),
             }
 
             $.ajaxSetup({
@@ -463,9 +447,9 @@
                 }
             });
 
-        });
+         });
 
-    //edit
+        //edit
         $(document).on('click', '.editbtn', function (e) {
             e.preventDefault();
             var fasiliti_id = $(this).val();

@@ -80,7 +80,8 @@
                         <thead>
                             <tr>
                                 <th width="5%" class="text-right">#<input type="checkbox" id="checkAll"></th>
-                                <th width="30%">Pemilik</th>
+                                <th width="5%">Bil.</th>
+				                <th width="25%">Pemilik</th>
                                 <th width="10%">Fasa</th>
                                 <th width="5%">Mula</th>
                                 <th width="5%">Tamat</th>
@@ -171,7 +172,7 @@
                 dataType: "json",
                 success: function (response) {
                     // var sil-status="";
-
+		    let bil =1;
                     $('tbody').html("");
                     $.each(response.siling, function (key, item) {
                         let amount = financial(item.sil_amount);
@@ -195,7 +196,8 @@
 
                         $('tbody').append('<tr>\
                             <td class="text-right"><input type="checkbox" class="siling-checkbox" data-id="'+ item.siling_id +'" data-program="'+ item.program_id +'"></td>\
-                            <td>' + item.prog_name + '</td>\
+                            <td>' + bil + '</td>\
+			    <td>' + item.prog_name + '</td>\
                             <td>Fasa 1</td>\
                             <td>' + Starikh.toLocaleDateString() + '</td>\
                             <td>' + Etarikh.toLocaleDateString() + '</td>\
@@ -205,6 +207,7 @@
                             <td><button type="button" value="' + item.siling_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>'+ emel +'\
                             <button type="button" value="' + item.siling_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
                         \</tr>');
+			bil++;
                     });
                 }
             });
@@ -284,7 +287,7 @@
                         $('#siling_id_edit').val(siling_id);
                         $('#sil_program_id_edit').val(response.siling.sil_fasiliti_id);
                         $('#sil_tahun_edit').val(response.siling.sil_tahun);
-                        $('#sil_sdate_edit').val(Starikh.toLocaleDateString())
+                        $('#sil_sdate_edit').val(Starikh.toLocaleDateString());
                         $('#sil_edate_edit').val(Etarikh.toLocaleDateString());
                         $('#sil_amount_edit').val(response.siling.sil_amount);
                         $('#sil_status_edit').val(response.siling.sil_status);

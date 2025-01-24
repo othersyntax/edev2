@@ -32,7 +32,7 @@
         <div class="ibox ">
             <div class="ibox-title bg-primary">
                 <span class="label label-success float-right">{{ date('Y')+1 }}</span>
-                <h5>SILING PERUNTUKAN  (RM)</h5>
+                <h5>SILING PERUNTUKAN (RM)</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins text-right"><b id="siling"></b></h1>
@@ -42,17 +42,17 @@
     <div class="col-lg-4">
         <div class="ibox ">
             <div class="ibox-title bg-info">
-                <h5>BAKI SILING (RM)</h5>
+                <h5>JUMLAH PERMOHONAN (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right"><b id="baki"></b></h1>
+                <h1 class="no-margins text-right"><b id="kecemasan"></b></h1>
             </div>
         </div>
     </div>
     <div class="col-lg-4">
         <div class="ibox ">
             <div class="ibox-title bg-success">
-                <h5>JUMLAH PERMOHONAN  (RM)</h5>
+                <h5>JUMLAH (RM)</h5>
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins text-right"><b id="jumlah"></b></h1>
@@ -73,7 +73,11 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Pemilik</label>
-                                {{ Form::select('cari-program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'cari-program', 'disabled'=>'true']) }}
+				@if (auth()->user()->role==1)
+                                    {{ Form::select('cari-program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'cari-program', 'disabled'=>'true']) }}
+                                @else
+                                    {{ Form::select('cari-program', dropdownProgram(), session('cari-program'), ['class'=>'form-control', 'id'=>'cari-program']) }}
+                                @endif
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -238,16 +242,17 @@ $(document).ready(function(){
     $('#carian').on('click', function(e){
         // alert('aaa');
         e.preventDefault();
+	let cariProgram = $('#cari-program').val();
         let cariNegeri = $('#cari-negeri').val();
         let cariFasiliti = $('#cari-fasiliti').val();
         let cariPelaksana = $('#cari-pelaksana').val();
         let cariKategori = $('#cari-kategori').val();
         let cariStatus = $('#cari-status').val();
         let cariProjek = $('#cari-projek').val();
-        fetchPermohonan(cariNegeri, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek);
+        fetchPermohonan(cariProgram, cariNegeri, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek);
     });
 
-    function fetchPermohonan(cariNegeri, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek){
+    function fetchPermohonan(cariProgram, cariNegeri, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek){
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -257,6 +262,7 @@ $(document).ready(function(){
             type: "post",
             url: "/permohonan/kecemasan/senarai",
             data:{
+		program:cariProgram,
                 negeri:cariNegeri,
                 fasiliti:cariFasiliti,
                 pelaksana:cariPelaksana,
@@ -297,15 +303,9 @@ $(document).ready(function(){
                             <td>'+button+'</td>\
                         \</tr>');
                     });
-                    if(response.data.baki < 0){
-                        baki = '<span class="text-danger">'+financial(response.data.baki)+'</span>';
-                    }
-                    else{
-                        baki = financial(response.data.baki);
-                    }
                     $('#siling').html(financial(response.data.siling));
-                    $('#baki').html(baki);
-                    $('#jumlah').html(financial(response.data.jumlah));
+                    $('#kecemasan').html(financial(response.data.xsiling));
+                    $('#jumlah').html(financial(response.data.semua));
                 }
                 else{
                     $('tbody').html("");

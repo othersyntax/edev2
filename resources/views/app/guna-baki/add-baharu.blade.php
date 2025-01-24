@@ -313,7 +313,21 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Agensi Pelaksana?</label>
-                            {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
+                            {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '4'=>'JKN', '3'=>'JKR'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
+                            @error('proj_pelaksana')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div id="pilihJkr" class="col-md-6" style="display:none">
+                        <div class="form-group">
+                            <label id="agensiLaksanaTitle">Pelaksana</label>
+                            <span id="list-agensi-pelaksana">
+                                {{ Form::select('proj_pelaksana_agensi',  [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'proj_pelaksana_agensi']) }}
+                            </span>
+                            @error('proj_pelaksana_agensi')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -479,6 +493,38 @@
             // calendarWeeks: true,
             autoclose: true
         });
+
+        $('#proj_pelaksana').on('change', function(){
+            let select = $(this).val();
+            pilihPelaksana(select);
+            // alert(select);
+
+        });
+
+        function pilihPelaksana(select, selectAgensi='99'){
+            if(select == 3){
+                $('#pilihJkr').show();
+                $('#agensiLaksanaTitle').html('Cawangan JKR');
+                getAgensiPelaksana('JKR', 'proj_pelaksana_agensi', '#list-agensi-pelaksana', selectAgensi);
+            }
+            else if(select == 4){
+                $('#pilihJkr').show();
+                $('#agensiLaksanaTitle').html('JKN Yang Melaksana');
+                getAgensiPelaksana('JKN', 'proj_pelaksana_agensi', '#list-agensi-pelaksana', selectAgensi);
+            }
+            else{
+                $('#pilihJkr').hide();
+            }
+        }
+
+        //GET PELAKSANA AGENSI JKR / JKN
+        function getAgensiPelaksana(data='',  inputname='', list='', select='99') {
+            let url = "/ajax/ajax-agensi-pelaksana/" + data + "/" + inputname + "/" + select;
+            $.get(url, function(data) {
+                $(list).html(data);
+            });
+        }
+
         //ON CHANGE NEGERI DROPDOWN EVENT
         $('#proj_negeri').on('change', function() {
             var parID = $(this).val();
@@ -506,16 +552,6 @@
             $('#addKewangan').modal('show');
         });
 
-        $('#proj_pelaksana').on('change', function(){
-            let select = $(this).val();
-
-            if(select == 3){
-                $('#pilihJkr').show();
-            }
-            else{
-                $('#pilihJkr').hide();
-            }
-        });
 
         $('.custom-file-input').on('change', function() {
             let fileName = $(this).val().split('\\').pop();

@@ -128,7 +128,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Sub Setia</label>
-                            {{ Form::select('proj_kod_subsetia', ['1001'=>'1001', '4001'=>'4001','4003'=>'4003'], null, ['class'=>'form-control', 'id'=>'proj_kod_subsetia']) }}
+                            {{ Form::select('proj_kod_subsetia', [''=>'--Sila Pilih--','1001'=>'1001', '4001'=>'4001','4003'=>'4003','5003'=>'5003'], null, ['class'=>'form-control', 'id'=>'proj_kod_subsetia']) }}
                             @error('proj_kod_subsetia')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -224,6 +224,14 @@
                 </div>
                 <p class="text-info font-bold mt-3">3. BUTIRAN PROJEK</p>
                 <div class="hr-line-dashed"></div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label>Keutamaan</label>
+                            {{ Form::text('proj_sort', $sortNumber, ['class'=>'form-control', 'id'=>'proj_sort']) }}
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">

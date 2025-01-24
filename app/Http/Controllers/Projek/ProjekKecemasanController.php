@@ -95,13 +95,16 @@ class ProjekKecemasanController extends Controller
             $projek = $query->get();
             // dd($projek);
         }
-        $siling = Siling::where('sil_fasiliti_id', auth()->user()->program_id)->select('sil_amount')->first();
-        $jumlah = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->sum('proj_kos_mohon');
-        $tolak = ProjekBaru::where('proj_status', 3)->sum('proj_kos_mohon');
+        $siling = Siling::where('sil_fasiliti_id', auth()->user()->program_id)->where('sil_status',1)->select('sil_amount','sil_tahun')->first();
+        $xsiling = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)
+                                ->where('proj_tahun',date('Y'))
+                                ->whereIn('proj_kategori_id',[1003,1004,1007, 1009,1010])
+                                ->sum('proj_kos_mohon');
+        // $tolak = ProjekBaru::where('proj_status', 3)->sum('proj_kos_mohon');
         // dd($jumlah);
-        $data['baki'] = $siling->sil_amount - $jumlah;
+        $data['semua'] = $siling->sil_amount + $xsiling;
         $data['siling'] = $siling->sil_amount;
-        $data['jumlah'] = $jumlah;
+        $data['xsiling'] = $xsiling;
         $data['projek'] = $projek;
 
         return response()->json([

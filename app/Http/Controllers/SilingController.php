@@ -105,17 +105,6 @@ class SilingController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $siling = Siling::find($id);
@@ -135,9 +124,7 @@ class SilingController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $req, string $id)
     {
         $validator = Validator::make($req->all(), [

@@ -21,7 +21,7 @@
 
     </div>
     <div class="middle-box text-center loginscreen animated fadeInDown">
-        <img src="{{ asset('/template/img/3.png') }}" width="300px" alt="MainLogo">
+        <img src="{{ asset('/template/img/3.png') }}" width="280px" alt="MainLogo">
         <div>
             <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
                 @csrf

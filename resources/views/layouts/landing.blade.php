@@ -182,6 +182,12 @@
                     <li style="text-align: left;">
                         <a href="{{ asset("/storage/dokumen/borang_penggunav1.pdf")}}" target="_blank">Borang Pendaftaran Pengguna</a><br/><span class="label label-success">PDF</span><span class="small"> Kemaskini pada: 16-10-2024</span>
                     </li>
+                    <li style="text-align: left;">
+                        <a href="{{ asset("/storage/dokumen/template_fasiliti.xlsx")}}">Template Daftar Fasiliti</a><br/><span class="label label-warning">XLSX</span><span class="small"> Kemaskini pada: 27-10-2024</span>
+                    </li>
+                    <li style="text-align: left;">
+                        <a href="{{ asset("/storage/dokumen/template_projek.xlsx")}}">Template Daftar Projek</a><br/><span class="label label-warning">XLSX</span><span class="small"> Kemaskini pada: 27-10-2024</span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -210,13 +216,14 @@
                     <h3><span class="navy">UNIT BAJET RMK</span></h3>
                     <strong>BAHAGIAN PEMBANGUNAN</strong><br>
                     Kementerian Kesihatan Malaysia<br/>
-                    <abbr title="Phone">T:</abbr> +603 8883 2026
+                    <abbr title="Phone">T:</abbr> +603 8883 2026 / +603 8883 2021 / +603 8883 2147 / +603 8883 2058 / +603 8883 2342 / +603 8883 2024
                 </address>
+                <p class="text-center">E-mel : ede@moh.gov.my</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12 text-center">
-                <a href="mailto:usup.keram@moh.gov.my" class="btn btn-primary">Hantarkan e-mel kepada kami</a>
+                <a href="mailto:ede@moh.gov.my" class="btn btn-primary">Hantarkan e-mel kepada kami</a>
             </div>
         </div>
         <div class="row">

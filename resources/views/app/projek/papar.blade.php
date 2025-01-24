@@ -63,10 +63,10 @@
 
                         <div class="normal text-muted">
                             <b>Skop</b><br/>
-                            {{ $projek->proj_skop }}
+                            {!! $projek->proj_skop !!}
                             <br/><br/>
                             <b>Justifikasi</b><br/>
-                            {{ $projek->proj_justifikasi ? $projek->proj_justifikasi: 'Tiada Rekod' }}
+                            {!! $projek->proj_justifikasi ? $projek->proj_justifikasi: 'Tiada Rekod' !!}
                         </div>
                         <dl class="row normal m-t-md">
                             <dt class="col-md-4 ">#ID</dt>
@@ -262,9 +262,11 @@
             <div class="ibox-title">
                 <h5>1.3 Peruntukan</h5>
                 <div class="ibox-tools">
+		    @hasanyrole(['super-admin', 'admin'])
                     <a href="#" class="btn btn-xs btn-primary" id="addPeruntukan">Tambah
                         <i class="fa fa-plus"></i>
                     </a>
+		    @endhasanyrole
                     <a class="btn btn-xs btn-default collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>

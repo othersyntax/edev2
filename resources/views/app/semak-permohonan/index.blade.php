@@ -3,10 +3,9 @@
     Semak Permohonan
 @endsection
 @section('custom-css')
-    <link href="{{ asset("/template/css/plugins/footable/footable.core.css") }}" rel="stylesheet">
-    <link href="{{ asset("/template/css/plugins/datapicker/datepicker3.css") }}" rel="stylesheet">
     <!-- Text spinners style -->
     <link href="{{ asset("/template/css/plugins/textSpinners/spinners.css") }}" rel="stylesheet">
+    <link href="{{ asset("/template/css/plugins/dataTables/datatables.min.css") }}" rel="stylesheet">
 @endsection
 
 @section('breadcrumb')
@@ -28,34 +27,106 @@
 @section('content')
 {{-- @inject('SilingTrait', 'App\Traits\Projek\SilingTrait') --}}
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-sm-12">
+        <div class="ibox ">
+            <div class="ibox-content">
+            PROGRAM / BAHAGIAN / INSTITUSI / JKN : <strong>{{ Str::upper(getProgram($pemilik)) }}</strong>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
         <div class="ibox ">
             <div class="ibox-title bg-primary">
                 <span class="label label-success float-right">{{ date('Y')+1 }}</span>
-                <h5>SILING PERUNTUKAN  (RM)</h5>
+                <h5>Jumlah Siling (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right"><b id="siling"></b></h1>
+                <h1 class="no-margins text-right"><b>@duit($siling)</b></h1>
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
-        <div class="ibox ">
-            <div class="ibox-title bg-info">
-                <h5>BAKI SILING (RM)</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins text-right"><b id="baki"></b></h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-4">
+    <div class="col-sm-3">
         <div class="ibox ">
             <div class="ibox-title bg-success">
-                <h5>JUMLAH PERMOHONAN (RM)</h5>
+                <h5>Jumlah Permohonan (RM)</h5>
             </div>
             <div class="ibox-content">
-                <h1 class="no-margins text-right"><b id="jumlah"></b></h1>
+                <h1 class="no-margins text-right"><b>@duit($jumlah)</b></h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="ibox ">
+            <div class="ibox-title bg-info">
+                <h5>Jumlah Diluluskan (RM)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins text-right"><b>@duit($lulus)</b></h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="ibox ">
+            <div class="ibox-title bg-warning">
+                <h5>KIV (RM)</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins text-right"><b>@duit($tolak)</b></h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="ibox ">
+            <div class="ibox-content">
+                <div>
+                    <h1 class="no-margins text-right text-info"><b>RM @duit(100000000)</b></h1>
+                </div>
+                <small>Siling Peruntukan BP00600 Tahun 2025</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="ibox ">
+            <div class="ibox-content">
+                <div>
+                    <h1 class="no-margins text-right text-info"><b>RM @duit(23500000)</b></h1>
+                </div>
+                <small>Baki Belum Agih</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        @php
+            $peratusJKN = $lulusJKN > 0 ? ($lulusJKN / $silingSemua) * 100 : 0;
+            $bakiJKN = $silingSemua - $lulusJKN;
+            $lulusProg = $lulusSemua - $lulusJKN;
+            $peratusProgram = $lulusProg > 0 ? ($lulusProg / 17000000) * 100 : 0;
+            $bakiProgram = 17000000 - $lulusProg;
+        @endphp
+        <div class="ibox ">
+            <div class="ibox-content">
+                <div>
+                    <p class="text-warning float-right font-bold">RM @duit($bakiJKN)</p>
+                    <p class="text-info font-bold">RM @duit($silingSemua)</p>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" role="progressbar" style="width: {{ number_format($peratusJKN, 2) }}%" aria-valuenow="{{ number_format($peratusJKN, 2) }}" aria-valuemin="0" aria-valuemax="{{ $silingSemua }}">@duit($lulusJKN )</div>
+                </div>
+                <small>Siling JKN</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="ibox ">
+            <div class="ibox-content">
+                <div>
+                    <p class="text-warning float-right font-bold">RM @duit($bakiProgram)</p>
+                    <p class="text-info font-bold">RM @duit(17000000)</p>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-warning" role="progressbar" style="width: {{ number_format($peratusProgram, 2) }}%" aria-valuenow="{{ number_format($peratusProgram, 2) }}" aria-valuemin="0" aria-valuemax="17000000">@duit($lulusProg)</div>
+                </div>
+                <small>Siling Program / Bahagian / Institusi</small>
             </div>
         </div>
     </div>
@@ -67,26 +138,20 @@
                 <h5>Tapisan Projek</h5>
             </div>
             <div class="ibox-content">
-                <form action="/permohonan/semak/senarai" method="post">
+                <form action="/permohonan/semak/main/{{ $pemilik }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Pemilik</label>
-                                {{ Form::select('cari-program', dropdownProgram(), null, ['class'=>'form-control', 'id'=>'cari-program']) }}
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
                                 <label>Negeri</label>
-                                {{ Form::select('cari-negeri', dropdownNegeri(), session('negeri'), ['class'=>'form-control', 'id'=>'cari-negeri']) }}
+                                {{ Form::select('negeri', dropdownNegeri(), session('negeri'), ['class'=>'form-control', 'id'=>'negeri']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Daerah</label>
                                 <span id="list-daerah">
-                                    {{ Form::select('cari-daerah', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'cari-daerah']) }}
+                                    {{ Form::select('daerah', [''=>'--Sila pilih--'], session('daerah'), ['class'=>'form-control', 'id'=>'daerah']) }}
                                 </span>
                             </div>
                         </div>
@@ -94,41 +159,56 @@
                             <div class="form-group">
                                 <label>Fasiliti</label>
                                 <span id="list-fasiliti">
-                                    {{ Form::select('cari-fasiliti', [''=>'--Sila pilih--'], session('fasiliti'), ['class'=>'form-control', 'id'=>'cari-fasiliti']) }}
+                                    {{ Form::select('fasiliti', [''=>'--Sila pilih--'], session('fasiliti'), ['class'=>'form-control', 'id'=>'fasiliti']) }}
                                 </span>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Pelaksana</label>
-                                {{ Form::select('car-pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], session('pelaksana'), ['class'=>'form-control', 'id'=>'car-pelaksana']) }}
+                                <label>Subsetia</label>
+                                {{ Form::select('subsetia', [''=>'--Sila Pilih--','1001'=>'1001', '4001'=>'4001', '4003'=>'4003',], session('subsetia'), ['class'=>'form-control', 'id'=>'subsetia']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Kategori Projek</label>
-                                {{ Form::select('cari-kategori', dropdownProjekKategori(), session('kategori'), ['class'=>'form-control', 'id'=>'cari-kategori']) }}
+                                {{ Form::select('kategori', dropdownProjekKategori('siling'), session('kategori'), ['class'=>'form-control', 'id'=>'kategori']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Program</label>
+                                {{ Form::select('projekProgram', dropdownProjekProgram(), session('projekProgram'), ['class'=>'form-control', 'id'=>'projekProgram']) }}
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Pelaksana</label>
+                                {{ Form::select('pelaksana', [''=>'--Sila pilih--', '1'=>'Pemilik', '2'=>'BPKj' , '3'=>'JKR'], session('pelaksana'), ['class'=>'form-control', 'id'=>'pelaksana']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Status Permohonan</label>
-                                {{ Form::select('cari-status', [''=>'--Sila Pilih--', '1'=>'Baharu', '2'=>'Proses', '3'=>'Proses'], session('status'), ['class'=>'form-control', 'id'=>'cari-status']) }}
+                                {{ Form::select('status', [''=>'--Sila Pilih--', '1'=>'Baharu', '2'=>'Pengesahan', '3'=>'Perakuan', '4'=>'Proses'], session('status'), ['class'=>'form-control', 'id'=>'status']) }}
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Nama Projek</label>
-                                {{ Form::text('cari-projek', session('projek'), ['class'=>'form-control', 'id'=>'cari-projek']) }}
+                                {{ Form::text('projek', session('projek'), ['class'=>'form-control', 'id'=>'cari-projek']) }}
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-12">
-                            <a href="/permohonan/semak/main" class="btn btn-default">Set Semula</a>
-                            <button class="btn btn-primary float-right" id="carian" value="Carian">Carian</button>
-                            
-                    </button>
+                            <div class="form-group row">
+                                <div class="col-lg-12">
+                                    <a href="/permohonan/semak/main" class="btn btn-xs btn-outline btn-primary dim"><i class="fa fa-refresh"></i> Set Semula</a>
+                                    <a href="/permohonan/semak/pdf/{{ $pemilik }}" class="btn btn-xs btn-outline btn-success dim"><i class="fa fa-print"></i> Cetak</a>
+                                    <button class="btn btn-xs btn-primary float-right" id="carian" value="Carian"><i class="fa fa-search"></i> Carian</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -140,31 +220,88 @@
     <div class="col-lg-12">
         <div class="ibox">
             <div class="ibox-title">
-                <h5>Senarai Projek</h5>
-                <div class="ibox-tools">
-                    <a href="/permohonan/semak/tambah" class="btn btn-sm btn-primary">
-                        Tambah
-                    </a>
-                </div>
+                <h5>SENARAI PERMOHONAN</h5>
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
-                    <table class="footable table table-stripped toggle-arrow-tiny">
+                    <table class="table table-stripped toggle-arrow-tiny" >
                         <thead>
                             <tr>
-                                <th width="5%" class="text-center">Selesai</th>
+                                <th width="8%" class="text-center">Susunan</th>
                                 <th width="10%">Kategori</th>
-                                <th width="16%">Pemilik</th>
-                                <th width="16%">Fasiliti</th>
-                                <th width="30%">Projek</th>
+                                <th width="15%">Pemilik</th>
+                                <th width="15%">Fasiliti</th>
+                                <th width="25%">Projek</th>
                                 <th width="10%" class="text-right">Amaun (RM)</th>
-                                <th width="5%">Status</th>
-                                <th width="8%" class="text-center">Tindakan</th>
+                                <th width="7%">Status</th>
+                                <th width="10%" class="text-center">Tindakan</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if ($projek->count()>0)
+                            @php
+                                $bil = $projek->firstItem();
+                            @endphp
+                                @foreach ($projek as $proj)
+                                    @php
+                                        if($proj->proj_status<4){
+                                            $text='';
+                                        }
+                                        else if($proj->proj_status==4){
+                                            $text='class="text-success"';
+                                        }
+                                        else if($proj->proj_status==5){
+                                            $text='class="text-primary"';
+                                        }
+                                        else{
+                                            $text='class="text-danger"';
+                                        }
+
+                                        if($proj->proj_status==1){
+                                            $status = '<span class="badge badge-primary">'.getStatusMohonProjek($proj->proj_status).'</span>';
+                                        }
+                                        else if($proj->proj_status==2 || $proj->proj_status==3){
+                                            $status = '<span class="badge badge-success">'.getStatusMohonProjek($proj->proj_status).'</span>';
+                                        }
+                                        else if($proj->proj_status==4){
+                                            $status = '<span class="badge badge-warning">'.getStatusMohonProjek($proj->proj_status).'</span>';
+                                        }
+                                        elseif($proj->proj_status==5){
+                                            $status = '<span class="badge badge-info">'.getStatusMohonProjek($proj->proj_status).'</span>';
+                                        }
+                                        else{
+                                            $status = '<span class="badge badge-danger">'.getStatusMohonProjek($proj->proj_status).'</span>';
+                                        }
+
+                                        $button = '<a href="/permohonan/semak/papar/'.$proj->projek_id.'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-success"></i></a><button type="button" value="'.$proj->projek_id.'" class="btn btn-default btn-xs emelnotifikasi" title="Emel"><i class="fa fa-envelope text-warning"></i></button><a href="/permohonan/semak/ubah/'.$proj->projek_id.'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>';
+                                    @endphp
+
+                                    <tr {!! $text !!}>
+                                        <td class="text-center">{{ $proj->proj_sort}}</td>
+                                        <td>{{ $proj->pro_kat_short_nama}}</td>
+                                        <td>{{ $proj->prog_name}}</td>
+                                        <td>{{ $proj->fas_name}}</td>
+                                        <td>{{ $proj->proj_nama_admin}}</td>
+                                        <td class="text-right">
+                                            @duit( $proj->proj_kos_lulus)<br>
+                                            @if ($proj->proj_kos_mohon <> $proj->proj_kos_lulus)
+                                                <small class="text-warning"><i class="fa fa-bell"></i> Kos asal RM @duit( $proj->proj_kos_mohon)</small>
+                                            @endif
+
+                                        </td>
+                                        <td>{!! $status !!}</td>
+                                        <td class="text-center">{!! $button !!}</td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="8" class="font-italic text-small text-center">Tiada Rekod</td>
+                                </tr>
+                            @endif
+
                         </tbody>
                     </table>
+                    {{ $projek->links() }}
                 </div>
             </div>
         </div>
@@ -175,7 +312,7 @@
 @endsection
 @section('custom-js')
 <!-- Date range picker -->
-<script src="{{ asset("/template/js/plugins/datapicker/bootstrap-datepicker.js") }}"></script>
+<script src="{{ asset("/template/js/plugins/dataTables/datatables.min.js") }}"></script>
 <script>
 @if(Session::has('msg'))
     var title = "{{ Session::get('title') }}";
@@ -187,153 +324,28 @@
         type: type
     });
 @endif
+
 $(document).ready(function(){
+
     //SET DEFAULT
-    let cariNegeri1 = $('#cari-negeri').val();
+    let cariNegeri1 = $('#negeri').val();
     // alert(cariNegeri1);
-    getFasiliti(cariNegeri1, 'cari-fasilti', '#list-fasiliti');
+    getFasiliti(cariNegeri1, 'fasilti', '#list-fasiliti');
     //ON CHANGE NEGERI DROPDOWN EVENT
-    $('#cari-negeri').on('change', function() {
+    $('#negeri').on('change', function() {
         var cariNegeri = $(this).val();
-        getFasiliti(cariNegeri, 'cari-daerah',  '#list-daerah');
+        getFasiliti(cariNegeri, 'daerah',  '#list-daerah');
     });
-
-    // LOAD DATA WHEN OPEN THIS PAGE
-    fetchPermohonan();
-
-    // HANTE EMEL PEMAKLUMAN
-    // $(document).on('click', '#emelPemakluman', function (e) {
-    //     e.preventDefault();
-    //     document.getElementById("emelButton").classList.add("loading");
-    //     document.getElementById("emelButton").classList.add("open-circle");
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-    //     });
-
-    //     $.ajax({
-    //         type: "post",
-    //         url: "/permohonan/semak/emel",
-    //         data: null,
-    //         dataType: "json",
-    //         success: function (response) {
-    //             if (response.status == 400) {
-    //                 swal("Gagal", response.message, "error");
-    //                 document.getElementById("emelButton").classList.remove("loading");
-    //                 document.getElementById("emelButton").classList.remove("open-circle");
-    //             } else {
-    //                 fetchPermohonan();
-    //                 swal({
-    //                     title: "Emel Pemakluman",
-    //                     text: response.message,
-    //                     type: "success"
-    //                 });
-    //                 document.getElementById("emelButton").classList.remove("loading");
-    //                 document.getElementById("emelButton").classList.remove("open-circle");
-    //             }
-    //         }
-    //     });
-    // });
-
-    // SEARCH BUTTON CLICK
-    $('#carian').on('click', function(e){
-        // alert('aaa');
-        e.preventDefault();
-        let cariProgram = $('#cari-program').val();
-        let cariNegeri = $('#cari-negeri').val();
-        let cariFasiliti = $('#cari-fasiliti').val();
-        let cariPelaksana = $('#cari-pelaksana').val();
-        let cariKategori = $('#cari-kategori').val();
-        let cariStatus = $('#cari-status').val();
-        let cariProjek = $('#cari-projek').val();
-        fetchPermohonan(cariProgram, cariNegeri, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek);
-    });
-
-    function fetchPermohonan(cariProgram, cariNegeri, cariFasiliti, cariPelaksana, cariKategori, cariStatus, cariProjek){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: "post",
-            url: "/permohonan/semak/senarai",
-            data:{
-                program:cariProgram,
-                negeri:cariNegeri,
-                fasiliti:cariFasiliti,
-                pelaksana:cariPelaksana,
-                kategori:cariKategori,
-                status:cariStatus,
-                projek:cariProjek
-            },
-            dataType: "json",
-            success: function (response) {
-                $('tbody').html("");
-                if (response.data.projek.length>0){
-                        $.each(response.data.projek, function (key, item) {
-                        // Statussprojek
-                        if(item.proj_status_complete == 1){
-                            text = 'fa-close text-danger';
-                        }
-                        else {
-                            text = 'fa-check text-navy';
-                        }
-                        // Status Rekod
-                        if(item.proj_status == 1){
-                            status = '<span class="badge badge-primary">Baharu</span>';
-                            button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-envelope text-mute"></i>';
-                        }
-                        else {
-                            status = '<span class="badge badge-warning">Proses</span>';
-                            button = '<a href="/permohonan/semak/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/semak/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><button type="button" value="' + item.projek_id + '" class="btn btn-default btn-xs emelnotifikasi" title="Emel"><i class="fa fa-envelope text-danger"></i></button>';
-                        }
-
-                        $('tbody').append('<tr>\
-                            <td class="text-center"><i class="fa '+text+'"></i></td>\
-                            <td>' + item.pro_kat_short_nama + '</td>\
-                            <td>' + item.prog_name + '</td>\
-                            <td>' + item.fas_name + '</td>\
-                            <td>' + item.proj_nama + '</td>\
-                            <td class="text-right">' + financial(item.proj_kos_mohon) + '</td>\
-                            <td>' + status + '</td>\
-                            <td>'+button+'</td>\
-                        \</tr>');
-                    });
-                    if(response.data.baki < 0){
-                        baki = '<span class="text-danger">'+financial(response.data.baki)+'</span>';
-                    }
-                    else{
-                        baki = financial(response.data.baki);
-                    }
-                    $('#siling').html(financial(response.data.siling));
-                    $('#baki').html(baki);
-                    $('#jumlah').html(financial(response.data.jumlah));
-                }
-                else{
-                    $('tbody').html("");
-                    $('tbody').append('<tr>\
-                        <td colspan="8" class="font-italic text-small text-center">Tiada Rekod</td>\
-                    \</tr>');
-                }
-            }
-        });
-    }
-
-    function financial(x) {
-        return Number.parseFloat(x).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    }
 
     //GET DAERAH DROPDOWN HTML AJAXCONTROLLER
     function getFasiliti(parID='0', inputname='0', list='0', select='99') {
         let url = "/ajax/ajax-daerah/" + parID + "/" + inputname + "/" + select;
         $.get(url, function(data) {
             $(list).html(data);
-            $('#cari-daerah').on('change', function() {
+            $('#daerah').on('change', function() {
                 var daerahID = $(this).val();
                 var list = '#list-fasiliti';
-                var inputname = 'cari-fasiliti';
+                var inputname = 'fasiliti';
                 let url = "/ajax/ajax-fasiliti/" + daerahID + "/" + inputname + "/" + select;
                 $.get(url, function(data) {
                     $(list).html(data);
@@ -350,40 +362,8 @@ $(document).ready(function(){
         $('#msg').hide('slow');
     }, 3000);
 
-
-
-    $(document).on('click', '.emelnotifikasi', function () {
-        var projek_id = $(this).val();
-            // document.getElementById("emelButton").classList.add("loading");
-            // document.getElementById("emelButton").classList.add("open-circle");
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type: "post",
-                url: "/permohonan/semak/notifikasi/"+projek_id,
-                data: null,
-                dataType: "json",
-                success: function (response) {
-                    if (response.status == 400) {
-                        swal("Gagal", response.message, "error");
-                    } else {
-                        // fetchPermohonan();
-                        swal({
-                            title: "Emel Pemakluman",
-                            text: response.message,
-                            type: "success"
-                        });
-                        // document.getElementById("emelButton").classList.remove("loading");
-                        // document.getElementById("emelButton").classList.remove("open-circle");
-                    }
-                }
-            });
-        });
 });
+
 
 </script>
 @endsection

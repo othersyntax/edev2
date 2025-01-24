@@ -97,7 +97,12 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Pemilik</label>
-                                {{ Form::select('program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'program', 'disabled'=>'true']) }}
+                                @if (auth()->user()->role==1)
+                                    {{ Form::select('program', dropdownProgram(), auth()->user()->program_id, ['class'=>'form-control', 'id'=>'program', 'disabled'=>'true']) }}
+                                @else
+                                    {{ Form::select('program', dropdownProgram(), session('program'), ['class'=>'form-control', 'id'=>'program']) }}
+                                @endif
+
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -118,7 +123,7 @@
                             <div class="form-group">
                                 <label>Fasiliti</label>
                                 <span id="list-fasiliti">
-                                    {{ Form::select('fasiliti', [''=>'--Sila pilih--'], null, ['class'=>'form-control', 'id'=>'fasiliti']) }}
+                                    {{ Form::select('fasiliti', [''=>'--Sila pilih--'], session('fasiliti'), ['class'=>'form-control', 'id'=>'fasiliti']) }}
                                 </span>
                             </div>
                         </div>
@@ -163,8 +168,6 @@
                         <div class="col-lg-12">
                             <a href="/projek/senarai" class="btn btn-default">Set Semula</a>
                             <input type="submit" class="btn btn-primary float-right" id="carian" value="Carian">
-                            <a href="/Cetak" class="btn btn-default">Cetak Testing</a></li>
-                            {{-- <button type="button"  class="btn btn-xs btn-success editbtn">Cetak Testing</button> --}}
                         </div>
                     </div>
                 </form>
@@ -188,9 +191,7 @@
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
-                    @include('app.projek.table')
-                   
-                    {{-- <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="15">
+                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="30">
                         <thead>
                             <tr>
                                 <th width="5%" class="text-center" data-toggle="true">Bil.</th>
@@ -262,10 +263,10 @@
                                     @else
                                         <a href="/projek/papar/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a>
                                         <a href="/projek/ubah/{{ $proj->projek_id }}" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>
-                                    @endif --}}
+                                    @endif
 
                                     {{-- <a href="/projek/padam/{{ $proj->projek_id }}/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a> --}}
-                                {{-- </td>
+                                </td>
                             </tr>
                             @endforeach
                         @else
@@ -281,10 +282,10 @@
                                 </td>
                             </tr>
                             </tfoot>
-                    </table> --}}
+                    </table>
                     {{-- <div class="text-center">{{ $projek->links() }}</div> --}}
                 </div>
-                
+
             </div>
         </div>
     </div>

@@ -146,11 +146,17 @@ function getStatusProjek($id){
 }
 function getStatusMohonProjek($id){
     if($id==1)
-        return "Baru";
+        return "Baharu";
     else if($id==2)
+        return "Pengesahan";
+    else if($id==3)
+        return "Perakuan";
+    else if($id==4)
         return "Proses";
+    else if($id==5)
+        return "Diluluskan";
     else
-        return "Tolak";
+        return "Tidak Diluluskan";
 }
 function getStatusJimat($id){
     if($id==1)
@@ -194,6 +200,16 @@ function cekSiling(string $id){
     else
 
     return false;
+}
+
+function getSiling(string $id){
+    $sil = Siling::where('sil_fasiliti_id', $id)
+            ->where('sil_tahun', 2025)
+            ->select('sil_amount')
+            ->first();
+
+    return  $sil->sil_amount;
+
 }
 
 function cekJimat($id){

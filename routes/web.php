@@ -19,9 +19,9 @@ Route::get('/', function () {
     return view('layouts.landing');
 });
 
-Route::get('/dashboard', function () {
-    return view('app.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -53,14 +53,33 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     Route::post('/siling/showList', [App\Http\Controllers\SilingController::class, 'showList']);
     Route::get('/siling/senarai/create', [App\Http\Controllers\SilingController::class, 'create']);
     Route::get('/siling/senarai/{silingID}/delete', [App\Http\Controllers\SilingController::class, 'destroy']);
+
+    Route::get('/permohonan/baru/pdf',  [App\Http\Controllers\Projek\PdfController::class, 'index']);
+    Route::get('/permohonan/semak/pdf/{id}',  [App\Http\Controllers\Projek\PdfController::class, 'cetakPermohonan']);
 });
 
 Route::get('/hantar/emel', [App\Http\Controllers\Mail\MailTestController::class, 'hantarEmel']);
 
 Route::get('/sending/testemel', [App\Http\Controllers\SendMailController::class, 'hantarEmel']);
 
+Route::get('/export-pdf', function () {
+    $data = [
+        'title' => 'PDF Export Example',
+        'content' => 'This is a sample PDF generated from a Blade view.',
+    ];
+
+    // Render Blade view to PDF
+    $pdf = Pdf::loadView('pdf.example', $data)->setPaper('a4', 'landscape');
+
+    // Return PDF download response
+    return $pdf->download('example.pdf');
+});
+
+
+
 require __DIR__.'/auth.php';
 require __DIR__.'/pentadbiran.php';
+require __DIR__.'/pengurusan.php';
 require __DIR__.'/projek.php';
 require __DIR__.'/wan.php';
 require __DIR__.'/anas.php';

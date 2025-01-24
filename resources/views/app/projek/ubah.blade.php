@@ -7,6 +7,7 @@
     <link href="{{ asset("/template/css/plugins/sweetalert/sweetalert.css") }}" rel="stylesheet">
     <link href="{{ asset("/template/css/plugins/switchery/switchery.css") }}" rel="stylesheet">
     <link href="{{ asset("/template/css/plugins/datapicker/datepicker3.css") }}" rel="stylesheet">
+    <link href="{{ asset("/template/css/plugins/summernote/summernote-bs4.css") }}" rel="stylesheet">
 @endsection
 
 @section('breadcrumb')
@@ -239,10 +240,10 @@
                         </div>
                         <div class="form-group">
                             <label>Skop Projek</label>
-                            @if (auth()->user()->role)
+                            @if (auth()->user()->role==3)
                                {{ Form::textarea('proj_skop', $projek->proj_skop, ['class'=>'form-control', 'id'=>'proj_skop', 'rows'=>'4']) }}
                             @else
-                            <div class="form-control">{{ $projek->proj_skop ? $projek->proj_skop : 'Tiada rekod' }}</div>
+                            <div class="form-control">{!! $projek->proj_skop !!}</div>
                                 {{ Form::hidden('proj_skop', $projek->proj_skop, ['class'=>'form-control', 'id'=>'proj_skop']) }}
                             @endif
                             @error('proj_skop')
@@ -251,11 +252,11 @@
                         </div>
                         <div class="form-group">
                             <label>Justifikasi Projek</label>
-                            <div class="form-control">{{ $projek->proj_justifikasi ? $projek->proj_justifikasi : 'Tiada rekod' }}</div>
+                            <div class="form-control">{!! $projek->proj_justifikasi !!}</div>
                         </div>
                         <div class="form-group">
                             <label>Ulasan Teknikal (JKR / BPKj / Unit Kejuruteraan)</label>
-                            <div class="form-control">{{ $projek->proj_ulasan_teknikal ? $projek->proj_ulasan_teknikal : 'Tiada rekod' }}</div>
+                            <div class="form-control">{!! $projek->proj_ulasan_teknikal !!}</div>
                         </div>
                         <div class="form-group">
                             <label>Catatan</label>
@@ -312,10 +313,10 @@
                 <p class="text-info font-bold mt-3">4. MAKLUMAT PERUNTUKAN</p>
                 <div class="hr-line-dashed"></div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>No Waran Peruntukan (F1)</label>
-                            <div class="form-control">{{ $projek->proj_waran_no ? $projek->proj_waran_no : 'Tiada rekod' }}</div>
+			    {{ Form::text('proj_waran_no', $projek->proj_waran_no, ['class'=>'form-control text-right', 'id'=>'proj_waran_no']) }}
                         </div>
                     </div>
                     {{-- <div class="col-md-4">
@@ -372,8 +373,15 @@
     <script src="{{ asset("/template/js/plugins/datapicker/bootstrap-datepicker.js") }}"></script>
     <!-- Select2 -->
     <script src="{{ asset("/template/js/plugins/select2/select2.full.min.js") }}"></script>
+    <!-- SUMMERNOTE -->
+    <script src="{{ asset("/template/js/plugins/summernote/summernote-bs4.js") }}"></script>
+
 <script>
     $(document).ready(function(){
+ 	$('#proj_skop').summernote();
+        $('#proj_justifikasi').summernote();
+        $('#proj_ulasan_teknikal').summernote();
+
         // SET DEFAULT VALUE
         let negeriID = $('[name=proj_negeri]').val();
         let daerahID = $('[name=proj_daerah_data]').val();
