@@ -129,7 +129,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-lg-12">
-                            <a href="/permohonan/kecemasan/main" class="btn btn-default">Set Semula</a>
+                            <a href="/pengurusan/kecemasan/main" class="btn btn-default">Set Semula</a>
                             <button class="btn btn-primary float-right" id="carian" value="Carian">Carian</button>
                         </div>
                     </div>
@@ -287,6 +287,14 @@ $(document).ready(function(){
                             status = '<span class="badge badge-primary">'+ statusProjek(item.proj_status) +'</span>';
                             button = '<a href="/permohonan/kecemasan/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/kecemasan/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/projek/padam/'+item.projek_id+'/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>';
                         }
+			else if(item.proj_status == 5){
+			    status = '<span class="badge badge-info">'+ statusProjek(item.proj_status) +'</span>';
+                            button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
+			}
+			else if(item.proj_status == 7){
+			    status = '<span class="badge badge-success">'+ statusProjek(item.proj_status) +'</span>';
+                            button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';	
+			}
                         else {
                             status = '<span class="badge badge-warning">'+ statusProjek(item.proj_status) +'</span>';
                             button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
@@ -352,6 +360,8 @@ $(document).ready(function(){
         else if(id==2)
             return "Proses";
         else if(id==5)
+            return "Disyorkan";
+	else if(id==7)
             return "Diluluskan";
         else
             return "Tidak Diluluskan";

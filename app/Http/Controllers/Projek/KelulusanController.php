@@ -65,6 +65,8 @@ class KelulusanController extends Controller
                 ->where('a.proj_status', '5')
                 ->where('c.pro_siling', 'Siling')
                 ->where('a.proj_tahun', '2025')
+		->orderBy('a.proj_sort', 'ASC')
+		->orderBy('c.proj_sort', 'ASC')
                 ->orderBy('c.proj_kategori_id', 'ASC')->paginate(15);
         }
         else{
@@ -106,6 +108,7 @@ class KelulusanController extends Controller
                             $q->where('a.proj_nama','like', "%{$projek}%");
                         }
                     })
+		    ->orderBy('a.proj_sort', 'ASC')
                     ->orderBy('c.proj_kategori_id', 'ASC')->paginate(15);
             // $sambung = $query->whereIn('a.proj_kategori_id', [1001,1002])->sum('a.proj_kos_mohon');
             // $jumlah = $query->sum('a.proj_kos_mohon');
@@ -156,8 +159,10 @@ class KelulusanController extends Controller
                 ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fasiliti_id')
                 ->select('a.projek_id', 'c.pro_sub_name', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_pelaksana', 'a.proj_pelaksana_agensi', 'a.proj_kos_lulus', 'a.proj_negeri', 'a.proj_nama', 'a.proj_nama_admin', 'a.proj_skop_admin', 'a.proj_justifikasi_admin', 'a.proj_catatan_admin','a.proj_sort', 'a.proj_status', 'd.prog_name', 'e.fas_name')
                 ->where('a.proj_pemilik', $id)
+		->where('a.proj_kategori_id', '1008')
                 ->where('c.pro_siling', 'Siling')
                 ->where('a.proj_status', '5')
+		->orderBy('a.proj_sort', 'ASC')
                 ->orderBy('c.proj_kategori_id', 'ASC')
                 ->get()->groupBy('pro_sub_name');
         // dd($projek);

@@ -10,7 +10,7 @@ trait ProjekCountTrait
     }
 
     public function cekSahProjek(){
-        $projek = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->whereIn('proj_wf_semak',[1,3])->where('proj_tahun', '2025')->count();
+        $projek = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->whereIn('proj_kategori_id', ['1001','1002','1006','1008'])->whereIn('proj_wf_semak',[1,3])->where('proj_tahun', '2025')->count();
         if($projek==0){
             return true;
         }
@@ -26,7 +26,7 @@ trait ProjekCountTrait
     }
 
     public function cekCompleteProjek(){
-        $projek = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->where('proj_status_complete',2)->where('proj_tahun', '2025')->count();
+        $projek = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->whereIn('proj_kategori_id', ['1001','1002','1006','1008'])->where('proj_status_complete',2)->where('proj_tahun', '2025')->count();
         if($projek==0){
             return true;
         }

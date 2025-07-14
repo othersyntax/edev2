@@ -136,7 +136,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Sub Setia</label>
-                            {{ Form::select('proj_kod_subsetia', ['1001'=>'1001', '4001'=>'4001','4003'=>'4003'], $projek->proj_kod_subsetia, ['class'=>'form-control', 'id'=>'proj_kod_subsetia']) }}
+                            {{ Form::select('proj_kod_subsetia', ['1001'=>'1001', '4001'=>'4001','4003'=>'4003','5003'=>'5003'], $projek->proj_kod_subsetia, ['class'=>'form-control', 'id'=>'proj_kod_subsetia']) }}
                         </div>
                     </div>
                 </div>
@@ -146,13 +146,23 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Pemilik</label>
+                            @hasanyrole('super-admin|admin')
                             {{ Form::select('proj_pemilik', dropdownProgram(), $projek->proj_pemilik, ['class'=>'form-control', 'id'=>'proj_pemilik']) }}
+                            @else
+                            {{ Form::select('proj_pemilik1', dropdownProgram(), $projek->proj_pemilik, ['class'=>'form-control', 'id'=>'proj_pemilik1', 'disabled'=>'true']) }}
+                            {{ Form::hidden('proj_pemilik',$projek->proj_pemilik) }}
+                            @endhasanyrole
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Projek Program</label>
+                            @hasanyrole('super-admin|admin')
                             {{ Form::select('proj_program', dropdownProjekProgram(), $projek->proj_program, ['class'=>'form-control', 'id'=>'proj_program']) }}
+                            @else
+                            {{ Form::select('proj_program1', dropdownProjekProgram(), $projek->proj_program, ['class'=>'form-control', 'id'=>'proj_program1', 'disabled'=>'true']) }}
+                            {{ Form::hidden('proj_program',$projek->proj_program) }}
+                            @endhasanyrole
                             @error('proj_program')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -161,7 +171,12 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Kategori Projek</label>
+                            @hasanyrole('super-admin|admin')
                             {{ Form::select('proj_kategori_id', dropdownProjekKategori(), $projek->proj_kategori_id, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
+                            @else
+                            {{ Form::select('proj_kategori_id1', dropdownProjekKategori(), $projek->proj_kategori_id, ['class'=>'form-control', 'id'=>'proj_kategori_id', 'disabled'=>'true']) }}
+                            {{ Form::hidden('proj_kategori_id',$projek->proj_kategori_id) }}
+                            @endhasanyrole
                             @error('proj_kategori_id')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -171,7 +186,12 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Melibatkan Struktur</label>
+                            @hasanyrole('super-admin|admin')
                             {{ Form::select('proj_struktur', [''=>'--Sila Pilih--', '1'=>'Ya', '2'=>'Tidak'], $projek->proj_struktur, ['class'=>'form-control', 'id'=>'proj_struktur']) }}
+                            @else
+                            {{ Form::select('proj_struktur1', [''=>'--Sila Pilih--', '1'=>'Ya', '2'=>'Tidak'], $projek->proj_struktur, ['class'=>'form-control', 'id'=>'proj_struktur','disabled'=>'true']) }}
+                            {{ Form::hidden('proj_struktur',$projek->proj_struktur) }}
+                            @endhasanyrole
                             @error('proj_struktur')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -204,7 +224,12 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Agensi Pelaksana?</label>
+                            @hasanyrole('super-admin|admin')
                             {{ Form::select('proj_pelaksana', ['1'=>'Pemilik', '2'=>'BPKj' , '4'=>'JKN', '3'=>'JKR'], $projek->proj_pelaksana, ['class'=>'form-control', 'id'=>'proj_pelaksana']) }}
+                            @else
+                            {{ Form::select('proj_pelaksana1', ['1'=>'Pemilik', '2'=>'BPKj' , '4'=>'JKN', '3'=>'JKR'], $projek->proj_pelaksana, ['class'=>'form-control', 'id'=>'proj_pelaksana','disabled'=>'true']) }}
+                            {{ Form::hidden('proj_pelaksana',$projek->proj_pelaksana) }}
+                            @endhasanyrole
                             @error('proj_pelaksana')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -228,31 +253,36 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Nama Projek</label>
-                            @if (auth()->user()->role)
+                            @hasanyrole('super-admin|admin')
                                {{ Form::textarea('proj_nama', $projek->proj_nama, ['class'=>'form-control', 'id'=>'proj_nama', 'rows'=>'4']) }}
                             @else
                                 <div class="form-control">{{ $projek->proj_nama }}</div>
                                 {{ Form::hidden('proj_nama', $projek->proj_nama, ['class'=>'form-control', 'id'=>'proj_nama']) }}
-                            @endif
+                            @endhasanyrole
                             @error('proj_nama')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label>Skop Projek</label>
-                            @if (auth()->user()->role==3)
+                            @hasanyrole('super-admin|admin')
                                {{ Form::textarea('proj_skop', $projek->proj_skop, ['class'=>'form-control', 'id'=>'proj_skop', 'rows'=>'4']) }}
                             @else
-                            <div class="form-control">{!! $projek->proj_skop !!}</div>
-                                {{ Form::hidden('proj_skop', $projek->proj_skop, ['class'=>'form-control', 'id'=>'proj_skop']) }}
-                            @endif
+                                <div class="form-control">{!! $projek->proj_skop !!}</div>
+                                {{ Form::hidden('proj_skop', $projek->proj_skop, ['class'=>'form-control']) }}
+                            @endhasanyrole
                             @error('proj_skop')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label>Justifikasi Projek</label>
+                            @hasanyrole('super-admin|admin')
+                            {{ Form::textarea('proj_justifikasi', $projek->proj_justifikasi, ['class'=>'form-control', 'id'=>'proj_justifikasi', 'rows'=>'4']) }}
+                            @else
                             <div class="form-control">{!! $projek->proj_justifikasi !!}</div>
+                            {{ Form::hidden('proj_justifikasi', $projek->proj_skop, ['class'=>'form-control']) }}
+                            @endhasanyrole
                         </div>
                         <div class="form-group">
                             <label>Ulasan Teknikal (JKR / BPKj / Unit Kejuruteraan)</label>
@@ -263,6 +293,45 @@
                             {{ Form::textarea('proj_catatan', $projek->proj_catatan, ['class'=>'form-control', 'id'=>'proj_catatan', 'rows'=>'4']) }}
                         </div>
                     </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p>
+                                Penurunan Kuasa Kepada Ketua Jabatan Untuk Meluluskan Baki Penjimatan Dan Tukar Tajuk / Skop
+                            </p>
+                            <div class="switch">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" {{ $projek->proj_kuasa_pkn==1 ? 'checked' : ''}}  class="onoffswitch-checkbox">
+                                    <label class="onoffswitch-label" for="example3">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-info font-bold mt-3">4. MAKLUMAT PERUNTUKAN</p>
+                <div class="hr-line-dashed"></div>
+                <div class="row">
+                    {{-- <div class="col-md-3">
+                        <div class="form-group">
+                            <label>No Waran Peruntukan (F1)</label>
+			                {{ Form::text('proj_waran_no', $projek->proj_waran_no, ['class'=>'form-control text-right', 'id'=>'proj_waran_no']) }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>No Waran Peruntukan (F4)</label>
+                            {{ Form::text('projd_waran_kecil', $details->projd_waran_kecil, ['class'=>'form-control text-right', 'id'=>'projd_waran_kecil']) }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Amaun Waran Peruntukan</label>
+                            {{ Form::text('projd_waran_amaun', $details->projd_waran_amaun, ['class'=>'form-control text-right', 'id'=>'projd_waran_amaun']) }}
+                        </div>
+                    </div> --}}
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Kos Yang Diluluskan</label>
@@ -272,7 +341,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Kos Sebenar (RM)</label>
-                            {{ Form::text('proj_kos_sebenar', $projek->proj_kos_sebenar, ['class'=>'form-control text-right', 'id'=>'proj_kos_sebenar']) }}
+                            {{ Form::text('proj_kos_sebenar', $projek->proj_kos_sebenar, ['class'=>'form-control text-right', 'id'=>'proj_kos_sebenar', 'readonly']) }}
                             @error('proj_kos_sebenar')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -293,44 +362,6 @@
                             {{ Form::text('proj_penjimatan', $projek->proj_penjimatan, ['class'=>'form-control text-right', 'id'=>'proj_penjimatan']) }}
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <p>
-                                Penurunan Kuasa Kepada Ketua Jabatan Untuk Meluluskan Baki Penjimatan Dan Tukar Tajuk / Skop
-                            </p>
-                            <div class="switch">
-                                <div class="onoffswitch">
-                                    <input type="checkbox" {{ $projek->proj_kuasa_pkn==1 ? 'checked' : ''}}  class="onoffswitch-checkbox">
-                                    <label class="onoffswitch-label" for="example3">
-                                        <span class="onoffswitch-inner"></span>
-                                        <span class="onoffswitch-switch"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <p class="text-info font-bold mt-3">4. MAKLUMAT PERUNTUKAN</p>
-                <div class="hr-line-dashed"></div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>No Waran Peruntukan (F1)</label>
-			    {{ Form::text('proj_waran_no', $projek->proj_waran_no, ['class'=>'form-control text-right', 'id'=>'proj_waran_no']) }}
-                        </div>
-                    </div>
-                    {{-- <div class="col-md-4">
-                        <div class="form-group">
-                            <label>No Waran Peruntukan (F4)</label>
-                            {{ Form::text('projd_waran_kecil', $details->projd_waran_kecil, ['class'=>'form-control text-right', 'id'=>'projd_waran_kecil']) }}
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Amaun Waran Peruntukan</label>
-                            {{ Form::text('projd_waran_amaun', $details->projd_waran_amaun, ['class'=>'form-control text-right', 'id'=>'projd_waran_amaun']) }}
-                        </div>
-                    </div> --}}
                 </div>
                 <p class="text-info font-bold mt-3">5. STATUS PROJEK</p>
                 <div class="hr-line-dashed"></div>
@@ -338,7 +369,8 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Status</label>
-                            {{ Form::select('proj_status', ['1'=>'Aktif', '2'=>'Tukar Tajuk', '3'=>'Dibatalkan', '4'=>'Tarik Balik', '5'=>'Selesai'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status']) }}
+                            {{ Form::select('proj_status', $statusList, $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status']) }}
+                            {{-- {{ Form::select('proj_status', ['1'=>'Aktif', '2'=>'Tukar Tajuk', '3'=>'Dibatalkan', '4'=>'Tarik Balik', '5'=>'Selesai'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status']) }} --}}
                         </div>
                     </div>
                     <div id="pilihStatus" class="col-md-6" style="display:none">
@@ -499,8 +531,8 @@
             });
         }
 
-        $('#proj_kos_sebenar').change(function(){
-            let kos = $('#proj_kos_lulus').val();
+        $('#proj_tangungan').change(function(){
+            let kos = $('#proj_kos_sebenar').val();
             let kosBaru = $(this).val();
             let jimat = parseFloat(kos) - parseFloat(kosBaru);
             jimat=jimat.toFixed(2);

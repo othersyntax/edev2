@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600">
-        {{ __('Terlupa kata laluan anda? Tiada masalah. Hanya beritahu kami alamat e-mel anda dan kami akan menghantar e-mel kepada anda pautan tetapan semula kata laluan yang membolehkan anda memilih yang baharu.') }}
+        <h3 class="text-center text-bold">BORANG TETAPAN SEMULA KATA LALUAN</h3>
     </div>
 
     <!-- Session Status -->
@@ -18,7 +18,7 @@
 
         <div class="flex items-center justify-end mt-4">
             <x-primary-button>
-                {{ __('Pautan Tetapkan Semula Kata Laluan E-mel ') }}
+                {{ __('Pautan Tetapkan Semula Kata Laluan') }}
             </x-primary-button>
         </div>
     </form>

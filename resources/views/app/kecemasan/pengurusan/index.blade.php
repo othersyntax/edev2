@@ -70,6 +70,13 @@
                 <form action="/pengurusan/kecemasan/main" method="post">
                     @csrf
                     <div class="row">
+			<div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Pemilik</label>
+                                {{ Form::select('program', dropdownProgram(), session('program'), ['class'=>'form-control', 'id'=>'program']) }}
+                            </div>
+                        </div>
+
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Negeri</label>
@@ -95,13 +102,13 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Subsetia</label>
-                                {{ Form::select('subsetia', [''=>'--Sila Pilih--','1001'=>'1001', '4001'=>'4001', '4003'=>'4003',], session('subsetia'), ['class'=>'form-control', 'id'=>'subsetia']) }}
+                                {{ Form::select('subsetia', [''=>'--Sila Pilih--','1001'=>'1001', '4001'=>'4001', '4003'=>'4003','5003'=>'5003'], session('subsetia'), ['class'=>'form-control', 'id'=>'subsetia']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Kategori Projek</label>
-                                {{ Form::select('kategori', dropdownProjekKategori('siling'), session('kategori'), ['class'=>'form-control', 'id'=>'kategori']) }}
+                                {{ Form::select('kategori', dropdownProjekKategori('xsiling'), session('kategori'), ['class'=>'form-control', 'id'=>'kategori']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -173,7 +180,7 @@
                             @endphp
                                 @foreach ($projek as $proj)
                                     @php
-                                        if($proj->proj_status<4){
+					                    if($proj->proj_status<4){
                                             $text='';
                                         }
                                         else if($proj->proj_status==4){
@@ -182,23 +189,42 @@
                                         else if($proj->proj_status==5){
                                             $text='class="text-primary"';
                                         }
+					                    else if($proj->proj_status==7){
+                                            $text='class="text-primary"';
+                                        }
+
                                         else{
                                             $text='class="text-danger"';
                                         }
 
-                                        if($proj->proj_status<5){
-                                            $status = '<span class="badge badge-warning">Proses</span>';
-                                            $button = '<a href="/pengurusan/kecemasan/ubah/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="#" class="btn btn-default btn-xs" title="Cetak"><i class="fa fa-print text-muted"></i></a>';
+                                        if($proj->proj_status==1){
+                                            $status = '<span class="badge badge-primary">'.getStatusMohonProjek($proj->proj_status).'</span>';
+					                        $button = '<a href="/pengurusan/kecemasan/ubah/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="#" class="btn btn-default btn-xs" title="Cetak"><i class="fa fa-print text-muted"></i></a>';
+                                        }
+                                        else if($proj->proj_status==2 || $proj->proj_status==3){
+                                            $status = '<span class="badge badge-success">'.getStatusMohonProjek($proj->proj_status).'</span>';
+					                        $button = '<a href="/pengurusan/kecemasan/ubah/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="#" class="btn btn-default btn-xs" title="Cetak"><i class="fa fa-print text-muted"></i></a>';
+                                        }
+                                        else if($proj->proj_status==4){
+                                            $status = '<span class="badge badge-warning">'.getStatusMohonProjek($proj->proj_status).'</span>';
+					                        $button = '<a href="/pengurusan/kecemasan/ubah/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="#" class="btn btn-default btn-xs" title="Cetak"><i class="fa fa-print text-muted"></i></a>';
                                         }
                                         elseif($proj->proj_status==5){
                                             $status = '<span class="badge badge-info">'.getStatusMohonProjek($proj->proj_status).'</span>';
-                                            $button = '<a href="/pengurusan/kecemasan/ubah/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/permohonan/kecemasan/pdf/'.encrypt($proj->proj_pemilik).'" class="btn btn-default btn-xs" title="Cetak" target="_blank"><i class="fa fa-print text-warning"></i></a>';
+					                        $button = '<a href="/pengurusan/kecemasan/ubah/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil"></i></a><a href="/permohonan/kecemasan/pdf/'.encrypt($proj->proj_pemilik).'" class="btn btn-default btn-xs" title="Cetak"><i class="fa fa-print text-warning"></i></a>';
+                                        }
+					                    elseif($proj->proj_status==7){
+                                            $status = '<span class="badge badge-success">'.getStatusMohonProjek($proj->proj_status).'</span>';
+					                        $button = '<a href="/pengurusan/kecemasan/ubah/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil"></i></a><a href="/permohonan/kecemasan/pdf/'.encrypt($proj->proj_pemilik).'" class="btn btn-default btn-xs" title="Cetak"><i class="fa fa-print text-warning"></i></a>';
+
                                         }
                                         else{
                                             $status = '<span class="badge badge-danger">'.getStatusMohonProjek($proj->proj_status).'</span>';
-                                            $button = '<a href="/pengurusan/kecemasan/ubah/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-muted"></i></a><a href="#" class="btn btn-default btn-xs" title="Cetak"><i class="fa fa-print text-warning"></i></a>';
+					                        $button = '<a href="/pengurusan/kecemasan/ubah/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="#" class="btn btn-default btn-xs" title="Cetak"><i class="fa fa-print text-muted"></i></a>';
+
                                         }
-                                        
+
+
                                     @endphp
 
                                     <tr {!! $text !!}>
@@ -206,7 +232,7 @@
                                         <td>{{ $proj->pro_kat_short_nama}}</td>
                                         <td>{{ $proj->prog_name}}</td>
                                         <td>{{ $proj->fas_name}}</td>
-                                        <td>{{ $proj->proj_nama_admin}}</td>
+                                        <td>{!! $proj->proj_nama_admin !!}</td>
                                         <td class="text-right">
                                             @duit( $proj->proj_kos_lulus)<br>
                                             @if ($proj->proj_kos_mohon <> $proj->proj_kos_lulus)
@@ -283,7 +309,7 @@ $(document).ready(function(){
         });
     }
 
-    
+
 
     setTimeout(() => {
         $('#msg').hide('slow');

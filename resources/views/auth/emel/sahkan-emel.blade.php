@@ -5,8 +5,8 @@
 </head>
 <body>
     <p>Assalammualaikum dan salam sejahtera,</p>
-    <p>YBhg. Datuk Dr./YBhg. Dato' Dr./YBrs. Dr./Tuan/Puan : <strong>{{ $user->name }}</strong><br></p>
-    <h3>PEMAKLUMAN PEMBUKAAN AKAUN BARU</h3>
+    <p>YBhg. Datuk Dr./YBhg. Dato' Dr./YBrs. Dr./Tuan/Puan : <strong>{{ $user->name }}</strong></p><br><br>
+    <h3>PEMAKLUMAN PEMBUKAAN AKAUN BAHARU</h3>
     <p>
 
         Untuk membuat verifikasi e-mel,YBhg. Datuk Dr./YBhg. Dato' Dr./YBrs. Dr./Tuan/Puan adalah dimohon untuk menekan butang <strong>Sahkan E-Mel Saya</strong> seperti yang berikut:<br><br>

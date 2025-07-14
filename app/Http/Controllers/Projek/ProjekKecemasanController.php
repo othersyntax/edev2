@@ -348,9 +348,15 @@ class ProjekKecemasanController extends Controller
         $projek->proj_laksana_mula = Carbon::createFromFormat('d/m/Y', $req->proj_laksana_mula)->format('Y-m-d');
         $projek->proj_laksana_tamat = Carbon::createFromFormat('d/m/Y', $req->proj_laksana_tamat)->format('Y-m-d');
         $projek->proj_kategori_id = $req->proj_kategori_id;
+        // $projek->proj_nama = $req->proj_nama;
+        // $projek->proj_skop = $req->proj_skop;
+        // $projek->proj_justifikasi = $req->proj_justifikasi;
         $projek->proj_nama = $req->proj_nama;
+        $projek->proj_nama_admin = $req->proj_nama;
         $projek->proj_skop = $req->proj_skop;
+        $projek->proj_skop_admin = $req->proj_skop;
         $projek->proj_justifikasi = $req->proj_justifikasi;
+        $projek->proj_justifikasi_admin = $req->proj_justifikasi;
         $projek->proj_ulasan_teknikal = $req->proj_ulasan_teknikal;
         $projek->proj_catatan = $req->proj_catatan;
         $projek->proj_updated_by = auth()->user()->id;

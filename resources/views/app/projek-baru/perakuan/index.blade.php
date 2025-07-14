@@ -111,7 +111,7 @@
                     <table class="footable table table-stripped toggle-arrow-tiny">
                         <thead>
                             <tr>
-				                <th width="5%" class="text-center">Keutamaan</th>
+				<th width="5%" class="text-center">Keutamaan</th>
                                 <th width="10%">Kategori</th>
                                 <th width="15%">Fasiliti</th>
                                 <th width="45%">Projek</th>

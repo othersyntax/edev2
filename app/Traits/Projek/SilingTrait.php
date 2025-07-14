@@ -8,7 +8,7 @@ trait SilingTrait
         $sil = Siling::where('sil_fasiliti_id', $id)
                 ->where('sil_edate', '>', now())
                 ->where('sil_status', 1)
-                ->first();
+                ->last();
 
         if($sil)
             return true;

@@ -35,7 +35,7 @@
                 <small>Jumlah Waran Yang Diagihkan</small>
                 <h1 class="no-margins text-right">@duit($waran)</h1>
                 <div class="progress mt-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: 92.3%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">92.3%</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: 100%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
@@ -47,13 +47,15 @@
             </div>
             @php
                 $baki = floatVal($lulus) - floatVal($belanja);
+                $perBaki = $lulus>0 ? $baki / $lulus * 100 : 0;
+                $perBelanja = $lulus>0 ? $belanja / $lulus * 100 : 0;
                 $sedang = $bilangan - $selesai - $belumLaksana;
             @endphp
             <div class="ibox-content">
                 <small>Baki Peruntukan</small>
                 <h1 class="no-margins text-right">@duit($baki)</h1>
                 <div class="progress mt-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: 7.7%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">7.7%</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-primary" style="width: {{ number_format($perBaki,2) }}%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">{{ number_format($perBaki,2) }}%</div>
                 </div>
             </div>
         </div>
@@ -67,7 +69,7 @@
                 <small>Jumlah Yang Telah Dibelanjakan</small>
                 <h1 class="no-margins text-right">@duit($belanja)</h1>
                 <div class="progress mt-2">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 55.47%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">55.47%</div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: {{ number_format($perBelanja,2) }}%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">{{ number_format($perBelanja,2) }}%</div>
                 </div>
             </div>
         </div>
@@ -130,7 +132,7 @@
 {{-- RESPONSIVE TABLE --}}
 <div class="row">
     <div class="col-lg-4">
-        <div class="ibox ">
+        <div class="ibox">
             <div class="ibox-title">
                 <h5>PENGUMUMAN </h5>
                 <div class="ibox-tools">
@@ -146,8 +148,8 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="alert alert-success">
-                            <b>PENGEMASKINIAN PROJEK 2024</b><br>
-                            Kerjasama semua pemilik projek dimohon untuk mengemaskini maklumat projek BP00600 tahun 2024 dengan kadar segera. Pengemaskinian maklumat projek BP00600 tahun 2024 hanya boleh dilaksanakan sehingga 31 Disember 2024 sahaja..<br><br>
+                            <b>UNTUK MAKLUMAN</b><br>
+                            Kerjasama semua pemilik projek dimohon untuk mengemaskini maklumat projek dan status pembayaran dari semasa ke semasa.<br>Terima kasih.<br><br>
                             <b>UNIT BAJET RMK</b>
                         </div>
                     </div>
@@ -202,6 +204,81 @@
 
                         </tbody>
                     </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Agihan Peruntukan Mengikut Kategori</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>KATEGORI</th>
+                            <th class="text-right">SILING (RM)</th>
+                            <th class="text-right">BELANJA (RM)</th>
+                            <th class="text-right">BAKI (RM)</th>
+                            <th>PRESTASI BELANJA (%)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>Siling Fasa 1</td>
+                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(0)</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td>Siling Fasa 2</td>
+                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(0)</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td>Kecemasan</td>
+                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(0)</td>
+                            <td class="text-right">@duit(0)</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated progress-bar-info" style="width: 0%" role="progressbar" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">0%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="col-sm-12 text-right">
+                        <small><strong>PERHATIAN: </strong>Peratusan prestasi belanja adalah diuukur mengikut Purata Perbelanjaan Nasional sehingga {{ date('d/m/Y')}} iaitu: 30%</small>
+                    </div>
                 </div>
 
             </div>

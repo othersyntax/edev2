@@ -8,18 +8,22 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Projek\Projek;
 
-class MaklumanProjekBaharu extends Mailable
+class MaklumanKenaikanKos extends Mailable
 {
     use Queueable, SerializesModels;
-    public $program;
+    public $projTitleAsal;
+    public $projPemilik;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($program)
+    public function __construct($projekID)
     {
-        $this->program = $program;
+        $projekEdit = Projek::find($projekID);
+        $this->projTitleAsal = $projekEdit->proj_nama;
+        $this->projPemilik = $projekEdit->program->prog_name;
     }
 
     /**
@@ -28,7 +32,7 @@ class MaklumanProjekBaharu extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject:'PEMAKLUMAN PENERIMAAN PERMOHONAN BAHARU',
+            subject: 'PEMAKLUMAN KENAIKAN KOS PROJEK',
         );
     }
 
@@ -38,7 +42,7 @@ class MaklumanProjekBaharu extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'app.projek-baru.emel.makluman',
+            view: 'app.guna-baki.emel.makluman-kenaikan-kos',
         );
     }
 

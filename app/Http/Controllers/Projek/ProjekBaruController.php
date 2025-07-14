@@ -116,19 +116,27 @@ class ProjekBaruController extends Controller
         }
         $siling = Siling::where('sil_fasiliti_id', auth()->user()->program_id)
                     ->where('sil_status', 1)
-                    ->select('sil_amount', 'sil_tahun', 'sil_sdate', 'sil_edate')->first();
-                    //dd($siling);
+                    ->select('sil_amount', 'sil_tahun', 'sil_sdate', 'sil_edate')->get();
+        // dd($siling);
+        $jumSiling=0;
+        $siling2=0;
+        foreach( $siling as $sil){
+            $data['silingTahun'] = $sil->sil_tahun;
+            $data['silingMula'] = date('d/m/Y', strtotime($sil->sil_sdate));
+            $data['silingTamat'] = date('d/m/Y', strtotime($sil->sil_edate));
+            $jumSiling = $jumSiling + $sil->sil_amount;
+        }
 
-        $jumlah = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->where('proj_tahun', '2025')->sum('proj_kos_mohon');
+        $jumlah = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->whereIn('proj_kategori_id', ['1001','1002','1006','1008'])->where('proj_tahun', '2025')->sum('proj_kos_mohon');
         $sambung = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->where('proj_tahun', '2025')->whereIn('proj_kategori_id', [1001,1002])->sum('proj_kos_mohon');
-        $data['silingTahun'] = $siling->sil_tahun ? $siling->sil_tahun :'-';
-	    $data['silingMula'] = $siling->sil_sdate ? date('d/m/Y', strtotime($siling->sil_sdate)) :'-';
-	    $data['silingTamat'] = $siling->sil_edate ? date('d/m/Y', strtotime($siling->sil_edate)) :'-';
-        $siling=floatval($siling->sil_amount);
+        // $data['silingTahun'] = $siling->sil_tahun ? $siling->sil_tahun :'-';
+	    // $data['silingMula'] = $siling->sil_sdate ? date('d/m/Y', strtotime($siling->sil_sdate)) :'-';
+	    // $data['silingTamat'] = $siling->sil_edate ? date('d/m/Y', strtotime($siling->sil_edate)) :'-';
+        $siling2=floatval($jumSiling);
         $jumlah = floatval($jumlah);
-        $data['baki'] = $siling - $jumlah;
+        $data['baki'] = $siling2 - $jumlah;
         $data['sambung'] = $sambung;
-        $data['siling'] = $siling ? $siling :0.00;
+        $data['siling'] =$siling2;
         $data['jumlah'] = $jumlah;
         $data['projek'] = $projek;
 
@@ -421,6 +429,7 @@ class ProjekBaruController extends Controller
     public function semakan(){
         $projek=ProjekBaru::query()
             ->where('proj_pemilik', auth()->user()->program_id) // Specify the condition (role)
+	    ->where('proj_status_complete', 1)
             ->update(['proj_status' => 2]); // Update the status field
 
         // $transWF = TransWF::query();
@@ -484,6 +493,7 @@ class ProjekBaruController extends Controller
         // Update Projek Status telah peraku
         $projek=ProjekBaru::query()
             ->where('proj_pemilik', auth()->user()->program_id)
+	    ->where('proj_status_complete', 1)
             ->update(['proj_status' => 3]);
 
         $taskUpdate = Task::query()
@@ -518,7 +528,8 @@ class ProjekBaruController extends Controller
         if($mail){
             return response()->json([
                 'status'=>200,
-                'message'=>'Pengesahan Berjaya dihantar'
+                'message'=>'Pengesahan Berjaya dihantar',
+                'redirect_url' => route('projekBaruMain', ['msg' => 'Rekod Berjaya Dihantar Untuk Perakuan', 'title'=>'Berjaya', 'type'=>'success'])
             ]);
         }
         else{
@@ -532,6 +543,7 @@ class ProjekBaruController extends Controller
         // Update Projek Status telah peraku
         $projek=ProjekBaru::query()
             ->where('proj_pemilik', auth()->user()->program_id)
+	    ->where('proj_status_complete', 1)
             ->update(['proj_status' => 4]);
 
         $taskUpdate = Task::query()
@@ -583,16 +595,16 @@ class ProjekBaruController extends Controller
         $penerima = \DB::table('vwuserperanan')
             ->whereIn('peranan', ['super-admin','admin'])
             ->select('email')->groupBy('email')->get();
-
+        $program = getProgram(auth()->user()->program_id);
         $arrPenerima = $penerima->toArray();
-        $mail = Mail::to($arrPenerima)->send(new MaklumanProjekBaharu());
+        $mail = Mail::to($arrPenerima)->send(new MaklumanProjekBaharu($program));
         if($mail){
             $taskUpdate = Task::query()
                 ->whereRaw('FIND_IN_SET(?, task_user_id)', [auth()->user()->id])->where('task_status', 1)
                 ->update(['task_status' => 2]);
 
             $projek=ProjekBaru::query()
-                ->where('proj_pemilik', auth()->user()->program_id) // Specify the condition (role)
+                ->where('proj_pemilik', auth()->user()->program_id)->where('proj_status_complete', 1)->where('proj_status', 4)
                 ->update(['proj_status_complete' => 2]); // Update the status field
 
             // CREATE TASK TO

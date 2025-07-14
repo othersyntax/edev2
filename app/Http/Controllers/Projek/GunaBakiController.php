@@ -4,11 +4,16 @@ namespace App\Http\Controllers\Projek;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Projek\BakulJimatController;
 use App\Mail\MaklumanGunaBaki;
 use App\Mail\MaklumanGunaBakiLulus;
+use App\Mail\MaklumanTukarTajuk;
+use App\Mail\MaklumanKenaikanKos;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Projek\ProjekBaru;
+use App\Models\Projek\ProjekTukar;
 use App\Models\Projek\Projek;
 use App\Models\Projek\Peruntukan;
 use App\Models\BakulJimat;
@@ -147,20 +152,18 @@ class GunaBakiController extends Controller
     }
 
     public function createCurrent(){
-        $query = \DB::table('tblbakul_jimat')
-                        ->where('bj_program_id', auth()->user()->program_id)
-                        ->whereIn('bj_kategori', [1,2])
-                        ->where('bj_status', 1);
-        $bakulJimat = $query->get();
+        $lsJimat = new BakulJimatController();
+        $bakulJimat = $lsJimat->getJimatList();
+
         $projek = Projek::where('proj_pemilik', auth()->user()->program_id)
- 			->where('proj_tahun',2025)
+ 			->where('proj_tahun', date('Y'))
                         ->where('proj_status', 1)
                         ->where('proj_kuasa_pkn',1)
                         ->get();
 
-        $jumlah = $query->sum('bj_amount_jimat');
+        $jumlah = $bakulJimat->sum('bj_amount_jimat');
         $data['jumlah'] = $jumlah;
-        $data['bakulJimat'] = $bakulJimat;
+        $data['bakulJimat'] = $bakulJimat->get();
         $data['projek'] = $projek;
         // dd($data);
         return view('app.guna-baki.add-sedia-ada', $data);
@@ -172,102 +175,149 @@ class GunaBakiController extends Controller
         $i=0;
         $currAmaun = (float)$req->jumSelect;
         $jumBakiBakul=0;
+        // dd($req->all());
 
-        foreach($req->sumberKewangan as $data){
-            $id = explode('-', $data);
-            if ($i == 0) {
-                $dataID = $id[0];
-                $jimatID = $id[5];
-            }
-            else{
-                $dataID .= ','.$id[0];
-                $jimatID .= ','.$id[5];
-            }
-            $jumBakiBakul += (float)$id[1];
-            $i++;
-        }
-
+        // PROSES REQUEST
         // GET PROJEK SEDIA ADA
         $projek = Projek::find($req->projekSediaAda);
+        $projekID = Crypt::encryptString($projek->projek_id);
+         // CEK SUMBER KEWANGAN
+        if($req->has('acceptNoCosting')){
 
-        $newProjek = new Projek();
-        // SALIN DARI SEDIA ADA KE BAHARU
-        $newProjek->proj_parent_id = $dataID;
-        $newProjek->proj_negeri = $projek->proj_negeri;
-        $newProjek->proj_daerah = $projek->proj_daerah;
-        $newProjek->proj_fasiliti_id = $projek->proj_fasiliti_id;
-        $newProjek->proj_parlimen = 1;
-        $newProjek->proj_dun = 1;
-        $newProjek->proj_kod_agensi = $projek->proj_kod_agensi;
-        $newProjek->proj_kod_projek = $projek->proj_kod_projek;
-        $newProjek->proj_kod_setia = $projek->proj_kod_setia;
-        $newProjek->proj_kod_subsetia = $projek->proj_kod_subsetia;
-        $newProjek->proj_pemilik =auth()->user()->program_id;
-        $newProjek->proj_pelaksana = $projek->proj_pelaksana;
-        $newProjek->proj_pelaksana_agensi = $projek->proj_pelaksana_agensi;
-        $newProjek->proj_struktur = $projek->proj_struktur;
-        $newProjek->proj_tahun = $projek->proj_tahun;
-        $newProjek->proj_bulan = $projek->proj_bulan;
-        $newProjek->proj_kos_lulus = $req->jumSelect;
-        $newProjek->proj_laksana_mula = $projek->proj_laksana_mula;
-        $newProjek->proj_laksana_tamat = $projek->proj_laksana_tamat;
-        $newProjek->proj_kategori_id = 1011; //PENJIMATAN
-        $newProjek->proj_nama = 'PERTAMBAHAN KOS : '.$projek->proj_nama;
-        $newProjek->proj_skop = $projek->proj_skop;
-        $newProjek->proj_justifikasi = $projek->proj_justifikasi;
-        $newProjek->proj_ulasan_teknikal = $projek->proj_ulasan_teknikal;
-        $newProjek->proj_catatan = $projek->proj_catatan;
-        $newProjek->proj_kuasa_pkn = $projek->proj_kuasa_pkn;
-        $newProjek->proj_created_by = auth()->user()->id;
-        $newProjek->proj_updated_by = auth()->user()->id;
-        // dd($projek);
-        $newProjek->save();
-
-        if($newProjek){
-            // KEMASKINI BAKUL JIMAT-> HIDE LIST SELECTED
-            $arrData = explode(',', $jimatID);
-            // dd($arrData);
-            foreach($arrData as $ad){
-                $updBakul = BakulJimat::find($ad);
-                // dd($updBakul);
-                $updBakul->bj_status=2;
-                $updBakul->save();
-                // $bakul = \DB::table('tblbakul_jimat')->where('bj_projek_id', $ad)->update(['bj_status' => 2]);
-            }
-
-
-            // CREATE BAKUL JIMAT BAHARU JIKA ADA BAKI
-            if($currAmaun < $jumBakiBakul){
-                $jumBakiBakul -=$currAmaun;
-
-                $bakul = new BakulJimat();
-                $bakul->bj_projek_id = $dataID;
-                $bakul->bj_program_id = $projek->proj_pemilik;
-                $bakul->bj_title = 'Baki kepada baki penjimatan projek : '.$dataID;
-                $bakul->bj_subsetia = $projek->proj_kod_subsetia;
-                $bakul->bj_kuasa_pkn = $projek->proj_kuasa_pkn;
-                $bakul->bj_amount_jimat = $jumBakiBakul;
-                $bakul->bj_kategori = 1; //PENJIMATAN
-                $bakul->bj_created_by = auth()->user()->id;
-                $bakul->bj_updated_by = auth()->user()->id;
-                $bakul->save();
-
-            }
-            // // HANTAR EMEL PEMAKLUMAN KEPADA PTD PROJEK JIKA PKN=1 DAN REIDRECK TO PROJEK
-
-            $prtkn = new Peruntukan();
-            $prtkn->peru_projek_id = $newProjek->projek_id;
-            $prtkn->peru_date = date('Y-m-d');
-            $prtkn->peru_jenis_peruntukan = 3;
-            $prtkn->peru_amaun = $req->jumSelect;
-            $prtkn->peru_created_by = auth()->user()->id;
-            $prtkn->peru_updated_by = auth()->user()->id;
-            $prtkn->save();
-
-
-            return redirect('/projek/papar/'.$newProjek->projek_id);
         }
+        else{
+            if($req->jumSelect > 0){
+                foreach($req->sumberKewangan as $data){
+                    $id = explode('-', $data);
+                    if ($i == 0) {
+                        // Projek ID
+                        $dataID = $id[0];
+                        // BakulID
+                        $jimatID = $id[5];
+                    }
+                    else{
+                        $dataID .= ','.$id[0];
+                        $jimatID .= ','.$id[5];
+                    }
+                    $jumBakiBakul += (float)$id[1];
+                    $i++;
+                }
+
+                // INSERT NEW PERUNTUKAN FROM PENJIMATAN
+                $prtkn = new Peruntukan();
+                $prtkn->peru_projek_id = $projek->projek_id;
+                $prtkn->peru_date = date('Y-m-d');
+                // 1-Asal, 2-Tambahan; 3-Penjimatan
+                $prtkn->peru_jenis_peruntukan = 3;
+                $prtkn->peru_amaun = $req->jumSelect;
+                $prtkn->peru_created_by = auth()->user()->id;
+                $prtkn->peru_updated_by = auth()->user()->id;
+                $prtkn->save();
+
+                // KEMASKINI BAKUL JIMAT-> HIDE LIST SELECTED
+                $arrData = explode(',', $jimatID);
+                // dd($arrData);
+                foreach($arrData as $ad){
+                    $updBakul = BakulJimat::find($ad);
+                    // dd($updBakul);
+                    $updBakul->bj_status=2;
+                    $updBakul->save();
+                    // $bakul = \DB::table('tblbakul_jimat')->where('bj_projek_id', $ad)->update(['bj_status' => 2]);
+                }
+
+
+                // CREATE BAKUL JIMAT BAHARU JIKA ADA BAKI
+                // if($currAmaun < $jumBakiBakul){
+                //     $jumBakiBakul -=$currAmaun;
+
+                //     $bakul = new BakulJimat();
+                //     $bakul->bj_projek_id = $dataID;
+                //     $bakul->bj_program_id = $projek->proj_pemilik;
+                //     $bakul->bj_title = $currTitle;
+                //     $bakul->bj_subsetia = $projek->proj_kod_subsetia;
+                //     $bakul->bj_kuasa_pkn = $projek->proj_kuasa_pkn;
+                //     $bakul->bj_amount_jimat = $jumBakiBakul;
+                //     $bakul->bj_kategori = 1; //PENJIMATAN
+                //     $bakul->bj_created_by = auth()->user()->id;
+                //     $bakul->bj_updated_by = auth()->user()->id;
+                //     $bakul->save();
+
+                // }
+
+                // UPDATE AMOUNT TANGGUNGAN
+                $projek->proj_kos_sebenar = $projek->proj_kos_sebenar + $req->jumSelect;
+                $projek->proj_updated_by = auth()->user()->id;
+                $projek->save();
+            }
+        }
+
+        // JENIS KEGUNAAN 1-KENAIKAN KOS/ 2-SELENGGARA
+        if($req->jenisKegunaan==1){
+            // Kenaikan Kos
+            // UPDATE ID PROJEK YANG DIGUNAKAN BAKI PENJIMATAN DALAM PROJEK
+            $projek->proj_parent_id = $dataID;
+            $projek->save();
+
+            //HANTAR EMEL PEMAKLUMAN KEPADA PTD PROJEK JIKA PKN=1 DAN REIDRECK TO PROJEK
+            $penerima = \DB::table('vwuserperanan')
+                        ->whereIn('peranan', ['super-admin','admin'])
+                        ->select('email')->groupBy('email')->get();
+
+            $mail = Mail::to('usup.keram@moh.gov.my')
+                    ->cc(['chualee@moh.gov.my','balqis.maisarah@moh.gov.my','ifanazlia@moh.gov.my'])
+                    ->send(new MaklumanKenaikanKos($projek->projek_id));
+        }
+        else{
+            // TUKAR NAMA/SKOP/JUSTIFIKASI
+            // SET CURRENT NAME/SKOP/JUSTIFIKASI
+            $currTitle=$projek->proj_nama;
+            $currSkop=$projek->proj_skop;
+            $currJustifikasi=$projek->proj_justifikasi;
+
+             // SET NEW NAME/SKOP/JUSTIFIKASI
+            // $newTitle = $req->proj_nama_baru;
+            // $newSkop = $req->proj_skop_baru;
+            // $newJustifikasi = $req->proj_justifikasi_baru;
+
+            // ADD RECENT NAME/SCOPE/JUSTIFICATION TO TABLPROJEK_TUKAR
+            $newProjekTukar = new ProjekTukar();
+            $newProjekTukar->projt_projek_id = $projek->projek_id;
+            $newProjekTukar->projt_nama = $projek->proj_nama;
+            $newProjekTukar->projt_skop = $projek->proj_skop;
+            $newProjekTukar->projt_justifikasi = $projek->proj_justifikasi;
+            $newProjekTukar->projt_created_by = auth()->user()->id;
+            $newProjekTukar->projt_updated_by = auth()->user()->id;
+            $newProjekTukar->save();
+
+            // UPDATE CURRENT PROJEK NEW NAME/SCOPE/JUSTIFICATION
+            if($req->filled('proj_nama_baru')){
+                $projek->proj_nama = $req->proj_nama_baru;
+            }
+            if($req->filled('proj_skop_baru')){
+                $projek->proj_skop = $req->proj_skop_baru;
+            }
+            if($req->filled('proj_justifikasi_baru')){
+                $projek->proj_skop = $req->proj_justifikasi_baru;
+            }
+
+            $projek->proj_updated_by = auth()->user()->id;
+            $projek->save();
+
+            //HANTAR EMEL PEMAKLUMAN KEPADA PTD PROJEK JIKA PKN=1 DAN REIDRECK TO PROJEK
+            $penerima = \DB::table('vwuserperanan')
+                        ->where('program_id', auth()->user()->program_id)
+                        ->whereIn('peranan', ['penyedia','pengesah','peraku'])
+                        ->select('email')->groupBy('email')->get();
+
+            $mail = Mail::to($penerima)
+                    ->cc(['chualee@moh.gov.my','balqis.maisarah@moh.gov.my','ifanazlia@moh.gov.my'])
+                    ->send(new MaklumanTukarTajuk($projek->projek_id));
+        }
+        return redirect('/projek/papar/'.$projekID);
+
     }
+
+
 
     public function store(Request $req){
         $validated = $req->validate([
@@ -320,10 +370,12 @@ class GunaBakiController extends Controller
         if($req->proj_kuasa_pkn==1){
             $projek = new Projek();
             $projek->proj_kos_lulus = $req->proj_kos_mohon;
+            $projek->proj_kos_sebenar = $req->proj_kos_mohon;
         }
         else{
             $projek = new ProjekBaru();
             $projek->proj_kos_mohon = $req->proj_kos_mohon;
+            $projek->proj_kos_sebenar = $req->proj_kos_mohon;
         }
 
         $projek->proj_parent_id = $dataID;
@@ -359,6 +411,7 @@ class GunaBakiController extends Controller
         $projek->save();
 
         if($projek){
+            $projekID = Crypt::encryptString($projek->projek_id);
             // KEMASKINI BAKUL JIMAT-> HIDE LIST SELECTED
             $arrData = explode(',', $jimatID);
             // dd($arrData);
@@ -400,7 +453,7 @@ class GunaBakiController extends Controller
                 $prtkn->peru_updated_by = auth()->user()->id;
                 $prtkn->save();
             }
-            return redirect('/projek/papar/'.$projek->projek_id);
+            return redirect('/projek/papar/'.$projekID);
         }
     }
 

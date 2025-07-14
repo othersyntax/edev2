@@ -26,10 +26,9 @@
 @endsection
 
 @section('content')
+<div class="row">
 <form action="/projek/baki/simpan-sedia-ada" method="post">
     @csrf
-<div class="row">
-
     <div class="col-12">
         <div class="ibox">
             <div class="ibox-title">
@@ -63,9 +62,9 @@
                             @foreach ($projek as $proj)
                                 <tr>
                                     <td class="text-center">{{ $bil++ }}</td>
-                                    <td>{!! $proj->proj_nama !!}</td>
+                                    <td>{{ $proj->proj_nama }}</td>
                                     <td class="text-center">{{ $proj->proj_kod_subsetia }}</td>
-                                    <td class="text-right">@duit($proj->proj_kos_sebenar)</td>
+                                    <td class="text-right">@duit($proj->proj_kos_lulus)</td>
                                     <td class="text-center">
                                         <div><label><input name="projekSediaAda" id="{{ $proj->projek_id }}" type="radio" value="{{ $proj->projek_id }}"></label></div>
                                     </td>
@@ -88,10 +87,114 @@
             </div>
         </div>
     </div>
+    {{-- <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>2. MAKLUMAT SUMBER KEWANGAN</h5>
+                <div class="ibox-tools">
+                    <strong>JUMLAH PENJIMATAN : RM @duit($jumlah)</strong>
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <input type="text" class="form-control form-control-sm m-b-xs" id="filter" placeholder="Cari projek">
+                <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
+                    <thead>
+                        <tr>
+                            <th width="5%" class="text-center">#Bil</th>
+                            <th width="35%">Projek</th>
+                            <th width="10%" class="text-center">Kuasa PKN</th>
+                            <th width="10%" class="text-center">Kod Subsetia</th>
+                            <th width="15%" class="text-center">Kategori</th>
+                            <th class="text-right" width="10%">Penjimatan</th>
+                            <th width="5%" class="text-center">Pilih</th>
+                            <th width="10%" class="text-center">#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if($bakulJimat->count()>0)
+                            @php
+                                $bil=1;
+                            @endphp
+                            @foreach ($bakulJimat as $item)
+                                <tr>
+                                    <td class="text-center">{{ $bil++ }}</td>
+                                    <td>{{ $item->bj_title }}</td>
+                                    <td class="text-center">
+                                        @if ($item->bj_kuasa_pkn==1)
+                                            <i class="fa fa-check text-navy"></i>
+                                        @else
+                                        <i class="fa fa-close text-danger"></i>
+                                        @endif
+
+                                    </td>
+                                    <td class="text-center">{{ $item->bj_subsetia }}</td>
+                                    <td class="text-center">
+                                        @php
+                                        if($item->bj_kategori == 1)
+                                            echo '<span class="badge badge-primary">'.getStatusJimat($item->bj_kategori).'</span>';
+                                        elseif($item->bj_kategori == 2)
+                                            echo '<span class="badge badge-info">'.getStatusJimat($item->bj_kategori).'</span>';
+                                        elseif($item->bj_kategori == 3)
+                                                echo '<span class="badge badge-danger">'.getStatusJimat($item->bj_kategori).'</span>';
+                                        else
+                                                echo '<span class="badge badge-warning">'.getStatusJimat($item->bj_kategori).'</span>';
+                                        @endphp
+                                    </td>
+                                    <td class="text-right">@duit($item->bj_amount_jimat)</td>
+                                    <td class="text-center">
+                                        <div><label><input name="sumberKewangan[]" class="pilihJimat" id="{{ $item->bakul_jimat_id }}" type="checkbox" value="{{ $item->bj_projek_id.'-'.$item->bj_amount_jimat.'-'.$item->bj_subsetia.'-'.$item->bj_kategori.'-'.$item->bj_kuasa_pkn.'-'.$item->bakul_jimat_id }}"></label></div>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" value="{{ $item->bakul_jimat_id }}" class="btn btn-default btn-xs updateBakul" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>
+                                        <button type="button" value="{{ $item->bakul_jimat_id }}" class="btn btn-default btn-xs delBakul" title="Padam"><i class="fa fa-trash text-danger"></i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="8" class="font-italic text-small text-center">Tiada Rekod</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="8">
+                                <ul class="pagination float-right"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="hr-line-dashed"></div>
+                <div class="row">
+                    <div class="col-9">
+                        <small class="tetx-muted">* Penggabungan projek hanya dibenarkan kepada projek yang sama kod subsetia dan Kuasa PKN</small>
+                    </div>
+                    <div class="col-1 text-right">
+                        JUMLAH :
+                    </div>
+                    <div class="col-2 ">
+                        <div class="form-group">
+                            <input type="text" name="jumSelect" id="jumSelect" class="form-control text-right" value="0.00">
+                            @error('jumSelect')
+                                <span class="text-danger">{{ $message}}</span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-12">
         <div class="ibox">
             <div class="ibox-title">
-                <h5>2. MAKLUMAT AKTIVITI PENYELENGGARAAN</h5>
+                <h5>3. MAKLUMAT AKTIVITI PENYELENGGARAAN</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
                         <i class="fa fa-chevron-up"></i>
@@ -103,14 +206,12 @@
             </div>
             <div class="ibox-content">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="i-checks">
-                            <label><input type="radio" value="2" name="jenisKegunaan" id="jenisKegunaan2"> Tukar Tajuk / Skop</label>
+                            <label> <input type="radio" value="1" name="jenisKegunaan" id="jenisKegunaan"> <i></i>Kenaikan Kos </label>
                         </div>
-                    </div>
-                    <div class="col-6">
                         <div class="i-checks">
-                            <label><input type="radio" value="1" name="jenisKegunaan" id="jenisKegunaan1"> Kenaikan Kos </label>
+                            <label> <input type="radio" value="2" name="jenisKegunaan" id="jenisKegunaan"> <i></i>Tukar Tajuk / Skop</label>
                         </div>
                     </div>
                 </div>
@@ -145,121 +246,6 @@
     <div class="col-lg-12">
         <div class="ibox">
             <div class="ibox-title">
-                <h5>3. MAKLUMAT SUMBER KEWANGAN</h5>
-                <div class="ibox-tools">
-                    <strong>JUMLAH PENJIMATAN : RM @duit($jumlah)</strong>
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ibox-content">
-                <input type="text" class="form-control form-control-sm m-b-xs" id="filter" placeholder="Cari projek">
-                <table class="footable table table-stripped" data-page-size="10" data-filter=#filter>
-                    <thead>
-                        <tr>
-                            <th width="5%" class="text-center">#Bil</th>
-                            <th width="35%">Projek</th>
-                            <th width="10%" class="text-center">Kuasa KJ</th>
-                            <th width="10%" class="text-center">Kod Subsetia</th>
-                            <th width="15%" class="text-center">Kategori</th>
-                            <th class="text-right" width="10%">Penjimatan</th>
-                            <th width="5%" class="text-center">Pilih</th>
-                            <th width="10%" class="text-center">#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if($bakulJimat->count()>0)
-                            @php
-                                $bil=1;
-                            @endphp
-                            @foreach ($bakulJimat as $item)
-                                <tr>
-                                    <td class="text-center">{{ $bil++ }}</td>
-                                    <td>{!! $item->bj_title !!}</td>
-                                    <td class="text-center">
-                                        @if ($item->bj_kuasa_pkn==1)
-                                            <i class="fa fa-check text-navy"></i>
-                                        @else
-                                        <i class="fa fa-close text-danger"></i>
-                                        @endif
-
-                                    </td>
-                                    <td class="text-center">{{ $item->bj_subsetia }}</td>
-                                    <td class="text-center">
-                                        @php
-                                        if($item->bj_kategori == 1)
-                                            echo '<span class="badge badge-primary">'.getStatusJimat($item->bj_kategori).'</span>';
-                                        elseif($item->bj_kategori == 2)
-                                            echo '<span class="badge badge-info">'.getStatusJimat($item->bj_kategori).'</span>';
-                                        elseif($item->bj_kategori == 3)
-                                                echo '<span class="badge badge-danger">'.getStatusJimat($item->bj_kategori).'</span>';
-                                        else
-                                                echo '<span class="badge badge-warning">'.getStatusJimat($item->bj_kategori).'</span>';
-                                        @endphp
-                                    </td>
-                                    <td class="text-right">@duit($item->bj_amount_jimat)</td>
-                                    <td class="text-center">
-                                        <div><label><input name="sumberKewangan[]" class="pilihJimat" id="{{ $item->bakul_jimat_id }}" type="checkbox" value="{{ $item->bj_projek_id.'-'.$item->bj_amount_jimat.'-'.$item->bj_subsetia.'-'.$item->bj_kategori.'-'.$item->bj_kuasa_pkn.'-'.$item->bakul_jimat_id }}"></label></div>
-                                    </td>
-                                    <td class="text-center">
-                                        <button type="button" value="{{ $item->bakul_jimat_id }}" class="btn btn-default btn-xs updateBakul" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>
-                                        <button type="button" value="{{ $item->bakul_jimat_id }}" class="btn btn-default btn-xs delBakul" title="Padam"><i class="fa fa-trash text-danger"></i></button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            <tr>
-                                <td colspan="6" class="text-danger text-right"><small>
-                                    Dengan ini saya mengesahkan penyelengaraan maklumat projek ini tidak melibatkan sebarang pertambahan atau pengurangan kos sedia ada.
-                                </small>
-                                </td>
-                                <td class="text-center">
-                                    <input id="acceptNoCosting" name="acceptNoCosting" type="checkbox" value="1" class="required">
-                                </td>
-                                <td></td>
-                            </tr>
-                        @else
-                            <tr>
-                                <td colspan="8" class="font-italic text-small text-center">Tiada Rekod</td>
-                            </tr>
-                        @endif
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="8">
-                                <ul class="pagination float-right"></ul>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-
-                <div class="hr-line-dashed"></div>
-                <div class="row">
-                    <div class="col-9">
-                        <small class="tetx-muted">* Penggabungan projek hanya dibenarkan kepada projek yang memiliki kod subsetia.</small>
-                    </div>
-                    <div class="col-1 text-right">
-                        JUMLAH :
-                    </div>
-                    <div class="col-2 ">
-                        <div class="form-group">
-                            <input type="text" name="jumSelect" id="jumSelect" class="form-control text-right" value="0.00" readonly>
-                            @error('jumSelect')
-                                <span class="text-danger">{{ $message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-12">
-        <div class="ibox">
-            <div class="ibox-title">
                 <h5>4. PENGESAHAN DAN PERAKUAN</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link">
@@ -272,11 +258,11 @@
             </div>
             <div class="ibox-content">
                 <fieldset>
-                    <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Dengan ini saya mengesahkan bahawa permohonan ini telah disahkan dan diperakukan oleh Ketua Jabatan.</label>
+                    <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Dengan ini saya mengesahkan bahawa permohonan ini telah disahkan dan diperakukan oleh Pengarah Kesihatan Negeri (PKN).</label>
                 </fieldset>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="col-12">
         <div class="ibox-content">
             <div class="form-group row">
@@ -288,8 +274,8 @@
             </div>
         </div>
     </div>
-</div>
 </form>
+</div>
 @include('app/guna-baki/_modal/update_bakul')
 @endsection
 @section('custom-js')
@@ -497,45 +483,26 @@
         }
 
         $('form').on('submit', function() {
-            // let acceptNoCosting=0;
             let selAmaun = $('#jumSelect').val();
             let checked = $('input[name="acceptTerms"]:checked').length;
             let sediaAda = $('input[name="projekSediaAda"]:checked').length;
-            let jnsGuna = $('input[name="jenisKegunaan"]:checked').length;
-            let namaBaru = $('#proj_nama_baru').val();
-            let skopBaru = $('#proj_skop_baru').val();
-            let justifikasiBaru = $('#proj_justifikasi_baru').val();
-            // let acceptNoCosting = $('input[name="acceptNoCosting"]:checked').length;
-            let acceptNoCosting = $('input[name="acceptNoCosting"]:checked').length;
-            let jnsGunaVal = $('input[name="jenisKegunaan"]:checked').val();
-
-            // alert(jnsGunaVal);
-            if (sediaAda == 0) {
-                swal("Projek Sedia Ada", "Sila Pilih Projek Sedia Ada", "error");
-                return false;
-            }
-
-            if(jnsGuna == 0) {
-                swal("Aktiviti Penyelenggaraan", "Sila Pilih Jenis Aktiviti Penyelenggaraan", "error");
-                return false;
-            }
-
-            if(jnsGunaVal==2){
-                if (namaBaru =='' && skopBaru =='' && justifikasiBaru ==''){
-                    swal("Selenggara Projek", "Sila masukkan maklumat perubahan Nama / Skop / Justifikasi Projek", "error");
-                    return false;
-                }
-            }
-
-            if(acceptNoCosting ==0){
+            let jnsGuna = $('input[name="jenisKegunaan"]:checked').val();
+            // alert(selAmaun);
+            if(jnsGuna==1){
                 if (selAmaun == 0.00) {
                     swal("Sumber Kewangan", "Sila pilih sumber kewangan", "error");
                     return false;
                 }
             }
 
+
             if (checked == 0) {
-                swal("Pengesahan", "Sila sahkan pengesahan Ketua Jabatan", "error");
+                swal("Pengesahan", "Sila sahkan pengesahan PKN", "error");
+                return false;
+            }
+
+            if (sediaAda == 0) {
+                swal("Projek Sedia Ada", "Sila Pilih Projek Sedia Ada", "error");
                 return false;
             }
             return true;

@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Projek\ProjekBaru;
 use App\Models\Projek\ProjekDokumen;
 use App\Models\Projek\ProjekBaruUnjuran;
+use App\Models\Projek\Projek;
+use App\Models\Projek\ProjekUtilities;
 use App\Models\Siling;
 use App\Mail\MaklumanProjekKecemasan;
 use Illuminate\Support\Facades\Mail;
@@ -73,7 +75,7 @@ class SemakProjekController extends Controller
                 ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_kos_lulus', 'a.proj_negeri', 'a.proj_nama', 'a.proj_nama_admin', 'a.proj_sort', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
                 ->where('a.proj_pemilik', $program)
                 ->where('c.pro_siling', 'Siling')
-                ->where('a.proj_tahun', '2025')->orderBy('a.proj_sort', 'ASC')->paginate(15);
+                ->where('a.proj_tahun', date('Y'))->orderBy('a.proj_kategori_id', 'ASC')->orderBy('a.proj_sort', 'ASC')->paginate(15);
             // $sambung = $query->whereIn('a.proj_kategori_id', [1001,1002])->sum('a.proj_kos_mohon');
             // $jumlah = $query->sum('a.proj_kos_mohon');
         }
@@ -86,7 +88,7 @@ class SemakProjekController extends Controller
                     ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_kos_lulus', 'a.proj_negeri', 'a.proj_nama', 'a.proj_nama_admin', 'a.proj_sort', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
                     ->where('a.proj_pemilik', $program)
                     ->where('c.pro_siling', 'Siling')
-                    ->where('a.proj_tahun', '2025')
+                    ->where('a.proj_tahun', date('Y'))
                     ->where(function($q) use ( $negeri, $daerah, $fasiliti, $pelaksana, $kategori, $status, $projek){
                         if(!empty($negeri)){
                             $q->where('a.proj_negeri', $negeri);
@@ -116,7 +118,7 @@ class SemakProjekController extends Controller
                             $q->where('a.proj_nama','like', "%{$projek}%");
                         }
                     })
-                    ->orderBy('a.proj_sort', 'ASC')->paginate(15);
+                    ->orderBy('a.proj_kategori_id', 'ASC')->orderBy('a.proj_sort', 'ASC')->paginate(15);
             // $sambung = $query->whereIn('a.proj_kategori_id', [1001,1002])->sum('a.proj_kos_mohon');
             // $jumlah = $query->sum('a.proj_kos_mohon');
 
@@ -158,6 +160,93 @@ class SemakProjekController extends Controller
         return view('app.semak-permohonan.index', $data);
     }
 
+    public function salur(Request $request){
+        $selectedProjek = $request->input('projek');
+
+        // GET PROGRAM ID
+        foreach($selectedProjek as $proj) {
+            $projekID = $proj['id'];
+            ProjekBaru::where('projek_id',$projekID)->update([
+                'proj_status'  => 7
+            ]);
+            $pindahData = $this->pindahProjek($projekID);
+            if($pindahData)
+                continue;
+            else
+                break;
+
+        }
+        // $arrProgramID = $programID->toArray();
+
+        return response()->json([
+            'status'=>200,
+            'message'=>'Projek Telah Dipindahkan ke Modul Pemantauan'
+        ]);
+
+    }
+
+    public function pindahProjek(string $id){
+        // GET PROJEK SEDIA ADA
+        $projek = ProjekBaru::find($id);
+
+        $newProjek = new Projek();
+        // SALIN DARI SEDIA ADA KE BAHARU
+        $newProjek->proj_negeri = $projek->proj_negeri;
+        $newProjek->proj_daerah = $projek->proj_daerah;
+        $newProjek->proj_fasiliti_id = $projek->proj_fasiliti_id;
+        $newProjek->proj_parlimen = $projek->proj_parlimen;
+        $newProjek->proj_dun = $projek->proj_dun;
+        $newProjek->proj_kod_agensi = $projek->proj_kod_agensi;
+        $newProjek->proj_kod_projek = $projek->proj_kod_projek;
+        $newProjek->proj_kod_setia = $projek->proj_kod_setia;
+        $newProjek->proj_kod_subsetia = $projek->proj_kod_subsetia;
+        $newProjek->proj_pemilik = $projek->proj_pemilik;
+        $newProjek->proj_pelaksana = $projek->proj_pelaksana;
+        $newProjek->proj_pelaksana_agensi = $projek->proj_pelaksana_agensi;
+        $newProjek->proj_struktur = $projek->proj_struktur;
+        $newProjek->proj_tahun = $projek->proj_tahun;
+        $newProjek->proj_bulan = $projek->proj_bulan;
+        $newProjek->proj_kos_lulus = $projek->proj_kos_lulus;
+        $newProjek->proj_laksana_mula = $projek->proj_laksana_mula;
+        $newProjek->proj_laksana_tamat = $projek->proj_laksana_tamat;
+        $newProjek->proj_kategori_id = $projek->proj_kategori_id;
+        $newProjek->proj_nama = $projek->proj_nama_admin;
+        $newProjek->proj_skop = $projek->proj_skop_admin;
+        $newProjek->proj_justifikasi = $projek->proj_justifikasi_admin;
+        $newProjek->proj_ulasan_teknikal = $projek->proj_ulasan_teknikal;
+        $newProjek->proj_catatan = $projek->proj_catatan;
+        $newProjek->proj_kuasa_pkn = $projek->proj_kuasa_pkn;
+        $newProjek->proj_created_by = $projek->proj_created_by;
+        $newProjek->proj_updated_by = $projek->proj_updated_by;
+        // dd($projek);
+        $newProjek->save();
+
+        if($newProjek){
+            $projUti = new ProjekUtilities();
+            $projUti->projuti_projek_id = $newProjek->projek_id;
+            $projUti->projuti_perihal = 'Surat pengsahan dan kelulusan';
+            $projUti->projuti_ref_no = 'KKM.400-4/2/31 JLD.13(50)';
+            $projUti->projuti_date = date('Y-m-d', strtotime('2025-03-25'));
+            $projUti->projuti_created_by = auth()->user()->id;
+            $projUti->projuti_updated_by = auth()->user()->id;
+            $projUti->save();
+
+            $projUti2 = new ProjekUtilities();
+            $projUti2->projuti_projek_id = $newProjek->projek_id;
+            $projUti2->projuti_perihal = 'Waran Salur';
+            $projUti2->projuti_ref_no = 'KKM.400-4/2/31 JLD.13(50)';
+            $projUti2->projuti_date = date('Y-m-d', strtotime('2025-03-27'));
+            $projUti2->projuti_created_by = auth()->user()->id;
+            $projUti2->projuti_updated_by = auth()->user()->id;
+            $projUti2->save();
+
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
 
     public function indexMain(Request $request){
         $queryType = 1; // default click pd menu
@@ -203,8 +292,6 @@ class SemakProjekController extends Controller
                 ->where('a.sil_tahun', 2025)
                 ->where('b.prog_kategori', 'JKN')
                 ->sum('a.sil_amount');
-
-
 
         $data['jumlah'] = $jumlah;
         $data['jumBaharu'] = $jumBaharu;

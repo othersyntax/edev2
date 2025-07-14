@@ -3,6 +3,7 @@
     Permohonan Baharu
 @endsection
 @section('custom-css')
+    <link href="{{ asset("/template/css/plugins/summernote/summernote-bs4.css") }}" rel="stylesheet">
     <!-- Sweet Alert -->
     <link href="{{ asset("/template/css/plugins/sweetalert/sweetalert.css") }}" rel="stylesheet">
     <link href="{{ asset("/template/css/plugins/datapicker/datepicker3.css") }}" rel="stylesheet">
@@ -241,23 +242,23 @@
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
-                        <div class="form-group">
+			<div class="form-group">
                             <label>Skop Projek</label>
-                            {{ Form::textarea('proj_skop', null, ['class'=>'form-control', 'id'=>'proj_skop', 'rows'=>'3']) }}
+                            {{ Form::textarea('proj_skop', null, ['class'=>'form-control', 'id'=>'proj_skop', 'rows'=>'4']) }}
                             @error('proj_skop')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label>Justifikasi Projek</label>
-                            {{ Form::textarea('proj_justifikasi', null, ['class'=>'form-control', 'id'=>'proj_justifikasi', 'rows'=>'3']) }}
+                            {{ Form::textarea('proj_justifikasi', null, ['class'=>'form-control', 'id'=>'proj_justifikasi', 'rows'=>'4']) }}
                             @error('proj_justifikasi')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label>Ulasan Teknikal (JKR / BPKj / Unit Kejuruteraan)</label>
-                            {{ Form::textarea('proj_ulasan_teknikal', null, ['class'=>'form-control', 'id'=>'proj_ulasan_teknikal', 'rows'=>'3']) }}
+                            {{ Form::textarea('proj_ulasan_teknikal', null, ['class'=>'form-control', 'id'=>'proj_ulasan_teknikal', 'rows'=>'4']) }}
                             @error('proj_ulasan_teknikal')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -286,6 +287,8 @@
 </div>
 @endsection
 @section('custom-js')
+<!-- SUMMERNOTE -->
+<script src="{{ asset("/template/js/plugins/summernote/summernote-bs4.js") }}"></script>
 <!-- Date picker -->
 <script src="{{ asset("/template/js/plugins/datapicker/bootstrap-datepicker.js") }}"></script>
 <!-- Select2 -->
@@ -296,6 +299,11 @@
         let laksana = $('[name=proj_pelaksana]').val();
         let agensi = $('[name=proj_pelaksana_agensi_data]').val();
         pilihPelaksana(laksana, agensi);
+	$('#proj_skop').summernote();
+	$('#proj_justifikasi').summernote();
+	$('#proj_ulasan_teknikal').summernote();
+
+
 
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",

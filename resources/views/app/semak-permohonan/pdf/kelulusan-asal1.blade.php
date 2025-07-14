@@ -142,11 +142,11 @@
         <p class="sizeFont2 text-bold" style="text-align: center;">{{ $header['title'] }}</p>
         <div class="clearfix sizeFont2">
             <div class="left">NAMA PROJEK</div>
-            <div class="right">: NAIK TARAF DAN PEMBAIKAN WELLNESS HUB ANMS 2.0 TAHUN 2025</div>
+            <div class="right">: NAIK TARAF, UBAH SUAI DAN PEMBAIKAN DI FASILITI KESIHATAN TAHUN 2025 (SILING FASA 2)</div>
         </div>
         <div class="clearfix sizeFont2">
             <div class="left">KOD PROJEK</div>
-            <div class="right">: P42 00600 117 5003</div>
+            <div class="right">: P42 00600 117 1001</div>
         </div>
         <div class="clearfix sizeFont2">
             <div class="left">PROGRAM / BAHAGIAN / INSTITUSI / JKN</div>
@@ -178,7 +178,7 @@
                         <tr>
                             <td style="vertical-align: top; text-align: center;">{{ $bil++ }}</td>
                             <td style="vertical-align: top;">
-				{{ $proj->proj_nama_admin }}<br>
+				{!! $proj->proj_nama_admin !!}<br>
 				@if($proj->proj_catatan_admin <> '')
 				    <small><i>(Catatan: {{ $proj->proj_catatan_admin }})</i></small>
 				@endif
@@ -202,10 +202,6 @@
                             $bilTotal++
                         @endphp
                     @endforeach
-                    <tr class="text-bold">
-                        <td colspan="5" class="text-bold text-bold" style="vertical-align: center; text-align: right;">JUMLAH PROJEK {{ Str::upper($kategori) }}</td>
-                        <td class="text-bold text-bold" style="vertical-align: center; text-align: right;">@duit($subJum)</td>
-                    </tr>
                 @endforeach
             </tbody>
             <tfoot>
@@ -220,7 +216,7 @@
     <div class="page-break"></div>
     <p class="sizeFont2 text-bold">KEPUTUSAN DAN ULASAN PEGAWAI PENGAWAL</p><br>
     <p class="sizeFont2" style="text-align: justify;">
-        Saya <strong>BERSETUJU / TIDAK BERSETUJU</strong> dengan cadangan agihan siling peruntukan pembangunan BP00600 - Naik Taraf dan Pembaikan Wellness Hub ANMS 2.0 Tahun 2025 di bawah kod projek P42 00600 117 5003 bagi <strong>{{ $header['pemilik'] }}</strong> dengan kos keseluruhan sebanyak <strong>RM</strong><strong>@duit($jumlah)</strong>.
+        Saya <strong>BERSETUJU / TIDAK BERSETUJU</strong> dengan cadangan agihan siling peruntukan pembangunan BP00600 - Naik Taraf, Ubah Suai dan Pembaikan di Fasilti Kesihatan Tahun 2025 (Siling Fasa 2) di bawah kod projek P42 00600 117 1001 bagi <strong> {{ $header['pemilik'] }}</strong> dengan kos keseluruhan sebanyak <strong>RM</strong><strong>@duit($jumlah)</strong>.
     </p>
     <p class="sizeFont2 baris-baru">ULASAN :</p>
     <hr class="thin-hr baris-baru">

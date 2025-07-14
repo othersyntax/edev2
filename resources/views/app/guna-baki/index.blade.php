@@ -124,7 +124,7 @@
                 <h5>Senarai Permohonan Projek (Guna Baki)</h5>
                 <div class="ibox-tools">
                     <button class="btn btn-xs btn-primary projekSediaAda">
-                        Tambah Peruntukan Projek Sedia Ada
+                        Selenggara Projek Sedia Ada
                     </button>
                     <button class="btn btn-warning btn-xs projekBaharu">
                         Projek Baharu

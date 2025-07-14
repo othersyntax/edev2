@@ -109,11 +109,13 @@ class BayaranController extends Controller
             'byr_perihal'=> 'required',
             'byr_amount'=> 'required',
             'byr_date'=> 'required',
+            'byr_refno'=> 'required',
         ],
         [
             'byr_perihal.required'=> 'Sila masukkan perihal',
             'byr_amount.required'=> 'Sila masukkan amaun',
             'byr_date.required'=> 'Sila masukkan tarikh',
+            'byr_refno.required'=> 'Sila masukkan No. EFT',
         ]);
 
         if($validator->fails())

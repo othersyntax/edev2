@@ -13,6 +13,7 @@ class Projek extends Model
     public $primaryKey = "projek_id";
     public $timestamps = false;
 
+
     function negeri(){
         return $this->belongsTo(\App\Models\Negeri::class, 'proj_negeri', 'neg_negeri_id');
     }
@@ -35,5 +36,9 @@ class Projek extends Model
 
     function jkr(){
         return $this->belongsTo(\App\Models\Pentadbiran\Program::class, 'proj_pelaksana_agensi', 'program_id');
+    }
+
+    function tukar(){
+        return $this->hasOne(\App\Models\Projek\ProjekTukar::class, 'projek_id', 'projt_projek_id');
     }
 }

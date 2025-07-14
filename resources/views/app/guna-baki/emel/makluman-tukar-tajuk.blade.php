@@ -5,10 +5,10 @@
 </head>
 <body>
     <p>Assalammualaikum dan salam sejahtera,</p><br>
-    <p>YBhg. Datuk Dr../YBhg. Dato'./YBrs. Dr./Tuan/Puan, <br></p>
-    <h3>PEMAKLUMAN PENERIMAAN PERMOHONAN PROJEK BAHARU BP00600 TAHUN 2025</h3>
+    <p>YBhg. Datuk / YBhg. Dato'. / YBrs. Dr./ Tuan / Puan, <br></p>
+    <h3>PEMAKLUMAN AKTIVITI TUKAR TAJUK PROJEK OLEH {{ strtoupper($projPemilik) }}</h3>
     <p>
-        Sukacita dimaklumkan bahawa Unit Bajet RMK, Bahagian Pembangunan telah menerima permohonan peruntukan BP00600 daripada <strong>{{ $program}}</strong>.<br><br><br>
+        Unit Bajet RMK, Bahagian Pembangunan mengambil maklum bahawa, <strong>{{ $projPemilik }}</strong> telah melakukan aktiviti pertukaran tajuk projek : <strong>{{ $projTitleAsal }}</strong> kepada tajuk baharu : <strong>{{ $projTitleBaru }}</strong>.<br><br><br>
         Sekian, terima kasih.<br><br>
         <strong>“MALAYSIA MADANI”</strong><br><br>
         <strong>“BERKHIDMAT UNTUK NEGARA”</strong><br><br><br>

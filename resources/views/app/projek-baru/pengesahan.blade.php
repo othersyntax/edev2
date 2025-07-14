@@ -202,6 +202,12 @@
                     },
                     success: function (response) {
                         if (response.status === 200) {
+                            swal({
+                                title: "Berjaya!",
+                                text: "Pengesahan Telah Berjaya, Sila hantar untuk Perakuan",
+                                type: "success",
+                                timer: 3000 // Auto close after 2 seconds
+                            });
                             window.location.href = '/permohonan/baru/pengesahan';
                         }
                     }
@@ -233,7 +239,16 @@
                         document.getElementById("sahButton").classList.remove("loading");
                         document.getElementById("sahButton").classList.remove("open-circle");
                     } else {
-                        window.location.href = '/permohonan/baru/main';
+                        // swal("Berjaya", "", "success");
+                    //    swal({
+                    //         title: "Berjaya!",
+                    //         text: "Pengesahan Projek Telah Berjaya",
+                    //         type: "success",
+                    //         timer: 3000 // Auto close after 2 seconds
+                    //     }).then(() => {
+                            window.location.href = response.redirect_url;
+                        // });
+
                     }
                 }
             });

@@ -286,8 +286,16 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label><strong>Tarikh Permohonan</strong></label>
+                            <div class="form-control">{{ date('d/m/Y h:i:s', strtotime($projek->proj_created_date)) }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label><strong>Cadangan</strong></label>
-                            {{ Form::select('proj_status_admin', ['4'=>'--Sila pilih--', '5'=>'Diangkat untuk kelulusan' , '6'=>'Tidak Diangkat untuk kelulusan'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status_admin']) }}
+                            {{ Form::select('proj_status_admin', ['4'=>'--Sila pilih--', '5'=>'Diangkat untuk kelulusan' , '6'=>'Tidak Diangkat untuk kelulusan', '7'=>'Diluluskan'], $projek->proj_status, ['class'=>'form-control', 'id'=>'proj_status_admin']) }}
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -299,7 +307,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label><strong>Catatan</strong></label>
-                            {{ Form::textarea('proj_catatan_admin', null, ['class'=>'form-control',  'rows'=> 3, 'id'=>'proj_catatan_admin']) }}
+                            {{ Form::textarea('proj_catatan_admin', $projek->proj_catatan_admin, ['class'=>'form-control',  'rows'=> 3, 'id'=>'proj_catatan_admin']) }}
                         </div>
                     </div>
                 </div>

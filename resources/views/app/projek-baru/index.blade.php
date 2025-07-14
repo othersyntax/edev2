@@ -126,7 +126,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Subsetia</label>
-                                {{ Form::select('subsetia', [''=>'--Sila Pilih--','1001'=>'1001', '4001'=>'4001', '4003'=>'4003',], session('subsetia'), ['class'=>'form-control', 'id'=>'subsetia']) }}
+                                {{ Form::select('subsetia', [''=>'--Sila Pilih--','1001'=>'1001', '4001'=>'4001', '4003'=>'4003', '5003'=>'5003'], session('subsetia'), ['class'=>'form-control', 'id'=>'subsetia']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -411,11 +411,11 @@ $(document).ready(function(){
                             status = '<span class="badge badge-primary">'+ statusProjek(item.proj_status) +'</span>';
                             button = '<a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/baru/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/permohonan/baru/padam/'+item.projek_id+'" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>';
                         }
-			else if(item.proj_status == 4) {
+			            else if(item.proj_status == 4) {
                             status = '<span class="badge badge-warning">'+ statusProjek(item.proj_status) +'</span>';
                             button = '<a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
                         }
-			else if(item.proj_status == 5) {
+			            else if(item.proj_status == 5) {
                             status = '<span class="badge badge-success">'+ statusProjek(item.proj_status) +'</span>';
                             button = '<a href="/permohonan/baru/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
                         }
@@ -425,7 +425,7 @@ $(document).ready(function(){
                         }
 
                         $('tbody').append('<tr>\
-			                <td class="text-center">' + item.proj_sort + '</td>\
+			    <td class="text-center">' + item.proj_sort + '</td>\
                             <td class="text-center"><i class="fa '+text+'"></i></td>\
                             <td>' + item.pro_kat_short_nama + '</td>\
                             <td>' + item.prog_name + '</td>\
@@ -505,12 +505,14 @@ $(document).ready(function(){
             return "Pengesahan";
         else if(id==3)
             return "Perakuan";
-	else if(id==4)
-            return "Proses";
-	else if(id==5)
-            return "Diluluskan";
-	else if(id==6)
-            return "Tidak Diluluskan";
+        else if(id==4)
+                return "Proses";
+        else if(id==5)
+                return "Disyorkan";
+        else if(id==6)
+                return "Tidak Diluluskan";
+        else if(id==7)
+                return "Diluluskan";
         else
             return "Dibatalkan";
     }

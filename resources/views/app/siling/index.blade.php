@@ -197,8 +197,8 @@
                         $('tbody').append('<tr>\
                             <td class="text-right"><input type="checkbox" class="siling-checkbox" data-id="'+ item.siling_id +'" data-program="'+ item.program_id +'"></td>\
                             <td>' + bil + '</td>\
-			    <td>' + item.prog_name + '</td>\
-                            <td>Fasa 1</td>\
+			                <td>' + item.prog_name + '</td>\
+                            <td>Fasa ' + item.sil_bil + '</td>\
                             <td>' + Starikh.toLocaleDateString() + '</td>\
                             <td>' + Etarikh.toLocaleDateString() + '</td>\
                             <td class="text-right">' + amount + '</td>\

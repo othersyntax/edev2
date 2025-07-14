@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('layouts.landing');
+    return view('landing.index');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

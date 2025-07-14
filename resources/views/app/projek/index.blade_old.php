@@ -250,39 +250,31 @@
                                 <td>{{ $proj->fas_name }}</td>
                                 <td>
                                     {!! $proj->proj_nama !!}
-                                    @if ($proj->projt_projek_id)
+                                    @if ($proj->proj_status == 2)
                                         <br>
-                                        <small class="text-success">Projek Telah Diselenggara</small>
+                                        <small class="text-success">Justifikasi Tukar: {{ $proj->proj_memo }}</small>
                                     @endif
                                 </td>
                                 <td class="text-right">
                                      @duit($proj->proj_kos_lulus)<br>
-                                     @if ($proj->proj_kos_sebenar > $proj->proj_kos_lulus)
-                                         <span class="text-danger">@duit($proj->proj_kos_sebenar)</span>
-                                     @else
-                                         <span class="text-navy">@duit($proj->proj_kos_sebenar)</span>
-                                     @endif
-
+                                    <span class="text-navy">@duit($proj->proj_tangungan)</span>
                                 </td>
                                 <td>
                                     @php
-                                        if($proj->proj_status==1 || $proj->proj_status==2){
+                                        if($proj->proj_status==1){
                                             $label = 'label-primary';
-                                            $stt = 1;
                                         }
-                                        // else if($proj->proj_status==2){
-                                        //     $label = 'label-success';
-                                        // }
+                                        else if($proj->proj_status==2){
+                                            $label = 'label-success';
+                                        }
                                         else if($proj->proj_status==3){
-                                            $label = 'label-danger';
-                                            $stt = $proj->proj_status;
+                                            $label = 'label-warning';
                                         }
                                         else{
                                             $label = 'label-danger';
-                                            $stt = $proj->proj_status;
                                         }
                                     @endphp
-                                    <span class="label {{ $label }}">{{ getStatus($stt) }}</span>
+                                    <span class="label {{ $label }}">{{ getStatus($proj->proj_status) }}</span>
                                 </td>
                                 <td class="text-center">
                                     @if ($proj->proj_status<>1)

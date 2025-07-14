@@ -10,6 +10,7 @@ use App\Models\Siling;
 use App\Models\BakulJimat;
 use App\Models\Modul;
 use App\Models\Gelaran;
+use App\Models\User;
 use Carbon\Carbon;
 
 function dropdownNegeri(){
@@ -154,6 +155,8 @@ function getStatusMohonProjek($id){
     else if($id==4)
         return "Proses";
     else if($id==5)
+        return "Disyorkan";
+    else if($id==7)
         return "Diluluskan";
     else
         return "Tidak Diluluskan";
@@ -188,7 +191,6 @@ function getPelaksana($id){
         return "JKN";
 }
 
-
 function cekSiling(string $id){
     $sil = Siling::where('sil_fasiliti_id', $id)
             ->where('sil_edate', '>=', Carbon::now())
@@ -203,12 +205,21 @@ function cekSiling(string $id){
 }
 
 function getSiling(string $id){
-    $sil = Siling::where('sil_fasiliti_id', $id)
-            ->where('sil_tahun', 2025)
+   /* $sil = Siling::where('sil_fasiliti_id', $id)
+            ->where('sil_tahun', date('Y'))
             ->select('sil_amount')
-            ->first();
+            ->first();*/
+    $sil = Siling::where('sil_fasiliti_id', $id)->where('sil_tahun', date('Y'))->sum('sil_amount');
 
-    return  $sil->sil_amount;
+
+    return $sil;
+
+}
+
+function getNama(string $id){
+    $user = User::find($id);
+
+    return  $user->name;
 
 }
 

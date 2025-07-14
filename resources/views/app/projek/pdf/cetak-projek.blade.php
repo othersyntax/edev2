@@ -44,11 +44,6 @@
             border: 1px solid #000;
         }
 
-        .justify-content{
-            text-align: justify;
-            text-justify: inter-word;
-        }
-
         /* Prevent table headers from being cut */
         /* thead {
             display: table-header-group;
@@ -141,14 +136,13 @@
 </head>
 <body>
     <div class="header">
-        <p class="text-right text-bold sizeFont">Rujukan: KKM.400-4/2/31 Jilid &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
-        LAMPIRAN I</p>
+        <p class="text-right text-bold sizeFont">LAMPIRAN I</p>
     </div>
     <div class="table-container">
-        <p class="sizeFont2 text-bold" style="text-align: center;">{{ $header['title'] }}<br>{{ $header['title2'] }}</p>
+        <p class="sizeFont2 text-bold" style="text-align: center;">{{ $header['title'] }}</p>
         <div class="clearfix sizeFont2">
             <div class="left">NAMA PROJEK</div>
-            <div class="right">: NAIK TARAF, UBAH SUAI DAN PEMBAIKAN DI FASILITI KESIHATAN TAHUN 2025</div>
+            <div class="right">: NAIK TARAF, UBAH SUAI DAN PEMBAIKAN DI FASILITI KESIHATAN TAHUN 2025 (SILING FASA 2)</div>
         </div>
         <div class="clearfix sizeFont2">
             <div class="left">KOD PROJEK</div>
@@ -172,68 +166,50 @@
             </thead>
             <tbody>
                 @php
-                    $bil=0;
                     $jumlah =0;
-                    $extCatatan="";
+                    $bilTotal=0;
                 @endphp
-                @foreach($projek as $proj)
-                    <tr>
-                        <td style="vertical-align: top; text-align: center;">{{ ++$bil }}</td>
-                        <td style="vertical-align: top;" class="justify-content">
-                        {!! $proj->proj_nama_admin !!}<br>
-                        @if($proj->proj_catatan_admin <> '')
-                            <small><i>(Catatan: {{ $proj->proj_catatan_admin }})</i></small>
-                        @endif
-                        </td>
-                        <td style="vertical-align: top;">{!! $proj->proj_skop_admin !!}</td>
-                        <td style="vertical-align: top;">{!! $proj->proj_justifikasi_admin !!}</td>
-                        <td style="vertical-align: top;">
-                            @if ($proj->proj_pelaksana ==1)
-                                {{ getProgram($proj->proj_pemilik) }}
-                            @elseif ($proj->proj_pelaksana ==2)
-                                {{ getPelaksana($proj->proj_pelaksana) }}
-                            @else
-                                {{ getProgram($proj->proj_pelaksana_agensi) }}
-                            @endif
-                        </td>
-                        <td style="vertical-align: top; text-align: right;">@duit($proj->proj_kos_lulus)</td>
-                    </tr>
+                @foreach($projek as $kategori => $projall)
                     @php
-                        $jumlah = $jumlah + $proj->proj_kos_lulus;
-                        if(isset($proj->proj_catatan_admin)){
-                            $extCatatan .= $proj->proj_catatan_admin;
-                        }
+                        $subJum = 0;
+                        $bil=1;
                     @endphp
+                    @foreach ($projall as $proj)
+                        <tr>
+                            <td style="vertical-align: top; text-align: center;">{{ $bil++ }}</td>
+                            <td style="vertical-align: top;">
+                                {!! $proj->proj_nama !!}
+			                </td>
+                            <td style="vertical-align: top;">{!! $proj->proj_skop !!}</td>
+                            <td style="vertical-align: top;">{!! $proj->proj_justifikasi !!}</td>
+                            <td style="vertical-align: top;">
+                                @if ($proj->proj_pelaksana ==1)
+                                    {{ $proj->proj_pemilik ? getProgram($proj->proj_pemilik):'' }}
+                                @elseif ($proj->proj_pelaksana ==2)
+                                    {{ $proj->proj_pelaksana ? getPelaksana($proj->proj_pelaksana):'' }}
+                                @else
+                                    {{ $proj->proj_pelaksana_agensi ? getProgram($proj->proj_pelaksana_agensi):'' }}
+                                @endif
+			                </td>
+                            <td style="vertical-align: top; text-align: right;">@duit($proj->proj_kos_lulus)</td>
+                        </tr>
+                        @php
+                            $subJum +=$proj->proj_kos_lulus;
+                            $jumlah +=$proj->proj_kos_lulus;
+                            $bilTotal++
+                        @endphp
+                    @endforeach
                 @endforeach
             </tbody>
             <tfoot>
                 <tr class="text-white" style="background-color: #07034f;">
-                    <td class="text-bold" style="vertical-align: center; text-align: center;">{{ $bil }}</td>
+                    <td class="text-bold" style="vertical-align: center; text-align: center;">{{ $bilTotal }}</td>
                     <td colspan="4" class="text-bold" style="vertical-align: center; text-align: right;">JUMLAH KESELURUHAN (RM)</td>
                     <td class="text-bold" style="vertical-align: center; text-align: right;">@duit($jumlah)</td>
                 </tr>
             </tfoot>
         </table>
     </div>
-    <div class="page-break"></div>
-    <p class="sizeFont2 text-bold">KEPUTUSAN DAN ULASAN PEGAWAI PENGAWAL</p><br>
-    <p class="sizeFont2" style="text-align: justify;">
-        Saya <strong>BERSETUJU / TIDAK BERSETUJU</strong> dengan cadangan agihan <strong>luar siling</strong> peruntukan pembangunan BP00600 - Naik Taraf, Ubah Suai dan Pembaikan tahun 2025 di bawah kod projek P42 00600 117 1001 bagi <strong>{{ $header['pemilik'] }}</strong> dengan kos keseluruhan sebanyak <strong>RM</strong><strong>@duit($jumlah)</strong>.
-    </p>
-    @if ($extCatatan<>"")
-        <p class="sizeFont2 baris-baru">(NOTA : {{ $extCatatan }})</p>
-        <br>
-    @endif
-    <p class="sizeFont2 baris-baru">ULASAN :</p>
-    <hr class="thin-hr baris-baru">
-    <hr class="thin-hr baris-baru">
-    <p class="sizeFont2 text-bold" style="text-align: center; margin-top: 100px">
-        ............................................................................<br>
-        (DATO' SRI SURIANI BINTI DATO' AHMAD) <br>
-        Ketua Setiausaha <br>
-        Kementerian Kesihatan Malaysia <br><br>
-        <span style="margin-right: 150px;">Tarikh:</span>
-    </p>
     <div class="footer1">
         <script type="text/php">
             if (isset($pdf)) {

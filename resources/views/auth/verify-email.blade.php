@@ -1,11 +1,11 @@
 <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600">
-        {{ __('Selamat datang ke Sistem Pengurusan Peruntukan Pembangunan (eDE). Terima kasih kerana Log-masuk ke sistem ini. Bagi memastikan e-mel yang digunakan adalah berintegiriti, sila sahkan e-mel anda dengan menekan butang Sahkan atau capaian yang telah dihantar ke e-mel sebelum ini. Jika anda tidak menerima e-mel seumpama ini, kami akan menghantar capaian yang lain.') }}
+        {{ __('Selamat datang ke Sistem Pengurusan Peruntukan Pembangunan (eDE). Terima kasih kerana log-masuk ke sistem ini. Bagi memastikan penggunaan e-mel secara berintegriti, sila buat pengesahan e-mel anda dengan menekan butang "Sahkan E-mel Saya" di dalam e-mel yang telah dihantar kepada anda. Sekiranya anda tidak menerima sebarang e-mel seumpama ini, sila tekan butang "HANTAR SEMULA E-MEL VERIFIKASI".') }}
     </div>
 
     @if (session('status') == 'verification-link-sent')
         <div class="mb-4 font-medium text-sm text-green-600">
-            {{ __('Capaian verifikasi e-mel akan dihantar ke e-mel rasmi yang telah didaftar.') }}
+            {{ __('Capaian verifikasi e-mel telah dihantar ke e-mel rasmi yang telah didaftar.') }}
         </div>
     @endif
 
@@ -24,7 +24,7 @@
             @csrf
 
             <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {{ __('Log Out') }}
+                {{ __('Log-Keluar') }}
             </button>
         </form>
     </div>

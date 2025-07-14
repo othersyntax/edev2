@@ -88,9 +88,9 @@
                         <a href="/permohonan/baru/main" class="btn btn-xs btn-white">Kembali</a>
                         @if(cekSiling(auth()->user()->program_id))
                             <a href="/permohonan/baru/salin/{{ $projek->projek_id }}/baru" class="btn btn-xs btn-success">Salin</a>
+			    <a href="/permohonan/baru/ubah/{{ $projek->projek_id }}" class="btn btn-xs btn-primary">Kemaskini</a>
                         @endif
-                        <a href="/permohonan/baru/ubah/{{ $projek->projek_id }}" class="btn btn-xs btn-primary">Kemaskini</a>
-                        {{-- <a href="/permohonan/baru/selesai/{{ $projek->projek_id }}" class="btn btn-xs btn-warning float-right selesaiMohon">Selesai</a> --}}
+                        {{--<a href="/permohonan/baru/selesai/{{ $projek->projek_id }}" class="btn btn-xs btn-warning float-right selesaiMohon">Selesai</a> --}}
                     </div>
                 </div>
             </div>

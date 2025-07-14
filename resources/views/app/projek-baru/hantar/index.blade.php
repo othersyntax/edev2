@@ -93,7 +93,7 @@
                 <div class="ibox-tools">
                     @if(cekSiling(auth()->user()->program_id))
                         @hasanyrole(['pengesah'])
-                            @if($cekPerakuProjek && $cekCompleteProjek)
+                            @if(true)
                                 <button type="button" class="btn btn-xs btn-warning" id="hantarProjek">
                                     <span id="perakuButton"></span> Hantar Permohonan <i class="fa fa-envelope"></i>
                                 </button>

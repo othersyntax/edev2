@@ -166,7 +166,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Subsetia</label>
-                                {{ Form::select('subsetia', [''=>'--Sila Pilih--','1001'=>'1001', '4001'=>'4001', '4003'=>'4003',], session('subsetia'), ['class'=>'form-control', 'id'=>'subsetia']) }}
+                                {{ Form::select('subsetia', [''=>'--Sila Pilih--','1001'=>'1001', '4001'=>'4001', '4003'=>'4003','5003'=>'5003'], session('subsetia'), ['class'=>'form-control', 'id'=>'subsetia']) }}
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -221,13 +221,19 @@
         <div class="ibox">
             <div class="ibox-title">
                 <h5>SENARAI PERMOHONAN</h5>
+                <div class="ibox-tools">
+                    <button type="button" class="btn btn-sm btn-warning" id="salurWaran">
+                        <span id="salurButton"></span> Salur Waran
+                    </button>
+                </div>
             </div>
             <div class="ibox-content">
                 <div class="table-responsive">
                     <table class="table table-stripped toggle-arrow-tiny" >
                         <thead>
                             <tr>
-                                <th width="8%" class="text-center">Susunan</th>
+                                <th width="3%" class="text-center">#</th>
+                                <th width="5%" class="text-center">Susunan</th>
                                 <th width="10%">Kategori</th>
                                 <th width="15%">Pemilik</th>
                                 <th width="15%">Fasiliti</th>
@@ -250,7 +256,7 @@
                                         else if($proj->proj_status==4){
                                             $text='class="text-success"';
                                         }
-                                        else if($proj->proj_status==5){
+                                        else if($proj->proj_status==5 || $proj->proj_status==7){
                                             $text='class="text-primary"';
                                         }
                                         else{
@@ -266,22 +272,29 @@
                                         else if($proj->proj_status==4){
                                             $status = '<span class="badge badge-warning">'.getStatusMohonProjek($proj->proj_status).'</span>';
                                         }
-                                        elseif($proj->proj_status==5){
+                                        elseif($proj->proj_status==5 || $proj->proj_status==7){
                                             $status = '<span class="badge badge-info">'.getStatusMohonProjek($proj->proj_status).'</span>';
                                         }
                                         else{
                                             $status = '<span class="badge badge-danger">'.getStatusMohonProjek($proj->proj_status).'</span>';
                                         }
 
-                                        $button = '<a href="/permohonan/semak/papar/'.$proj->projek_id.'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-success"></i></a><button type="button" value="'.$proj->projek_id.'" class="btn btn-default btn-xs emelnotifikasi" title="Emel"><i class="fa fa-envelope text-warning"></i></button><a href="/permohonan/semak/ubah/'.$proj->projek_id.'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a>';
+                                        $button = '<a href="/permohonan/semak/papar/'.$proj->projek_id.'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-success"></i></a><a href="/permohonan/semak/ubah/'.$proj->projek_id.'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/permohonan/semak/salur-waran" class="btn btn-default btn-xs" title="Salur Waran"><i class="fa fa-credit-card text-warning"></i></a>';
                                     @endphp
 
                                     <tr {!! $text !!}>
+                                        <td class="text-center">
+                                            <input type="checkbox" class="salur-checkbox" data-id="{{ $proj->projek_id }}"
+                                            @if ($proj->proj_status <> 5)
+                                                disabled
+                                            @endif
+                                            >
+                                        </td>
                                         <td class="text-center">{{ $proj->proj_sort}}</td>
                                         <td>{{ $proj->pro_kat_short_nama}}</td>
                                         <td>{{ $proj->prog_name}}</td>
                                         <td>{{ $proj->fas_name}}</td>
-                                        <td>{{ $proj->proj_nama_admin}}</td>
+                                        <td>{!! $proj->proj_nama_admin !!}</td>
                                         <td class="text-right">
                                             @duit( $proj->proj_kos_lulus)<br>
                                             @if ($proj->proj_kos_mohon <> $proj->proj_kos_lulus)
@@ -357,6 +370,114 @@ $(document).ready(function(){
             });
         });
     }
+
+    // HANTAR EMEL PEMAKLUMAN
+    $(document).on('click', '#salurWaran', function (e) {
+        e.preventDefault();
+
+        document.getElementById("salurButton").classList.add("loading");
+        document.getElementById("salurButton").classList.add("open-circle");
+
+        let selectedProjek = [];
+        $('.salur-checkbox:checked').each(function() {
+            let projekID = $(this).data('id');
+
+            // Push user details to array
+            selectedProjek.push({
+                id: projekID
+            });
+        });
+        // alert(selectedProjek);
+        // alert(selectedProjek.data("events").toSource());
+        // alert(JSON.stringify(selectedProjek, null, 4));
+
+        if (selectedProjek.length > 0) {
+            $.ajax({
+                url: '/permohonan/semak/salur-waran',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}', // Include CSRF token
+                    projek: selectedProjek
+                },
+                success: function (response) {
+                    if (response.status == 400) {
+                        swal("Gagal", response.message, "error");
+                    } else {
+                        // fetchSiling();
+                        swal({
+                            title: "Salur Waran",
+                            text: response.message,
+                            type: "success"
+                        });
+                        document.getElementById("salurButton").classList.remove("loading");
+                        document.getElementById("salurButton").classList.remove("open-circle");
+                    }
+                }
+            });
+        }
+        else{
+            document.getElementById("salurButton").classList.remove("loading");
+            document.getElementById("salurButton").classList.remove("open-circle");
+            swal("Tiada Rekod", "Sila pilih sekurang-kurangnya satu rekod", "error");
+        }
+    });
+
+    // function fetchSiling(sil_program_id_cari='', sil_status_cari=''){
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+    //     $.ajax({
+    //         type: "post",
+    //         url: "/siling/showList",
+    //         data:{
+    //             sil_program_id:sil_program_id_cari,
+    //             sil_status:sil_status_cari
+    //         },
+    //         dataType: "json",
+    //         success: function (response) {
+    //             // var sil-status="";
+    //     let bil =1;
+    //             $('tbody').html("");
+    //             $.each(response.siling, function (key, item) {
+    //                 let amount = financial(item.sil_amount);
+    //                 let baki = financial(item.sil_balance);
+    //                 let Starikh = new Date(item.sil_sdate);
+    //                 let Etarikh = new Date(item.sil_edate);
+    //                 let status = "";
+    //                 let emel = "";
+    //                 if(item.sil_status == 1){
+    //                     status = '<span class="badge badge-primary">Buka</span>';
+    //                 }
+    //                 else {
+    //                     status = '<span class="badge badge-warning">Tutup</span>';
+    //                 }
+    //                 if(item.sil_emel==1){
+    //                     emel = '<button type="button" value="' + item.siling_id + '" class="btn btn-default btn-xs emel" title="Emel"><i class="fa fa-envelope text-warning"></i></button>';
+    //                 }
+    //                 else{
+    //                     emel = '<button type="button" class="btn btn-default btn-xs emel" title="Telah Emel"><i class="fa fa-envelope text-primary"></i></button>'
+    //                 }
+
+    //                 $('tbody').append('<tr>\
+    //                     <td class="text-right"><input type="checkbox" class="siling-checkbox" data-id="'+ item.siling_id +'" data-program="'+ item.program_id +'"></td>\
+    //                     <td>' + bil + '</td>\
+    //                     <td>' + item.prog_name + '</td>\
+    //                     <td>Fasa ' + item.sil_bil + '</td>\
+    //                     <td>' + Starikh.toLocaleDateString() + '</td>\
+    //                     <td>' + Etarikh.toLocaleDateString() + '</td>\
+    //                     <td class="text-right">' + amount + '</td>\
+    //                     <td class="text-right">' + baki + '</td>\
+    //                     <td>' + status + '</td>\
+    //                     <td><button type="button" value="' + item.siling_id + '" class="btn btn-default btn-xs editbtn" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>'+ emel +'\
+    //                     <button type="button" value="' + item.siling_id + '" class="btn btn-default btn-xs deletebtn" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
+    //                 \</tr>');
+    //     bil++;
+    //             });
+    //         }
+    //     });
+    // }
 
     setTimeout(() => {
         $('#msg').hide('slow');

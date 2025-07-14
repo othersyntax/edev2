@@ -33,48 +33,41 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h3 class="font-bold m-b-xs">
-                            1 PROFIL PROJEK
+                            1. PROFIL PROJEK
                         </h3>
-                        <p>{{ $projek->proj_nama }}</p>
+                        <p>{!! $projek->proj_nama !!}</p>
                         <div class="m-t-md">
                             <div class="row">
+                                <div class="col-12">
+                                    <a href="#" class="btn btn-primary btn-xs float-right editPeruntukan2" title="Kemas kini Peruntukan"><i class="fa fa-calculator"></i></a>
+                                </div>
                                 <div class="col-4">
-                                    <small class="text-muted">Peruntukan Diluluskan</small>
+                                    <small class="text-muted">Diluluskan</small>
                                     <h2 class="product-main-price">RM @duit($projek->proj_kos_lulus)</h2>
                                 </div>
                                 <div class="col-4">
-                                    <small class="text-muted">Kos Sebenar</small>
-                                    <h2 class="product-main-price">RM @duit($projek->proj_kos_sebenar)</h2>
+                                    <small class="text-muted">Peruntukan Semasa</small>
+                                    <h2 class="product-main-price">RM @duit($peruntukan_semasa)</h2>
                                 </div>
+
                                 <div class="col-4">
                                     <small class="text-muted">Penjimatan</small>
                                     <h2 class="product-main-price">RM @duit($projek->proj_penjimatan)</h2>
                                 </div>
                             </div>
-
-                            <h2 class="product-main-price">
-
-
-                            </h2>
                         </div>
                         <hr>
 
                         <h4>1.1 Maklumat Projek</h4>
-
-                        <div class="normal text-muted">
-                            <b>Skop</b><br/>
-                            {!! $projek->proj_skop !!}
-                            <br/><br/>
-                            <b>Justifikasi</b><br/>
-                            {!! $projek->proj_justifikasi ? $projek->proj_justifikasi: 'Tiada Rekod' !!}
-                        </div>
                         <dl class="row normal m-t-md">
                             <dt class="col-md-4 ">#ID</dt>
                             <dd class="col-md-8">{{ $projek->projek_id }}</dd>
+                            <dt class="col-md-4 ">Kos Diluluskan</dt>
+                            <dd class="col-md-8">RM @duit($projek->proj_kos_lulus)</dd>
                             <dt class="col-md-4 ">Pemilik</dt>
                             <dd class="col-md-8">{{ $projek->program->prog_name }}</dd>
-                            <dt class="col-md-4 ">Kod Sub Projek</dt>
-                            <dd class="col-md-8">{{ $projek->proj_kod_agensi }}-{{ $projek->proj_kod_projek }}-{{ $projek->proj_kod_setia }}-{{ $projek->proj_kod_subsetia }}</dd>
+                            <dt class="col-md-4 ">Kod Projek</dt>
+                            <dd class="col-md-8">{{ $projek->proj_kod_agensi }} {{ $projek->proj_kod_projek }} {{ $projek->proj_kod_setia }} {{ $projek->proj_kod_subsetia }}</dd>
                             <dt class="col-md-4 ">Program</dt>
                             <dd class="col-md-8">{{ $projek->proj_program ? $projek->projekProgram->proj_prog_nama : 'Tiada Rekod'  }}</dd>
                             <dt class="col-md-4 ">Pelaksana</dt>
@@ -100,123 +93,148 @@
                             <dt class="col-md-4 ">Catatan</dt>
                             <dd class="col-md-8">{{ $projek->proj_catatan ? $projek->proj_catatan : 'Tiada Rekod' }}</dd>
                             <dt class="col-md-4 ">Status</dt>
-                            <dd class="col-md-8">{{ getStatus($projek->proj_status) }}</dd>
+                            <dd class="col-md-6">{{ getStatus($projek->proj_status) }}</dd>
+                            <dd class="col-md-2"><a href="#" class="btn btn-warning btn-xs float-right editStatus1" title="Kemas kini Status"><i class="fa fa-pencil"></i></a></dd>
                         </dl>
+                        <div class="normal text-muted">
+                            <b>Skop</b><br/>
+                            {!! $projek->proj_skop !!}
+                            <br/><br/>
+                            <b>Justifikasi</b><br/>
+                            {!! $projek->proj_justifikasi ? $projek->proj_justifikasi: 'Tiada Rekod' !!}
+                        </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-3">
                         <a href="/projek/senarai" class="btn btn-xs btn-white">Kembali</a>
-                        @hasanyrole(['super-admin', 'admin'])
-                        <a href="/projek/ubah/{{ $projek->projek_id }}" class="btn btn-xs btn-primary">Kemaskini</a>
+                        @hasanyrole('super-admin|admin|penyedia|pengesah')
+                            <a href="/projek/ubah/{{ Crypt::encryptString($projek->projek_id) }}" class="btn btn-xs btn-primary float-right">Kemaskini</a>
                         @endhasanyrole
                     </div>
                 </div>
             </div>
         </div>
-        <div class="ibox collapsed">
-            <div class="ibox-title">
-                <h5>2. Maklumat Perbelanjaan (<span id="jum_kew_bayar_head" class="text-warning">RM 0.00</span>)</h5>
-                <div class="ibox-tools">
-                    <a href="#" class="btn btn-xs btn-primary" id="addBayaran1">Tambah
-                        <i class="fa fa-plus"></i>
-                    </a>
-                    <a class="btn btn-xs btn-default collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="btn btn-xs btn-default close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-            </div>
+        <div class="ibox product-detail">
             <div class="ibox-content">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th width="5%" class="text-center">#Bil</th>
-                                <th width="20%">No Rujukan</th>
-                                <th width="30%">Perihal</th>
-                                <th width="10%" class="text-center">Tarikh</th>
-                                <th width="20%" class="text-right">Amaun (RM)</th>
-                                <th width="15%">#</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-bayaran">
-                            <td colspan="6" class="text-center"><small><i>Tiada rekod</i></small></td>
-                        </tbody>
-                        <tfoot>
-                            <td colspan="4" class="text-right"><b>JUMLAH</b></td>
-                            <td class="text-right"><span id="jum_kew_bayar">0.00</span></td>
-                            <td></td>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="ibox collapsed">
-            <div class="ibox-title">
-                <h5>3. Maklumat Perkara Berbangkit <span id="jum_aktiviti" class="badge badge-primary">0</span></h5>
-                <div class="ibox-tools">
-                    <a href="#" class="btn btn-xs btn-primary" id="add">Tambah
-                        <i class="fa fa-plus"></i>
-                    </a>
-                    <a class="btn btn-xs btn-default collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="btn btn-xs btn-default close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ibox-content">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th width="5%" class="text-center">#Bil</th>
-                                <th width="25%">No Rujukan</th>
-                                <th width="20%">Perihal</th>
-                                <th width="10%" class="text-center">Tarikh</th>
-                                <th width="25%">Catatan</th>
-                                <th width="15%">#</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-aktiviti">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="ibox collapsed">
-            <div class="ibox-title">
-                <h5>4. Dokumen Sokongan <span id="jum_dokumen" class="badge badge-primary">0</span></h5>
-                <div class="ibox-tools">
-                    <a href="#" class="btn btn-xs btn-primary" id="addDokumen">Tambah
-                        <i class="fa fa-plus"></i>
-                    </a>
-                    <a class="btn btn-xs btn-default collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                    <a class="btn btn-xs btn-default close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ibox-content">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th width="10%" class="text-center">#Bil</th>
-                                <th width="65%">Perihal</th>
-                                <th width="25%">#</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-dokumen">
-                            <tr>
-                                <td colspan="4" class="font-italic text-small text-center">Tiada Rekod</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="font-bold m-b-xs">
+                            2. MAKLUMAT SOKONGAN
+                        </h3>
+                        <div class="ibox collapsed">
+                            <div class="ibox-title">
+                                <h5>2.1 Maklumat Perbelanjaan (<span id="jum_kew_bayar_head" class="text-warning">RM 0.00</span>)</h5>
+                                <div class="ibox-tools">
+                                    @hasanyrole('super-admin|admin|penyedia|pengesah')
+                                        <a href="#" class="btn btn-xs btn-primary" id="addBayaran1">Tambah
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                                    @endhasanyrole
+                                    <a class="btn btn-xs btn-default collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="btn btn-xs btn-default close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%" class="text-center">#Bil</th>
+                                                <th width="20%">No Rujukan</th>
+                                                <th width="30%">Perihal</th>
+                                                <th width="10%" class="text-center">Tarikh</th>
+                                                <th width="20%" class="text-right">Amaun (RM)</th>
+                                                <th width="15%">#</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody-bayaran">
+                                            <td colspan="6" class="text-center"><small><i>Tiada rekod</i></small></td>
+                                        </tbody>
+                                        <tfoot>
+                                            <td colspan="4" class="text-right"><b>JUMLAH</b></td>
+                                            <td class="text-right"><span id="jum_kew_bayar">0.00</span></td>
+                                            <td></td>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ibox collapsed">
+                            <div class="ibox-title">
+                                <h5>2.2 Maklumat Perkara Berbangkit <span id="jum_aktiviti" class="badge badge-primary">0</span></h5>
+                                <div class="ibox-tools">
+                                    @hasanyrole('super-admin|admin|penyedia|pengesah')
+                                        <a href="#" class="btn btn-xs btn-primary" id="add">Tambah
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                                    @endhasanyrole
+                                    <a class="btn btn-xs btn-default collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="btn btn-xs btn-default close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%" class="text-center">#Bil</th>
+                                                <th width="25%">No Rujukan</th>
+                                                <th width="20%">Perihal</th>
+                                                <th width="10%" class="text-center">Tarikh</th>
+                                                <th width="25%">Catatan</th>
+                                                <th width="15%">#</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody-aktiviti">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ibox collapsed">
+                            <div class="ibox-title">
+                                <h5>2.3 Dokumen Sokongan <span id="jum_dokumen" class="badge badge-primary">0</span></h5>
+                                <div class="ibox-tools">
+                                    @hasanyrole('super-admin|admin|penyedia|pengesah')
+                                        <a href="#" class="btn btn-xs btn-primary" id="addDokumen">Tambah
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                                    @endhasanyrole
+                                    <a class="btn btn-xs btn-default collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="btn btn-xs btn-default close-link">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th width="10%" class="text-center">#Bil</th>
+                                                <th width="65%">Perihal</th>
+                                                <th width="25%">#</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody-dokumen">
+                                            <tr>
+                                                <td colspan="4" class="font-italic text-small text-center">Tiada Rekod</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -249,9 +267,9 @@
                     <div class="col-lg-6">
                         <dl>
                             <dt class="text-uppercase">Parlimen</dt>
-                            <dd>{{ $projek->proj_parlimen ? $projek->proj_parlimen : 'P000 - Tiada Rekod' }}</dd>
+                            <dd>{{ $projek->proj_parlimen ? 'P000 - Tiada Rekod' : 'P000 - Tiada Rekod' }}</dd>
                             <dt class="text-uppercase">DUN</dt>
-                            <dd>{{ $projek->proj_dun ? $projek->proj_dun : 'N00 - Tiada Rekod' }}</dd>
+                            <dd>{{ $projek->proj_dun ? 'N000 - Tiada Rekod' : 'N00 - Tiada Rekod' }}</dd>
                         </dl>
                     </div>
                 </div>
@@ -262,11 +280,11 @@
             <div class="ibox-title">
                 <h5>1.3 Peruntukan</h5>
                 <div class="ibox-tools">
-		    @hasanyrole(['super-admin', 'admin'])
+		        @hasanyrole(['super-admin', 'admin'])
                     <a href="#" class="btn btn-xs btn-primary" id="addPeruntukan">Tambah
                         <i class="fa fa-plus"></i>
                     </a>
-		    @endhasanyrole
+		         @endhasanyrole
                     <a class="btn btn-xs btn-default collapse-link">
                         <i class="fa fa-chevron-up"></i>
                     </a>
@@ -369,8 +387,8 @@
                                         </div>
                                         <div class="vertical-timeline-content">
                                             <p>Permohonan Baharu</p>
-                                            <p>Usup Keram</p>
-                                            <span class="vertical-date small text-muted">2024-06-01 17:25:00</span>
+                                            <p>{{ getNama($projek->proj_created_by) }}</p>
+                                            <span class="vertical-date small text-muted">{{ $projek->proj_created_date }}</span>
                                         </div>
                                     </div>
                                     <div class="vertical-timeline-block">
@@ -378,31 +396,12 @@
                                             <i class="fa fa-pencil"></i>
                                         </div>
                                         <div class="vertical-timeline-content">
-                                            <p>Kemaskini Rekod</p>
-                                            <p>Usup Keram</p>
-                                            <span class="vertical-date small text-muted">2024-06-05 17:25:00</span>
+                                            <p>Kemas kini Rekod</p>
+                                            <p>{{ getNama($projek->proj_updated_by) }}</p>
+                                            <span class="vertical-date small text-muted">{{ $projek->proj_updated_date }}</span>
                                         </div>
                                     </div>
-                                    <div class="vertical-timeline-block">
-                                        <div class="vertical-timeline-icon gray-bg">
-                                            <i class="fa fa-pencil"></i>
-                                        </div>
-                                        <div class="vertical-timeline-content">
-                                            <p>Kemaskini Rekod</p>
-                                            <p>Norraida Amzah</p>
-                                            <span class="vertical-date small text-muted">2024-06-05 17:25:00</span>
-                                        </div>
-                                    </div>
-                                    <div class="vertical-timeline-block">
-                                        <div class="vertical-timeline-icon red-bg">
-                                            <i class="fa fa-trash"></i>
-                                        </div>
-                                        <div class="vertical-timeline-content">
-                                            <p>Tolak Permohonan</p>
-                                            <p>Chua Choon Lee</p>
-                                            <span class="vertical-date small text-muted">2024-06-05 17:25:00</span>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -418,6 +417,8 @@
 @include('app/projek/_modal/add-unjuran')
 @include('app/projek/_modal/add-peruntukan')
 @include('app/projek/_modal/muat-naik')
+@include('app/projek/_modal/edit-peruntukan')
+@include('app/projek/_modal/edit-status')
 @endsection
 @section('custom-js')
 <!-- Data picker -->
@@ -436,10 +437,22 @@ $(document).ready(function(){
         $('#addModal').modal('show');
     });
 
+
+    // PERUNTUKAN
+    $('.editPeruntukan2').click(function(e){
+        e.preventDefault();
+        $('#duiDiluluskanMod').html(financial({!! $projek->proj_kos_lulus !!}));
+        $('#ModalEditPeruntukan').modal('show');
+    });
+
+    $('.peru_amaun').on('change', function() {
+        let lulus = $('.amaunLulus').val();
+    });
+
     $(document).on('click', '#addBayaran1', function (e) {
         e.preventDefault();
         $('#bayaran_id_add').val('');
-        $('.addBayaran').html('Tambah');
+        $('.addBayaran').html('Simpan');
         $('#addModalBayaran').find('input').val('');
         $('#addModalBayaran').find('textarea').val('');
         $('#addModalBayaran').modal('show');
@@ -453,28 +466,28 @@ $(document).ready(function(){
 
     $('#data_1 .input-group.date').datepicker({
         format: "dd/mm/yyyy",
-        keyboardNavigation: false,
+        keyboardNavigation: true,
         forceParse: false,
         // calendarWeeks: true,
         autoclose: true
     });
     $('#data_2 .input-group.date').datepicker({
         format: "dd/mm/yyyy",
-        keyboardNavigation: false,
+        keyboardNavigation: true,
         forceParse: false,
         // calendarWeeks: true,
         autoclose: true
     });
     $('#data_3 .input-group.date').datepicker({
         format: "dd/mm/yyyy",
-        keyboardNavigation: false,
+        keyboardNavigation: true,
         forceParse: false,
         // calendarWeeks: true,
         autoclose: true
     });
     $('#data_4 .input-group.date').datepicker({
         format: "dd/mm/yyyy",
-        keyboardNavigation: false,
+        keyboardNavigation: true,
         forceParse: false,
         // calendarWeeks: true,
         autoclose: true
@@ -1134,6 +1147,8 @@ $(document).ready(function(){
 
     // LIST PERUNTUKAN
     function fetchPeruntukan(){
+        // var userRole = "{{ auth()->user()->role }}";
+        var userRole = @json(auth()->user()->getRoleNames());
         let projekID = $('#page_projek_id').val();
         $.ajaxSetup({
             headers: {
@@ -1151,14 +1166,18 @@ $(document).ready(function(){
                     let jumPeruntukan=parseFloat(0);
                     $.each(response.peruntukan, function (key, item) {
                         let tarikh = new Date(item.peru_date);
+                        let button ='';
+                        if (userRole.includes('admin')|| userRole.includes('super-admin')) {
+                            button = '<td><button type="button" value="' + item.peruntukan_id + '" class="btn btn-default btn-xs editPeruntukan" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button><button type="button" value="' + item.peruntukan_id + '" class="btn btn-default btn-xs deletePeruntukan" title="Padam"><i class="fa fa-close text-danger"></i></button></td>';
+                        }
                         $('#tbody-peruntukan').append('<tr>\
                             <td class="text-center">' + bil + '</td>\
                             <td>' + jenisPeruntuka(item.peru_jenis_peruntukan) + '</td>\
                             <td class="text-center">' + tarikh.toLocaleDateString() + '</td>\
-                            <td class="text-right">' + financial(item.peru_amaun) + '</td>\
-                            <td><button type="button" value="' + item.peruntukan_id + '" class="btn btn-default btn-xs editPeruntukan" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></button>\
-                            <button type="button" value="' + item.peruntukan_id + '" class="btn btn-default btn-xs deletePeruntukan" title="Padam"><i class="fa fa-close text-danger"></i></button></td>\
+                            <td class="text-right">' + financial(item.peru_amaun) + '</td>'+ button +'\
                         \</tr>');
+                        // button delete - hide dulu 24/3/2025
+                        //
                         jumPeruntukan += parseFloat(item.peru_amaun);
                         bil++;
                     });

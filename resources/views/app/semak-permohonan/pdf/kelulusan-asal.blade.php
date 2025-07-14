@@ -136,7 +136,7 @@
 </head>
 <body>
     <div class="header">
-        <p class="text-right text-bold sizeFont">Rujukan: KKM.400-4/2/31 Jilid 12 (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
+        <p class="text-right text-bold sizeFont">Rujukan: KKM.400-4/2/31 Jilid &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br>
         LAMPIRAN I</p>
     </div>
     <div class="table-container">

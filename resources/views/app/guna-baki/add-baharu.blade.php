@@ -7,6 +7,7 @@
     <link href="{{ asset("/template/css/plugins/sweetalert/sweetalert.css") }}" rel="stylesheet">
     <link href="{{ asset("/template/css/plugins/datapicker/datepicker3.css") }}" rel="stylesheet">
     <link href="{{ asset('/template/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
+    <link href="{{ asset("/template/css/plugins/summernote/summernote-bs4.css") }}" rel="stylesheet">
 @endsection
 
 @section('breadcrumb')
@@ -262,7 +263,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Kategori Projek</label>
-                            {{ Form::select('proj_kategori_id', dropdownProjekKategori('tukar'), null, ['class'=>'form-control', 'id'=>'proj_kategori_id']) }}
+                            {{ Form::select('proj_kategori_id', dropdownProjekKategori('tukar'), 1011, ['class'=>'form-control', 'id'=>'proj_kategori_id', 'readonly']) }}
                             @error('proj_kategori_id')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -304,7 +305,7 @@
                     <div class="col-md-3">
                         <div class="form-group has-success">
                             <label>Anggaran Kos (RM)</label>
-                            {{ Form::text('proj_kos_mohon', null, ['class'=>'form-control text-right', 'id'=>'proj_kos_mohon']) }}
+                            {{ Form::text('proj_kos_mohon', null, ['class'=>'form-control text-right', 'id'=>'proj_kos_mohon', 'readonly']) }}
                             @error('proj_kos_mohon')
                                 <span class="text-danger">{{ $message}}</span>
                             @enderror
@@ -372,7 +373,7 @@
                         <fieldset>
                             <p class="text-info font-bold mt-3">4. PENGESAHAN DAN PERAKUAN</p>
                             <div class="hr-line-dashed"></div>
-                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Dengan ini saya mengesahkan bahawa permohonan ini telah disahkan dan diperakukan oleh Pengarah Kesihatan Negeri (PKN).</label>
+                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required"> <label for="acceptTerms">Dengan ini saya mengesahkan bahawa permohonan ini telah disahkan dan diperakukan oleh Ketua Jabatan.</label>
                         </fieldset>
                     </div>
                 </div>
@@ -395,6 +396,8 @@
 @include('app/guna-baki/_modal/update_bakul')
 @endsection
 @section('custom-js')
+<!-- SUMMERNOTE -->
+<script src="{{ asset("/template/js/plugins/summernote/summernote-bs4.js") }}"></script>
 <!-- Date picker -->
 <script src="{{ asset("/template/js/plugins/datapicker/bootstrap-datepicker.js") }}"></script>
 <!-- Select2 -->
@@ -406,6 +409,10 @@
         let currSubS='';
         let currType='';
         let currPKN='';
+
+        $('#proj_skop').summernote();
+	    $('#proj_justifikasi').summernote();
+	    $('#proj_ulasan_teknikal').summernote();
 
         $('.footable').footable();
 
@@ -434,19 +441,19 @@
                 }
 
                 // CEK KATEGORI
-                // if(currType==''){
-                //     currType=bjArray[3];
-                // }
-                // else{
-                //     if(currType!=bjArray[3]){
-                //         swal("Kategori ", "Sila pilih dalam kategori yang sama sahaja", "error");
-                //         $(this).prop("checked", false);
-                //         amount -= Number(bjArray[1]);
-                //         currSubS='';
-                //         currType='';
-                //         currPKN='';
-                //     }
-                // }
+                if(currType==''){
+                    currType=bjArray[3];
+                }
+                else{
+                    if(currType!=bjArray[3]){
+                        swal("Kategori ", "Sila pilih dalam kategori yang sama sahaja", "error");
+                        $(this).prop("checked", false);
+                        amount -= Number(bjArray[1]);
+                        currSubS='';
+                        currType='';
+                        currPKN='';
+                    }
+                }
 
                 // CEK PKN
                 if(currPKN==''){

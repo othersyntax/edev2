@@ -87,7 +87,7 @@ class KecemasanController extends Controller
 
                     ->where('c.pro_siling', 'Luar Siling')
                     ->where('a.proj_tahun', '2025')
-                    ->where(function($q) use ( $negeri, $daerah, $fasiliti, $pelaksana, $kategori, $status, $projek){
+                    ->where(function($q) use ( $program, $negeri, $daerah, $fasiliti, $pelaksana, $kategori, $status, $projek){
                         if(!empty($program)){
                             $q->where('a.proj_pemilik', $program);
                         }
@@ -225,16 +225,17 @@ class KecemasanController extends Controller
                 ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
                 ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
                 ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fasiliti_id')
-                ->select('a.projek_id', 'c.pro_sub_name', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_pelaksana', 'a.proj_pelaksana_agensi', 'a.proj_kos_lulus', 'a.proj_negeri', 'a.proj_nama_admin', 'a.proj_skop_admin', 'a.proj_justifikasi_admin', 'a.proj_catatan_admin','a.proj_sort', 'a.proj_status', 'd.prog_name', 'e.fas_name')
+                ->select('a.projek_id', 'c.pro_sub_name', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_pelaksana', 'a.proj_pelaksana_agensi', 'a.proj_kos_lulus', 'a.proj_negeri', 'a.proj_nama_admin', 'a.proj_skop_admin', 'a.proj_justifikasi_admin', 'a.proj_catatan_admin','a.proj_sort', 'a.proj_created_date', 'a.proj_status', 'd.prog_name', 'e.fas_name')
                 ->where('a.proj_pemilik', decrypt($id))
                 ->whereIn('a.proj_kategori_id', [1003,1004,1007,1009,1010])
+		        ->where('a.proj_tahun', date('Y'))
                 ->where('a.proj_status', '5')
                 ->get();
         // dd($projek);
         $pemilik = \DB::table('tblprogram')->where('program_id',  decrypt($id))->select('prog_name')->first();
         $header = [
             'title' => 'KELULUSAN PERUNTUKAN BP00600 - NAIK TARAF, UBAH SUAI DAN PEMBAIKAN',
-            'title2' => 'DI LUAR SILING TAHUNAN BILANGAN 1/2025',
+            'title2' => 'DI LUAR SILING TAHUNAN BILANGAN   /2025',
             'pemilik' => $pemilik->prog_name,
         ];
 
@@ -256,5 +257,5 @@ class KecemasanController extends Controller
         return $pdf->stream('permohonan_kecemasan.pdf');
     }
 
-    
+
 }
