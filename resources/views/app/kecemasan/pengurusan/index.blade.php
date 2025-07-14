@@ -76,7 +76,12 @@
                                 {{ Form::select('program', dropdownProgram(), session('program'), ['class'=>'form-control', 'id'=>'program']) }}
                             </div>
                         </div>
-
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Tahun</label>
+                                {{ Form::select('tahun', [''=>'--Sila pilih--', '2024'=>'2024', '2025'=>'2025'], session('tahun'), ['class'=>'form-control', 'id'=>'tahun']) }}
+                            </div>
+                        </div>
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Negeri</label>
@@ -170,7 +175,7 @@
                                 <th width="25%">Projek</th>
                                 <th width="10%" class="text-right">Amaun (RM)</th>
                                 <th width="7%">Status</th>
-                                <th width="10%" class="text-center">Tindakan</th>
+                                <th width="10%" class="text-left">Tindakan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -211,7 +216,7 @@
                                         }
                                         elseif($proj->proj_status==5){
                                             $status = '<span class="badge badge-info">'.getStatusMohonProjek($proj->proj_status).'</span>';
-					                        $button = '<a href="/pengurusan/kecemasan/ubah/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil"></i></a><a href="/permohonan/kecemasan/pdf/'.encrypt($proj->proj_pemilik).'" class="btn btn-default btn-xs" title="Cetak"><i class="fa fa-print text-warning"></i></a>';
+					                        $button = '<a href="/pengurusan/kecemasan/ubah/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil"></i></a><a href="/permohonan/kecemasan/pdf/'.encrypt($proj->proj_pemilik).'" class="btn btn-default btn-xs" title="Cetak"><i class="fa fa-print text-warning"></i></a> <a href="/pengurusan/kecemasan/salur-waran/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Salur Waran"><i class="fa fa-credit-card text-info"></i></a>';
                                         }
 					                    elseif($proj->proj_status==7){
                                             $status = '<span class="badge badge-success">'.getStatusMohonProjek($proj->proj_status).'</span>';
@@ -223,7 +228,6 @@
 					                        $button = '<a href="/pengurusan/kecemasan/ubah/'.encrypt($proj->projek_id).'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="#" class="btn btn-default btn-xs" title="Cetak"><i class="fa fa-print text-muted"></i></a>';
 
                                         }
-
 
                                     @endphp
 
@@ -241,7 +245,9 @@
 
                                         </td>
                                         <td>{!! $status !!}</td>
-                                        <td class="text-center">{!! $button !!}</td>
+                                        <td class="text-left">
+                                            {!! $button !!}
+                                        </td>
                                     </tr>
                                 @endforeach
                             @else

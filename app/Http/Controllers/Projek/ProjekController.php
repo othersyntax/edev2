@@ -13,6 +13,7 @@ use App\Models\Projek\Projek;
 use App\Models\Projek\ProjekDetails;
 use App\Models\Projek\ProjekUtilities;
 use App\Models\Projek\Peruntukan;
+use App\Models\Projek\Selenggara;
 use App\Models\BakulJimat;
 use App\Models\Waran;
 use Carbon\Carbon;
@@ -25,9 +26,9 @@ class ProjekController extends Controller
 {
     public function index(Request $request){
         $defaulYear=Carbon::now()->year;
-	$program = 0;
-	$defaultProgram = 0;
-	$role = Auth::user()->hasRole(['penyedia', 'user','peraku', 'pengesah', 'pemilik']);
+        $program = 0;
+        $defaultProgram = 0;
+        $role = Auth::user()->hasRole(['penyedia', 'user','peraku', 'pengesah', 'pemilik']);
         $queryType = 1; // default click pd menu
         if( $request->isMethod('post')) {
             $program =  $request->program;
@@ -98,7 +99,7 @@ class ProjekController extends Controller
                 ->leftJoin('tblprojek_tukar as f','a.projek_id','f.projt_projek_id')
                 ->select('a.*', 'c.pro_kat_short_nama', 'c.pro_kat_nama', 'd.prog_name', 'b.fas_name', 'e.proj_prog_nama', 'f.projt_projek_id');
                 if($role){
-		    $program = auth()->user()->program_id;
+		        $program = auth()->user()->program_id;
                     $projekData = $query->where(function($q) use ($program) {
                         $q->where('a.proj_pemilik', auth()->user()->program_id)
                             ->orWhere('a.proj_pelaksana_agensi', $program);
@@ -120,10 +121,10 @@ class ProjekController extends Controller
                     ->leftJoin('tblprojek_tukar as f','a.projek_id','f.projt_projek_id')
                     ->select('a.*', 'c.pro_kat_short_nama', 'c.pro_kat_nama', 'd.prog_name', 'b.fas_name', 'e.proj_prog_nama', 'f.projt_projek_id')
                     ->where(function($q) use ($role, $pemilik, $program){
-			    if($role){
+			        if($role){
                 		$q->where('a.proj_pemilik', $pemilik)->orWhere('a.proj_pelaksana_agensi', $pemilik);
-				$program = auth()->user()->program_id;
-            		    }
+				        $program = auth()->user()->program_id;
+            		}
                     })
                     ->where(function($q) use ($program, $tahun, $negeri, $daerah, $fasiliti, $subsetia, $kategori, $projekProgram, $pelaksana, $status, $projek){
                         if(!empty($program)){
@@ -168,7 +169,7 @@ class ProjekController extends Controller
         }
 
         //$stats = Projek::where('proj_pemilik', auth()->user()->program_id)->where('proj_tahun', Carbon::now()->year);
-        $lulus =   $query->whereIn('proj_status', [1,2,5])->sum('proj_kos_lulus');
+        $sebenar =   $query->whereIn('proj_status', [1,2,5])->sum('proj_kos_sebenar');
         $jumlah =  $query->whereIn('proj_status', [1,2,5])->sum('proj_kos_lulus');
 
         $tangungan = $query->where('proj_status', [1,5])->sum('proj_tangungan');
@@ -188,7 +189,7 @@ class ProjekController extends Controller
         $data['projek'] = $projekData;
         $data['tangungan'] = $tangungan;
         $data['jumlah'] = $jumlah;
-        $data['lulus'] = $lulus;
+        $data['sebenar'] = $sebenar;
 
         // dd($data);
         return view('app.projek.index', $data);
@@ -508,5 +509,23 @@ class ProjekController extends Controller
 
         // Return PDF for download
         return $pdf->stream('permohonan_baharu.pdf');
+    }
+
+    public function getSelenggara(string $id){
+        $selenggara = Selenggara::where('projt_projek_id', $id)->first();
+        if($selenggara)
+        {
+            return response()->json([
+                'status'=>200,
+                'selenggara'=> $selenggara,
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'Rekod tidak dijumpai.'
+            ]);
+        }
     }
 }

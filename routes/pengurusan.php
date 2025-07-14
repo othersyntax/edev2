@@ -9,5 +9,6 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     Route::get('/pengurusan/kecemasan/ubah/{id}', [App\Http\Controllers\Projek\Pengurusan\KecemasanController::class, 'edit']);
     Route::get('/permohonan/kecemasan/pdf/{id}', [App\Http\Controllers\Projek\Pengurusan\KecemasanController::class, 'cetakPermohonan']);
     Route::post('/pengurusan/kecemasan/update', [App\Http\Controllers\Projek\Pengurusan\KecemasanController::class, 'update']);
-    
+    Route::get('/pengurusan/kecemasan/salur-waran/{id}', [App\Http\Controllers\Projek\Pengurusan\KecemasanController::class, 'salur']);
+
 });

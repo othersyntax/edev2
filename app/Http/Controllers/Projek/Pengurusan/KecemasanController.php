@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Projek\Pengurusan;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Projek\ProjekBaru;
+use App\Models\Projek\Projek;
+use App\Models\Projek\ProjekUtilities;
+use App\Models\Projek\Peruntukan;
 use App\Models\Siling;
 use App\Mail\MaklumanProjekKecemasan;
 use Illuminate\Support\Facades\Mail;
@@ -21,8 +24,15 @@ class KecemasanController extends Controller
     // }
 
     public function index(Request $request){
+        $defaulYear=Carbon::now()->year;
         $queryType = 1; // default click pd menu
         if( $request->isMethod('post')) {
+            if($defaulYear<>$request->tahun){
+                $tahun = $request->tahun;
+            }
+            else{
+                $tahun = $defaulYear;
+            }
             $program =  $request->program;
             $negeri =  $request->negeri;
             $daerah =  $request->daerah;
@@ -36,6 +46,7 @@ class KecemasanController extends Controller
 
             session([
                 'program' => $program,
+                'tahun' => $tahun,
                 'negeri' => $negeri,
                 'daerah' => $daerah,
                 'fasiliti' => $fasiliti,
@@ -52,6 +63,12 @@ class KecemasanController extends Controller
         else{
             if($request->has('page')) {
                 $program =  session('program');
+                if(!empty(session('tahun'))){
+                    $tahun = session('tahun');
+                }
+                else{
+                    $tahun = $defaulYear;
+                }
                 $negeri =  session('negeri');
                 $daerah =  session('daerah');
                 $fasiliti =  session('fasiliti');
@@ -64,7 +81,7 @@ class KecemasanController extends Controller
                 $queryType = 2;
             }
             else{
-                session()->forget(['program', 'negeri','daerah', 'fasiliti', 'subsetia', 'kategori', 'projekProgram', 'pelaksana', 'status', 'projek']);
+                session()->forget(['program', 'tahun', 'negeri','daerah', 'fasiliti', 'subsetia', 'kategori', 'projekProgram', 'pelaksana', 'status', 'projek']);
             }
         }
         if ($queryType == 1) {
@@ -75,6 +92,7 @@ class KecemasanController extends Controller
                 ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fasiliti_id')
                 ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_kos_lulus', 'a.proj_negeri', 'a.proj_nama', 'a.proj_nama_admin', 'a.proj_sort', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
                 ->where('c.pro_siling', 'Luar Siling')
+                ->where('proj_tahun', $defaulYear)
                 ->orderBy('a.proj_sort', 'ASC')->paginate(15);
         }
         else{
@@ -87,9 +105,12 @@ class KecemasanController extends Controller
 
                     ->where('c.pro_siling', 'Luar Siling')
                     ->where('a.proj_tahun', '2025')
-                    ->where(function($q) use ( $program, $negeri, $daerah, $fasiliti, $pelaksana, $kategori, $status, $projek){
+                    ->where(function($q) use ( $program, $tahun, $negeri, $daerah, $fasiliti, $pelaksana, $kategori, $status, $projek){
                         if(!empty($program)){
                             $q->where('a.proj_pemilik', $program);
+                        }
+                        if(!empty($tahun)){
+                            $q->where('a.proj_tahun',$tahun);
                         }
                         if(!empty($negeri)){
                             $q->where('a.proj_negeri', $negeri);
@@ -255,6 +276,108 @@ class KecemasanController extends Controller
 
         // Return PDF for download
         return $pdf->stream('permohonan_kecemasan.pdf');
+    }
+
+    public function salur(string $id){
+        $projekID = decrypt($id);
+        $updProjek = ProjekBaru::where('projek_id',$projekID)->update([
+            'proj_status'  => 7
+        ]);
+
+        if($updProjek){
+            $this->pindahProjek($projekID);
+
+            return redirect('/pengurusan/kecemasan/main')
+            ->with([
+                'title'=>'Berjaya',
+                'msg'=>'Projek Telah Dipindahkan ke Modul Pemantauan',
+                'type'=>'success'
+            ]);
+        }
+        else{
+           return redirect('/pengurusan/kecemasan/main')
+            ->with([
+                'title'=>'Gagal',
+                'msg'=>'Terdapat kesilapan pada maklumat projek',
+                'type'=>'error'
+            ]);
+        }
+
+
+    }
+
+    public function pindahProjek(string $id){
+        // GET PROJEK SEDIA ADA
+        $projek = ProjekBaru::find($id);
+
+        $newProjek = new Projek();
+        // SALIN DARI SEDIA ADA KE BAHARU
+        $newProjek->proj_negeri = $projek->proj_negeri;
+        $newProjek->proj_daerah = $projek->proj_daerah;
+        $newProjek->proj_fasiliti_id = $projek->proj_fasiliti_id;
+        $newProjek->proj_parlimen = $projek->proj_parlimen;
+        $newProjek->proj_dun = $projek->proj_dun;
+        $newProjek->proj_kod_agensi = $projek->proj_kod_agensi;
+        $newProjek->proj_kod_projek = $projek->proj_kod_projek;
+        $newProjek->proj_kod_setia = $projek->proj_kod_setia;
+        $newProjek->proj_kod_subsetia = $projek->proj_kod_subsetia;
+        $newProjek->proj_pemilik = $projek->proj_pemilik;
+        $newProjek->proj_pelaksana = $projek->proj_pelaksana;
+        $newProjek->proj_pelaksana_agensi = $projek->proj_pelaksana_agensi;
+        $newProjek->proj_struktur = $projek->proj_struktur;
+        $newProjek->proj_tahun = $projek->proj_tahun;
+        $newProjek->proj_bulan = $projek->proj_bulan;
+        $newProjek->proj_kos_lulus = $projek->proj_kos_lulus;
+        $projek->proj_kos_sebenar = $projek->proj_kos_lulus;
+        $newProjek->proj_laksana_mula = $projek->proj_laksana_mula;
+        $newProjek->proj_laksana_tamat = $projek->proj_laksana_tamat;
+        $newProjek->proj_kategori_id = $projek->proj_kategori_id;
+        $newProjek->proj_nama = $projek->proj_nama_admin;
+        $newProjek->proj_skop = $projek->proj_skop_admin;
+        $newProjek->proj_justifikasi = $projek->proj_justifikasi_admin;
+        $newProjek->proj_ulasan_teknikal = $projek->proj_ulasan_teknikal;
+        $newProjek->proj_catatan = $projek->proj_catatan;
+        $newProjek->proj_kuasa_pkn = $projek->proj_kuasa_pkn;
+        $newProjek->proj_created_by = $projek->proj_created_by;
+        $newProjek->proj_updated_by = $projek->proj_updated_by;
+        // dd($projek);
+        $newProjek->save();
+
+        if($newProjek){
+            $projUti = new ProjekUtilities();
+            $projUti->projuti_projek_id = $newProjek->projek_id;
+            $projUti->projuti_perihal = 'Kelulusan Permnohonan Luar Siling';
+            $projUti->projuti_ref_no = 'Luar Siling/'.$newProjek->projek_id;
+            $projUti->projuti_date = Carbon::now()->format('Y-m-d');
+            $projUti->projuti_created_by = auth()->user()->id;
+            $projUti->projuti_updated_by = auth()->user()->id;
+            $projUti->save();
+
+            $projUti2 = new ProjekUtilities();
+            $projUti2->projuti_projek_id = $newProjek->projek_id;
+            $projUti2->projuti_perihal = 'Waran Salur';
+            $projUti2->projuti_ref_no = 'Luar Siling/'.$newProjek->projek_id;
+            $projUti2->projuti_date = Carbon::now()->format('Y-m-d');
+            $projUti2->projuti_created_by = auth()->user()->id;
+            $projUti2->projuti_updated_by = auth()->user()->id;
+            $projUti2->save();
+
+
+            $prtkn = new Peruntukan();
+            $prtkn->peru_projek_id = $newProjek->projek_id;
+            $prtkn->peru_date = date('Y-m-d');
+            $prtkn->peru_jenis_peruntukan = 1;
+            $prtkn->peru_amaun = $projek->proj_kos_lulus;
+            $prtkn->peru_created_by = auth()->user()->id;
+            $prtkn->peru_updated_by = auth()->user()->id;
+            $prtkn->save();
+
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
 

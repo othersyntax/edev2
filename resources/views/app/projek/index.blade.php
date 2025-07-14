@@ -36,7 +36,16 @@
             </div>
         </div>
     </div>
-
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-title bg-warning">
+                <h5>KOS SEBENAR</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins  text-right">@duit($sebenar)</h1>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-3">
         <div class="ibox">
             <div class="ibox-title bg-info">
@@ -44,16 +53,6 @@
             </div>
             <div class="ibox-content">
                 <h1 class="no-margins  text-right">@duit($jimat)</h1>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3">
-        <div class="ibox ">
-            <div class="ibox-title bg-warning">
-                <h5>JUMLAH DILULUSKAN</h5>
-            </div>
-            <div class="ibox-content">
-                <h1 class="no-margins  text-right">@duit($lulus)</h1>
             </div>
         </div>
     </div>
@@ -252,7 +251,7 @@
                                     {!! $proj->proj_nama !!}
                                     @if ($proj->projt_projek_id)
                                         <br>
-                                        <small class="text-success">Projek Telah Diselenggara</small>
+                                        <small class="text-success"> <a href="#" id="btnPapar" data-id="{{$proj->projek_id}}">Projek Telah Diselenggara</a></small>
                                     @endif
                                 </td>
                                 <td class="text-right">
@@ -316,7 +315,7 @@
     </div>
 
 </div>
-
+@include('app/projek/_modal/papar_selenggara')
 @endsection
 @section('custom-js')
 <script src="{{ asset('/template/js/plugins/dataTables/datatables.min.js') }}"></script>
@@ -324,6 +323,43 @@
 <!-- FooTable -->
 {{-- <script src="{{ asset('/template/js/plugins/footable/footable.all.min.js') }}"></script> --}}
 <script>
+     $('#btnPapar').click(function(e){
+        e.preventDefault();
+        var proj_id = $(this).data('id');
+        $('#ModalPaparSelenggara').modal('show');
+        $.ajax({
+            type: "GET",
+            url: "/projek/papar/selenggara/" + proj_id,
+            success: function (response) {
+                if (response.status == 404){
+                    $('#myModal').modal('hide');
+                    swal({
+                        title: "Maklumat Selenggara",
+                        text: response.message,
+                        type: "danger"
+                    });
+                } else {
+                    if(response.selenggara.projt_nama != '' || response.selenggara.projt_nama != null){
+                        $('#projNama').show();
+                        $('#dataNama').html(response.selenggara.projt_nama);
+                    }
+                    if(response.selenggara.projt_skop != '' || response.selenggara.projt_skop != null){
+                        $('#projSkop').show();
+                        $('#dataSkop').html(response.selenggara.projt_skop);
+                    }
+                    if(response.selenggara.projt_justifikasi != '' || response.selenggara.projt_justifikasi != null){
+                        $('#projJustifkasi').show();
+                        $('#dataJustifikasi').html(response.selenggara.projt_nama);
+                    }
+                    // $('#no_rujukan').val(response.utiliti.projuti_ref_no);
+                    // $('#perihal').val(response.utiliti.projuti_perihal);
+                    // $('#tarikh').val(tarikh1.toLocaleDateString());
+                    // $('#catatan').val(response.utiliti.projuti_catatan);
+                }
+            }
+        });
+    });
+
     $(document).ready(function(){
         $('.dataTables-projek').DataTable({
             pageLength: 15,

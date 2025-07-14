@@ -8,6 +8,7 @@ Route::group(['middleware' => ['auth','role:super-admin|admin|pemilik|penyedia|p
     // PERMOHONAN
     Route::any('/projek/senarai', [App\Http\Controllers\Projek\ProjekController::class, 'index'])->name('projek.senarai');
     Route::get('/projek/tambah', [App\Http\Controllers\Projek\ProjekController::class, 'create'])->name('projek.tambah');
+    Route::get('/projek/papar/selenggara/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'getSelenggara']);
     Route::post('/projek/simpan', [App\Http\Controllers\Projek\ProjekController::class, 'store'])->name('projek.simpan');
     Route::get('/projek/papar/{id}', [App\Http\Controllers\Projek\ProjekController::class, 'view'])->name('projek.papar');
     Route::post('/projek/excel', [App\Http\Controllers\Projek\ProjekController::class, 'exportExcel'])->name('projek.export');

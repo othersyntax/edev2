@@ -155,7 +155,7 @@
                         <thead>
                             <tr>
                                 <th width="5%" class="text-center">Selesai</th>
-                                <th width="10%">Kategori</th>
+                                <th width="10%">Kategori11</th>
                                 <th width="16%">Pemilik</th>
                                 <th width="16%">Fasiliti</th>
                                 <th width="30%">Projek</th>
@@ -287,14 +287,14 @@ $(document).ready(function(){
                             status = '<span class="badge badge-primary">'+ statusProjek(item.proj_status) +'</span>';
                             button = '<a href="/permohonan/kecemasan/papar/'+item.projek_id+'" class="btn btn-default btn-xs" title="Papar"><i class="fa fa-search text-warning"></i></a><a href="/permohonan/kecemasan/ubah/'+item.projek_id+'" class="btn btn-default btn-xs" title="Kemaskini"><i class="fa fa-pencil text-navy"></i></a><a href="/projek/padam/'+item.projek_id+'/delete" class="btn btn-default btn-xs" title="Padam"><i class="fa fa-close text-danger"></i></a>';
                         }
-			else if(item.proj_status == 5){
-			    status = '<span class="badge badge-info">'+ statusProjek(item.proj_status) +'</span>';
+                        else if(item.proj_status == 5){
+                            status = '<span class="badge badge-info">'+ statusProjek(item.proj_status) +'</span>';
                             button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
-			}
-			else if(item.proj_status == 7){
-			    status = '<span class="badge badge-success">'+ statusProjek(item.proj_status) +'</span>';
-                            button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';	
-			}
+                        }
+                        else if(item.proj_status == 7){
+                            status = '<span class="badge badge-success">'+ statusProjek(item.proj_status) +'</span>';
+                            button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';
+                        }
                         else {
                             status = '<span class="badge badge-warning">'+ statusProjek(item.proj_status) +'</span>';
                             button = '<i class="btn btn-default btn-xs fa fa-search text-mute"></i> <i class="btn btn-default btn-xs fa fa-pencil text-mute"></i> <i class="btn btn-default btn-xs fa fa-close text-mute"></i>';

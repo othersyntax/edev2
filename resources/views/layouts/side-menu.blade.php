@@ -25,7 +25,7 @@
 
             <li class="{{ (request()->segment(1) == 'permohonan') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-vcard-o"></i> <span class="nav-label">Permohonan</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse">                    
+                <ul class="nav nav-second-level collapse">
                     <li class="{{ (request()->segment(2) == 'baru') ? 'active' : '' }}"><a href="/permohonan/baru/main">Siling</a></li>
                     <li class="{{ (request()->segment(2) == 'kecemasan') ? 'active' : '' }}"><a href="/permohonan/kecemasan/main">Luar Siling</a></li>
                     @if(auth()->user()->hasAnyRole(['super-admin', 'admin', 'pemilik']))
@@ -44,7 +44,7 @@
                     {{-- @if(auth()->user()->hasAnyRole(['super-admin', 'admin', 'pemilik']))
                     <li class="{{ (request()->segment(2) == 'semak') ? 'active' : '' }}"><a href="/permohonan/semak/senarai">Pengurusan</a></li>
                     @endif --}}
-                    
+
                 </ul>
             </li>
             <li class="{{ (request()->segment(1) == 'projek') ? 'active' : '' }}">
