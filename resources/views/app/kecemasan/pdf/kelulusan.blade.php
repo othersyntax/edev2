@@ -182,7 +182,7 @@
                         <td style="vertical-align: top;" class="justify-content">
                         {!! $proj->proj_nama_admin !!}<br>
                         @if($proj->proj_catatan_admin <> '')
-                            <small><i>(Catatan: {{ $proj->proj_catatan_admin }})</i></small>
+                            <small><i>(Nota: {{ $proj->proj_catatan_admin }})</i></small>
                         @endif
                         </td>
                         <td style="vertical-align: top;">{!! $proj->proj_skop_admin !!}</td>
@@ -200,9 +200,9 @@
                     </tr>
                     @php
                         $jumlah = $jumlah + $proj->proj_kos_lulus;
-                        if(isset($proj->proj_catatan_admin)){
-                            $extCatatan .= $proj->proj_catatan_admin;
-                        }
+                        // if(isset($proj->proj_catatan_admin)){
+                        //     $extCatatan .= $proj->proj_catatan_admin;
+                        // }
                     @endphp
                 @endforeach
             </tbody>
@@ -220,10 +220,10 @@
     <p class="sizeFont2" style="text-align: justify;">
         Saya <strong>BERSETUJU / TIDAK BERSETUJU</strong> dengan cadangan agihan <strong>luar siling</strong> peruntukan pembangunan BP00600 - Naik Taraf, Ubah Suai dan Pembaikan tahun 2025 di bawah kod projek P42 00600 117 1001 bagi <strong>{{ $header['pemilik'] }}</strong> dengan kos keseluruhan sebanyak <strong>RM</strong><strong>@duit($jumlah)</strong>.
     </p>
-    @if ($extCatatan<>"")
-        <p class="sizeFont2 baris-baru">(NOTA : {{ $extCatatan }})</p>
+    {{-- @if ($extCatatan<>"")
+        <p class="sizeFont2 baris-baru">(Nota: {{ $extCatatan }})</p>
         <br>
-    @endif
+    @endif --}}
     <p class="sizeFont2 baris-baru">ULASAN :</p>
     <hr class="thin-hr baris-baru">
     <hr class="thin-hr baris-baru">

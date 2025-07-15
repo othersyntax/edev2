@@ -42,12 +42,12 @@
                                     <a href="#" class="btn btn-primary btn-xs float-right editPeruntukan2" title="Kemas kini Peruntukan"><i class="fa fa-calculator"></i></a>
                                 </div>
                                 <div class="col-4">
-                                    <small class="text-muted">Diluluskan</small>
+                                    <small class="text-muted">Kos Sebenar</small>
                                     <h2 class="product-main-price">RM @duit($projek->proj_kos_lulus)</h2>
                                 </div>
                                 <div class="col-4">
-                                    <small class="text-muted">Peruntukan Semasa</small>
-                                    <h2 class="product-main-price">RM @duit($peruntukan_semasa)</h2>
+                                    <small class="text-muted">Tanggungan</small>
+                                    <h2 class="product-main-price">RM @duit($projek->proj_tangungan)</h2>
                                 </div>
 
                                 <div class="col-4">
