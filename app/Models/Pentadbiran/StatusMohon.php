@@ -10,5 +10,5 @@ class StatusMohon extends Model
     use HasFactory;
     public $table = "tblprojek_mohon_status";
     public $primaryKey = "status_id";
-    public $timestamps = false;
+    public $timestamps = true;
 }

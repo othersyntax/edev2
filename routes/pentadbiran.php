@@ -7,6 +7,9 @@ use App\Http\Controllers\Pentadbiran\FasilitiController;
 use App\Http\Controllers\Pentadbiran\KategoriFasilitiController;
 use App\Http\Controllers\Pentadbiran\KategoriProjekController;
 use App\Http\Controllers\Pentadbiran\ProgramController;
+use App\Http\Controllers\Pentadbiran\StatusMohonController;
+use App\Http\Controllers\Pentadbiran\StatusProjekController;
+use App\Http\Controllers\Pentadbiran\JenisKerjaController;
 use App\Http\Controllers\AjaxController;
 
 // GENERAL AJAX
@@ -72,4 +75,23 @@ Route::group(['middleware' => ['auth','role:super-admin|admin']], function() {
     Route::get('/pentadbiran/program/ubah/{id}', [ProgramController::class, 'edit']);
     Route::post('/pentadbiran/program/kemaskini', [ProgramController::class, 'update']);
     Route::delete('/pentadbiran/program/padam/{id}', [ProgramController::class, 'destroy']);
+
+    //STATUS PERMOHONAN PROJEK
+    Route::get('/projek-status', [StatusMohonController::class, 'index'])->name('projek-status.index');
+    Route::post('/projek-status/store', [StatusMohonController::class, 'store'])->name('projek-status.store');
+    Route::post('/projek-status/update/{id}', [StatusMohonController::class, 'update'])->name('projek-status.update');
+    Route::delete('/projek-status/delete/{id}', [StatusMohonController::class, 'destroy'])->name('projek-status.delete');
+
+    //STATUS PEMANTAUAN PROJEK
+    Route::get('/status', [StatusProjekController::class, 'index'])->name('status.index');
+    Route::post('/status', [StatusProjekController::class, 'store'])->name('status.store');
+    Route::put('/status/{id}', [StatusProjekController::class, 'update'])->name('status.update');
+    Route::delete('/status/{id}', [StatusProjekController::class, 'destroy'])->name('status.destroy');
+
+    //JENIS KERJA
+    Route::get('jeniskerja', [JenisKerjaController::class, 'index'])->name('jeniskerja.index');
+    Route::post('jeniskerja', [JenisKerjaController::class, 'store'])->name('jeniskerja.store');
+    Route::put('jeniskerja/{id}', [JenisKerjaController::class, 'update'])->name('jeniskerja.update');
+    Route::delete('jeniskerja/{id}', [JenisKerjaController::class, 'destroy'])->name('jeniskerja.destroy');
+
 });

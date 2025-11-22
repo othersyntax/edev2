@@ -84,6 +84,9 @@
                     <li class="{{ (request()->segment(2) == 'fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/fasiliti">Fasiliti</a></li>
                     <li class="{{ (request()->segment(2) == 'kategori-fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/kategori-fasiliti">Kategori Fasiliti</a></li>
                     <li class="{{ (request()->segment(2) == 'kategori-projek') ? 'active' : '' }}"><a href="/pentadbiran/kategori-projek">Kategori Projek</a></li>
+                    <li class="{{ (request()->segment(2) == 'projek-status') ? 'active' : '' }}"><a href="/projek-status">Status Permohonan</a></li>
+                    <li class="{{ (request()->segment(2) == 'status') ? 'active' : '' }}"><a href="/status">Status Pemantauan Projek</a></li>
+                    <li class="{{ (request()->segment(2) == 'jenisKerja') ? 'active' : '' }}"><a href="/jeniskerja">Jenis Kerja</a></li>
                     <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/siling">Penetapan Siling</a></li>
                     {{-- <li class="{{ (request()->segment(2) == 'pengguna') ? 'active' : '' }}"><a href="/pentadbiran/pengguna">Pengguna</a></li>
                     <li class="{{ (request()->segment(2) == 'peranan') ? 'active' : '' }}"><a href="/pentadbiran/peranan">Peranan</a></li>

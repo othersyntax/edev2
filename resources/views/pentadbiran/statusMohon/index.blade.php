@@ -1,12 +1,12 @@
 @extends('layouts.main')
 @section('title')
-    Status Pemantauan Projek
+    Status Permohonan Projek
 @endsection
 
 @section('content')
 <div class="container">
 
-    <h4 class="mb-4">Status Pemantauan Projek</h4>
+    <h4 class="mb-4">Status Permohonan Projek</h4>
 
     <!-- Add Button -->
     <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addModal">
@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($statuses as $row)
+            @foreach ($data as $row)
             <tr id="row{{ $row->status_id }}">
                 <td>{{ $row->status_id }}</td>
                 <td>{{ $row->status }}</td>
@@ -100,7 +100,7 @@
 $("#addForm").submit(function (e) {
     e.preventDefault();
 
-    $.post("{{ route('status.store') }}", $(this).serialize(), function (res) {
+    $.post("{{ route('projek-status.store') }}", $(this).serialize(), function (res) {
         location.reload();
     });
 });
@@ -143,3 +143,5 @@ $(".deleteBtn").click(function () {
 });
 </script>
 @endsection
+
+

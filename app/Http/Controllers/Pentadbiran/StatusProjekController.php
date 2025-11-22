@@ -8,62 +8,44 @@ use Illuminate\Http\Request;
 
 class StatusProjekController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $statusprojek = StatusProjek::all();
-        dd($statusprojek);
-
-        return view("pentadbiran.statusProjek.index", compact('statusprojek'));
+        $statuses = StatusProjek::all();
+        return view('pentadbiran.statusProjek.index', compact('statuses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'status' => 'required|string|max:255'
+        ]);
+
+        StatusProjekController::create([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->back()->with('success', 'Status added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'status' => 'required|string|max:255'
+        ]);
+
+        $status = StatusProjekController::findOrFail($id);
+        $status->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->back()->with('success', 'Status updated successfully.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $status = StatusProjekController::findOrFail($id);
+        $status->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->back()->with('success', 'Status deleted successfully.');
     }
 }
