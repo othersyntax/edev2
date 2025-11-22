@@ -83,5 +83,6 @@ require __DIR__.'/pengurusan.php';
 require __DIR__.'/projek.php';
 require __DIR__.'/wan.php';
 require __DIR__.'/anas.php';
+require __DIR__.'/permohonan.php';
 
 require __DIR__.'/auth.php';

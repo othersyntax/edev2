@@ -26,123 +26,126 @@ class ProjekBaruController extends Controller
 {
     use ProjekCountTrait;
 
-    public function showList(){
-        return view('app.projek-baru.index');
-    }
+    // public function showList(){
+    //     return view('app.projek-baru.index');
+    // }
 
-    public function index(Request $request){
-        $queryType = 1; // default click pd menu
-        if( $request->isMethod('post')) {
-            $negeri =  $request->negeri;
-            $daerah =  $request->daerah;
-            $fasiliti =  $request->fasiliti;
-            $subsetia  =  $request->subsetia;
-            $kategori  =  $request->kategori;
-            $projekProgram  =  $request->projekProgram;
-            $pelaksana  =  $request->pelaksana;
-            $status  =  $request->status;
-            $projek  =  $request->projek;
+    public function showList(Request $request){
+        // $queryType = 1; // default click pd menu
+        // if( $request->isMethod('post')) {
+        //     $negeri =  $request->negeri;
+        //     $daerah =  $request->daerah;
+        //     $fasiliti =  $request->fasiliti;
+        //     $subsetia  =  $request->subsetia;
+        //     $kategori  =  $request->kategori;
+        //     $projekProgram  =  $request->projekProgram;
+        //     $pelaksana  =  $request->pelaksana;
+        //     $status  =  $request->status;
+        //     $projek  =  $request->projek;
 
-            session([
-                'negeri' => $negeri,
-                'daerah' => $daerah,
-                'fasiliti' => $fasiliti,
-                'subsetia' => $subsetia,
-                'kategori' => $kategori,
-                'projekProgram' => $projekProgram,
-                'pelaksana' => $pelaksana,
-                'status' => $status,
-                'projek' => $projek,
-            ]);
+        //     session([
+        //         'negeri' => $negeri,
+        //         'daerah' => $daerah,
+        //         'fasiliti' => $fasiliti,
+        //         'subsetia' => $subsetia,
+        //         'kategori' => $kategori,
+        //         'projekProgram' => $projekProgram,
+        //         'pelaksana' => $pelaksana,
+        //         'status' => $status,
+        //         'projek' => $projek,
+        //     ]);
 
-            $queryType = 2;
-        }
-        else{
-            session()->forget(['negeri', 'daerah', 'fasiliti', 'subsetia', 'kategori', 'projekProgram', 'pelaksana', 'status', 'projek']);
-        }
-        if ($queryType == 1) {
-            $query = \DB::table('tblprojek_baru as a')
-                ->leftJoin('tblfasiliti as b','a.proj_fasiliti_id','b.fas_ptj_code')
-                ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
-                ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
-                ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fasiliti_id')
-                ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_sort', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
-                ->where('c.pro_siling', 'Siling')
-                ->where('proj_pemilik', auth()->user()->program_id);
+        //     $queryType = 2;
+        // }
+        // else{
+        //     session()->forget(['negeri', 'daerah', 'fasiliti', 'subsetia', 'kategori', 'projekProgram', 'pelaksana', 'status', 'projek']);
+        // }
+        // if ($queryType == 1) {
+        //     $query = \DB::table('tblprojek_baru as a')
+        //         ->leftJoin('tblfasiliti as b','a.proj_fasiliti_id','b.fas_ptj_code')
+        //         ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
+        //         ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
+        //         ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fasiliti_id')
+        //         ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_sort', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
+        //         ->where('c.pro_siling', 'Siling')
+        //         ->where('proj_pemilik', auth()->user()->program_id);
 
-            $projek = $query->orderBy('proj_sort', 'ASC')->get();
+        //     $projek = $query->orderBy('proj_sort', 'ASC')->get();
 
-        }
-        else{
-            $query = \DB::table('tblprojek_baru as a')
-                    ->leftJoin('tblfasiliti as b','a.proj_fasiliti_id','b.fas_ptj_code')
-                    ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
-                    ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
-                    ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fasiliti_id')
-                    ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_sort', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
-                    ->where('c.pro_siling', 'Siling')
-                    ->where('proj_pemilik', auth()->user()->program_id)
-                    ->where(function($q) use ($negeri, $daerah, $fasiliti, $pelaksana, $kategori, $status, $projek){
-                        if(!empty($negeri)){
-                            $q->where('a.proj_negeri', $negeri);
-                        }
-                        if(!empty($daerah)){
-                            $q->where('a.proj_daerah', $daerah);
-                        }
-                        if(!empty($fasiliti)){
-                            $q->where('a.proj_fasiliti_id',$fasiliti);
-                        }
-                        if(!empty($subsetia)){
-                            $q->where('a.proj_kod_subsetia',$subsetia);
-                        }
-                        if(!empty($kategori)){
-                            $q->where('a.proj_kategori_id',$kategori);
-                        }
-                        if(!empty($projekProgram)){
-                            $q->where('a.proj_program',$projekProgram);
-                        }
-                        if(!empty($pelaksana)){
-                            $q->where('a.proj_pelaksana',$pelaksana);
-                        }
-                        if(!empty($status)){
-                            $q->where('a.proj_status',$status);
-                        }
-                        if(!empty($projek)){
-                            $q->where('a.proj_nama','like', "%{$projek}%");
-                        }
-                    });
-            $projek = $query->orderBy('proj_sort', 'ASC')->get();
-            // dd($projek);
-        }
-        $siling = Siling::where('sil_fasiliti_id', auth()->user()->program_id)
-                    ->where('sil_status', 1)
-                    ->select('sil_amount', 'sil_tahun', 'sil_sdate', 'sil_edate')->get();
+        // }
+        // else{
+        //     $query = \DB::table('tblprojek_baru as a')
+        //             ->leftJoin('tblfasiliti as b','a.proj_fasiliti_id','b.fas_ptj_code')
+        //             ->leftJoin('tblprojek_kategori as c','a.proj_kategori_id','c.proj_kategori_id')
+        //             ->leftJoin('tblprogram as d','a.proj_pemilik','d.program_id')
+        //             ->leftJoin('tblfasiliti as e','a.proj_fasiliti_id','e.fasiliti_id')
+        //             ->select('a.projek_id', 'c.pro_kat_short_nama', 'a.proj_pemilik', 'c.pro_kat_nama', 'a.proj_kod_agensi', 'a.proj_kod_projek', 'a.proj_kod_setia', 'a.proj_kod_subsetia', 'a.proj_kos_mohon', 'a.proj_negeri', 'a.proj_nama', 'a.proj_sort', 'a.proj_status', 'd.prog_name', 'e.fas_name', 'a.proj_status_complete')
+        //             ->where('c.pro_siling', 'Siling')
+        //             ->where('proj_pemilik', auth()->user()->program_id)
+        //             ->where(function($q) use ($negeri, $daerah, $fasiliti, $pelaksana, $kategori, $status, $projek){
+        //                 if(!empty($negeri)){
+        //                     $q->where('a.proj_negeri', $negeri);
+        //                 }
+        //                 if(!empty($daerah)){
+        //                     $q->where('a.proj_daerah', $daerah);
+        //                 }
+        //                 if(!empty($fasiliti)){
+        //                     $q->where('a.proj_fasiliti_id',$fasiliti);
+        //                 }
+        //                 if(!empty($subsetia)){
+        //                     $q->where('a.proj_kod_subsetia',$subsetia);
+        //                 }
+        //                 if(!empty($kategori)){
+        //                     $q->where('a.proj_kategori_id',$kategori);
+        //                 }
+        //                 if(!empty($projekProgram)){
+        //                     $q->where('a.proj_program',$projekProgram);
+        //                 }
+        //                 if(!empty($pelaksana)){
+        //                     $q->where('a.proj_pelaksana',$pelaksana);
+        //                 }
+        //                 if(!empty($status)){
+        //                     $q->where('a.proj_status',$status);
+        //                 }
+        //                 if(!empty($projek)){
+        //                     $q->where('a.proj_nama','like', "%{$projek}%");
+        //                 }
+        //             });
+        //     $projek = $query->orderBy('proj_sort', 'ASC')->get();
+        //     // dd($projek);
+        // }
+        $siling = Siling::with('peruntukan')->where('sil_tahun', '2026')->where('sil_status', 1)->where('sil_fasiliti_id', auth()->user()->program_id)->orderBy('sil_tahun', 'desc')->get();
+        // return view('app.siling.index', compact('senarai'));
+        // $siling = Siling::where('sil_fasiliti_id', auth()->user()->program_id)
+        //             ->where('sil_status', 1)
+        //             ->select('sil_amount', 'sil_tahun', 'sil_sdate', 'sil_edate')->get();
         // dd($siling);
-        $jumSiling=0;
-        $siling2=0;
-        foreach( $siling as $sil){
-            $data['silingTahun'] = $sil->sil_tahun;
-            $data['silingMula'] = date('d/m/Y', strtotime($sil->sil_sdate));
-            $data['silingTamat'] = date('d/m/Y', strtotime($sil->sil_edate));
-            $jumSiling = $jumSiling + $sil->sil_amount;
-        }
+        // $jumSiling=0;
+        // $siling2=0;
+        // foreach( $siling as $sil){
+        //     $data['silingTahun'] = $sil->sil_tahun;
+        //     $data['silingMula'] = date('d/m/Y', strtotime($sil->sil_sdate));
+        //     $data['silingTamat'] = date('d/m/Y', strtotime($sil->sil_edate));
+        //     $jumSiling = $jumSiling + $sil->sil_amount;
+        // }
 
-        $jumlah = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->whereIn('proj_kategori_id', ['1001','1002','1006','1008'])->where('proj_tahun', '2025')->sum('proj_kos_mohon');
-        $sambung = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->where('proj_tahun', '2025')->whereIn('proj_kategori_id', [1001,1002])->sum('proj_kos_mohon');
-        // $data['silingTahun'] = $siling->sil_tahun ? $siling->sil_tahun :'-';
-	    // $data['silingMula'] = $siling->sil_sdate ? date('d/m/Y', strtotime($siling->sil_sdate)) :'-';
-	    // $data['silingTamat'] = $siling->sil_edate ? date('d/m/Y', strtotime($siling->sil_edate)) :'-';
-        $siling2=floatval($jumSiling);
-        $jumlah = floatval($jumlah);
-        $data['baki'] = $siling2 - $jumlah;
-        $data['sambung'] = $sambung;
-        $data['siling'] =$siling2;
-        $data['jumlah'] = $jumlah;
-        $data['projek'] = $projek;
+        // $jumlah = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->whereIn('proj_kategori_id', ['1001','1002','1006','1008'])->where('proj_tahun', '2025')->sum('proj_kos_mohon');
+        // $sambung = ProjekBaru::where('proj_pemilik', auth()->user()->program_id)->where('proj_tahun', '2025')->whereIn('proj_kategori_id', [1001,1002])->sum('proj_kos_mohon');
+        // // $data['silingTahun'] = $siling->sil_tahun ? $siling->sil_tahun :'-';
+	    // // $data['silingMula'] = $siling->sil_sdate ? date('d/m/Y', strtotime($siling->sil_sdate)) :'-';
+	    // // $data['silingTamat'] = $siling->sil_edate ? date('d/m/Y', strtotime($siling->sil_edate)) :'-';
+        // $siling2=floatval($jumSiling);
+        // $jumlah = floatval($jumlah);
+        // $data['baki'] = $siling2 - $jumlah;
+        // $data['sambung'] = $sambung;
+        // $data['siling'] =$siling2;
+        // $data['jumlah'] = $jumlah;
+        // $data['projek'] = $projek;
 
-        return response()->json([
-            'data'=>$data,
-        ]);
+        // return response()->json([
+        //     'data'=>$data,
+        // ]);
+        return view('app.projek-baru.index', compact('siling'));
     }
 
     public function create(){

@@ -192,16 +192,18 @@ class SilingController extends Controller
     }
 
     public function emel(Request $req){
-        $selSiling = $req->input('siling');
+        // $selSiling = $req->input('siling');
 
         // GET PROGRAM ID
-        foreach($selSiling as $sil) {
-            $programID[] = $sil['program'];
-        }
+        $senaraiProgram = Siling::select('sil_fasiliti_id')->where('sil_tahun', '2026')->groupBy('sil_fasiliti_id')->get()->toArray();
+        // dd($senaraiProgram);
+        // foreach($selSiling as $sil) {
+        //     $programID[] = $sil['program'];
+        // }
         // $arrProgramID = $programID->toArray();
 
         $penerima = \DB::table('vwuserperanan')
-            ->whereIn('program_id',$programID)
+            ->whereIn('program_id',$senaraiProgram)
             ->whereIn('peranan', ['pengesah', 'peraku'])
             ->select('email')->groupBy('email')->get();
 

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\DB;
 
 class SemakProjekController extends Controller
 {
-    public function showList(string $pemilik, Request $request){
+    public function List(string $pemilik, Request $request){
         $program =  $pemilik;
         $queryType = 1; // default click pd menu
         if( $request->isMethod('post')) {

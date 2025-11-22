@@ -26,12 +26,14 @@
             <li class="{{ (request()->segment(1) == 'permohonan') ? 'active' : '' }}">
                 <a href="#"><i class="fa fa-vcard-o"></i> <span class="nav-label">Permohonan</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
+
                     <li class="{{ (request()->segment(2) == 'baru') ? 'active' : '' }}"><a href="/permohonan/baru/main">Siling</a></li>
                     <li class="{{ (request()->segment(2) == 'kecemasan') ? 'active' : '' }}"><a href="/permohonan/kecemasan/main">Luar Siling</a></li>
                     @if(auth()->user()->hasAnyRole(['super-admin', 'admin', 'pemilik']))
                     <li>
                         <a href="#">Pengurusan<span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level collapse">
+                            <li class="{{ (request()->segment(2) == 'peruntukan') ? 'active' : '' }}"><a href="/permohonan/peruntukan">Peruntukan</a></li>
                             <li class="{{ (request()->segment(2) == 'semak') ? 'active' : '' }}">
                                 <li class="{{ (request()->segment(2) == 'semak') ? 'active' : '' }}"><a href="/permohonan/semak/senarai">Siling</a></li>
                             </li>
@@ -82,7 +84,7 @@
                     <li class="{{ (request()->segment(2) == 'fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/fasiliti">Fasiliti</a></li>
                     <li class="{{ (request()->segment(2) == 'kategori-fasiliti') ? 'active' : '' }}"><a href="/pentadbiran/kategori-fasiliti">Kategori Fasiliti</a></li>
                     <li class="{{ (request()->segment(2) == 'kategori-projek') ? 'active' : '' }}"><a href="/pentadbiran/kategori-projek">Kategori Projek</a></li>
-                    <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/siling/senarai">Penetapan Siling</a></li>
+                    <li class="{{ (request()->segment(2) == 'senarai') ? 'active' : '' }}"><a href="/siling">Penetapan Siling</a></li>
                     {{-- <li class="{{ (request()->segment(2) == 'pengguna') ? 'active' : '' }}"><a href="/pentadbiran/pengguna">Pengguna</a></li>
                     <li class="{{ (request()->segment(2) == 'peranan') ? 'active' : '' }}"><a href="/pentadbiran/peranan">Peranan</a></li>
                     <li class="{{ (request()->segment(2) == 'capaian') ? 'active' : '' }}"><a href="/pentadbiran/capaian">Tahap Capaian</a></li> --}}

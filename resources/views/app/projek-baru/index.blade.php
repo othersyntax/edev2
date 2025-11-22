@@ -87,6 +87,72 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Senarai Peruntukan</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th width="4%"  class="text-center">Bil</th>
+                                <th width="6%">Tahun</th>
+                                <th width="10%">Peruntukan</th>
+                                <th width="25%">Program / Bahagian / Institusi / JKN</th>
+                                <th width="14%">Tempoh</th>
+                                <th width="12%" class="text-right">Jumlah (RM)</th>
+                                <th width="12%" class="text-right">Baki (RM)</th>
+                                <th width="10%">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $bil=1;
+                            @endphp
+                            @if ($siling->count()>0)
+                                @foreach($siling as $item)
+                                <tr>
+                                    <td class="text-center">{{ $bil++ }}</td>
+                                    <td>{{ $item->sil_tahun }}</td>
+                                    <td>{{ $item->peruntukan->kod_subsetia." - ".$item->peruntukan->inisiatif ?? '-' }}</td>
+                                    <td>{{ $item->program->prog_name ?? '-' }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->sil_sdate)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($item->sil_edate)->format('d/m/Y') }}</td>
+                                    <td class="text-right">@duit($item->sil_amount)</td>
+                                    <td class="text-right">@duit($item->sil_balance)</td>
+                                    <td>{{ $item->sil_status==1 ? "Aktif": "Tidak Aktif"}}</td>
+                                </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="9" class="text-center">Tiada rekod dijumpai.</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="5" class="text-right">Jumlah Keseluruhan (RM)</th>
+                                <th class="text-right">
+                                    @php
+                                        $jumlah = $siling->sum('sil_amount');
+                                        $baki = $siling->sum('sil_balance');
+                                    @endphp
+                                    @duit($jumlah)
+                                </th>
+                                <th class="text-right">
+                                    @duit($baki)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
         <div class="ibox ">
             <div class="ibox-title">
                 <h5>Tapisan Projek</h5>
@@ -211,7 +277,7 @@
                                 <th width="8%" class="text-center">Tindakan</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="mainProjek">
                         </tbody>
                     </table>
                 </div>
@@ -396,7 +462,7 @@ $(document).ready(function(){
             },
             dataType: "json",
             success: function (response) {
-                $('tbody').html("");
+                $('.mainProjek').html("");
                 if(response.data.projek.length>0) {
                     $.each(response.data.projek, function (key, item) {
                         // Statussprojek
@@ -438,8 +504,8 @@ $(document).ready(function(){
                     });
                 }
                 else{
-                    $('tbody').html("");
-                    $('tbody').append('<tr>\
+                    $('.mainProjek').html("");
+                    $('.mainProjek').append('<tr>\
                         <td colspan="8" class="font-italic text-small text-center">Tiada Rekod</td>\
                     \</tr>');
                 }

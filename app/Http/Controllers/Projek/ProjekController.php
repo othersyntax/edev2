@@ -214,7 +214,7 @@ class ProjekController extends Controller
     public function view($id){
         $id = Crypt::decryptString($id);
         $projek = Projek::find($id);
-        $peruntukan = \DB::select('select * from vwPeruntukanSemasaByProjek where projek_id=?',[$id]);
+        $peruntukan = \DB::select('select * from vwperuntukansemasabyprojek where projek_id=?',[$id]);
         $utilities = ProjekUtilities::where('projuti_projek_id', $id)->get();
         $waran = Waran::where('waran_projek_id', $id)->get();
 

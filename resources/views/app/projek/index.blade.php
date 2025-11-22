@@ -302,7 +302,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="8" class="text-center"><i>Tiada Rekod</i></td>
+                                <td colspan="11" class="text-center"><i>Tiada Rekod</i></td>
                             </tr>
                         @endif
                         </tbody>
@@ -323,43 +323,6 @@
 <!-- FooTable -->
 {{-- <script src="{{ asset('/template/js/plugins/footable/footable.all.min.js') }}"></script> --}}
 <script>
-     $('#btnPapar').click(function(e){
-        e.preventDefault();
-        var proj_id = $(this).data('id');
-        $('#ModalPaparSelenggara').modal('show');
-        $.ajax({
-            type: "GET",
-            url: "/projek/papar/selenggara/" + proj_id,
-            success: function (response) {
-                if (response.status == 404){
-                    $('#myModal').modal('hide');
-                    swal({
-                        title: "Maklumat Selenggara",
-                        text: response.message,
-                        type: "danger"
-                    });
-                } else {
-                    if(response.selenggara.projt_nama != '' || response.selenggara.projt_nama != null){
-                        $('#projNama').show();
-                        $('#dataNama').html(response.selenggara.projt_nama);
-                    }
-                    if(response.selenggara.projt_skop != '' || response.selenggara.projt_skop != null){
-                        $('#projSkop').show();
-                        $('#dataSkop').html(response.selenggara.projt_skop);
-                    }
-                    if(response.selenggara.projt_justifikasi != '' || response.selenggara.projt_justifikasi != null){
-                        $('#projJustifkasi').show();
-                        $('#dataJustifikasi').html(response.selenggara.projt_nama);
-                    }
-                    // $('#no_rujukan').val(response.utiliti.projuti_ref_no);
-                    // $('#perihal').val(response.utiliti.projuti_perihal);
-                    // $('#tarikh').val(tarikh1.toLocaleDateString());
-                    // $('#catatan').val(response.utiliti.projuti_catatan);
-                }
-            }
-        });
-    });
-
     $(document).ready(function(){
         $('.dataTables-projek').DataTable({
             pageLength: 15,
@@ -383,6 +346,43 @@
                 }
             ]
 
+        });
+
+        $('#btnPapar').click(function(e){
+            e.preventDefault();
+            var proj_id = $(this).data('id');
+            $('#ModalPaparSelenggara').modal('show');
+            $.ajax({
+                type: "GET",
+                url: "/projek/papar/selenggara/" + proj_id,
+                success: function (response) {
+                    if (response.status == 404){
+                        $('#myModal').modal('hide');
+                        swal({
+                            title: "Maklumat Selenggara",
+                            text: response.message,
+                            type: "danger"
+                        });
+                    } else {
+                        if(response.selenggara.projt_nama != '' || response.selenggara.projt_nama != null){
+                            $('#projNama').show();
+                            $('#dataNama').html(response.selenggara.projt_nama);
+                        }
+                        if(response.selenggara.projt_skop != '' || response.selenggara.projt_skop != null){
+                            $('#projSkop').show();
+                            $('#dataSkop').html(response.selenggara.projt_skop);
+                        }
+                        if(response.selenggara.projt_justifikasi != '' || response.selenggara.projt_justifikasi != null){
+                            $('#projJustifkasi').show();
+                            $('#dataJustifikasi').html(response.selenggara.projt_nama);
+                        }
+                        // $('#no_rujukan').val(response.utiliti.projuti_ref_no);
+                        // $('#perihal').val(response.utiliti.projuti_perihal);
+                        // $('#tarikh').val(tarikh1.toLocaleDateString());
+                        // $('#catatan').val(response.utiliti.projuti_catatan);
+                    }
+                }
+            });
         });
 
 

@@ -65,7 +65,7 @@
                             <dt class="col-md-4 ">Kos Diluluskan</dt>
                             <dd class="col-md-8">RM @duit($projek->proj_kos_lulus)</dd>
                             <dt class="col-md-4 ">Pemilik</dt>
-                            <dd class="col-md-8">{{ $projek->program->prog_name }}</dd>
+                            <dd class="col-md-8">{{ $projek->program->prog_name ? $projek->program->prog_name : "Tiada Rekod" }}</dd>
                             <dt class="col-md-4 ">Kod Projek</dt>
                             <dd class="col-md-8">{{ $projek->proj_kod_agensi }} {{ $projek->proj_kod_projek }} {{ $projek->proj_kod_setia }} {{ $projek->proj_kod_subsetia }}</dd>
                             <dt class="col-md-4 ">Program</dt>
